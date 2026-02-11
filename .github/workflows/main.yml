@@ -2,7 +2,8 @@ name: Auto Convert Rules
 
 on:
   schedule:
-    - cron: '0 2 * * *'
+    # 北京时间 04:00 = UTC 20:00
+    - cron: '0 20 * * *'
   workflow_dispatch:
 
 jobs:
@@ -12,24 +13,24 @@ jobs:
       contents: write
 
     steps:
-      - name: 📥 Checkout
+      - name: 📥 检出代码
         uses: actions/checkout@v4
 
-      - name: 🐍 Python
+      - name: 🐍 配置 Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: 📦 Deps
+      - name: 📦 安装依赖
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
           pip install PyYAML requests
 
-      - name: 📡 Clone Rules
+      - name: 📡 克隆规则源
         run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
 
-      - name: 🛠️ Setup Kernel
+      - name: 🛠️ 部署内核 (Latest Stable)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -43,26 +44,26 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      - name: 🚀 Build
+      - name: 🚀 执行转换
         run: python scripts/builder.py
 
-      - name: 🧹 Commit
+      - name: 🧹 提交产物
         run: |
           rm -rf temp_source mihomo
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # ✅ 修复点：先检查目录是否存在且不为空
+          # 双重检查：确保有产物生成
           if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
-             echo "⚠️ 警告：输出目录为空，可能是脚本执行失败，跳过 Git 操作。"
+             echo "⚠️ 警告：目录为空，跳过提交"
              exit 0
           fi
           
           git add rule/Mihomo/
           
           if git diff --staged --quiet; then
-            echo "zk: 规则无变更"
+            echo "zk: 无变更"
           else
-            git commit -m "chore: update rules [$(date +'%Y-%m-%d')]"
+            git commit -m "chore: sync rules [$(date +'%Y-%m-%d')]"
             git push
           fi

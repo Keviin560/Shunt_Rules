@@ -1,5 +1,5 @@
 # 🚀 Shunt Rules 规则集仓库
-![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026-02-11_20:43-green)
+![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026-02-12_04:51-green)
 
 ## ℹ️ 数据源说明
 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。

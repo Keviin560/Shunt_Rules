@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:43:31
-# Total = 116332
+# Update = 2026-02-12 04:51:34
+# Total = 116340
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -28476,6 +28476,7 @@ DOMAIN-SUFFIX,ddbqgtxt.cc
 DOMAIN-SUFFIX,ddcdn.com
 DOMAIN-SUFFIX,ddcheshi.com
 DOMAIN-SUFFIX,ddcits.com
+DOMAIN-SUFFIX,ddcorp.net
 DOMAIN-SUFFIX,ddcsjw.com
 DOMAIN-SUFFIX,ddcwl.com
 DOMAIN-SUFFIX,ddd-china.com
@@ -28492,6 +28493,7 @@ DOMAIN-SUFFIX,dde-desktop.org
 DOMAIN-SUFFIX,ddedush.com
 DOMAIN-SUFFIX,ddfans.com
 DOMAIN-SUFFIX,ddfchina.com
+DOMAIN-SUFFIX,ddfresh.net
 DOMAIN-SUFFIX,ddfzb.com
 DOMAIN-SUFFIX,ddgjjj.com
 DOMAIN-SUFFIX,ddguanhuai.com
@@ -28515,7 +28517,9 @@ DOMAIN-SUFFIX,ddkt365.com
 DOMAIN-SUFFIX,ddky.com
 DOMAIN-SUFFIX,ddle.cc
 DOMAIN-SUFFIX,ddlequ.com
+DOMAIN-SUFFIX,ddmaicai.net
 DOMAIN-SUFFIX,ddmap.com
+DOMAIN-SUFFIX,ddmc.mobi
 DOMAIN-SUFFIX,ddmer.com
 DOMAIN-SUFFIX,ddmogo.com
 DOMAIN-SUFFIX,ddnddn.com
@@ -48363,6 +48367,7 @@ DOMAIN-SUFFIX,hrsteelpipe.com
 DOMAIN-SUFFIX,hrtechchina.com
 DOMAIN-SUFFIX,hrtfin.com
 DOMAIN-SUFFIX,hrtn.net
+DOMAIN-SUFFIX,hrtsea.com
 DOMAIN-SUFFIX,hrtx.com
 DOMAIN-SUFFIX,hruikang.com
 DOMAIN-SUFFIX,hrvouge.com
@@ -52234,6 +52239,7 @@ DOMAIN-SUFFIX,imaginde.com
 DOMAIN-SUFFIX,imagineadtech.com
 DOMAIN-SUFFIX,imahui.com
 DOMAIN-SUFFIX,imaibo.net
+DOMAIN-SUFFIX,imaicai.mobi
 DOMAIN-SUFFIX,imaijia.com
 DOMAIN-SUFFIX,imaitu.com
 DOMAIN-SUFFIX,imalljoy.com
@@ -102213,6 +102219,7 @@ DOMAIN-SUFFIX,xhsf.com
 DOMAIN-SUFFIX,xhslink.com
 DOMAIN-SUFFIX,xhslw.com
 DOMAIN-SUFFIX,xhsmlt.com
+DOMAIN-SUFFIX,xhsrcdn.com
 DOMAIN-SUFFIX,xhsrmyy.com
 DOMAIN-SUFFIX,xhsxmt.com
 DOMAIN-SUFFIX,xhsyqx.com
@@ -112960,6 +112967,7 @@ DOMAIN-SUFFIX,zhipianbang.com
 DOMAIN-SUFFIX,zhipianbang.vip
 DOMAIN-SUFFIX,zhipin.com
 DOMAIN-SUFFIX,zhipingke.com
+DOMAIN-SUFFIX,zhipucn.com
 DOMAIN-SUFFIX,zhipuzi.com
 DOMAIN-SUFFIX,zhiqi.info
 DOMAIN-SUFFIX,zhiqiang.org

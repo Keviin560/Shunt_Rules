@@ -1,7 +1,7 @@
 # Name = Game
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:13
+# Update = 2026-02-11 20:43:27
 # Total = 597
 
 IP-CIDR,103.4.114.233/32,no-resolve
@@ -58,6 +58,10 @@ DOMAIN,logincdn.msauth.net
 DOMAIN,originasserts.akamaized.net
 DOMAIN,store-images.s-microsoft.com
 DOMAIN,xz.pphimalayanrt.com
+DOMAIN-KEYWORD,epicgames
+DOMAIN-KEYWORD,steambroadcast
+DOMAIN-KEYWORD,steamstore
+DOMAIN-KEYWORD,steamuserimages
 DOMAIN-SUFFIX,100classicbooks.com
 DOMAIN-SUFFIX,ac-pocketcamp.com
 DOMAIN-SUFFIX,amiibo.com
@@ -597,7 +601,3 @@ DOMAIN-SUFFIX,xn--mts47c3w9b1qr.cn
 DOMAIN-SUFFIX,xn--mts47c3w9b1qr.net
 DOMAIN-SUFFIX,yogify.com
 DOMAIN-SUFFIX,yoshisnewisland.com
-DOMAIN-KEYWORD,epicgames
-DOMAIN-KEYWORD,steambroadcast
-DOMAIN-KEYWORD,steamstore
-DOMAIN-KEYWORD,steamuserimages

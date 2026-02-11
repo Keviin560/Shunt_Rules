@@ -1,7 +1,7 @@
 # Name = Copilot
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:42
+# Update = 2026-02-11 20:42:55
 # Total = 49
 
 IP-CIDR,24.199.123.28/32,no-resolve
@@ -26,6 +26,7 @@ DOMAIN,services.bingapis.com
 DOMAIN,static.cloudflareinsights.com
 DOMAIN,sydney.bing.com
 DOMAIN,www.bing.com
+DOMAIN-KEYWORD,openaicom-api
 DOMAIN-SUFFIX,algolia.net
 DOMAIN-SUFFIX,api.microsoftapp.net
 DOMAIN-SUFFIX,auth0.com
@@ -52,4 +53,3 @@ DOMAIN-SUFFIX,segment.io
 DOMAIN-SUFFIX,sentry.io
 DOMAIN-SUFFIX,stripe.com
 DOMAIN-SUFFIX,turn.livekit.cloud
-DOMAIN-KEYWORD,openaicom-api

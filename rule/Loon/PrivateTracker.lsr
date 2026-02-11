@@ -1,7 +1,7 @@
 # Name = PrivateTracker
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:49
+# Update = 2026-02-11 20:43:02
 # Total = 257
 
 IP-CIDR,207.241.226.111/32,no-resolve
@@ -134,6 +134,10 @@ DOMAIN,www.torrent.eu.org
 DOMAIN,www.torrentsnipe.info
 DOMAIN,www.wareztorrent.com
 DOMAIN,zer0day.ch
+DOMAIN-KEYWORD,announce
+DOMAIN-KEYWORD,chdbits
+DOMAIN-KEYWORD,m-team
+DOMAIN-KEYWORD,torrent
 DOMAIN-SUFFIX,1ptba.com
 DOMAIN-SUFFIX,2xfree.org
 DOMAIN-SUFFIX,52pt.site
@@ -257,7 +261,3 @@ DOMAIN-SUFFIX,trontv.com
 DOMAIN-SUFFIX,u2.dmhy.org
 DOMAIN-SUFFIX,uhdbits.org
 DOMAIN-SUFFIX,xauat6.edu.cn
-DOMAIN-KEYWORD,announce
-DOMAIN-KEYWORD,chdbits
-DOMAIN-KEYWORD,m-team
-DOMAIN-KEYWORD,torrent

@@ -1,9 +1,10 @@
 # Name = GitHub
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:12
+# Update = 2026-02-11 20:43:26
 # Total = 31
 
+DOMAIN-KEYWORD,github
 DOMAIN-SUFFIX,atom.io
 DOMAIN-SUFFIX,dependabot.com
 DOMAIN-SUFFIX,ghcr.io
@@ -34,4 +35,3 @@ DOMAIN-SUFFIX,rawgit.com
 DOMAIN-SUFFIX,rawgithub.com
 DOMAIN-SUFFIX,repo.new
 DOMAIN-SUFFIX,thegithubshop.com
-DOMAIN-KEYWORD,github

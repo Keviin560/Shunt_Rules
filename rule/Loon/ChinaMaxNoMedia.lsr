@@ -1,7 +1,7 @@
 # Name = ChinaMaxNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:48
+# Update = 2026-02-11 20:43:01
 # Total = 128633
 
 IP-CIDR,0.0.0.0/32,no-resolve
@@ -12847,6 +12847,17 @@ DOMAIN,zb.pzhgd.com
 DOMAIN,zuikzy.win7i.com
 DOMAIN,zzlive.zzc-media.com
 DOMAIN,zzq12345.gearhostpreview.com
+DOMAIN-KEYWORD,.tmall.com
+DOMAIN-KEYWORD,alicdn
+DOMAIN-KEYWORD,alipay
+DOMAIN-KEYWORD,aliyun
+DOMAIN-KEYWORD,baidu
+DOMAIN-KEYWORD,beplay
+DOMAIN-KEYWORD,hnagroup
+DOMAIN-KEYWORD,officecdn
+DOMAIN-KEYWORD,stripe
+DOMAIN-KEYWORD,taobao
+DOMAIN-KEYWORD,weibo
 DOMAIN-SUFFIX,0.zone
 DOMAIN-SUFFIX,00.net
 DOMAIN-SUFFIX,000.link
@@ -128626,14 +128637,3 @@ DOMAIN-SUFFIX,zzzyy.com
 DOMAIN-SUFFIX,zzzyyy.com
 DOMAIN-SUFFIX,zzzzaaaa.com
 DOMAIN-SUFFIX,zzzzzz.me
-DOMAIN-KEYWORD,.tmall.com
-DOMAIN-KEYWORD,alicdn
-DOMAIN-KEYWORD,alipay
-DOMAIN-KEYWORD,aliyun
-DOMAIN-KEYWORD,baidu
-DOMAIN-KEYWORD,beplay
-DOMAIN-KEYWORD,hnagroup
-DOMAIN-KEYWORD,officecdn
-DOMAIN-KEYWORD,stripe
-DOMAIN-KEYWORD,taobao
-DOMAIN-KEYWORD,weibo

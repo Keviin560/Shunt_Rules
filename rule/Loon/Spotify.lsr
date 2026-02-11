@@ -1,7 +1,7 @@
 # Name = Spotify
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:43
+# Update = 2026-02-11 20:42:55
 # Total = 30
 
 IP-CIDR,104.154.127.126/32,no-resolve
@@ -12,6 +12,7 @@ DOMAIN,heads-ak-spotify-com.akamaized.net
 DOMAIN,spotify.com.edgesuite.net
 DOMAIN,spotify.map.fastly.net
 DOMAIN,spotify.map.fastlylb.net
+DOMAIN-KEYWORD,spotify
 DOMAIN-SUFFIX,PROCESS-NAME,com.spotify.music
 DOMAIN-SUFFIX,audio-ak-spotify-com.akamaized.net
 DOMAIN-SUFFIX,byspotify.com
@@ -33,4 +34,3 @@ DOMAIN-SUFFIX,spotifyjobs.com
 DOMAIN-SUFFIX,spotifynewsroom.jp
 DOMAIN-SUFFIX,spotilocal.com
 DOMAIN-SUFFIX,tospotify.com
-DOMAIN-KEYWORD,spotify

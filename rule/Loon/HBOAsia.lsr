@@ -1,7 +1,7 @@
 # Name = HBOAsia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:51
+# Update = 2026-02-11 20:43:05
 # Total = 19
 
 DOMAIN,44wilhpljf.execute-api.ap-southeast-1.amazonaws.com
@@ -20,6 +20,6 @@ DOMAIN,hbounify-prod.evergent.com
 DOMAIN,players.brightcove.net
 DOMAIN,s3-ap-southeast-1.amazonaws.com
 DOMAIN,wmff.warnermediacdn.com
+DOMAIN-KEYWORD,.hbogoasia.
 DOMAIN-SUFFIX,hbogoasia.com
 DOMAIN-SUFFIX,hbogoasia.hk
-DOMAIN-KEYWORD,.hbogoasia.

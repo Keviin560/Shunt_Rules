@@ -1,7 +1,7 @@
 # Name = GlobalMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:44
+# Update = 2026-02-11 20:42:57
 # Total = 2265
 
 IP-CIDR,1.201.0.0/24,no-resolve
@@ -965,6 +965,32 @@ DOMAIN,ocvideo.apple.com
 DOMAIN,rpg.pic-imges.com
 DOMAIN,rthklive2-lh.akamaihd.net
 DOMAIN,sydney.bing.com
+DOMAIN-KEYWORD,abematv.akamaized.net
+DOMAIN-KEYWORD,anthropic
+DOMAIN-KEYWORD,apiproxy-device-prod-nlb-
+DOMAIN-KEYWORD,avoddashs
+DOMAIN-KEYWORD,bbcfmt
+DOMAIN-KEYWORD,claude
+DOMAIN-KEYWORD,discovery.uplynk.com
+DOMAIN-KEYWORD,dualstack.apiproxy-
+DOMAIN-KEYWORD,dualstack.ichnaea-web-
+DOMAIN-KEYWORD,hamivideo.cdn.hinet.net
+DOMAIN-KEYWORD,hbogoasia
+DOMAIN-KEYWORD,japonx
+DOMAIN-KEYWORD,japronx
+DOMAIN-KEYWORD,jooxweb-api
+DOMAIN-KEYWORD,netflixdnstest
+DOMAIN-KEYWORD,nivod
+DOMAIN-KEYWORD,nowtv100
+DOMAIN-KEYWORD,olevod
+DOMAIN-KEYWORD,rthklive
+DOMAIN-KEYWORD,spotify
+DOMAIN-KEYWORD,tiktokcdn
+DOMAIN-KEYWORD,ttvnw
+DOMAIN-KEYWORD,tvbanywhere
+DOMAIN-KEYWORD,uk-live
+DOMAIN-KEYWORD,voddazn
+DOMAIN-KEYWORD,youtube
 DOMAIN-SUFFIX,112263.com
 DOMAIN-SUFFIX,20thcenturystudios.com.au
 DOMAIN-SUFFIX,20thcenturystudios.com.br
@@ -2243,29 +2269,3 @@ DOMAIN-SUFFIX,zeetv.com
 DOMAIN-SUFFIX,zeeuk.com
 DOMAIN-SUFFIX,zeriamerikes.com
 DOMAIN-SUFFIX,zype.com
-DOMAIN-KEYWORD,abematv.akamaized.net
-DOMAIN-KEYWORD,anthropic
-DOMAIN-KEYWORD,apiproxy-device-prod-nlb-
-DOMAIN-KEYWORD,avoddashs
-DOMAIN-KEYWORD,bbcfmt
-DOMAIN-KEYWORD,claude
-DOMAIN-KEYWORD,discovery.uplynk.com
-DOMAIN-KEYWORD,dualstack.apiproxy-
-DOMAIN-KEYWORD,dualstack.ichnaea-web-
-DOMAIN-KEYWORD,hamivideo.cdn.hinet.net
-DOMAIN-KEYWORD,hbogoasia
-DOMAIN-KEYWORD,japonx
-DOMAIN-KEYWORD,japronx
-DOMAIN-KEYWORD,jooxweb-api
-DOMAIN-KEYWORD,netflixdnstest
-DOMAIN-KEYWORD,nivod
-DOMAIN-KEYWORD,nowtv100
-DOMAIN-KEYWORD,olevod
-DOMAIN-KEYWORD,rthklive
-DOMAIN-KEYWORD,spotify
-DOMAIN-KEYWORD,tiktokcdn
-DOMAIN-KEYWORD,ttvnw
-DOMAIN-KEYWORD,tvbanywhere
-DOMAIN-KEYWORD,uk-live
-DOMAIN-KEYWORD,voddazn
-DOMAIN-KEYWORD,youtube

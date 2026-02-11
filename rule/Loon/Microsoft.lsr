@@ -1,10 +1,14 @@
 # Name = Microsoft
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:49
+# Update = 2026-02-11 20:43:02
 # Total = 668
 
 DOMAIN,vsmarketplacebadge.apphb.com
+DOMAIN-KEYWORD,1drv
+DOMAIN-KEYWORD,microsoft
+DOMAIN-KEYWORD,onedrive
+DOMAIN-KEYWORD,skydrive
 DOMAIN-SUFFIX,1drv.com
 DOMAIN-SUFFIX,1drv.ms
 DOMAIN-SUFFIX,21vbc.com
@@ -668,7 +672,3 @@ DOMAIN-SUFFIX,xboxstudios.com
 DOMAIN-SUFFIX,xbx.lv
 DOMAIN-SUFFIX,yammer.com
 DOMAIN-SUFFIX,yammerusercontent.com
-DOMAIN-KEYWORD,1drv
-DOMAIN-KEYWORD,microsoft
-DOMAIN-KEYWORD,onedrive
-DOMAIN-KEYWORD,skydrive

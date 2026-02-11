@@ -1,9 +1,10 @@
 # Name = Sina
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:12
+# Update = 2026-02-11 20:43:26
 # Total = 108
 
+DOMAIN-KEYWORD,weibo
 DOMAIN-SUFFIX,001wifi.com
 DOMAIN-SUFFIX,1kapp.com
 DOMAIN-SUFFIX,4sender.com
@@ -111,4 +112,3 @@ DOMAIN-SUFFIX,weipan.com.cn
 DOMAIN-SUFFIX,xhaiwai.com
 DOMAIN-SUFFIX,xiaoka.tv
 DOMAIN-SUFFIX,yangfan.org.cn
-DOMAIN-KEYWORD,weibo

@@ -1,7 +1,7 @@
 # Name = UKMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:49
+# Update = 2026-02-11 20:43:02
 # Total = 29
 
 DOMAIN,itvpnp.live.ott.irdeto.com
@@ -10,6 +10,8 @@ DOMAIN,itvpnpmobile-a.akamaihd.net
 DOMAIN,vod-dash-ww-live.akamaized.net
 DOMAIN,vod-thumb-ww-live.akamaized.net
 DOMAIN,vs-cmaf-pushb-ww-live.akamaized.net
+DOMAIN-KEYWORD,bbcfmt
+DOMAIN-KEYWORD,uk-live
 DOMAIN-SUFFIX,bb-static.com
 DOMAIN-SUFFIX,bbc-reporting-api.app
 DOMAIN-SUFFIX,bbc.co
@@ -31,5 +33,3 @@ DOMAIN-SUFFIX,channel4.com
 DOMAIN-SUFFIX,itv.com
 DOMAIN-SUFFIX,itvstatic.com
 DOMAIN-SUFFIX,massive-itv.com
-DOMAIN-KEYWORD,bbcfmt
-DOMAIN-KEYWORD,uk-live

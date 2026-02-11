@@ -1,7 +1,7 @@
 # Name = Netflix
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:49
+# Update = 2026-02-11 20:43:02
 # Total = 1157
 
 IP-CIDR,103.87.204.0/22,no-resolve
@@ -1126,6 +1126,10 @@ IP-CIDR,99.80.88.0/25,no-resolve
 DOMAIN,e13252.dscg.akamaiedge.net
 DOMAIN,h-netflix.online-metrix.net
 DOMAIN,netflix.com.edgesuite.net
+DOMAIN-KEYWORD,apiproxy-device-prod-nlb-
+DOMAIN-KEYWORD,dualstack.apiproxy-
+DOMAIN-KEYWORD,dualstack.ichnaea-web-
+DOMAIN-KEYWORD,netflixdnstest
 DOMAIN-SUFFIX,PROCESS-NAME,com.netflix.mediaclient
 DOMAIN-SUFFIX,cookielaw.org
 DOMAIN-SUFFIX,fast.com
@@ -1157,7 +1161,3 @@ DOMAIN-SUFFIX,nflxso.net
 DOMAIN-SUFFIX,nflxvideo.net
 DOMAIN-SUFFIX,onetrust.com
 DOMAIN-SUFFIX,us-west-2.amazonaws.com
-DOMAIN-KEYWORD,apiproxy-device-prod-nlb-
-DOMAIN-KEYWORD,dualstack.apiproxy-
-DOMAIN-KEYWORD,dualstack.ichnaea-web-
-DOMAIN-KEYWORD,netflixdnstest

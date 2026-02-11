@@ -1,13 +1,15 @@
 # Name = TikTok
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:06
+# Update = 2026-02-11 20:43:20
 # Total = 32
 
 DOMAIN,lf16-effectcdn.byteeffecttos-g.com
 DOMAIN,lf16-pkgcdn.pitaya-clientai.com
 DOMAIN,p16-tiktokcdn-com.akamaized.net
 DOMAIN,trae-api-sg.mchost.guru
+DOMAIN-KEYWORD,musical.ly
+DOMAIN-KEYWORD,tiktok
 DOMAIN-SUFFIX,PROCESS-NAME,com.zhiliaoapp.musically
 DOMAIN-SUFFIX,bytedapm.com
 DOMAIN-SUFFIX,bytegecko-i18n.com
@@ -34,5 +36,3 @@ DOMAIN-SUFFIX,tiktokv.com
 DOMAIN-SUFFIX,tiktokv.us
 DOMAIN-SUFFIX,trae.ai
 DOMAIN-SUFFIX,ttwebview.com
-DOMAIN-KEYWORD,musical.ly
-DOMAIN-KEYWORD,tiktok

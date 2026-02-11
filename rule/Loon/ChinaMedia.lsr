@@ -1,7 +1,7 @@
 # Name = ChinaMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:02
+# Update = 2026-02-11 20:43:16
 # Total = 411
 
 IP-CIDR,101.224.0.0/13,no-resolve
@@ -155,6 +155,8 @@ DOMAIN,video-public-1258344701.shiply-cdn.qq.com
 DOMAIN,video-search-1258344701.shiply-cdn.qq.com
 DOMAIN,video-vip-1258344701.shiply-cdn.qq.com
 DOMAIN,yoo.gtimg.com
+DOMAIN-KEYWORD,bilibili
+DOMAIN-KEYWORD,qiyi
 DOMAIN-SUFFIX,0co3geye.cn
 DOMAIN-SUFFIX,1.letvlive.com
 DOMAIN-SUFFIX,2.letvlive.com
@@ -413,5 +415,3 @@ DOMAIN-SUFFIX,zmzapi.com
 DOMAIN-SUFFIX,zmzapi.net
 DOMAIN-SUFFIX,zmzfile.com
 DOMAIN-SUFFIX,zygbdszt.net.cn
-DOMAIN-KEYWORD,bilibili
-DOMAIN-KEYWORD,qiyi

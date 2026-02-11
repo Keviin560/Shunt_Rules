@@ -1,9 +1,10 @@
 # Name = iCloud
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:12
+# Update = 2026-02-11 20:43:26
 # Total = 59
 
+DOMAIN-KEYWORD,icloud.com.akadns.net
 DOMAIN-SUFFIX,apple-cloudkit.com
 DOMAIN-SUFFIX,apple-icloud.cn
 DOMAIN-SUFFIX,apple-livephotoskit.com
@@ -62,4 +63,3 @@ DOMAIN-SUFFIX,myicloud.net
 DOMAIN-SUFFIX,mylcloud.net
 DOMAIN-SUFFIX,www-cdn.icloud.com.akadns.net
 DOMAIN-SUFFIX,wwwicloud.com
-DOMAIN-KEYWORD,icloud.com.akadns.net

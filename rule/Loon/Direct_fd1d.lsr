@@ -1,7 +1,7 @@
 # Name = Direct_fd1d
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:07
+# Update = 2026-02-11 20:43:21
 # Total = 231
 
 DOMAIN,ad.10010.com
@@ -60,6 +60,42 @@ DOMAIN,vd.l.qq.com
 DOMAIN,vi.l.qq.com
 DOMAIN,vip.ffzyread.com
 DOMAIN,vip.imgffzy.com
+DOMAIN-KEYWORD,amp-api.podcasts.apple.com
+DOMAIN-KEYWORD,anti-ad.net
+DOMAIN-KEYWORD,api-adservices.apple.com
+DOMAIN-KEYWORD,api.smoot.apple.cn
+DOMAIN-KEYWORD,api.smoot.apple.com
+DOMAIN-KEYWORD,aw-s.tripcdn.com
+DOMAIN-KEYWORD,ax1x.com
+DOMAIN-KEYWORD,bfzycdn.com
+DOMAIN-KEYWORD,buy.itunes.apple.com
+DOMAIN-KEYWORD,cnki.net
+DOMAIN-KEYWORD,ctc.qzs.qzone.qq.com
+DOMAIN-KEYWORD,deepdyve
+DOMAIN-KEYWORD,els-cdn
+DOMAIN-KEYWORD,elsevier
+DOMAIN-KEYWORD,ess.apple.com
+DOMAIN-KEYWORD,gsa.apple.com
+DOMAIN-KEYWORD,humb.apple.com
+DOMAIN-KEYWORD,icloud.com
+DOMAIN-KEYWORD,ls.apple.com
+DOMAIN-KEYWORD,o.lencr.org
+DOMAIN-KEYWORD,pkulaw
+DOMAIN-KEYWORD,push.apple.com
+DOMAIN-KEYWORD,readcube
+DOMAIN-KEYWORD,sciencedirect
+DOMAIN-KEYWORD,ssl.apple.com
+DOMAIN-KEYWORD,trip.com
+DOMAIN-KEYWORD,ttcdn-tos.kkimg.cc
+DOMAIN-KEYWORD,vip.ffzy-online
+DOMAIN-KEYWORD,vip.ffzy-play
+DOMAIN-KEYWORD,vip.kuaikan-cdn
+DOMAIN-KEYWORD,vip.lz-cdn
+DOMAIN-KEYWORD,wanfangdata
+DOMAIN-KEYWORD,wb_ad
+DOMAIN-KEYWORD,weather-adge.apple.com
+DOMAIN-KEYWORD,weather-edge.apple.com
+DOMAIN-KEYWORD,westlawchina
 DOMAIN-SUFFIX,52pt.site
 DOMAIN-SUFFIX,acg.rip
 DOMAIN-SUFFIX,acm.org
@@ -199,39 +235,3 @@ DOMAIN-SUFFIX,weather-data.apple.com
 DOMAIN-SUFFIX,weather-map.apple.com
 DOMAIN-SUFFIX,wiley.com
 DOMAIN-SUFFIX,xunlei.com
-DOMAIN-KEYWORD,amp-api.podcasts.apple.com
-DOMAIN-KEYWORD,anti-ad.net
-DOMAIN-KEYWORD,api-adservices.apple.com
-DOMAIN-KEYWORD,api.smoot.apple.cn
-DOMAIN-KEYWORD,api.smoot.apple.com
-DOMAIN-KEYWORD,aw-s.tripcdn.com
-DOMAIN-KEYWORD,ax1x.com
-DOMAIN-KEYWORD,bfzycdn.com
-DOMAIN-KEYWORD,buy.itunes.apple.com
-DOMAIN-KEYWORD,cnki.net
-DOMAIN-KEYWORD,ctc.qzs.qzone.qq.com
-DOMAIN-KEYWORD,deepdyve
-DOMAIN-KEYWORD,els-cdn
-DOMAIN-KEYWORD,elsevier
-DOMAIN-KEYWORD,ess.apple.com
-DOMAIN-KEYWORD,gsa.apple.com
-DOMAIN-KEYWORD,humb.apple.com
-DOMAIN-KEYWORD,icloud.com
-DOMAIN-KEYWORD,ls.apple.com
-DOMAIN-KEYWORD,o.lencr.org
-DOMAIN-KEYWORD,pkulaw
-DOMAIN-KEYWORD,push.apple.com
-DOMAIN-KEYWORD,readcube
-DOMAIN-KEYWORD,sciencedirect
-DOMAIN-KEYWORD,ssl.apple.com
-DOMAIN-KEYWORD,trip.com
-DOMAIN-KEYWORD,ttcdn-tos.kkimg.cc
-DOMAIN-KEYWORD,vip.ffzy-online
-DOMAIN-KEYWORD,vip.ffzy-play
-DOMAIN-KEYWORD,vip.kuaikan-cdn
-DOMAIN-KEYWORD,vip.lz-cdn
-DOMAIN-KEYWORD,wanfangdata
-DOMAIN-KEYWORD,wb_ad
-DOMAIN-KEYWORD,weather-adge.apple.com
-DOMAIN-KEYWORD,weather-edge.apple.com
-DOMAIN-KEYWORD,westlawchina

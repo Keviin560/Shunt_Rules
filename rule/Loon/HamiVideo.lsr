@@ -1,10 +1,10 @@
 # Name = HamiVideo
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:12
+# Update = 2026-02-11 20:43:27
 # Total = 4
 
 DOMAIN,hls-hichannel.cdn.hinet.net
+DOMAIN-KEYWORD,hamivideo.cdn.hinet.net
 DOMAIN-SUFFIX,hamivideo.hinet.net
 DOMAIN-SUFFIX,ott.hinet.net
-DOMAIN-KEYWORD,hamivideo.cdn.hinet.net

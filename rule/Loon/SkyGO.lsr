@@ -1,12 +1,15 @@
 # Name = SkyGO
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:02
+# Update = 2026-02-11 20:43:15
 # Total = 15
 
 DOMAIN,7d1732c7c34624df5f1270e29cf8d1ea78695fd5.cws.conviva.com
 DOMAIN,clientstream.launchdarkly.com
 DOMAIN,sky.com.ssl.d1.sc.omtrdc.net
+DOMAIN-KEYWORD,bskyb
+DOMAIN-KEYWORD,skygo
+DOMAIN-KEYWORD,skyliveuk
 DOMAIN-SUFFIX,2cnt.net
 DOMAIN-SUFFIX,epgsky.com
 DOMAIN-SUFFIX,eu-1.xcal.tv
@@ -16,6 +19,3 @@ DOMAIN-SUFFIX,skycdp.com
 DOMAIN-SUFFIX,skygo.co.nz
 DOMAIN-SUFFIX,skysports.com
 DOMAIN-SUFFIX,xmidt-eu.comcast.net
-DOMAIN-KEYWORD,bskyb
-DOMAIN-KEYWORD,skygo
-DOMAIN-KEYWORD,skyliveuk

@@ -1,9 +1,10 @@
 # Name = DAZN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:49
+# Update = 2026-02-11 20:43:02
 # Total = 18
 
+DOMAIN-KEYWORD,voddazn
 DOMAIN-SUFFIX,control.kochava.com
 DOMAIN-SUFFIX,d151l6v8er5bdm.cloudfront.net
 DOMAIN-SUFFIX,d1sgwhnao7452x.cloudfront.net
@@ -21,4 +22,3 @@ DOMAIN-SUFFIX,intercom.io
 DOMAIN-SUFFIX,logx.optimizely.com
 DOMAIN-SUFFIX,s.yimg.jp
 DOMAIN-SUFFIX,sentry.io
-DOMAIN-KEYWORD,voddazn

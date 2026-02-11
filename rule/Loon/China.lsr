@@ -1,7 +1,7 @@
 # Name = China
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:40
+# Update = 2026-02-11 20:42:52
 # Total = 3726
 
 IP-CIDR,1.255.62.0/24,no-resolve
@@ -45,6 +45,15 @@ DOMAIN,tx.lilyemby.com
 DOMAIN,weixin.com
 DOMAIN,www.libvideo.com
 DOMAIN,www.yxssp.com
+DOMAIN-KEYWORD,.tmall.com
+DOMAIN-KEYWORD,alicdn
+DOMAIN-KEYWORD,alipay
+DOMAIN-KEYWORD,aliyun
+DOMAIN-KEYWORD,baidu
+DOMAIN-KEYWORD,beplay
+DOMAIN-KEYWORD,microsoft
+DOMAIN-KEYWORD,officecdn
+DOMAIN-KEYWORD,taobao
 DOMAIN-SUFFIX,00cdn.com
 DOMAIN-SUFFIX,0123456789.com
 DOMAIN-SUFFIX,0379home.com
@@ -3721,12 +3730,3 @@ DOMAIN-SUFFIX,zuoyebang.com
 DOMAIN-SUFFIX,zybang.com
 DOMAIN-SUFFIX,zyh365.com
 DOMAIN-SUFFIX,zzdtec.com
-DOMAIN-KEYWORD,.tmall.com
-DOMAIN-KEYWORD,alicdn
-DOMAIN-KEYWORD,alipay
-DOMAIN-KEYWORD,aliyun
-DOMAIN-KEYWORD,baidu
-DOMAIN-KEYWORD,beplay
-DOMAIN-KEYWORD,microsoft
-DOMAIN-KEYWORD,officecdn
-DOMAIN-KEYWORD,taobao

@@ -1,7 +1,7 @@
 # Name = PrimeVideo
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:49
+# Update = 2026-02-11 20:43:02
 # Total = 16
 
 DOMAIN,atv-ps.amazon.com
@@ -13,10 +13,10 @@ DOMAIN,d27xxe7juh1us6.cloudfront.net
 DOMAIN,dmqdd6hw24ucf.cloudfront.net
 DOMAIN,fls-na.amazon.com
 DOMAIN,www.amazon.com
+DOMAIN-KEYWORD,avoddashs
 DOMAIN-SUFFIX,aiv-cdn.net
 DOMAIN-SUFFIX,aiv-delivery.net
 DOMAIN-SUFFIX,amazonvideo.com
 DOMAIN-SUFFIX,media-amazon.com
 DOMAIN-SUFFIX,primevideo.com
 DOMAIN-SUFFIX,pv-cdn.net
-DOMAIN-KEYWORD,avoddashs

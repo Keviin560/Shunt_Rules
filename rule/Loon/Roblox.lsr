@@ -1,8 +1,8 @@
 # Name = Roblox
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:13
+# Update = 2026-02-11 20:43:27
 # Total = 2
 
-DOMAIN-SUFFIX,rbxcdn.com
 DOMAIN-KEYWORD,roblox
+DOMAIN-SUFFIX,rbxcdn.com

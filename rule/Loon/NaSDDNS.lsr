@@ -1,7 +1,7 @@
 # Name = NaSDDNS
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:42
+# Update = 2026-02-11 20:42:55
 # Total = 46
 
 IP-CIDR,100.24.218.0/24,no-resolve
@@ -17,6 +17,7 @@ IP-CIDR,52.200.32.0/24,no-resolve
 IP-CIDR,52.86.69.0/24,no-resolve
 IP-CIDR,54.159.2.0/24,no-resolve
 IP-CIDR,54.166.1.0/24,no-resolve
+DOMAIN-KEYWORD,qcloud
 DOMAIN-SUFFIX,3322.net
 DOMAIN-SUFFIX,3322.org
 DOMAIN-SUFFIX,account.synology.com
@@ -49,4 +50,3 @@ DOMAIN-SUFFIX,synocommunity.com
 DOMAIN-SUFFIX,synology.cn
 DOMAIN-SUFFIX,tpddns.cn
 DOMAIN-SUFFIX,whatismyip.akamai.com
-DOMAIN-KEYWORD,qcloud

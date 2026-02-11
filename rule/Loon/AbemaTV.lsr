@@ -1,9 +1,10 @@
 # Name = AbemaTV
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:12
+# Update = 2026-02-11 20:43:26
 # Total = 23
 
+DOMAIN-KEYWORD,abematv.akamaized.net
 DOMAIN-SUFFIX,abema-tv.com
 DOMAIN-SUFFIX,abema.io
 DOMAIN-SUFFIX,abema.tv
@@ -26,4 +27,3 @@ DOMAIN-SUFFIX,hayabusa.media
 DOMAIN-SUFFIX,linear-abematv.akamaized.net
 DOMAIN-SUFFIX,vod-abematv.akamaized.net
 DOMAIN-SUFFIX,winticket.jp
-DOMAIN-KEYWORD,abematv.akamaized.net

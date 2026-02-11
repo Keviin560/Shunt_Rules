@@ -1,9 +1,11 @@
 # Name = Japonx
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:12
+# Update = 2026-02-11 20:43:26
 # Total = 10
 
+DOMAIN-KEYWORD,japonx
+DOMAIN-KEYWORD,japronx
 DOMAIN-SUFFIX,japonx.com
 DOMAIN-SUFFIX,japonx.net
 DOMAIN-SUFFIX,japonx.tv
@@ -12,5 +14,3 @@ DOMAIN-SUFFIX,japronx.com
 DOMAIN-SUFFIX,japronx.net
 DOMAIN-SUFFIX,japronx.tv
 DOMAIN-SUFFIX,japronx.vip
-DOMAIN-KEYWORD,japonx
-DOMAIN-KEYWORD,japronx

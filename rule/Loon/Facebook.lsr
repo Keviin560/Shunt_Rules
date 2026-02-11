@@ -1,7 +1,7 @@
 # Name = Facebook
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:07
+# Update = 2026-02-11 20:43:21
 # Total = 569
 
 IP-CIDR,108.168.176.192/26,no-resolve
@@ -27,6 +27,8 @@ IP-CIDR,54.162.243.80/32,no-resolve
 IP-CIDR,54.173.34.141/32,no-resolve
 IP-CIDR,54.235.23.242/32,no-resolve
 IP-CIDR,54.93.124.31/32,no-resolve
+DOMAIN-KEYWORD,facebook
+DOMAIN-KEYWORD,fbcdn
 DOMAIN-SUFFIX,aboutfacebook.com
 DOMAIN-SUFFIX,accessfacebookfromschool.com
 DOMAIN-SUFFIX,accountkit.com
@@ -571,5 +573,3 @@ DOMAIN-SUFFIX,wwwmfacebook.com
 DOMAIN-SUFFIX,yogalayout.com
 DOMAIN-SUFFIX,zuckerberg.com
 DOMAIN-SUFFIX,zuckerberg.net
-DOMAIN-KEYWORD,facebook
-DOMAIN-KEYWORD,fbcdn

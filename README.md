@@ -1,5 +1,5 @@
 # 🚀 Shunt Rules 规则集仓库
-![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026-02-11_20:28-green)
+![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026-02-11_20:43-green)
 
 ## ℹ️ 数据源说明
 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
@@ -44,7 +44,7 @@ rule-providers:
 ```
 
 **3. 应用规则 (Rules)**
-*⚠️ 关键：引用 IP 规则集时，请务必加上 `no-resolve`，防止 DNS 泄露。*
+*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup
@@ -53,7 +53,7 @@ rules:
 
 ## 📊 规则索引
 | 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |
-| :--- | :--- | :--- | :--- |
+| :---: | :---: | :---: | :---: |
 | **115** | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/115.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/115.lsr) | Today |
 | **12306** | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/12306.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/12306.lsr) | Today |
 | **1337x** | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/1337x.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/1337x.lsr) | Today |

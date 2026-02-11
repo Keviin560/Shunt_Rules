@@ -1,12 +1,15 @@
 # Name = Emby
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:27:40
+# Update = 2026-02-11 20:42:52
 # Total = 52
 
 DOMAIN,emby.enjoyit.eu.org
 DOMAIN,emby.lcloud.wiki
 DOMAIN,notnetflix.cos.cat
+DOMAIN-KEYWORD,emby.wtf
+DOMAIN-KEYWORD,jmsooo
+DOMAIN-KEYWORD,odysseyplus
 DOMAIN-SUFFIX,123456.al
 DOMAIN-SUFFIX,285286.xyz
 DOMAIN-SUFFIX,PROCESS-NAME,com.mb.android
@@ -53,6 +56,3 @@ DOMAIN-SUFFIX,poloemby.xyz
 DOMAIN-SUFFIX,pornemby.club
 DOMAIN-SUFFIX,servers.xeton.dev
 DOMAIN-SUFFIX,xmsl.org
-DOMAIN-KEYWORD,emby.wtf
-DOMAIN-KEYWORD,jmsooo
-DOMAIN-KEYWORD,odysseyplus

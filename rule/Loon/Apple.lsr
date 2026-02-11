@@ -1,7 +1,7 @@
 # Name = Apple
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:07
+# Update = 2026-02-11 20:43:21
 # Total = 1581
 
 IP-CIDR,139.178.128.0/18,no-resolve
@@ -26,6 +26,13 @@ DOMAIN,edge.apple
 DOMAIN,icons.axm-usercontent-apple.com
 DOMAIN,lookup-api.apple.com.edgekey.net
 DOMAIN,p-events-delivery.akamaized.net
+DOMAIN-KEYWORD,apple-support.akadns.net
+DOMAIN-KEYWORD,apple.com.akadns.net
+DOMAIN-KEYWORD,apple.com.edgekey.net
+DOMAIN-KEYWORD,buy.itunes.apple.com
+DOMAIN-KEYWORD,icloud.com.akadns.net
+DOMAIN-KEYWORD,smp-device
+DOMAIN-KEYWORD,testflight
 DOMAIN-SUFFIX,100beatscheap.com
 DOMAIN-SUFFIX,12diasdepresentesdeitunes.com
 DOMAIN-SUFFIX,12diasderegalosdeitunes.cl
@@ -1578,10 +1585,3 @@ DOMAIN-SUFFIX,xn--kput3imi374g.xn--hxt814e
 DOMAIN-SUFFIX,xn--ohq11k7pl25iyo8a.cn
 DOMAIN-SUFFIX,xn--ruq8a011kt6y.xn--hxt814e
 DOMAIN-SUFFIX,yourmonsterbeats.com
-DOMAIN-KEYWORD,apple-support.akadns.net
-DOMAIN-KEYWORD,apple.com.akadns.net
-DOMAIN-KEYWORD,apple.com.edgekey.net
-DOMAIN-KEYWORD,buy.itunes.apple.com
-DOMAIN-KEYWORD,icloud.com.akadns.net
-DOMAIN-KEYWORD,smp-device
-DOMAIN-KEYWORD,testflight

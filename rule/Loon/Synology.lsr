@@ -1,10 +1,11 @@
 # Name = Synology
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-11 20:28:00
+# Update = 2026-02-11 20:43:14
 # Total = 19
 
 DOMAIN,d2f0395ykn6hxb.cloudfront.net
+DOMAIN-KEYWORD,synology
 DOMAIN-SUFFIX,diskstation.me
 DOMAIN-SUFFIX,dscloud.biz
 DOMAIN-SUFFIX,dscloud.me
@@ -22,4 +23,3 @@ DOMAIN-SUFFIX,synodns.com
 DOMAIN-SUFFIX,synology.cn
 DOMAIN-SUFFIX,synology.com
 DOMAIN-SUFFIX,synology.me
-DOMAIN-KEYWORD,synology

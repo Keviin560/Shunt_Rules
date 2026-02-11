@@ -1,0 +1,10 @@
+# Name = ChinaDNS
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 4
+
+IP-CIDR,1.12.12.12/32,no-resolve
+DOMAIN-SUFFIX,dns.alidns.com
+DOMAIN-SUFFIX,doh.360.cn
+DOMAIN-SUFFIX,doh.pub

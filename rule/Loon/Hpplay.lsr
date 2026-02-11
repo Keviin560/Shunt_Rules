@@ -1,0 +1,11 @@
+# Name = Hpplay
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 5
+
+DOMAIN-SUFFIX,hpplay.cn
+DOMAIN-SUFFIX,hpplay.com.cn
+DOMAIN-SUFFIX,mirrorcast.cn
+DOMAIN-SUFFIX,mirrorcast.com.cn
+DOMAIN-SUFFIX,mirrorcast.tv

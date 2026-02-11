@@ -1,0 +1,11 @@
+# Name = AMP
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:12
+# Total = 5
+
+DOMAIN,amp.akamaized.net
+DOMAIN-SUFFIX,amp.dev
+DOMAIN-SUFFIX,ampproject.com
+DOMAIN-SUFFIX,ampproject.net
+DOMAIN-SUFFIX,ampproject.org

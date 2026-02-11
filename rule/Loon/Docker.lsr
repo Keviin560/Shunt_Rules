@@ -1,0 +1,13 @@
+# Name = Docker
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:38
+# Total = 7
+
+DOMAIN,d1q6f0aelx0por.cloudfront.net
+DOMAIN,d2wy8f7a9ursnm.cloudfront.net
+DOMAIN,d36jcksde1wxzq.cloudfront.net
+DOMAIN-SUFFIX,compose-spec.io
+DOMAIN-SUFFIX,docker.com
+DOMAIN-SUFFIX,docker.io
+DOMAIN-SUFFIX,dockerhub.com

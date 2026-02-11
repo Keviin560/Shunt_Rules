@@ -1,0 +1,15 @@
+# Name = Niconico
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:21
+# Total = 9
+
+DOMAIN-SUFFIX,dmc.nico
+DOMAIN-SUFFIX,nicodic.jp
+DOMAIN-SUFFIX,nicomanga.jp
+DOMAIN-SUFFIX,niconico.com
+DOMAIN-SUFFIX,nicoseiga.jp
+DOMAIN-SUFFIX,nicovideo.jp
+DOMAIN-SUFFIX,nimg.jp
+DOMAIN-SUFFIX,simg.jp
+DOMAIN-SUFFIX,socdm.com

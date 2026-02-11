@@ -1,0 +1,15 @@
+# Name = ParamountPlus
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:52
+# Total = 9
+
+DOMAIN,cbsi.live.ott.irdeto.com
+DOMAIN,cbsplaylistserver.aws.syncbak.com
+DOMAIN,cbsservice.aws.syncbak.com
+DOMAIN,link.theplatform.com
+DOMAIN-SUFFIX,cbsaavideo.com
+DOMAIN-SUFFIX,cbsi.com
+DOMAIN-SUFFIX,cbsivideo.com
+DOMAIN-SUFFIX,paramountplus.com
+DOMAIN-SUFFIX,pplusstatic.com

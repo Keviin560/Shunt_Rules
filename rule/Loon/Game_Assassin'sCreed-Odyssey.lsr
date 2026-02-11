@@ -1,0 +1,21 @@
+# Name = Game_Assassin'sCreed-Odyssey
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 15
+
+IP-CIDR,104.75.245.0/24,no-resolve
+IP-CIDR,104.95.207.169/32,no-resolve
+IP-CIDR,18.204.105.0/24,no-resolve
+IP-CIDR,18.204.111.232/32,no-resolve
+IP-CIDR,18.204.253.0/24,no-resolve
+IP-CIDR,216.98.54.23/32,no-resolve
+IP-CIDR,216.98.55.0/24,no-resolve
+IP-CIDR,216.98.62.0/24,no-resolve
+IP-CIDR,23.2.16.0/24,no-resolve
+IP-CIDR,34.237.57.180/32,no-resolve
+IP-CIDR,54.81.239.0/24,no-resolve
+IP-CIDR,65.200.22.184/32,no-resolve
+IP-CIDR,65.200.22.202/32,no-resolve
+IP-CIDR,65.200.22.234/32,no-resolve
+IP-CIDR,67.15.100.252/32,no-resolve

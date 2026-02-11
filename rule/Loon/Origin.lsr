@@ -1,0 +1,13 @@
+# Name = Origin
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:22
+# Total = 7
+
+DOMAIN,cloudsync-prod.s3.amazonaws.com
+DOMAIN,eaasserts-a.akamaihd.net
+DOMAIN,origin-a.akamaihd.net
+DOMAIN,originasserts.akamaized.net
+DOMAIN,rtm.tnt-ea.com
+DOMAIN-SUFFIX,ea.com
+DOMAIN-SUFFIX,origin.com

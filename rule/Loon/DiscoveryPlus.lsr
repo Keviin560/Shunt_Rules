@@ -1,0 +1,21 @@
+# Name = DiscoveryPlus
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:02
+# Total = 15
+
+DOMAIN,discovery-us.conax.cloud
+DOMAIN,dplus-northamerica-cloudfront-gcs.prod-vod.h264.io
+DOMAIN,dplus-northamerica.media-edge.prod-vod.h264.io
+DOMAIN-SUFFIX,disco-api.com
+DOMAIN-SUFFIX,discovery.com
+DOMAIN-SUFFIX,discoveryplus.co.uk
+DOMAIN-SUFFIX,discoveryplus.com
+DOMAIN-SUFFIX,discoveryplus.in
+DOMAIN-SUFFIX,dnitv.com
+DOMAIN-SUFFIX,fwmrm.net
+DOMAIN-SUFFIX,getblueshift.com
+DOMAIN-SUFFIX,litix.io
+DOMAIN-SUFFIX,mobile-collector.newrelic.com
+DOMAIN-SUFFIX,uplynk.com
+DOMAIN-KEYWORD,discovery.uplynk.com

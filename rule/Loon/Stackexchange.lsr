@@ -1,0 +1,26 @@
+# Name = Stackexchange
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:32
+# Total = 20
+
+DOMAIN-SUFFIX,askubuntu.com
+DOMAIN-SUFFIX,blogoverflow.com
+DOMAIN-SUFFIX,codeforaliving.io
+DOMAIN-SUFFIX,mathoverflow.net
+DOMAIN-SUFFIX,serverfault.com
+DOMAIN-SUFFIX,sstatic.net
+DOMAIN-SUFFIX,stackapps.com
+DOMAIN-SUFFIX,stackauth.com
+DOMAIN-SUFFIX,stackexchange.com
+DOMAIN-SUFFIX,stackmod.blog
+DOMAIN-SUFFIX,stackoverflow.blog
+DOMAIN-SUFFIX,stackoverflow.co
+DOMAIN-SUFFIX,stackoverflow.com
+DOMAIN-SUFFIX,stackoverflow.email
+DOMAIN-SUFFIX,stackoverflowbusiness.com
+DOMAIN-SUFFIX,stackoverflowcareers.com
+DOMAIN-SUFFIX,stacksnippets.net
+DOMAIN-SUFFIX,superuser.com
+DOMAIN-SUFFIX,tex-talk.net
+DOMAIN-SUFFIX,thesffblog.com

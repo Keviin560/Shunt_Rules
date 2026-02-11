@@ -1,0 +1,17 @@
+# Name = ViuTV
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:09
+# Total = 11
+
+DOMAIN-SUFFIX,PROCESS-NAME,com.viu.pad
+DOMAIN-SUFFIX,PROCESS-NAME,com.viu.phone
+DOMAIN-SUFFIX,PROCESS-NAME,com.vuclip.viu
+DOMAIN-SUFFIX,cognito-identity.us-east-1.amazonaws.com
+DOMAIN-SUFFIX,d1k2us671qcoau.cloudfront.net
+DOMAIN-SUFFIX,d2anahhhmp1ffz.cloudfront.net
+DOMAIN-SUFFIX,dfp6rglgjqszk.cloudfront.net
+DOMAIN-SUFFIX,mobileanalytics.us-east-1.amazonaws.com
+DOMAIN-SUFFIX,viu.com
+DOMAIN-SUFFIX,viu.now.com
+DOMAIN-SUFFIX,viu.tv

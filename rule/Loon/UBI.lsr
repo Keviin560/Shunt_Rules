@@ -1,0 +1,11 @@
+# Name = UBI
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:28
+# Total = 5
+
+DOMAIN-SUFFIX,ubi.com
+DOMAIN-SUFFIX,ubisoft-orbit-savegames.s3.amazonaws.com
+DOMAIN-SUFFIX,ubisoft-uplay-savegames.s3.amazonaws.com
+DOMAIN-SUFFIX,ubisoft.com
+DOMAIN-SUFFIX,uplay.com

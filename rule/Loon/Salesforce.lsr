@@ -1,0 +1,19 @@
+# Name = Salesforce
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:09
+# Total = 13
+
+DOMAIN-SUFFIX,force.com
+DOMAIN-SUFFIX,heroku.com
+DOMAIN-SUFFIX,herokuapp.com
+DOMAIN-SUFFIX,herokucdn.com
+DOMAIN-SUFFIX,mulesoft.com
+DOMAIN-SUFFIX,salesforce.com
+DOMAIN-SUFFIX,salesforce.org
+DOMAIN-SUFFIX,salesforceliveagent.com
+DOMAIN-SUFFIX,sfdcdigital.com
+DOMAIN-SUFFIX,sfdcstatic.com
+DOMAIN-SUFFIX,tableau.com
+DOMAIN-SUFFIX,trailblazer.me
+DOMAIN-SUFFIX,trailhead.com

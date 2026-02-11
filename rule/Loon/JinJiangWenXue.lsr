@@ -1,0 +1,14 @@
+# Name = JinJiangWenXue
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 8
+
+DOMAIN-SUFFIX,PROCESS-NAME,com.jjwxc.reader
+DOMAIN-SUFFIX,chaba123.com
+DOMAIN-SUFFIX,jjwxc.cn
+DOMAIN-SUFFIX,jjwxc.com
+DOMAIN-SUFFIX,jjwxc.net
+DOMAIN-SUFFIX,jjwxc.org
+DOMAIN-SUFFIX,jjycw.net
+DOMAIN-SUFFIX,robook.com

@@ -1,0 +1,15 @@
+# Name = RemoteDesktop
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:42
+# Total = 9
+
+DOMAIN-SUFFIX,PROCESS-NAME,CrashReport.exe
+DOMAIN-SUFFIX,PROCESS-NAME,DriverInstaller.exe
+DOMAIN-SUFFIX,PROCESS-NAME,SunloginClient.exe
+DOMAIN-SUFFIX,PROCESS-NAME,ToDesk.exe
+DOMAIN-SUFFIX,PROCESS-NAME,ToDesk_Service.exe
+DOMAIN-SUFFIX,PROCESS-NAME,ToDesk_Session.exe
+DOMAIN-SUFFIX,PROCESS-NAME,ToDesk_Setup.exe
+DOMAIN-SUFFIX,PROCESS-NAME,devcon.exe
+DOMAIN-SUFFIX,PROCESS-NAME,mstsc.exe

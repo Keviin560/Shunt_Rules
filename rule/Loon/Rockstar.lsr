@@ -1,0 +1,11 @@
+# Name = Rockstar
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 5
+
+DOMAIN-SUFFIX,gamedownloads-rockstargames-com.akamaized.net
+DOMAIN-SUFFIX,media-rockstargames-com.akamaized.net
+DOMAIN-SUFFIX,rockstargames.com
+DOMAIN-SUFFIX,rsg.sc
+DOMAIN-SUFFIX,videos-rockstargames-com.akamaized.net

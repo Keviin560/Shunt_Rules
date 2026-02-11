@@ -1,0 +1,11 @@
+# Name = GoogleDrive
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:02
+# Total = 5
+
+DOMAIN,www.googleapis.com
+DOMAIN-SUFFIX,docs.google.com
+DOMAIN-SUFFIX,drive.google.com
+DOMAIN-SUFFIX,googledrive.com
+DOMAIN-SUFFIX,googleusercontent.com

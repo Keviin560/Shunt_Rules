@@ -1,0 +1,14 @@
+# Name = HashiCorp
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:32
+# Total = 8
+
+DOMAIN-SUFFIX,consul.io
+DOMAIN-SUFFIX,hashicorp.com
+DOMAIN-SUFFIX,nomadproject.io
+DOMAIN-SUFFIX,packer.io
+DOMAIN-SUFFIX,terraform.io
+DOMAIN-SUFFIX,vagrantcloud.com
+DOMAIN-SUFFIX,vagrantup.com
+DOMAIN-SUFFIX,vaultproject.io

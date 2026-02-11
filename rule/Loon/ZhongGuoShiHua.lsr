@@ -1,0 +1,11 @@
+# Name = ZhongGuoShiHua
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:42
+# Total = 5
+
+DOMAIN-SUFFIX,sinopec-usa.com
+DOMAIN-SUFFIX,sinopec.com
+DOMAIN-SUFFIX,sinopecgroup.com
+DOMAIN-SUFFIX,sinopecnews.com.cn
+DOMAIN-SUFFIX,sinopecsales.com

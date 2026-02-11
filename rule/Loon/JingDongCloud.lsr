@@ -1,0 +1,14 @@
+# Name = JingDongCloud
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:10
+# Total = 8
+
+IP-CIDR,101.124.0.0/16,no-resolve
+IP-CIDR,103.224.220.0/22,no-resolve
+IP-CIDR,114.67.128.0/17,no-resolve
+IP-CIDR,117.72.248.0/22,no-resolve
+IP-CIDR,2402:db40::/33,no-resolve
+IP-CIDR,2402:dfc0:50::/44,no-resolve
+IP-CIDR,2402:dfc0::/44,no-resolve
+IP-CIDR,2403:1ec0:1200::/48,no-resolve

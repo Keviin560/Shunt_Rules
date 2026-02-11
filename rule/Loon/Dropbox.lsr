@@ -1,0 +1,23 @@
+# Name = Dropbox
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:42
+# Total = 17
+
+DOMAIN-SUFFIX,db.tt
+DOMAIN-SUFFIX,dropbox-dns.com
+DOMAIN-SUFFIX,dropbox.com
+DOMAIN-SUFFIX,dropbox.tech
+DOMAIN-SUFFIX,dropbox.zendesk.com
+DOMAIN-SUFFIX,dropboxapi.com
+DOMAIN-SUFFIX,dropboxbusiness.com
+DOMAIN-SUFFIX,dropboxcaptcha.com
+DOMAIN-SUFFIX,dropboxforum.com
+DOMAIN-SUFFIX,dropboxforums.com
+DOMAIN-SUFFIX,dropboxinsiders.com
+DOMAIN-SUFFIX,dropboxmail.com
+DOMAIN-SUFFIX,dropboxpartners.com
+DOMAIN-SUFFIX,dropboxstatic.com
+DOMAIN-SUFFIX,dropboxusercontent.com
+DOMAIN-SUFFIX,getdropbox.com
+DOMAIN-SUFFIX,paper-attachments.s3.amazonaws.com

@@ -1,0 +1,12 @@
+# Name = QuickConnect
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 6
+
+DOMAIN,account.synology.com
+DOMAIN,global.quickconnect.cn
+DOMAIN,sns.synology.com
+DOMAIN-SUFFIX,download.synology.com
+DOMAIN-SUFFIX,quickconnect.com
+DOMAIN-SUFFIX,quickconnect.to

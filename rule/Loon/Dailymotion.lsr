@@ -1,0 +1,11 @@
+# Name = Dailymotion
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:09
+# Total = 5
+
+DOMAIN-SUFFIX,dai.ly
+DOMAIN-SUFFIX,dailymotion.com
+DOMAIN-SUFFIX,dm-event.net
+DOMAIN-SUFFIX,dmcdn.net
+DOMAIN-SUFFIX,dmxleo.com

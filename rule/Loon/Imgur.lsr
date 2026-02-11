@@ -1,0 +1,8 @@
+# Name = Imgur
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:52
+# Total = 2
+
+DOMAIN-SUFFIX,imgur.com
+DOMAIN-SUFFIX,imgurinc.com

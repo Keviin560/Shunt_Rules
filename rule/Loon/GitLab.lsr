@@ -1,0 +1,12 @@
+# Name = GitLab
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:10
+# Total = 6
+
+DOMAIN-SUFFIX,gitlab-assets.oss-cn-hongkong.aliyuncs.com
+DOMAIN-SUFFIX,gitlab-static.net
+DOMAIN-SUFFIX,gitlab.com
+DOMAIN-SUFFIX,gitlab.net
+DOMAIN-SUFFIX,gitter-static.net
+DOMAIN-SUFFIX,gitter.im

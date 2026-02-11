@@ -1,0 +1,14 @@
+# Name = Pixiv
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:21
+# Total = 8
+
+DOMAIN-SUFFIX,booth.pm
+DOMAIN-SUFFIX,fanbox.cc
+DOMAIN-SUFFIX,pixiv.cat
+DOMAIN-SUFFIX,pixiv.co.jp
+DOMAIN-SUFFIX,pixiv.me
+DOMAIN-SUFFIX,pixiv.net
+DOMAIN-SUFFIX,pixiv.org
+DOMAIN-SUFFIX,pximg.net

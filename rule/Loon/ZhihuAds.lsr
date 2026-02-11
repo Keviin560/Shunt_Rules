@@ -1,0 +1,11 @@
+# Name = ZhihuAds
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:12
+# Total = 5
+
+IP-CIDR,118.89.204.198/32,no-resolve
+IP-CIDR,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,no-resolve
+DOMAIN,appcloud2.in.zhihu.com
+DOMAIN,mqtt.zhihu.com
+DOMAIN,sugar.zhihu.com

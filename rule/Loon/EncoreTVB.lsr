@@ -1,0 +1,11 @@
+# Name = EncoreTVB
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 5
+
+DOMAIN,bcbolt446c5271-a.akamaihd.net
+DOMAIN,content.jwplatform.com
+DOMAIN,edge.api.brightcove.com
+DOMAIN,videos-f.jwpsrv.com
+DOMAIN-SUFFIX,encoretvb.com

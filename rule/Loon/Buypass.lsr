@@ -1,0 +1,11 @@
+# Name = Buypass
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:27
+# Total = 5
+
+DOMAIN-SUFFIX,buypass-ssl.com
+DOMAIN-SUFFIX,buypass.com
+DOMAIN-SUFFIX,buypass.no
+DOMAIN-SUFFIX,buypass.se
+DOMAIN-SUFFIX,minid.no

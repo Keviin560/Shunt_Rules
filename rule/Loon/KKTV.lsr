@@ -1,0 +1,10 @@
+# Name = KKTV
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:37
+# Total = 4
+
+DOMAIN,kktv-theater.kk.stream
+DOMAIN,theater-kktv.cdn.hinet.net
+DOMAIN-SUFFIX,kktv.com.tw
+DOMAIN-SUFFIX,kktv.me

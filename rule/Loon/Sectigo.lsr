@@ -1,0 +1,13 @@
+# Name = Sectigo
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:09
+# Total = 7
+
+DOMAIN-SUFFIX,enterprisessl.com
+DOMAIN-SUFFIX,hackerguardian.com
+DOMAIN-SUFFIX,instantssl.com
+DOMAIN-SUFFIX,optimumssl.com
+DOMAIN-SUFFIX,positivessl.com
+DOMAIN-SUFFIX,sectigo.com
+DOMAIN-SUFFIX,usertrust.com

@@ -1,0 +1,11 @@
+# Name = Atlassian
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:27
+# Total = 5
+
+DOMAIN-SUFFIX,atlassian.com
+DOMAIN-SUFFIX,bitbucket.org
+DOMAIN-SUFFIX,statuspage.io
+DOMAIN-SUFFIX,trello.com
+DOMAIN-SUFFIX,trellocdn.com

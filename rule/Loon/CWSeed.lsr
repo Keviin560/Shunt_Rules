@@ -1,0 +1,13 @@
+# Name = CWSeed
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:36:58
+# Total = 7
+
+DOMAIN,cwtv-amd-akamai.akamaized.net
+DOMAIN,edge.cwtv-vod-ext.top.comcast.net
+DOMAIN-SUFFIX,PROCESS-NAME,com.cw.fullepisodes.android
+DOMAIN-SUFFIX,PROCESS-NAME,com.cw.seed.android
+DOMAIN-SUFFIX,cwseed.com
+DOMAIN-SUFFIX,cwtv.com
+DOMAIN-SUFFIX,thecwvideo.com

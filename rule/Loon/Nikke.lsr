@@ -1,0 +1,13 @@
+# Name = Nikke
+# Author = Keviin560
+# REPO = https://github.com/Keviin560/Shunt_Rules
+# Update = 2026-02-11 19:37:33
+# Total = 7
+
+IP-CIDR,43.152.114.31/32,no-resolve
+DOMAIN-SUFFIX,anticheatexpert.com
+DOMAIN-SUFFIX,centauriglobal.com
+DOMAIN-SUFFIX,gamepass.com
+DOMAIN-SUFFIX,iegcom.com
+DOMAIN-SUFFIX,intlgame.com
+DOMAIN-SUFFIX,nikke-kr.com

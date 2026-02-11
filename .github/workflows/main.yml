@@ -1,4 +1,4 @@
-name: Auto Convert Rules (Stable)
+name: Auto Convert Rules
 
 on:
   schedule:
@@ -12,39 +12,30 @@ jobs:
       contents: write
 
     steps:
-      - name: 📥 检出代码
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🐍 配置 Python
+      - name: 🐍 Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: 📦 安装依赖
+      - name: 📦 Deps
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
           pip install PyYAML requests
 
-      - name: 📡 克隆上游规则
+      - name: 📡 Clone Rules
         run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
 
-      - name: 🛠️ 部署 Mihomo 内核 (Latest Stable)
+      - name: 🛠️ Setup Kernel
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🔍 寻找 Latest Stable 内核..."
           API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
-          
-          # 过滤逻辑：非预发布版 + Linux AMD64 + GZ压缩包 + 非兼容版
           DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
-          
-          if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then
-            echo "❌ 错误: 未找到 Stable 版本下载链接"
-            exit 1
-          fi
-          
-          echo "✅ 锁定内核: $DOWNLOAD_URL"
+          if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then exit 1; fi
           wget -q -O mihomo.gz "$DOWNLOAD_URL"
           gunzip mihomo.gz
           mv mihomo mihomo-bin
@@ -52,19 +43,26 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      - name: 🚀 运行构建脚本
+      - name: 🚀 Build
         run: python scripts/builder.py
 
-      - name: 🧹 提交结果
+      - name: 🧹 Commit
         run: |
           rm -rf temp_source mihomo
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          
+          # ✅ 修复点：先检查目录是否存在且不为空
+          if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
+             echo "⚠️ 警告：输出目录为空，可能是脚本执行失败，跳过 Git 操作。"
+             exit 0
+          fi
+          
           git add rule/Mihomo/
           
           if git diff --staged --quiet; then
-            echo "没有规则变更，跳过提交"
+            echo "zk: 规则无变更"
           else
-            git commit -m "chore: sync rules [$(date +'%Y-%m-%d')]"
+            git commit -m "chore: update rules [$(date +'%Y-%m-%d')]"
             git push
           fi

@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v1.0"  # ⚡ 核心：如果你修改了排序或生成逻辑，修改此版本号可强制触发全量重编
+GENERATOR_VERSION = "v1.0" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -97,7 +97,6 @@ class RuleSet:
             if not self.ip_entries[target]: self.ip_entries[target] = no_res
 
 class HistoryManager:
-    """增量更新核心：源文件指纹锚定"""
     def __init__(self):
         self.history = {}
         if os.path.exists(HISTORY_FILE):
@@ -111,29 +110,21 @@ class HistoryManager:
         with open(filepath, 'rb') as f: return hashlib.md5(f.read()).hexdigest()
 
     def should_skip(self, name, source_path, expected_files):
-        """
-        判断是否跳过编译
-        条件: (源文件Hash一致) AND (版本号一致) AND (所有产物文件存在)
-        """
         src_hash = self.get_file_hash(source_path)
         record = self.history.get(name, {})
-        
         last_hash = record.get('src_hash', "")
         last_ver = record.get('gen_ver', "")
         
-        # 1. 检查源文件和版本
         if src_hash != last_hash or last_ver != GENERATOR_VERSION:
-            return False, src_hash # 需要更新
+            return False, src_hash
             
-        # 2. 检查产物是否存在 (防止误删)
         for f in expected_files:
             if not os.path.exists(f) or os.path.getsize(f) == 0:
-                return False, src_hash # 产物丢失，强制更新
+                return False, src_hash
                 
-        return True, src_hash # 可以跳过
+        return True, src_hash
 
     def update_record(self, name, src_hash):
-        """更新记录"""
         self.history[name] = {
             'src_hash': src_hash,
             'updated_at': self.current_time,
@@ -141,7 +132,6 @@ class HistoryManager:
         }
 
     def get_days_ago(self, name):
-        """获取显示时间"""
         record = self.history.get(name, {})
         last_ts = record.get('updated_at', self.current_time)
         diff = datetime.fromtimestamp(self.current_time) - datetime.fromtimestamp(last_ts)
@@ -292,7 +282,7 @@ def generate_readme(stats):
         f"```",
         f"",
         f"**3. 应用规则 (Rules)**",
-        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
+        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*", 
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",
@@ -333,7 +323,8 @@ def main():
         if rel == '.': continue
         rs = aggregated[rel]
         for f in files:
-            if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip(f):
+            # ✅ 修复点：调用 correct function name
+            if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip_file(f):
                 full_path = os.path.join(root, f)
                 parse_file(full_path, rs)
                 rel_path_map[rel] = full_path # 记录最后一个文件的路径作为Hash依据

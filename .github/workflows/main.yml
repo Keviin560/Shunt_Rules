@@ -1,0 +1,63 @@
+name: Auto Convert Rules
+
+# 触发机制：每天 UTC 02:00 (北京时间 10:00) 或 手动触发
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 赋予写权限，无需 Token
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 📦 Install Dependencies
+        # 直接在这里安装，不需要 requirements.txt
+        run: pip install PyYAML requests
+
+      - name: 📡 Download Upstream Rules
+        # 使用 depth=1 浅克隆，速度快且无 API 限制
+        run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
+
+      - name: 🛠️ Setup Mihomo Kernel
+        # 自动下载最新 Alpha 版内核
+        run: |
+          TAG=$(curl -sL https://api.github.com/repos/MetaCubeX/mihomo/releases | jq -r 'map(select(.prerelease)) | first | .tag_name')
+          echo "Fetching Mihomo $TAG..."
+          wget -q https://github.com/MetaCubeX/mihomo/releases/download/$TAG/mihomo-linux-amd64-$TAG.gz
+          gunzip mihomo-linux-amd64-$TAG.gz
+          mv mihomo-linux-amd64-$TAG mihomo
+          chmod +x mihomo
+
+      - name: 🚀 Run Converter
+        run: python scripts/builder.py
+
+      - name: 🧹 Cleanup & Commit
+        run: |
+          # 清理临时文件
+          rm -rf temp_source mihomo
+          
+          # 配置 Git 身份 (使用 GitHub Actions Bot)
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # 添加生成的规则目录
+          git add rule/Mihomo/
+          
+          # 检查是否有变更，有则提交
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore: update rules [$(date +'%Y-%m-%d')]"
+            git push
+          fi

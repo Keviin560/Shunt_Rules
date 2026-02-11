@@ -1,90 +1,70 @@
-name: Auto Convert Rules (Self-Healing)
+name: Auto Convert Rules (Stable)
 
 on:
   schedule:
-    - cron: '0 2 * * *' # UTC 02:00 (北京时间 10:00)
-  workflow_dispatch: # 允许手动触发
+    - cron: '0 2 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 赋予提交代码的权限
+      contents: write
 
     steps:
-      - name: 📥 检出代码仓库
+      - name: 📥 检出代码
         uses: actions/checkout@v4
 
-      - name: 🐍 配置 Python 环境
+      - name: 🐍 配置 Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: 📦 安装依赖工具
-        # jq 用于解析 JSON，PyYAML 用于处理规则
+      - name: 📦 安装依赖
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
           pip install PyYAML requests
 
-      - name: 📡 克隆上游规则库
-        # 使用 depth=1 浅克隆，避免下载历史记录，极大提升速度
+      - name: 📡 克隆上游规则
         run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
 
-      - name: 🛠️ 部署 Mihomo 内核 (智能锁定 Latest Stable)
+      - name: 🛠️ 部署 Mihomo 内核 (Latest Stable)
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🔍 正在寻找最新的 Mihomo 正式发行版 (Latest Stable)..."
-          
-          # 1. 获取所有 Release 数据 (带 Token 避免限流)
+          echo "🔍 寻找 Latest Stable 内核..."
           API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
           
-          # 2. 核心过滤逻辑：
-          # select(.prerelease==false) -> 排除 Alpha/Beta
-          # select(.name | contains("linux-amd64")) -> 锁定架构
-          # select(.name | endswith(".gz")) -> 锁定压缩包
-          # select(.name | contains("compatible") | not) -> 排除兼容模式包
-          
+          # 过滤逻辑：非预发布版 + Linux AMD64 + GZ压缩包 + 非兼容版
           DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
           
           if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then
-            echo "❌ 错误: 未找到 Latest Stable 版本！可能官方只有 Prerelease。"
-            echo "⚠️ 建议检查: https://github.com/MetaCubeX/mihomo/releases"
+            echo "❌ 错误: 未找到 Stable 版本下载链接"
             exit 1
           fi
           
           echo "✅ 锁定内核: $DOWNLOAD_URL"
-          
-          # 3. 下载并部署
           wget -q -O mihomo.gz "$DOWNLOAD_URL"
           gunzip mihomo.gz
           mv mihomo mihomo-bin
           chmod +x mihomo-bin
-          
-          # 4. 验证并重命名
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      - name: 🚀 执行构建引擎 (Python)
+      - name: 🚀 运行构建脚本
         run: python scripts/builder.py
 
-      - name: 🧹 清理与提交
+      - name: 🧹 提交结果
         run: |
-          # 清理临时文件，防止污染仓库
           rm -rf temp_source mihomo
-          
-          # 配置 Git 身份
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # 添加产物
           git add rule/Mihomo/
           
-          # 仅当有变动时提交
           if git diff --staged --quiet; then
-            echo "zk: 检测到无规则变更，本次跳过提交。"
+            echo "没有规则变更，跳过提交"
           else
-            git commit -m "chore(rule): sync upstream & auto-fix [$(date +'%Y-%m-%d')]"
+            git commit -m "chore: sync rules [$(date +'%Y-%m-%d')]"
             git push
           fi

@@ -51,7 +51,7 @@ class KernelIntrospector:
     def _detect(self):
         try:
             res = subprocess.run([self.bin_path, "convert-ruleset"], capture_output=True, text=True, timeout=5)
-            out = res.stderr + result.stdout
+            out = res.stderr + res.stdout
             return "<format>" in out or " [format] " in out
         except: return False
     def get_cmd(self, behavior, src, dst):
@@ -205,6 +205,11 @@ def build_loon(name, ruleset):
         return True
     except: return False
 
+def get_status_text(days):
+    if days == 0: return "Today"
+    if days == 1: return "Yesterday"
+    return f"{days} days ago"
+
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
@@ -218,7 +223,7 @@ def generate_readme(stats):
         f"本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
         f"",
         f"## ⚠️ 使用前必读",
-        f"* **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已移除 `no-resolve` 属性以防止内核崩溃，**必须**在配置文件中自行指定策略。",
+        f"* **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已**移除** `no-resolve` 属性以防止内核崩溃，**必须**在配置文件中自行指定策略。",
         f"* **Loon**: `.lsr` 支持混合负载，已内置优化排序（no-resolve IP 优先）。",
         f"",
         f"## 📍 Mihomo 配置指引",
@@ -257,7 +262,7 @@ def generate_readme(stats):
         f"```",
         f"",
         f"**3. 应用规则 (Rules)**",
-        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
+        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*", # <--- ✅ 修复点：确保文案已更改
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",
@@ -266,7 +271,7 @@ def generate_readme(stats):
         f"",
         f"## 📊 规则索引",
         f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",
-        f"| :---: | :---: | :---: | :---: |" # ✅ 修复：使用 :---: 实现全列居中
+        f"| :---: | :---: | :---: | :---: |" # <--- ✅ 修复点：冒号确保居中
     ]
     
     for name, status, has_d, has_i, has_l in stats:
@@ -301,7 +306,9 @@ def main():
         h_l = build_loon(name, rs)
         if h_d or h_i or h_l:
             cf = os.path.join(TARGET_DIR_LOON, f"{name}.lsr") if h_l else os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs")
-            stats.append((name, ["Today","Yesterday"][min(history.update_record(name, cf), 1)] if history.update_record(name, cf) < 2 else f"{history.update_record(name, cf)} days ago", h_d, h_i, h_l))
+            # 修复逻辑：只调用一次更新，防止状态状态丢失
+            days = history.update_record(name, cf)
+            stats.append((name, get_status_text(days), h_d, h_i, h_l))
     history.save()
     generate_readme(stats)
     logger.info("🎉 完成")

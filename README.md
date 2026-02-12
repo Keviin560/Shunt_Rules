@@ -1,6 +1,10 @@
-# 🚀 Shunt Rules 规则集
+<div align="center">
+
+# 🤖 Auto Shunt Rules
 
 ![Total](https://img.shields.io/badge/-规则总数%20689-blue?style=flat) ![Update](https://img.shields.io/badge/-更新时间%202026.02.12-2ea44f?style=flat) ![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat) ![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat) ![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat) ![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat) ![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat) ![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)
+
+</div>
 
 ## ℹ️ 数据源说明
 ♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
@@ -14,9 +18,10 @@
 > ⚡ 使用方式: 用 `type: http` 远程引用规则集。
 > 🔗 覆写参考: [Mihomo_ShuntRules.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/Mihomo_ShuntRules.yaml)
 
-💾 配置示例 (以 Google 为例，请按需修改):
+<details>
+<summary><strong>💾 配置示例 <sub>(以 Google 为例，点击展开)</sub></strong></summary>
 
-1. 定义策略组 (Proxy Groups)
+### 1. 定义策略组 (Proxy Groups)
 ```yaml
 proxy-groups:
   - name: "MyProxyGroup"   # 策略组名称，可自定义
@@ -26,7 +31,7 @@ proxy-groups:
       - 🇺🇸 美国节点      # 👈 或者填写 'DIRECT' (直连) / 'REJECT' (拒绝)
 ```
 
-2. 配置规则集 (Rule Providers)
+### 2. 配置规则集 (Rule Providers)
 ```yaml
 rule-providers:
   # 🟢 案例 1：引用域名规则 (behavior: domain)
@@ -48,13 +53,14 @@ rule-providers:
     interval: 86400
 ```
 
-3. 应用规则 (Rules)
+### 3. 应用规则 (Rules)
 *⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup
   - RULE-SET,Google_IP,MyProxyGroup,no-resolve
 ```
+</details>
 
 ## 📊 规则索引
 | 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |

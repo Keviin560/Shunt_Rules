@@ -1,7 +1,7 @@
 # Name = NaSDDNS
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 14:42:19
+# Update = 2026-02-12 14:53:10
 # Total = 46
 
 IP-CIDR,100.24.218.0/24,no-resolve

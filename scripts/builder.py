@@ -235,7 +235,7 @@ def generate_readme(stats):
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
     
     # 修复 404：Shields.io 链接不允许空格，需将空格替换为划线
-    time_badge_str = bj_time.replace(" ", "-")
+    time_badge_str = bj_time.replace(" ", "_")
 
     md = [
         # ✅ 1. 在这里自定义你的标题

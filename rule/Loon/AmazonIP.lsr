@@ -1,7 +1,7 @@
 # Name = AmazonIP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 20:33:16
+# Update = 2026-02-12 20:46:28
 # Total = 1521
 
 IP-CIDR,1.178.72.0/21,no-resolve

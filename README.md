@@ -1,6 +1,6 @@
 # 🚀 Shunt Rules 规则集
 
-![Total](https://img.shields.io/badge/-规则总数%20689-blue?style=flat) ![Update](https://img.shields.io/badge/-更新时间%202026-02-12%2020:34-2ea44f?style=flat) ![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat) ![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat) ![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat) ![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat) ![Config](https://img.shields.io/badge/-零配置难度-ff69b4?style=flat)
+![Total](https://img.shields.io/badge/-规则总数%20689-blue?style=flat) ![Update](https://img.shields.io/badge/-更新时间%202026.02.12-2ea44f?style=flat) ![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat) ![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat) ![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat) ![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat) ![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat) ![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)
 
 ## ℹ️ 数据源说明
 ♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。

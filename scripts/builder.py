@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v1.1" # 文案更新，升级版本号触发全量重写
+GENERATOR_VERSION = "v1.2" # 🐞 修复类型丢失Bug，升级版本号触发全量重写
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -184,8 +184,12 @@ def process_entry(line, ruleset):
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
     if ruleset.domain_entries:
-        clean = sorted(list(set([v for t,v in ruleset.domain_entries])))
+        # ✅ 修复点：保留规则类型 (DOMAIN-SUFFIX/DOMAIN)，而不是只取 value
+        # 之前错误写法: clean = sorted(list(set([v for t,v in ruleset.domain_entries])))
+        clean = sorted(list(set([f"{t},{v}" for t,v in ruleset.domain_entries])))
+        
         if _compile_mihomo(kernel, name, clean, 'domain'): h_d = True
+            
     if ruleset.ip_entries:
         clean = sorted(ruleset.ip_entries.keys())
         if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
@@ -231,16 +235,12 @@ def get_status_text(days):
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
-    # 获取北京时间
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    # 修复 404：Shields.io 要求将 '-' 转义为 '--'，将空格转义为 '_'
     time_badge_str = bj_time.replace("-", "--").replace(" ", "_")
 
     md = [
-        # ✅ 1. 在这里自定义你的标题
         f"# 🚀 Shunt Rules 规则集", 
         f"",
-        # ✅ 2. 修复后的徽章代码
         f"![Total](https://img.shields.io/badge/规则总数-{total}-blue) "
         f"![Update](https://img.shields.io/badge/更新时间-{time_badge_str}-green)",
         f"",
@@ -248,14 +248,14 @@ def generate_readme(stats):
         f"本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
         f"",
         f"## ⚠️ 使用前必读",
-        f"* 🐱 **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已**移除** `no-resolve` 属性以防止内核崩溃，需在配置文件中自行指定策略。",
-        f"* 🎈 **Loon**: `.lsr` 支持混合负载，已内置优化排序（`no-resolve IP` 优先）。",
-        f"* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
+        f"* 🐱 Mihomo: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已移除 `no-resolve` 属性以防止内核崩溃，需在配置文件中自行指定策略。",
+        f"* 🎈 Loon: `.lsr` 支持混合负载，已内置优化排序（`no-resolve IP` 优先）。",
+        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
-        f"建议使用 `type: http` 远程引用规则集。以下代码以 **Google** 规则为例，请根据实际需求修改策略组名称。",
+        f"建议使用 `type: http` 远程引用规则集。以下代码以 Google 规则为例，请根据实际需求修改策略组名称。",
         f"",
-        f"**1. 定义策略组 (Proxy Groups)**",
+        f"1. 定义策略组 (Proxy Groups)",
         f"```yaml",
         f"proxy-groups:",
         f"  - name: \"MyProxyGroup\"   # 策略组名称，可自定义",
@@ -265,7 +265,7 @@ def generate_readme(stats):
         f"      - 🇺🇸 美国节点      # 👈 或者填写 'DIRECT' (直连) / 'REJECT' (拒绝)",
         f"```",
         f"",
-        f"**2. 配置规则集 (Rule Providers)**",
+        f"2. 配置规则集 (Rule Providers)",
         f"```yaml",
         f"rule-providers:",
         f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
@@ -287,7 +287,7 @@ def generate_readme(stats):
         f"    interval: 86400",
         f"```",
         f"",
-        f"**3. 应用规则 (Rules)**",
+        f"3. 应用规则 (Rules)",
         f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
         f"```yaml",
         f"rules:",
@@ -306,7 +306,7 @@ def generate_readme(stats):
         if has_i: mihomo_links.append(f"[`IP-CIDR`]({RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/{name}_IP.mrs)")
         m_cell = " \\| ".join(mihomo_links) if mihomo_links else "-"
         l_cell = f"[`RAW Link`]({RAW_BASE_URL}/{TARGET_DIR_LOON}/{name}.lsr)" if has_l else "-"
-        md.append(f"| **{name}** | {m_cell} | {l_cell} | {status} |")
+        md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
         
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 
@@ -341,8 +341,6 @@ def main():
     for rel, rs in aggregated.items():
         name = get_smart_filename(rel)
         source_path = rel_path_map.get(rel)
-        
-        # 🔥 关键卫语句：防止空目录导致的崩溃
         if not source_path: continue
 
         expect_d = bool(rs.domain_entries)

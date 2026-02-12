@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.2 智能文档版: 保留双重锚定核心，新增配置文件自动嗅探功能
-GENERATOR_VERSION = "v2.2_SMART_DOCS" 
+# ⚡️ v2.3 Raw链接版: 优化文档体验，配置文件使用 Raw 直链，文案更极客
+GENERATOR_VERSION = "v2.3_RAW_LINKS" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -28,7 +28,7 @@ logger = logging.getLogger("DigitalArchitect")
 
 filename_registry = {}
 
-# --- 关键词救援字典 (核心逻辑不动摇，只负责把“残废的关键词”变成“正常的域名”) ---
+# --- 关键词救援字典 (核心逻辑不动摇) ---
 KEYWORD_RESCUE_MAP = {
     "googlevideo": ["googlevideo.com"],
     "youtube": ["youtube.com", "ytimg.com"],
@@ -312,8 +312,9 @@ def generate_readme(stats):
     
     # 🔍 调用智能扫描
     config_name, found = detect_config_file()
-    # 如果找到了文件，生成指向 Blob 的链接；没找到则生成指向仓库根目录的链接
-    config_link = f"[{config_name}]({REPO_URL}/blob/main/{config_name})"
+    
+    # ✅ 修改点：构建 Raw 链接 (直接指向文件内容，而不是 GitHub 网页)
+    config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
     md = [
         f"# 🚀 Shunt Rules 规则集", 
@@ -330,9 +331,9 @@ def generate_readme(stats):
         f"* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
-        f"建议使用 `type: http` 远程引用规则集。以下代码以 Google 规则为例，请根据实际需求修改策略组名称。",
-        # ✅ 这里是你要求插入的智能链接
-        f"🔗 可参考复写配置：{config_link}", 
+        # ✅ 修改点：按要求调整文案和链接格式
+        f"⚡ 用 `type: http` 远程引用规则集。🔗 可参考复写配置：{config_link}", 
+        f"💾 以下代码以 Google 规则为例，请根据实际需求进行修改",
         f"",
         f"1. 定义策略组 (Proxy Groups)",
         f"```yaml",

@@ -1,0 +1,190 @@
+# 作者：Keviin560
+# GitHub：https://github.com/Keviin560/Shunt_Rules
+# 更新日期：2026-02-12 10:10
+
+# =======================================================
+# 1. 核心锚点与过滤器 (Anchors & Filters)
+# =======================================================
+
+# --- [ 架构 ] 规则源继承模版 (Inheritance Templates) ---
+# - format: mrs  -> 二进制文件，加载速度最快 (Mihomo 专用)
+# - format: text -> 纯文本域名列表，兼容性最强 (如 Loyalsoldier 列表)
+# - interval: 86400 (24h) -> 降低 GitHub 请求频率
+# - proxy: 节点选择 -> 强制通过代理下载规则，解决 SNI 阻断/污染
+# - type: select：手动选择策略组
+# - include-all: true：自动把 proxies 里的所有节点都抓取进来
+
+# 二进制域名规则
+RuleDomain: &RuleDomain {type: http, format: mrs, behavior: domain, interval: 86400, proxy: 节点选择}
+# 二进制 IP 规则
+RuleIP:     &RuleIP     {type: http, format: mrs, behavior: ipcidr, interval: 86400, proxy: 节点选择}
+# 纯文本域名规则 (专门处理 .txt 源)
+RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 86400, proxy: 节点选择}
+# 通用策略组描点模版
+ManualSelect: &ManualSelect {type: select, include-all: true}
+
+# --- [ 筛选 ] 地区节点正则 (Simplified Regex) ---
+# 只匹配关键词，(?i) 标志位前置，实现全句忽略大小写，提升正则引擎效率
+# 使用非捕获组 (?:) 减少内存开销
+
+# 港澳台日韩新美节点筛选
+FilterHK: &FilterHK '(?i)(?:HK|HKG|🇭🇰|香港|Hong\s?Kong|\bHKG?\d*\b)'
+FilterMO: &FilterMAC '(?i)(?:MO|MAC|🇲🇴|澳门|Maca[ou]|\b(?:MO|MAC)\d*\b)'
+FilterTW: &FilterTW '(?i)(?:TW|TWN|🇹🇼|台湾|Tai(?:wan)?|\bTWN?\d*\b)'
+FilterJP: &FilterJP '(?i)(?:JP|JPN|🇯🇵|日本|川日|东京|大阪|埼玉|Japan|\bJPN?\d*\b)'
+FilterKR: &FilterKR '(?i)(?:KR|KOR|🇰🇷|韩国|韓|首尔|Korea|\b(?:KR|KOR)\d*\b)'
+FilterSG: &FilterSG '(?i)(?:SG|SGP|🇸🇬|新加坡|狮|Singapore|\bSGP?\d*\b)'
+FilterUS: &FilterUS '(?i)(?:US|USA|🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States|\bUSA?\d*\b)'
+
+# 五大洲正则
+FilterAsia: &FilterAsia '(?i)(?:斯里贾亚瓦德纳普拉科特|乌兹别克斯坦|吉尔吉斯斯坦|伊斯坦布尔|印度尼西亚|哈萨克斯坦|土库曼巴希|土库曼斯坦|塔吉克斯坦|拉利特布尔|沙特阿拉伯|西哈努克市|阿什哈巴德|Asia|伊兹密尔|伊斯兰堡|伊斯法罕|加尔各答|加德满都|努山塔拉|奇姆肯特|孟加拉国|巴基斯坦|撒马尔罕|斯里兰卡|比什凯克|海得拉巴|特拉维夫|班加罗尔|琅勃拉邦|的黎波里|科威特城|耶路撒冷|胡志明市|阿布扎比|阿拉木图|阿斯塔纳|马什哈德|马尔代夫|马斯喀特|马来西亚|亚喀巴|以色列|伊拉克|内比都|利雅得|博卡拉|卡塔尔|卡拉奇|吉大港|吉隆坡|土耳其|塔什干|奎松市|安卡拉|尼泊尔|巴士拉|巴格达|布哈拉|库尔纳|德黑兰|扎尔卡|拉合尔|摩苏尔|新德里|曼德勒|杜尚别|柬埔寨|登巴萨|白沙瓦|科伦坡|科威特|芭堤雅|菲律宾|萨拉拉|设拉子|贝鲁特|阿联酋|雅加达|马尼拉|麦地那|麦纳麦|黎巴嫩|万象|万隆|仰光|伊朗|加勒|印尼|印度|吉达|多哈|奥什|孔敬|孟买|安曼|宿务|岘港|巴林|巴色|布城|康提|新山|暹粒|曼谷|棉兰|槟城|沙迦|河内|泗水|泰国|海法|海防|清迈|约旦|缅甸|老挝|苦盏|赖扬|越南|达卡|达曼|达沃|迪拜|金奈|金边|锡顿|阿曼|马累|麦加|🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM|AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b)'
+FilterEurope: &FilterEurope '(?i)(?:Europe|保加利亚|克罗地亚|塞尔维亚|拉脱维亚|斯洛伐克|爱沙尼亚|罗马尼亚|乌克兰|俄罗斯|匈牙利|土耳其|奥地利|意大利|比利时|爱尔兰|立陶宛|葡萄牙|西班牙|丹麦|冰岛|希腊|德国|挪威|捷克|法国|波兰|瑞典|瑞士|芬兰|英国|荷兰|🇦🇩|🇦🇹|🇧🇦|🇧🇪|🇧🇬|🇨🇭|🇨🇿|🇩🇪|🇩🇰|🇪🇪|🇪🇸|🇫🇮|🇫🇷|🇬🇧|🇬🇷|🇭🇷|🇭🇺|🇮🇪|🇮🇸|🇮🇹|🇱🇮|🇱🇹|🇱🇺|🇱🇻|🇲🇨|🇲🇪|🇲🇰|🇲🇹|🇳🇱|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇸|🇷🇺|🇸🇪|🇸🇮|🇸🇰|🇸🇲|🇹🇷|🇺🇦|🇻🇦|🇽🇰|\b(?:AUT|BEL|BGR|CHE|CZE|DEU|DNK|ESP|EST|FIN|FRA|GRC|HRV|HUN|IRL|ISL|ITA|LTU|LVA|NLD|NOR|POL|PRT|ROU|RUS|SRB|SVK|SWE|TUR|UKR|AT|BE|BG|CH|CZ|DE|DK|EE|ES|FI|FR|GB|GR|HR|HU|IE|IS|IT|LT|LV|NL|NO|PL|PT|RO|RS|RU|SE|SK|TR|UA|UK)\d*\b)'
+FilterAmericas: &FilterAmericas '(?i)(?:El Salvador|Costa Rica|Argentina|Guatemala|Nicaragua|Venezuela|Colombia|Honduras|Paraguay|Suriname|Bolivia|Ecuador|Uruguay|布宜诺斯艾利斯|Brazil|Canada|Guyana|Mexico|Panama|克萨尔特南戈|圣佩德罗苏拉|特古西加尔巴|贝洛奥里藏特|Chile|危地马拉城|哥斯达黎加|圣萨尔瓦多|帕拉马里博|康塞普西翁|瓜达拉哈拉|瓦尔帕莱索|蒙得维的亚|里约热内卢|阿拉胡埃拉|Peru|加拉加斯|卡尔加里|危地马拉|厄瓜多尔|哥伦比亚|圣克鲁斯|圣地亚哥|埃雷迪亚|墨西哥城|委内瑞拉|尼加拉瓜|巴兰基亚|巴拿马城|巴西利亚|普埃布拉|格拉纳达|洪都拉斯|特鲁希略|玻利维亚|瓜亚基尔|瓦伦西亚|科尔多瓦|罗萨里奥|萨尔瓦多|蒙特利尔|阿雷基帕|马拉开波|东方市|乌拉圭|乔治敦|亚松森|加拿大|圣何塞|圣保罗|圣安娜|圭亚那|墨西哥|多伦多|安提瓜|巴拉圭|巴拿马|拉巴斯|波哥大|派桑杜|渥太华|温哥华|苏克雷|苏里南|蒂华纳|蒙特雷|门多萨|阿根廷|马那瓜|麦德林|利马|卡利|基多|大卫|巴西|智利|科隆|秘鲁|莱昂|🇦🇷|🇧🇴|🇧🇷|🇨🇦|🇨🇱|🇨🇴|🇨🇷|🇪🇨|🇬🇹|🇬🇾|🇭🇳|🇲🇽|🇳🇮|🇵🇦|🇵🇪|🇵🇾|🇸🇷|🇸🇻|🇺🇾|🇻🇪|\b(?:ARG|BOL|BRA|CAN|CHL|COL|CRI|ECU|GTM|GUY|HND|MEX|NIC|PAN|PER|PRY|SLV|SUR|URY|VEN|AR|BO|BR|CA|CL|CO|CR|EC|GT|GY|HN|MX|NI|PA|PE|PY|SR|SV|UY|VE)\d*\b)'
+FilterOceania: &FilterOceania '(?i)(?:密克罗尼西亚联邦|Oceania|巴布亚新几内亚|所罗门群岛|马绍尔群岛|基里巴斯|澳大利亚|瓦努阿图|新西兰|萨摩亚|帕劳|斐济|汤加|🇦🇺|🇫🇯|🇫🇲|🇰🇮|🇲🇭|🇳🇿|🇵🇬|🇵🇼|🇸🇧|🇹🇴|🇻🇺|🇼🇸|\b(?:AUS|FJI|FSM|KIR|MHL|NZL|PLW|PNG|SLB|TON|VUT|WSM|AU|FJ|FM|KI|MH|NZ|PG|PW|SB|TO|VU|WS)\d*\b)'
+FilterAfrica: &FilterAfrica '(?i)(?:Africa|埃塞俄比亚|阿尔及利亚|坦桑尼亚|塞内加尔|尼日利亚|津巴布韦|科特迪瓦|纳米比亚|乌干达|利比亚|安哥拉|摩洛哥|突尼斯|肯尼亚|赞比亚|刚果|加纳|南非|埃及|多哥|苏丹|马里|🇦🇴|🇨🇩|🇨🇮|🇩🇿|🇪🇬|🇪🇹|🇬🇭|🇰🇪|🇱🇾|🇲🇦|🇲🇱|🇳🇦|🇳🇬|🇸🇩|🇸🇳|🇹🇬|🇹🇿|🇺🇬|🇿🇦|🇿🇲|🇿🇼|\b(?:AGO|CIV|COD|DZA|EGY|ETH|GHA|KEN|LBY|MAR|MLI|NAM|NGA|SDN|SEN|TGO|TUN|TZA|UGA|ZAF|ZMB|ZWE|AO|CD|CI|DZ|EG|ET|GH|KE|LY|MA|ML|NA|NG|SD|SN|TG|TN|TZ|UG|ZA|ZM|ZW)\d*\b)'
+
+# 全部节点，排除官网、流量信息、过期时间等非节点内容
+FilterAll: &FilterAll '^(?!.*(?:(?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|剩余流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\d{4}-\d{2}-\d{2}|\d+G)).*$'
+
+
+
+# =======================================================
+# 2. 策略组 (Proxy Groups)
+# =======================================================
+proxy-groups:
+  # 总入口 (同时作为规则下载的出口)
+  - {name: 节点选择, type: select, include-all: true, filter: *FilterAll, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Locator.png"}
+  
+  # 应用分组 (Application Layer)
+  - {name: AI Rules, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Chatbot.png"}
+  - {name: YouTube, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/YouTube.png"}
+  - {name: Google, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Google.png"}
+  - {name: Telegram, type: select, proxies: [香港节点, 新加坡节点, 美国节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Telegram.png"}
+  - {name: TikTok, type: select, proxies: [美国节点, 台湾节点, 日本节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/TikTok.png"}
+  - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png"}
+  - {name: App Store, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/App Store.png"}
+  - {name: Apple账户, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/iCloud.png"}
+  
+  # 功能分组 (Functional Layer)
+  - {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Ad Blocker.png"}
+  - {name: 隐私保护, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Privacy.png"}
+  - {name: 反劫持, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Hijacking.png"}
+  - {name: 兜底策略, type: select, proxies: [节点选择, 香港节点, 新加坡节点, 美国节点, 亚洲节点, 欧洲节点, 美洲节点, 大洋洲节点, 非洲节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Rules.png"}
+
+  # 地区分组 (Regional Layer)
+  - {name: 香港节点, <<: *ManualSelect, filter: *FilterHK, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/HK.png"}
+  - {name: 澳门节点, <<: *ManualSelect, filter: *FilterMAC, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/MAC.png"}
+  - {name: 台湾节点, <<: *ManualSelect, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/CHN.png"}
+  - {name: 美国节点, <<: *ManualSelect, filter: *FilterUS, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/USA.png"}
+  - {name: 日本节点, <<: *ManualSelect, filter: *FilterJP, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/JP.png"}
+  - {name: 韩国节点, <<: *ManualSelect, filter: *FilterKR, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/KOR.png"}
+  - {name: 新加坡节点, <<: *ManualSelect, filter: *FilterSG, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/SG.png"}
+  - {name: 亚洲节点, <<: *ManualSelect, filter: *FilterAsia, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Asia.png"}
+  - {name: 欧洲节点, <<: *ManualSelect, filter: *FilterEurope, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Europe.png"}
+  - {name: 美洲节点, <<: *ManualSelect, filter: *FilterAmericas, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Americas.png"}
+  - {name: 大洋洲节点, <<: *ManualSelect, filter: *FilterOceania, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Oceania.png"}
+  - {name: 非洲节点, <<: *ManualSelect, filter: *FilterAfrica, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Africa.png"}
+
+
+
+# =======================================================
+# 3. 规则源 (Rule Providers)
+# =======================================================
+# 采用单行对象与垂直对齐，提升可读性与维护性
+# 架构逻辑：
+# - URL 指向 Keviin560 远程仓库的二进制 .mrs 文件
+# - Path 定义本地缓存路径，支持断网启动
+# - 自动继承顶部的 *RuleDomain 或 *RuleIP 锚点属性
+
+rule-providers:
+  # [ Security ] 广告与隐私（包含Win隐私跟踪域名）
+  Ads:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs",       path: ./rules/Ads.mrs }
+  Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",       path: ./rules/Privacy.mrs }
+  WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",       path: ./rules/WinSpy.txt }
+  WinExtra:     { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-extra.txt",       path: ./rules/WinExtra.txt }
+  Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",       path: ./rules/Hijacking.mrs }
+  Hijacking_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",       path: ./rules/Hijacking_IP.mrs }
+
+  # [ Intelligence ] 人工智能
+  OpenAI:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",      path: ./rules/OpenAI.mrs }
+  Gemini:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs",      path: ./rules/Gemini.mrs }
+  Claude:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Claude.mrs",      path: ./rules/Claude.mrs }
+  Copilot:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Copilot.mrs",     path: ./rules/Copilot.mrs }
+
+  # [ Streaming ] 流媒体 (双栈配置：Domain + IP)
+  YouTube:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",     path: ./rules/YouTube.mrs }
+  YouTube_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",       path: ./rules/YouTube_IP.mrs }
+
+  Netflix:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",     path: ./rules/Netflix.mrs }
+  Netflix_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",       path: ./rules/Netflix_IP.mrs }
+
+  TikTok:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",      path: ./rules/TikTok.mrs }
+
+  Spotify:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",     path: ./rules/Spotify.mrs }
+  Disney:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Disney.mrs",      path: ./rules/Disney.mrs }
+
+  # [ Social ] 社交媒体
+  Telegram:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",    path: ./rules/Telegram.mrs }
+  Telegram_IP:  { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs",       path: ./rules/Telegram_IP.mrs }
+
+  # [ Big Tech ] 常用大厂
+  Google:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs",      path: ./rules/Google.mrs }
+  Google_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs",       path: ./rules/Google_IP.mrs }
+  AppleID:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs",       path: ./rules/AppleID.mrs }
+  Apple:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",       path: ./rules/Apple.mrs }
+
+
+# =======================================================
+# 4. 分流规则 (Rules)
+# =======================================================
+# 排序逻辑：1. 净化 (Ads/Privacy) -> 2. AI -> 3. 流媒体 -> 4. 社媒 -> 5. 常用服务 -> 6. 直连 -> 7. 兜底
+# 性能逻辑：Domain 规则在前 (效率高)，IP 规则在后 (no-resolve，防 DNS 解析，仅兜底 IP 流量)。
+
+rules:
+  # —————————— 净化层 ——————————
+  - RULE-SET, Hijacking, 反劫持
+  - RULE-SET, Hijacking_IP, 反劫持, no-resolve
+  - RULE-SET, Privacy, 隐私保护
+  - RULE-SET, WinSpy, 隐私保护
+  - RULE-SET, WinExtra, 隐私保护
+  - RULE-SET, Ads, 广告拦截  
+
+
+  # —————————— 智能层 ——————————
+  - RULE-SET, OpenAI, AI Rules
+  - RULE-SET, Gemini, AI Rules
+  - RULE-SET, Claude, AI Rules
+  - RULE-SET, Copilot, AI Rules
+
+  # —————————— 娱乐层 ——————————
+  - RULE-SET, YouTube, YouTube
+  - RULE-SET, YouTube_IP, YouTube, no-resolve
+  
+  - RULE-SET, Netflix, Netflix
+  - RULE-SET, Netflix_IP, Netflix, no-resolve
+  
+  - RULE-SET, TikTok, TikTok
+  
+  - RULE-SET, Disney, Netflix
+  - RULE-SET, Spotify, Netflix
+
+  # —————————— 社交层 ——————————
+  - RULE-SET, Telegram, Telegram
+  - RULE-SET, Telegram_IP, Telegram, no-resolve
+
+  # —————————— 服务层 ——————————
+  - RULE-SET, Google, Google
+  - RULE-SET, Google_IP, Google, no-resolve
+  
+  - RULE-SET, AppleID, Apple账户 # 优先匹配鉴权
+  - RULE-SET, Apple, Apple账户
+  
+  # —————————— 直连与局域网层 ——————————
+  # 基于本地geosite数据库
+  - GEOSITE, lan, DIRECT
+  - GEOSITE, cn, DIRECT
+  
+  # —————————— 兜底层 ——————————
+  - GEOIP, private, DIRECT, no-resolve
+  - GEOIP, cn, DIRECT, no-resolve
+  - MATCH, 兜底策略

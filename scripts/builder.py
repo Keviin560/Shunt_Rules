@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.6 最终版: 纯色圆角徽章风格更新
-GENERATOR_VERSION = "v2.6_BADGE_STYLE_UPDATE" 
+# ⚡️ v2.7 最终修正版: 修复时间徽章显示，调整文案与排序
+GENERATOR_VERSION = "v2.7_BADGE_FINAL_FIX" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -292,29 +292,39 @@ def detect_config_file():
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
-    bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    # 处理时间格式中的空格，用于 URL
-    time_badge_val = bj_time.replace(" ", "%20")
+    # ✅ 修复重点：使用点号(.)代替短横线(-)，彻底解决 Shields.io 404 问题
+    bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
+    time_badge_val = bj_time  # 现在不需要URL编码空格了，因为没有空格
     
     config_name, found = detect_config_file()
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
-    # ✅ 徽章生成区 (纯色圆角风格更新)
+    # ✅ 徽章生成区 (严格按你的排序要求)
+    # 排序规定：规则总数、更新时间、去重处理、双重锚定、关键词转译、排序优化、格式支持、开箱即用
     badges = [
-        # 1. 动态数据 (蓝色系 & 绿色系)
+        # 1. 规则总数 (蓝)
         f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
+        
+        # 2. 更新时间 (绿 - 已修复格式 2026.02.12)
         f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
         
-        # 2. 核心处理 (深色/冷色系)
-        f"![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat)",      # Slate Grey
-        f"![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat)",      # Purple
+        # 3. 去重处理 (灰)
+        f"![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat)",
         
-        # 3. 增强功能 (暖色系)
-        f"![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat)",    # Orange
-        f"![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat)",        # Teal
+        # 4. 双重锚定 (紫)
+        f"![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat)",
         
-        # 4. 卖点 (醒目色)
-        f"![Config](https://img.shields.io/badge/-零配置难度-ff69b4?style=flat)"     # Hot Pink
+        # 5. 关键词转译 (橙)
+        f"![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat)",
+        
+        # 6. 排序优化 (青)
+        f"![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat)",
+        
+        # 7. 格式支持 (深蓝 - 新增)
+        f"![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat)",
+        
+        # 8. 开箱即用 (粉 - 已更名)
+        f"![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)"
     ]
     badge_line = " ".join(badges)
 

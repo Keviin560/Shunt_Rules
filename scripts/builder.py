@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ 降维兼容模式: 强制清洗 Keyword，只保留纯域名以适配 behavior: domain
-GENERATOR_VERSION = "v1.4_STRICT_COMPAT" 
+# ⚡️ v2.1 双重锚定版: 强制生成 "domain" 和 ".domain" 双重规则，专治子域名不匹配
+GENERATOR_VERSION = "v2.1_DUAL_ANCHOR" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -27,6 +27,25 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 logger = logging.getLogger("DigitalArchitect")
 
 filename_registry = {}
+
+# --- 关键词救援字典 ---
+# 将不支持的 KEYWORD 强制转译为 DOMAIN，并应用双重锚定
+KEYWORD_RESCUE_MAP = {
+    "googlevideo": ["googlevideo.com"],
+    "youtube": ["youtube.com", "ytimg.com"],
+    "google": ["google.com", "googleapis.com"],
+    "github": ["github.com", "githubusercontent.com"],
+    "twitter": ["twitter.com", "t.co", "twimg.com"],
+    "telegram": ["telegram.org", "t.me"],
+    "netflix": ["netflix.com", "nflxvideo.net"],
+    "facebook": ["facebook.com", "fbcdn.net"],
+    "instagram": ["instagram.com", "cdninstagram.com"],
+    "openai": ["openai.com"],
+    "chatgpt": ["chatgpt.com", "oaistatic.com", "oaiusercontent.com"],
+    "steam": ["steampowered.com", "steamcommunity.com"],
+    "xbox": ["xbox.com", "xboxlive.com"],
+    "microsoft": ["microsoft.com", "azure.com"]
+}
 
 # --- 动态元数据获取 ---
 def get_metadata():
@@ -77,7 +96,7 @@ class RuleSet:
             if len(parts) >= 2:
                 t, v = parts[0].upper().strip(), parts[1].strip()
                 if 'DOMAIN' in t: rule_type, value = t, v
-        if len(value) > 3: self.domain_entries.add((rule_type, value))
+        if len(value) > 2: self.domain_entries.add((rule_type, value))
     def add_ip(self, line):
         if not line: return
         clean = line.replace("'", "").replace('"', "").strip()
@@ -116,7 +135,7 @@ class HistoryManager:
         last_hash = record.get('src_hash', "")
         last_ver = record.get('gen_ver', "")
         
-        # 版本号不一致，强制不跳过 (Force Rebuild)
+        # 强制重写：只要版本不对，立刻重编
         if src_hash != last_hash or last_ver != GENERATOR_VERSION:
             return False, src_hash
             
@@ -186,26 +205,50 @@ def process_entry(line, ruleset):
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
     
-    # 1. 域名规则构建 (Domain Mode - 严格清洗版)
+    # 1. 域名规则构建 (双重锚定 + 纯净模式)
     if ruleset.domain_entries:
-        valid_domains = []
-        for t, v in ruleset.domain_entries:
-            # 🚨 核心逻辑：扔掉 Keyword 和 Regex，只保留纯域名
-            # behavior: domain 不支持 Keyword，放进去就是毒药
-            # 我们依赖 Blackmatrix 库里通常会同时提供 DOMAIN-SUFFIX (例如 googlevideo.com)
-            if 'KEYWORD' in t.upper() or 'REGEX' in t.upper():
-                continue
-            valid_domains.append(v)
-            
-        clean = sorted(list(set(valid_domains)))
+        # 使用集合存储最终域名，避免重复
+        final_domains = set()
         
-        # 如果过滤后还有剩，才编译
+        # 临时列表：用于存放这一轮要处理的纯域名（剥离了 KEYWORD 等标签）
+        raw_candidates = set()
+
+        for t, v in ruleset.domain_entries:
+            # A. 救援行动：遇到关键词，查字典转译为域名
+            if 'KEYWORD' in t.upper():
+                for kw, domains in KEYWORD_RESCUE_MAP.items():
+                    if kw in v.lower():
+                        for d in domains:
+                            raw_candidates.add(d)
+                continue # 关键词本身不保留，跳过
+
+            # B. 忽略正则
+            if 'REGEX' in t.upper(): continue
+            
+            # C. 常规域名：无论是 DOMAIN 还是 DOMAIN-SUFFIX，只取值
+            raw_candidates.add(v)
+        
+        # D. 执行双重生成策略 (The Double-Tap)
+        for d in raw_candidates:
+            # 1. 精确匹配锚点 (google.com)
+            if d.startswith('.'):
+                clean_d = d[1:] # 去掉开头的点
+                final_domains.add(clean_d)
+                final_domains.add(d) # 保留带点的
+            else:
+                final_domains.add(d)
+                # 2. 泛解析锚点 (.google.com) -> 强制开启后缀匹配
+                final_domains.add(f".{d}")
+
+        clean = sorted(list(final_domains))
+        
+        # ⚠️ 既然我们已经手动清洗并加了点，这里放心用 domain 模式
+        # Mihomo 看到 .baidu.com 会自动处理好后缀匹配
         if clean and _compile_mihomo(kernel, name, clean, 'domain'): 
             h_d = True
             
     # 2. IP 规则构建 (IPCIDR Mode)
     if ruleset.ip_entries:
-        # IP 规则本身就是纯的，直接保留
         clean = sorted(ruleset.ip_entries.keys())
         if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
         
@@ -252,8 +295,6 @@ def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    
-    # 修复 404：Shields.io URL 编码修复
     time_badge_str = bj_time.replace("-", "--").replace(" ", "_")
 
     md = [
@@ -289,7 +330,7 @@ def generate_readme(stats):
         f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
         f"  Google:",
         f"    type: http",
-        f"    behavior: domain",
+        f"    behavior: domain     # ✅ 完美兼容 domain 模式",
         f"    format: mrs",
         f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google.mrs\"",
         f"    path: ./rules/Mihomo/Google.mrs",

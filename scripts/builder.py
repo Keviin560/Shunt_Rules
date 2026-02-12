@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.3 Raw链接版: 优化文档体验，配置文件使用 Raw 直链，文案更极客
-GENERATOR_VERSION = "v2.3_RAW_LINKS" 
+# ⚡️ v2.4 完美排版版: 修复 README 换行问题，优化文案视觉层级
+GENERATOR_VERSION = "v2.4_PERFECT_LAYOUT" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -28,7 +28,7 @@ logger = logging.getLogger("DigitalArchitect")
 
 filename_registry = {}
 
-# --- 关键词救援字典 (核心逻辑不动摇) ---
+# --- 关键词救援字典 ---
 KEYWORD_RESCUE_MAP = {
     "googlevideo": ["googlevideo.com"],
     "youtube": ["youtube.com", "ytimg.com"],
@@ -204,13 +204,11 @@ def process_entry(line, ruleset):
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
     
-    # 1. 域名规则构建 (双重锚定 + 纯净模式)
     if ruleset.domain_entries:
         final_domains = set()
         raw_candidates = set()
 
         for t, v in ruleset.domain_entries:
-            # A. 救援行动
             if 'KEYWORD' in t.upper():
                 for kw, domains in KEYWORD_RESCUE_MAP.items():
                     if kw in v.lower():
@@ -218,13 +216,9 @@ def build_mihomo(kernel, name, ruleset):
                             raw_candidates.add(d)
                 continue 
 
-            # B. 忽略正则
             if 'REGEX' in t.upper(): continue
-            
-            # C. 常规域名
             raw_candidates.add(v)
         
-        # D. 执行双重生成
         for d in raw_candidates:
             if d.startswith('.'):
                 clean_d = d[1:] 
@@ -232,14 +226,13 @@ def build_mihomo(kernel, name, ruleset):
                 final_domains.add(d) 
             else:
                 final_domains.add(d)
-                final_domains.add(f".{d}") # 强制加点
+                final_domains.add(f".{d}")
 
         clean = sorted(list(final_domains))
         
         if clean and _compile_mihomo(kernel, name, clean, 'domain'): 
             h_d = True
             
-    # 2. IP 规则构建 (IPCIDR Mode)
     if ruleset.ip_entries:
         clean = sorted(ruleset.ip_entries.keys())
         if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
@@ -283,25 +276,17 @@ def get_status_text(days):
     if days == 1: return "Yesterday"
     return f"{days} days ago"
 
-# --- 🚀 智能扫描配置文件函数 ---
 def detect_config_file():
-    # 扫描根目录
     try:
         files = os.listdir('.')
     except:
-        return "Mihomo_ShuntRules.yaml", False # 默认值
-
-    # 1. 优先寻找包含 "Mihomo" 且是 yaml 的文件
+        return "Mihomo_ShuntRules.yaml", False
     for f in files:
         if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f:
             return f, True
-            
-    # 2. 其次寻找任何包含 "Config" 或 "Mihomo" 的 yaml
     for f in files:
          if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f):
             return f, True
-            
-    # 3. 兜底默认值
     return "Mihomo_ShuntRules.yaml", False
 
 def generate_readme(stats):
@@ -310,10 +295,7 @@ def generate_readme(stats):
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
     time_badge_str = bj_time.replace("-", "--").replace(" ", "_")
     
-    # 🔍 调用智能扫描
     config_name, found = detect_config_file()
-    
-    # ✅ 修改点：构建 Raw 链接 (直接指向文件内容，而不是 GitHub 网页)
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
     md = [
@@ -331,9 +313,11 @@ def generate_readme(stats):
         f"* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
-        # ✅ 修改点：按要求调整文案和链接格式
-        f"⚡ 用 `type: http` 远程引用规则集。🔗 可参考复写配置：{config_link}", 
-        f"💾 以下代码以 Google 规则为例，请根据实际需求进行修改",
+        # ✅ 修复点：使用引用块和空行来确保排版清晰、换行正确
+        f"> ⚡ **最佳实践**: 建议使用 `type: http` 远程引用规则集。",
+        f"> 🔗 **覆写参考**: {config_link}",
+        f"",
+        f"💾 **配置示例** (以 Google 为例，请按需修改):",
         f"",
         f"1. 定义策略组 (Proxy Groups)",
         f"```yaml",

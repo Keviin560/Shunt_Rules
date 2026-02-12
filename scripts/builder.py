@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.5 荣耀徽章版: 在 README 中增加徽章
-GENERATOR_VERSION = "v2.5_BADGE_GLORY" 
+# ⚡️ v2.6 最终版: 纯色圆角徽章风格更新
+GENERATOR_VERSION = "v2.6_BADGE_STYLE_UPDATE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -293,25 +293,28 @@ def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
-    time_badge_str = bj_time.replace("-", "--").replace(" ", "_")
+    # 处理时间格式中的空格，用于 URL
+    time_badge_val = bj_time.replace(" ", "%20")
     
     config_name, found = detect_config_file()
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
-    # ✅ 徽章生成区
+    # ✅ 徽章生成区 (纯色圆角风格更新)
     badges = [
-        # 1. 动态数据组
-        f"![Total](https://img.shields.io/badge/规则总数-{total}-blue?style=flat-square)",
-        f"![Update](https://img.shields.io/badge/更新时间-{time_badge_str}-2ea44f?style=flat-square)",
+        # 1. 动态数据 (蓝色系 & 绿色系)
+        f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
+        f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
         
-        # 2. 硬核技术组
-        f"![Dedupe](https://img.shields.io/badge/去重处理-Active-607d8b?style=flat-square)",   # 深灰：基础
-        f"![Anchor](https://img.shields.io/badge/双重锚定-Mihomo-8e44ad?style=flat-square)",   # 紫色：魔法
-        f"![Rescue](https://img.shields.io/badge/关键词转译-Rescue-e67e22?style=flat-square)",  # 橙色：救援
-        f"![Sort](https://img.shields.io/badge/排序优化-Loon-1abc9c?style=flat-square)",       # 青色：秩序
+        # 2. 核心处理 (深色/冷色系)
+        f"![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat)",      # Slate Grey
+        f"![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat)",      # Purple
         
-        # 3. 核心卖点组 (零配置)
-        f"![Config](https://img.shields.io/badge/配置难度-零_Zero-ff69b4?style=flat-square)"    # 粉色：醒目
+        # 3. 增强功能 (暖色系)
+        f"![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat)",    # Orange
+        f"![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat)",        # Teal
+        
+        # 4. 卖点 (醒目色)
+        f"![Config](https://img.shields.io/badge/-零配置难度-ff69b4?style=flat)"     # Hot Pink
     ]
     badge_line = " ".join(badges)
 

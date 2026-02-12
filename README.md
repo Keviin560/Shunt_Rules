@@ -1,20 +1,20 @@
 # 🚀 Shunt Rules 规则集
 
-![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_18:52-green)
+![Total](https://img.shields.io/badge/规则总数-689-blue?style=flat-square) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_20:15-2ea44f?style=flat-square) ![Dedupe](https://img.shields.io/badge/去重处理-Active-607d8b?style=flat-square) ![Anchor](https://img.shields.io/badge/双重锚定-Mihomo-8e44ad?style=flat-square) ![Rescue](https://img.shields.io/badge/关键词转译-Rescue-e67e22?style=flat-square) ![Sort](https://img.shields.io/badge/排序优化-Loon-1abc9c?style=flat-square) ![Config](https://img.shields.io/badge/配置难度-零_Zero-ff69b4?style=flat-square)
 
 ## ℹ️ 数据源说明
 ♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
 
 ## ⚠️ 使用前必读
-* 🐱 **Mihomo**: .mrs 二进制格式。采用双重锚定策略（域名+点号），解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。
-* 🎈 **Loon**: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。
-* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。
+* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略（域名+点号），解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。
+* 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。
+* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。
 
 ## 📍 Mihomo 配置指引
-> ⚡ **使用方式**: 用 `type: http` 远程引用规则集。
-> 🔗 **覆写参考**: [Mihomo_ShuntRules.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/Mihomo_ShuntRules.yaml)
+> ⚡ 使用方式: 用 `type: http` 远程引用规则集。
+> 🔗 覆写参考: [Mihomo_ShuntRules.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/Mihomo_ShuntRules.yaml)
 
-💾 **配置示例** (以 Google 为例，请按需修改):
+💾 配置示例 (以 Google 为例，请按需修改):
 
 1. 定义策略组 (Proxy Groups)
 ```yaml

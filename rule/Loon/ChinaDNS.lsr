@@ -1,7 +1,7 @@
 # Name = ChinaDNS
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 15:10:19
+# Update = 2026-02-12 20:14:37
 # Total = 4
 
 IP-CIDR,1.12.12.12/32,no-resolve

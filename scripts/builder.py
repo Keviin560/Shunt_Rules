@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.1 双重锚定版: 强制生成 "domain" 和 ".domain" 双重规则，专治子域名不匹配
-GENERATOR_VERSION = "v2.1_DUAL_ANCHOR" 
+# ⚡️ v2.2 智能文档版: 保留双重锚定核心，新增配置文件自动嗅探功能
+GENERATOR_VERSION = "v2.2_SMART_DOCS" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -28,8 +28,7 @@ logger = logging.getLogger("DigitalArchitect")
 
 filename_registry = {}
 
-# --- 关键词救援字典 ---
-# 将不支持的 KEYWORD 强制转译为 DOMAIN，并应用双重锚定
+# --- 关键词救援字典 (核心逻辑不动摇，只负责把“残废的关键词”变成“正常的域名”) ---
 KEYWORD_RESCUE_MAP = {
     "googlevideo": ["googlevideo.com"],
     "youtube": ["youtube.com", "ytimg.com"],
@@ -207,43 +206,36 @@ def build_mihomo(kernel, name, ruleset):
     
     # 1. 域名规则构建 (双重锚定 + 纯净模式)
     if ruleset.domain_entries:
-        # 使用集合存储最终域名，避免重复
         final_domains = set()
-        
-        # 临时列表：用于存放这一轮要处理的纯域名（剥离了 KEYWORD 等标签）
         raw_candidates = set()
 
         for t, v in ruleset.domain_entries:
-            # A. 救援行动：遇到关键词，查字典转译为域名
+            # A. 救援行动
             if 'KEYWORD' in t.upper():
                 for kw, domains in KEYWORD_RESCUE_MAP.items():
                     if kw in v.lower():
                         for d in domains:
                             raw_candidates.add(d)
-                continue # 关键词本身不保留，跳过
+                continue 
 
             # B. 忽略正则
             if 'REGEX' in t.upper(): continue
             
-            # C. 常规域名：无论是 DOMAIN 还是 DOMAIN-SUFFIX，只取值
+            # C. 常规域名
             raw_candidates.add(v)
         
-        # D. 执行双重生成策略 (The Double-Tap)
+        # D. 执行双重生成
         for d in raw_candidates:
-            # 1. 精确匹配锚点 (google.com)
             if d.startswith('.'):
-                clean_d = d[1:] # 去掉开头的点
+                clean_d = d[1:] 
                 final_domains.add(clean_d)
-                final_domains.add(d) # 保留带点的
+                final_domains.add(d) 
             else:
                 final_domains.add(d)
-                # 2. 泛解析锚点 (.google.com) -> 强制开启后缀匹配
-                final_domains.add(f".{d}")
+                final_domains.add(f".{d}") # 强制加点
 
         clean = sorted(list(final_domains))
         
-        # ⚠️ 既然我们已经手动清洗并加了点，这里放心用 domain 模式
-        # Mihomo 看到 .baidu.com 会自动处理好后缀匹配
         if clean and _compile_mihomo(kernel, name, clean, 'domain'): 
             h_d = True
             
@@ -291,11 +283,37 @@ def get_status_text(days):
     if days == 1: return "Yesterday"
     return f"{days} days ago"
 
+# --- 🚀 智能扫描配置文件函数 ---
+def detect_config_file():
+    # 扫描根目录
+    try:
+        files = os.listdir('.')
+    except:
+        return "Mihomo_ShuntRules.yaml", False # 默认值
+
+    # 1. 优先寻找包含 "Mihomo" 且是 yaml 的文件
+    for f in files:
+        if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f:
+            return f, True
+            
+    # 2. 其次寻找任何包含 "Config" 或 "Mihomo" 的 yaml
+    for f in files:
+         if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f):
+            return f, True
+            
+    # 3. 兜底默认值
+    return "Mihomo_ShuntRules.yaml", False
+
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
     time_badge_str = bj_time.replace("-", "--").replace(" ", "_")
+    
+    # 🔍 调用智能扫描
+    config_name, found = detect_config_file()
+    # 如果找到了文件，生成指向 Blob 的链接；没找到则生成指向仓库根目录的链接
+    config_link = f"[{config_name}]({REPO_URL}/blob/main/{config_name})"
 
     md = [
         f"# 🚀 Shunt Rules 规则集", 
@@ -313,6 +331,8 @@ def generate_readme(stats):
         f"",
         f"## 📍 Mihomo 配置指引",
         f"建议使用 `type: http` 远程引用规则集。以下代码以 Google 规则为例，请根据实际需求修改策略组名称。",
+        # ✅ 这里是你要求插入的智能链接
+        f"🔗 可参考复写配置：{config_link}", 
         f"",
         f"1. 定义策略组 (Proxy Groups)",
         f"```yaml",

@@ -21,18 +21,19 @@ RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 8
 ManualSelect: &ManualSelect {type: select, include-all: true}
 
 # --- [ 筛选 ] 地区节点正则 (Simplified Regex) ---
-# 港澳台日韩新美节点筛选，只匹配关键词
-FilterHK: &FilterHK '(?i)(?:HK|🇭🇰|香港|Hong\s?Kong)'
-FilterMO: &FilterMAC '(?i)(?:MO|MAC|🇲🇴|澳门|Maca[ou])'
-FilterTW: &FilterTW '(?i)(?:TW|🇹🇼|台湾|Tai(?:wan)?)'
-FilterJP: &FilterJP '(?i)(?:JP|🇯🇵|日本|川日|东京|大阪|埼玉|Japan)'
-FilterKR: &FilterKR '(?i)(?:KR|🇰🇷|韩国|韓|首尔|Korea)'
-FilterSG: &FilterSG '(?i)(?:SG|🇸🇬|新加坡|狮|Singapore)'
-FilterUS: &FilterUS '(?i)(?:US|🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States)'
+# 港澳台日韩新美节点筛选，同时全部英文代码 (HK, US, SG...) 增加 \b 边界，防止匹配到 BUS, PLUS, MSG, PHKET 等无关词汇
+# 模式 \b(?:CODE)\d*\b 确保能匹配纯代码 (US) 或带数字代码 (US01, US-01)。
+FilterHK: &FilterHK '(?i)(?:🇭🇰|香港|Hong\s?Kong|\b(?:HK|HKG)\d*\b)'
+FilterMO: &FilterMAC '(?i)(?:🇲🇴|澳门|Maca[ou]|\b(?:MO|MAC)\b)'
+FilterTW: &FilterTW '(?i)(?:🇹🇼|台湾|Tai(?:wan)?|\b(?:TW|TWN)\d*\b)'
+FilterJP: &FilterJP '(?i)(?:🇯🇵|日本|川日|东京|大阪|埼玉|Japan|\b(?:JP|JPN)\d*\b)'
+FilterKR: &FilterKR '(?i)(?:🇰🇷|韩国|韓|首尔|Korea|\b(?:KR|KOR)\d*\b)'
+FilterSG: &FilterSG '(?i)(?:🇸🇬|新加坡|狮|Singapore|\b(?:SG|SGP)\d*\b)'
+FilterUS: &FilterUS '(?i)(?:🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States|\b(?:US|USA)\d*\b)'
 
-# 五大洲正则
-FilterAsia: &FilterAsia '(?i)(?:斯里贾亚瓦德纳普拉科特|乌兹别克斯坦|吉尔吉斯斯坦|伊斯坦布尔|印度尼西亚|哈萨克斯坦|土库曼巴希|土库曼斯坦|塔吉克斯坦|拉利特布尔|沙特阿拉伯|西哈努克市|阿什哈巴德|Asia|伊兹密尔|伊斯兰堡|伊斯法罕|加尔各答|加德满都|努山塔拉|奇姆肯特|孟加拉国|巴基斯坦|撒马尔罕|斯里兰卡|比什凯克|海得拉巴|特拉维夫|班加罗尔|琅勃拉邦|的黎波里|科威特城|耶路撒冷|胡志明市|阿布扎比|阿拉木图|阿斯塔纳|马什哈德|马尔代夫|马斯喀特|马来西亚|亚喀巴|以色列|伊拉克|内比都|利雅得|博卡拉|卡塔尔|卡拉奇|吉大港|吉隆坡|土耳其|塔什干|奎松市|安卡拉|尼泊尔|巴士拉|巴格达|布哈拉|库尔纳|德黑兰|扎尔卡|拉合尔|摩苏尔|新德里|曼德勒|杜尚别|柬埔寨|登巴萨|白沙瓦|科伦坡|科威特|芭堤雅|菲律宾|萨拉拉|设拉子|贝鲁特|阿联酋|雅加达|马尼拉|麦地那|麦纳麦|黎巴嫩|万象|万隆|仰光|伊朗|加勒|印尼|印度|吉达|多哈|奥什|孔敬|孟买|安曼|宿务|岘港|巴林|巴色|布城|康提|新山|暹粒|曼谷|棉兰|槟城|沙迦|河内|泗水|泰国|海法|海防|清迈|约旦|缅甸|老挝|苦盏|赖扬|越南|达卡|达曼|达沃|迪拜|金奈|金边|锡顿|阿曼|马累|麦加|🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM|AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b)'
-FilterEurope: &FilterEurope '(?i)(?:Europe|保加利亚|克罗地亚|塞尔维亚|拉脱维亚|斯洛伐克|爱沙尼亚|罗马尼亚|乌克兰|俄罗斯|匈牙利|土耳其|奥地利|意大利|比利时|爱尔兰|立陶宛|葡萄牙|西班牙|丹麦|冰岛|希腊|德国|挪威|捷克|法国|波兰|瑞典|瑞士|芬兰|英国|荷兰|🇦🇩|🇦🇹|🇧🇦|🇧🇪|🇧🇬|🇨🇭|🇨🇿|🇩🇪|🇩🇰|🇪🇪|🇪🇸|🇫🇮|🇫🇷|🇬🇧|🇬🇷|🇭🇷|🇭🇺|🇮🇪|🇮🇸|🇮🇹|🇱🇮|🇱🇹|🇱🇺|🇱🇻|🇲🇨|🇲🇪|🇲🇰|🇲🇹|🇳🇱|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇸|🇷🇺|🇸🇪|🇸🇮|🇸🇰|🇸🇲|🇹🇷|🇺🇦|🇻🇦|🇽🇰|\b(?:AUT|BEL|BGR|CHE|CZE|DEU|DNK|ESP|EST|FIN|FRA|GRC|HRV|HUN|IRL|ISL|ITA|LTU|LVA|NLD|NOR|POL|PRT|ROU|RUS|SRB|SVK|SWE|TUR|UKR|AT|BE|BG|CH|CZ|DE|DK|EE|ES|FI|FR|GB|GR|HR|HU|IE|IS|IT|LT|LV|NL|NO|PL|PT|RO|RS|RU|SE|SK|TR|UA|UK)\d*\b)'
+# 五大洲节点筛选
+FilterAsia: &FilterAsia '(?i)(?:巴基斯坦|Pakistan|PAK|🇵🇰|斯里贾亚瓦德纳普拉科特|乌兹别克斯坦|吉尔吉斯斯坦|伊斯坦布尔|印度尼西亚|哈萨克斯坦|土库曼巴希|土库曼斯坦|塔吉克斯坦|拉利特布尔|沙特阿拉伯|西哈努克市|阿什哈巴德|Asia|伊兹密尔|伊斯兰堡|伊斯法罕|加尔各答|加德满都|努山塔拉|奇姆肯特|孟加拉国|撒马尔罕|斯里兰卡|比什凯克|海得拉巴|特拉维夫|班加罗尔|琅勃拉邦|的黎波里|科威特城|耶路撒冷|胡志明市|阿布扎比|阿拉木图|阿斯塔纳|马什哈德|马尔代夫|马斯喀特|马来西亚|亚喀巴|以色列|伊拉克|内比都|利雅得|博卡拉|卡塔尔|卡拉奇|吉大港|吉隆坡|土耳其|塔什干|奎松市|安卡拉|尼泊尔|巴士拉|巴格达|布哈拉|库尔纳|德黑兰|扎尔卡|拉合尔|摩苏尔|新德里|曼德勒|杜尚别|柬埔寨|登巴萨|白沙瓦|科伦坡|科威特|芭堤雅|菲律宾|萨拉拉|设拉子|贝鲁特|阿联酋|雅加达|马尼拉|麦地那|麦纳麦|黎巴嫩|万象|万隆|仰光|伊朗|加勒|印尼|印度|吉达|多哈|奥什|孔敬|孟买|安曼|宿务|岘港|巴林|巴色|布城|康提|新山|暹粒|曼谷|棉兰|槟城|沙迦|河内|泗水|泰国|海法|海防|清迈|约旦|缅甸|老挝|苦盏|赖扬|越南|达卡|达曼|达沃|迪拜|金奈|金边|锡顿|阿曼|马累|麦加|🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM|AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b)'
+FilterEurope: &FilterEurope '(?i)(?:阿塞拜疆|Azerbaijan|🇦🇿|Europe|保加利亚|克罗地亚|塞尔维亚|拉脱维亚|斯洛伐克|爱沙尼亚|罗马尼亚|乌克兰|俄罗斯|匈牙利|土耳其|奥地利|意大利|比利时|爱尔兰|立陶宛|葡萄牙|西班牙|丹麦|冰岛|希腊|德国|挪威|捷克|法国|波兰|瑞典|瑞士|芬兰|英国|荷兰|🇦🇩|🇦🇹|🇧🇦|🇧🇪|🇧🇬|🇨🇭|🇨🇿|🇩🇪|🇩🇰|🇪🇪|🇪🇸|🇫🇮|🇫🇷|🇬🇧|🇬🇷|🇭🇷|🇭🇺|🇮🇪|🇮🇸|🇮🇹|🇱🇮|🇱🇹|🇱🇺|🇱🇻|🇲🇨|🇲🇪|🇲🇰|🇲🇹|🇳🇱|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇸|🇷🇺|🇸🇪|🇸🇮|🇸🇰|🇸🇲|🇹🇷|🇺🇦|🇻🇦|🇽🇰|\b(?:AUT|BEL|BGR|CHE|CZE|DEU|DNK|ESP|EST|FIN|FRA|GRC|HRV|HUN|IRL|ISL|ITA|LTU|LVA|NLD|NOR|POL|PRT|ROU|RUS|SRB|SVK|SWE|TUR|UKR|AT|BE|BG|CH|CZ|DE|DK|EE|ES|FI|FR|GB|GR|HR|HU|IE|IS|IT|LT|LV|NL|NO|PL|PT|RO|RS|RU|SE|SK|TR|UA|UK)\d*\b)'
 FilterAmericas: &FilterAmericas '(?i)(?:El Salvador|Costa Rica|Argentina|Guatemala|Nicaragua|Venezuela|Colombia|Honduras|Paraguay|Suriname|Bolivia|Ecuador|Uruguay|布宜诺斯艾利斯|Brazil|Canada|Guyana|Mexico|Panama|克萨尔特南戈|圣佩德罗苏拉|特古西加尔巴|贝洛奥里藏特|Chile|危地马拉城|哥斯达黎加|圣萨尔瓦多|帕拉马里博|康塞普西翁|瓜达拉哈拉|瓦尔帕莱索|蒙得维的亚|里约热内卢|阿拉胡埃拉|Peru|加拉加斯|卡尔加里|危地马拉|厄瓜多尔|哥伦比亚|圣克鲁斯|圣地亚哥|埃雷迪亚|墨西哥城|委内瑞拉|尼加拉瓜|巴兰基亚|巴拿马城|巴西利亚|普埃布拉|格拉纳达|洪都拉斯|特鲁希略|玻利维亚|瓜亚基尔|瓦伦西亚|科尔多瓦|罗萨里奥|萨尔瓦多|蒙特利尔|阿雷基帕|马拉开波|东方市|乌拉圭|乔治敦|亚松森|加拿大|圣何塞|圣保罗|圣安娜|圭亚那|墨西哥|多伦多|安提瓜|巴拉圭|巴拿马|拉巴斯|波哥大|派桑杜|渥太华|温哥华|苏克雷|苏里南|蒂华纳|蒙特雷|门多萨|阿根廷|马那瓜|麦德林|利马|卡利|基多|大卫|巴西|智利|科隆|秘鲁|莱昂|🇦🇷|🇧🇴|🇧🇷|🇨🇦|🇨🇱|🇨🇴|🇨🇷|🇪🇨|🇬🇹|🇬🇾|🇭🇳|🇲🇽|🇳🇮|🇵🇦|🇵🇪|🇵🇾|🇸🇷|🇸🇻|🇺🇾|🇻🇪|\b(?:ARG|BOL|BRA|CAN|CHL|COL|CRI|ECU|GTM|GUY|HND|MEX|NIC|PAN|PER|PRY|SLV|SUR|URY|VEN|AR|BO|BR|CA|CL|CO|CR|EC|GT|GY|HN|MX|NI|PA|PE|PY|SR|SV|UY|VE)\d*\b)'
 FilterOceania: &FilterOceania '(?i)(?:密克罗尼西亚联邦|Oceania|巴布亚新几内亚|所罗门群岛|马绍尔群岛|基里巴斯|澳大利亚|瓦努阿图|新西兰|萨摩亚|帕劳|斐济|汤加|🇦🇺|🇫🇯|🇫🇲|🇰🇮|🇲🇭|🇳🇿|🇵🇬|🇵🇼|🇸🇧|🇹🇴|🇻🇺|🇼🇸|\b(?:AUS|FJI|FSM|KIR|MHL|NZL|PLW|PNG|SLB|TON|VUT|WSM|AU|FJ|FM|KI|MH|NZ|PG|PW|SB|TO|VU|WS)\d*\b)'
 FilterAfrica: &FilterAfrica '(?i)(?:Africa|埃塞俄比亚|阿尔及利亚|坦桑尼亚|塞内加尔|尼日利亚|津巴布韦|科特迪瓦|纳米比亚|乌干达|利比亚|安哥拉|摩洛哥|突尼斯|肯尼亚|赞比亚|刚果|加纳|南非|埃及|多哥|苏丹|马里|🇦🇴|🇨🇩|🇨🇮|🇩🇿|🇪🇬|🇪🇹|🇬🇭|🇰🇪|🇱🇾|🇲🇦|🇲🇱|🇳🇦|🇳🇬|🇸🇩|🇸🇳|🇹🇬|🇹🇿|🇺🇬|🇿🇦|🇿🇲|🇿🇼|\b(?:AGO|CIV|COD|DZA|EGY|ETH|GHA|KEN|LBY|MAR|MLI|NAM|NGA|SDN|SEN|TGO|TUN|TZA|UGA|ZAF|ZMB|ZWE|AO|CD|CI|DZ|EG|ET|GH|KE|LY|MA|ML|NA|NG|SD|SN|TG|TN|TZ|UG|ZA|ZM|ZW)\d*\b)'

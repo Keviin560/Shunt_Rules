@@ -231,11 +231,19 @@ def get_status_text(days):
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
+    # 获取北京时间
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
     
+    # 修复 404：Shields.io 链接不允许空格，需将空格替换为划线
+    time_badge_str = bj_time.replace(" ", "-")
+
     md = [
-        f"# 🚀 Shunt Rules 规则集仓库",
-        f"![Total](https://img.shields.io/badge/规则总数-{total}-blue) ![Update](https://img.shields.io/badge/更新时间-{bj_time.replace(' ', '_')}-green)",
+        # ✅ 1. 在这里自定义你的标题
+        f"# 🚀 Shunt Rules 规则集", 
+        f"",
+        # ✅ 2. 修复后的徽章代码
+        f"![Total](https://img.shields.io/badge/规则总数-{total}-blue) "
+        f"![Update](https://img.shields.io/badge/更新时间-{time_badge_str}-green)",
         f"",
         f"## ℹ️ 数据源说明",
         f"本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",

@@ -10,9 +10,6 @@
 # - format: mrs  -> 二进制文件，加载速度最快 (Mihomo 专用)
 # - format: text -> 纯文本域名列表，兼容性最强 (如 Loyalsoldier 列表)
 # - interval: 86400 (24h) -> 降低 GitHub 请求频率
-# - proxy: 节点选择 -> 强制通过代理下载规则，解决 SNI 阻断/污染
-# - type: select：手动选择策略组
-# - include-all: true：自动把 proxies 里的所有节点都抓取进来
 
 # 二进制域名规则
 RuleDomain: &RuleDomain {type: http, format: mrs, behavior: domain, interval: 86400, proxy: 节点选择}
@@ -24,17 +21,14 @@ RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 8
 ManualSelect: &ManualSelect {type: select, include-all: true}
 
 # --- [ 筛选 ] 地区节点正则 (Simplified Regex) ---
-# 只匹配关键词，(?i) 标志位前置，实现全句忽略大小写，提升正则引擎效率
-# 使用非捕获组 (?:) 减少内存开销
-
-# 港澳台日韩新美节点筛选
-FilterHK: &FilterHK '(?i)(?:HK|HKG|🇭🇰|香港|Hong\s?Kong|\bHKG?\d*\b)'
-FilterMO: &FilterMAC '(?i)(?:MO|MAC|🇲🇴|澳门|Maca[ou]|\b(?:MO|MAC)\d*\b)'
-FilterTW: &FilterTW '(?i)(?:TW|TWN|🇹🇼|台湾|Tai(?:wan)?|\bTWN?\d*\b)'
-FilterJP: &FilterJP '(?i)(?:JP|JPN|🇯🇵|日本|川日|东京|大阪|埼玉|Japan|\bJPN?\d*\b)'
-FilterKR: &FilterKR '(?i)(?:KR|KOR|🇰🇷|韩国|韓|首尔|Korea|\b(?:KR|KOR)\d*\b)'
-FilterSG: &FilterSG '(?i)(?:SG|SGP|🇸🇬|新加坡|狮|Singapore|\bSGP?\d*\b)'
-FilterUS: &FilterUS '(?i)(?:US|USA|🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States|\bUSA?\d*\b)'
+# 港澳台日韩新美节点筛选，只匹配关键词
+FilterHK: &FilterHK '(?i)(?:HK|🇭🇰|香港|Hong\s?Kong)'
+FilterMO: &FilterMAC '(?i)(?:MO|MAC|🇲🇴|澳门|Maca[ou])'
+FilterTW: &FilterTW '(?i)(?:TW|🇹🇼|台湾|Tai(?:wan)?)'
+FilterJP: &FilterJP '(?i)(?:JP|🇯🇵|日本|川日|东京|大阪|埼玉|Japan)'
+FilterKR: &FilterKR '(?i)(?:KR|🇰🇷|韩国|韓|首尔|Korea)'
+FilterSG: &FilterSG '(?i)(?:SG|🇸🇬|新加坡|狮|Singapore)'
+FilterUS: &FilterUS '(?i)(?:US|🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States)'
 
 # 五大洲正则
 FilterAsia: &FilterAsia '(?i)(?:斯里贾亚瓦德纳普拉科特|乌兹别克斯坦|吉尔吉斯斯坦|伊斯坦布尔|印度尼西亚|哈萨克斯坦|土库曼巴希|土库曼斯坦|塔吉克斯坦|拉利特布尔|沙特阿拉伯|西哈努克市|阿什哈巴德|Asia|伊兹密尔|伊斯兰堡|伊斯法罕|加尔各答|加德满都|努山塔拉|奇姆肯特|孟加拉国|巴基斯坦|撒马尔罕|斯里兰卡|比什凯克|海得拉巴|特拉维夫|班加罗尔|琅勃拉邦|的黎波里|科威特城|耶路撒冷|胡志明市|阿布扎比|阿拉木图|阿斯塔纳|马什哈德|马尔代夫|马斯喀特|马来西亚|亚喀巴|以色列|伊拉克|内比都|利雅得|博卡拉|卡塔尔|卡拉奇|吉大港|吉隆坡|土耳其|塔什干|奎松市|安卡拉|尼泊尔|巴士拉|巴格达|布哈拉|库尔纳|德黑兰|扎尔卡|拉合尔|摩苏尔|新德里|曼德勒|杜尚别|柬埔寨|登巴萨|白沙瓦|科伦坡|科威特|芭堤雅|菲律宾|萨拉拉|设拉子|贝鲁特|阿联酋|雅加达|马尼拉|麦地那|麦纳麦|黎巴嫩|万象|万隆|仰光|伊朗|加勒|印尼|印度|吉达|多哈|奥什|孔敬|孟买|安曼|宿务|岘港|巴林|巴色|布城|康提|新山|暹粒|曼谷|棉兰|槟城|沙迦|河内|泗水|泰国|海法|海防|清迈|约旦|缅甸|老挝|苦盏|赖扬|越南|达卡|达曼|达沃|迪拜|金奈|金边|锡顿|阿曼|马累|麦加|🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM|AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b)'
@@ -97,42 +91,45 @@ proxy-groups:
 # - 自动继承顶部的 *RuleDomain 或 *RuleIP 锚点属性
 
 rule-providers:
-  # [ Security ] 广告与隐私（包含Win隐私跟踪域名）
-  Ads:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs",       path: ./rules/Ads.mrs }
-  Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",       path: ./rules/Privacy.mrs }
-  WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",       path: ./rules/WinSpy.txt }
-  WinExtra:     { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-extra.txt",       path: ./rules/WinExtra.txt }
-  Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",       path: ./rules/Hijacking.mrs }
-  Hijacking_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",       path: ./rules/Hijacking_IP.mrs }
+  # [ Security ] 广告与隐私
+  Ads:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs", path: ./rules/Ads.mrs }
+  Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",                 path: ./rules/Privacy.mrs }
+  WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",                   path: ./rules/WinSpy.txt }
+  WinExtra:     { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-extra.txt",                 path: ./rules/WinExtra.txt }
+  Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",               path: ./rules/Hijacking.mrs }
+  Hijacking_IP: { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",            path: ./rules/Hijacking_IP.mrs }
+
+ # [ Local & Direct ] 局域网直连
+  Lan:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",                     path: ./rules/Lan.mrs }
+  Lan_IP:       { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs",                  path: ./rules/Lan_IP.mrs }
 
   # [ Intelligence ] 人工智能
-  OpenAI:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",      path: ./rules/OpenAI.mrs }
-  Gemini:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs",      path: ./rules/Gemini.mrs }
-  Claude:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Claude.mrs",      path: ./rules/Claude.mrs }
-  Copilot:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Copilot.mrs",     path: ./rules/Copilot.mrs }
+  OpenAI:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",                  path: ./rules/OpenAI.mrs }
+  Gemini:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs",                  path: ./rules/Gemini.mrs }
+  Claude:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Claude.mrs",                  path: ./rules/Claude.mrs }
+  Copilot:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Copilot.mrs",                 path: ./rules/Copilot.mrs }
 
-  # [ Streaming ] 流媒体 (双栈配置：Domain + IP)
-  YouTube:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",     path: ./rules/YouTube.mrs }
-  YouTube_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",       path: ./rules/YouTube_IP.mrs }
-
-  Netflix:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",     path: ./rules/Netflix.mrs }
-  Netflix_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",       path: ./rules/Netflix_IP.mrs }
-
-  TikTok:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",      path: ./rules/TikTok.mrs }
-
-  Spotify:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",     path: ./rules/Spotify.mrs }
-  Disney:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Disney.mrs",      path: ./rules/Disney.mrs }
+  # [ Streaming ] 流媒体
+  YouTube:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",                 path: ./rules/YouTube.mrs }
+  YouTube_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",              path: ./rules/YouTube_IP.mrs }
+  
+  Netflix:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",                 path: ./rules/Netflix.mrs }
+  Netflix_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",              path: ./rules/Netflix_IP.mrs }
+  
+  TikTok:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",                  path: ./rules/TikTok.mrs }
+  
+  Spotify:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",                 path: ./rules/Spotify.mrs }
+  Disney:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Disney.mrs",                  path: ./rules/Disney.mrs }
 
   # [ Social ] 社交媒体
-  Telegram:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",    path: ./rules/Telegram.mrs }
-  Telegram_IP:  { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs",       path: ./rules/Telegram_IP.mrs }
+  Telegram:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",                path: ./rules/Telegram.mrs }
+  Telegram_IP:  { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs",             path: ./rules/Telegram_IP.mrs }
 
-  # [ Big Tech ] 常用大厂
-  Google:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs",      path: ./rules/Google.mrs }
-  Google_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs",       path: ./rules/Google_IP.mrs }
-  AppleID:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs",       path: ./rules/AppleID.mrs }
-  Apple:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",       path: ./rules/Apple.mrs }
-
+  # [ Services ] 常用服务
+  Google:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs",                  path: ./rules/Google.mrs }
+  Google_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs",               path: ./rules/Google_IP.mrs }
+  AppleID:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs",                 path: ./rules/AppleID.mrs }
+  Apple:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",                   path: ./rules/Apple.mrs }
 
 # =======================================================
 # 4. 分流规则 (Rules)
@@ -180,8 +177,8 @@ rules:
   - RULE-SET, Apple, Apple账户
   
   # —————————— 直连与局域网层 ——————————
-  # 基于本地geosite数据库
-  - GEOSITE, lan, DIRECT
+  - RULE-SET, Lan, DIRECT
+  - RULE-SET, Lan_IP, DIRECT, no-resolve
   - GEOSITE, cn, DIRECT
   
   # —————————— 兜底层 ——————————

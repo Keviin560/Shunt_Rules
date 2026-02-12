@@ -1,6 +1,6 @@
 # 作者：Keviin560
 # GitHub：https://github.com/Keviin560/Shunt_Rules
-# 更新日期：2026-02-12 10:10
+# 更新日期：2026-02-12 18:26
 
 # =======================================================
 # 1. 核心锚点与过滤器 (Anchors & Filters)
@@ -9,7 +9,6 @@
 # --- [ 架构 ] 规则源继承模版 (Inheritance Templates) ---
 # - format: mrs  -> 二进制文件，加载速度最快 (Mihomo 专用)
 # - format: text -> 纯文本域名列表，兼容性最强 (如 Loyalsoldier 列表)
-# - interval: 86400 (24h) -> 降低 GitHub 请求频率
 
 # 二进制域名规则
 RuleDomain: &RuleDomain {type: http, format: mrs, behavior: domain, interval: 86400, proxy: 节点选择}
@@ -55,6 +54,7 @@ proxy-groups:
   - {name: YouTube, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/YouTube.png"}
   - {name: Google, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Google.png"}
   - {name: Telegram, type: select, proxies: [香港节点, 新加坡节点, 美国节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Telegram.png"}
+  - {name: Spotify, type: select, proxies: [DIRECT, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Spotify.png"}
   - {name: TikTok, type: select, proxies: [美国节点, 台湾节点, 日本节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/TikTok.png"}
   - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png"}
   - {name: App Store, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/App Store.png"}
@@ -85,8 +85,6 @@ proxy-groups:
 # =======================================================
 # 3. 规则源 (Rule Providers)
 # =======================================================
-# 采用单行对象与垂直对齐，提升可读性与维护性
-# 架构逻辑：
 # - URL 指向 Keviin560 远程仓库的二进制 .mrs 文件
 # - Path 定义本地缓存路径，支持断网启动
 # - 自动继承顶部的 *RuleDomain 或 *RuleIP 锚点属性
@@ -113,14 +111,10 @@ rule-providers:
   # [ Streaming ] 流媒体
   YouTube:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",                 path: ./rules/YouTube.mrs }
   YouTube_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",              path: ./rules/YouTube_IP.mrs }
-  
   Netflix:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",                 path: ./rules/Netflix.mrs }
   Netflix_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",              path: ./rules/Netflix_IP.mrs }
-  
   TikTok:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",                  path: ./rules/TikTok.mrs }
-  
   Spotify:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",                 path: ./rules/Spotify.mrs }
-  Disney:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Disney.mrs",                  path: ./rules/Disney.mrs }
 
   # [ Social ] 社交媒体
   Telegram:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",                path: ./rules/Telegram.mrs }
@@ -157,14 +151,10 @@ rules:
   # —————————— 娱乐层 ——————————
   - RULE-SET, YouTube, YouTube
   - RULE-SET, YouTube_IP, YouTube, no-resolve
-  
   - RULE-SET, Netflix, Netflix
   - RULE-SET, Netflix_IP, Netflix, no-resolve
-  
   - RULE-SET, TikTok, TikTok
-  
-  - RULE-SET, Disney, Netflix
-  - RULE-SET, Spotify, Netflix
+  - RULE-SET, Spotify, Spotify
 
   # —————————— 社交层 ——————————
   - RULE-SET, Telegram, Telegram
@@ -174,7 +164,7 @@ rules:
   - RULE-SET, Google, Google
   - RULE-SET, Google_IP, Google, no-resolve
   
-  - RULE-SET, AppleID, Apple账户 # 优先匹配鉴权
+  - RULE-SET, AppleID, Apple账户
   - RULE-SET, Apple, Apple账户
   
   # —————————— 直连与局域网层 ——————————

@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v1.0" 
+GENERATOR_VERSION = "v1.1" # 文案更新，升级版本号触发全量重写
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -104,13 +104,13 @@ class HistoryManager:
                 with open(HISTORY_FILE, 'r') as f: self.history = json.load(f)
             except: pass
         self.current_time = int(datetime.now().timestamp())
-
     def get_file_hash(self, filepath):
-        if not os.path.exists(filepath): return ""
+        if not filepath or not os.path.exists(filepath): return ""
         with open(filepath, 'rb') as f: return hashlib.md5(f.read()).hexdigest()
-
     def should_skip(self, name, source_path, expected_files):
         src_hash = self.get_file_hash(source_path)
+        if not src_hash: return False, ""
+        
         record = self.history.get(name, {})
         last_hash = record.get('src_hash', "")
         last_ver = record.get('gen_ver', "")
@@ -130,13 +130,11 @@ class HistoryManager:
             'updated_at': self.current_time,
             'gen_ver': GENERATOR_VERSION
         }
-
     def get_days_ago(self, name):
         record = self.history.get(name, {})
         last_ts = record.get('updated_at', self.current_time)
         diff = datetime.fromtimestamp(self.current_time) - datetime.fromtimestamp(last_ts)
         return diff.days
-
     def save(self):
         with open(HISTORY_FILE, 'w') as f: json.dump(self.history, f, indent=2)
 
@@ -243,8 +241,9 @@ def generate_readme(stats):
         f"本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
         f"",
         f"## ⚠️ 使用前必读",
-        f"* **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已**移除** `no-resolve` 属性以防止内核崩溃，**必须**在配置文件中自行指定策略。",
-        f"* **Loon**: `.lsr` 支持混合负载，已内置优化排序（no-resolve IP 优先）。",
+        f"* 🐱 **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已**移除** `no-resolve` 属性以防止内核崩溃，需在配置文件中自行指定策略。",
+        f"* 🎈 **Loon**: `.lsr` 支持混合负载，已内置优化排序（`no-resolve IP` 优先）。",
+        f"* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
         f"建议使用 `type: http` 远程引用规则集。以下代码以 **Google** 规则为例，请根据实际需求修改策略组名称。",
@@ -282,7 +281,7 @@ def generate_readme(stats):
         f"```",
         f"",
         f"**3. 应用规则 (Rules)**",
-        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*", 
+        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",
@@ -305,35 +304,29 @@ def generate_readme(stats):
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 
 def main():
-    # ⚠️ 变更：不再全量删除目录，只确保目录存在
     for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
         os.makedirs(d, exist_ok=True)
-    
     if not os.path.exists(SOURCE_DIR): return
-
     kernel, history, aggregated = KernelIntrospector(MIHOMO_BIN), HistoryManager(), defaultdict(RuleSet)
     logger.info("🔍 扫描源文件...")
     
-    # 建立源路径映射，用于Hash计算
     rel_path_map = {} 
-    
     cnt, skip = 0, 0
     for root, _, files in os.walk(SOURCE_DIR):
         rel = os.path.relpath(root, SOURCE_DIR)
         if rel == '.': continue
         rs = aggregated[rel]
         for f in files:
-            # ✅ 修复点：调用 correct function name
             if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip_file(f):
                 full_path = os.path.join(root, f)
                 parse_file(full_path, rs)
-                rel_path_map[rel] = full_path # 记录最后一个文件的路径作为Hash依据
+                rel_path_map[rel] = full_path 
                 cnt += 1
                 
     logger.info(f"✅ 解析完成。规则组: {len(aggregated)}")
     
     stats = []
-    valid_outputs = set() # 记录本次有效的文件，用于清除僵尸文件
+    valid_outputs = set()
     
     updated_count = 0
     skipped_count = 0
@@ -342,7 +335,9 @@ def main():
         name = get_smart_filename(rel)
         source_path = rel_path_map.get(rel)
         
-        # 预判期待的产物
+        # 🔥 关键卫语句：防止空目录导致的崩溃
+        if not source_path: continue
+
         expect_d = bool(rs.domain_entries)
         expect_i = bool(rs.ip_entries)
         expect_l = expect_d or expect_i
@@ -352,25 +347,20 @@ def main():
         if expect_i: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
         if expect_l: expected_files.append(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
         
-        # 增量判定
         should_skip_build, src_hash = history.should_skip(name, source_path, expected_files)
         
         h_d, h_i, h_l = expect_d, expect_i, expect_l
         
         if should_skip_build:
             skipped_count += 1
-            # 读取历史时间
             days = history.get_days_ago(name)
         else:
             updated_count += 1
-            # 执行编译
             h_d, h_i = build_mihomo(kernel, name, rs)
             h_l = build_loon(name, rs)
-            # 更新历史
             history.update_record(name, src_hash)
-            days = 0 # Today
+            days = 0
             
-        # 收集有效产物路径，防止被清除
         if h_d: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
         if h_i: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
         if h_l: valid_outputs.add(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
@@ -378,7 +368,6 @@ def main():
         if h_d or h_i or h_l:
             stats.append((name, get_status_text(days), h_d, h_i, h_l))
             
-    # 清道夫机制：清除僵尸文件
     logger.info("🧹 执行清理...")
     removed_zombies = 0
     for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:

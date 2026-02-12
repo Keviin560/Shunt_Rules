@@ -1,6 +1,6 @@
 # 🚀 Shunt Rules 规则集
 
-![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_13:55-green)
+![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_14:25-green)
 
 ## ℹ️ 数据源说明
 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
@@ -29,7 +29,7 @@ rule-providers:
   # 🟢 案例 1：引用域名规则 (behavior: domain)
   Google:
     type: http
-    behavior: domain
+    behavior: domain     # ✅ 完美兼容 domain 模式
     format: mrs
     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs"
     path: ./rules/Mihomo/Google.mrs
@@ -227,7 +227,7 @@ rules:
 | ChinaTelecom | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTelecom.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaTelecom.lsr) | Today |
 | ChinaTest | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTest.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTest_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaTest.lsr) | Today |
 | ChinaUnicom | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaUnicom.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaUnicom_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaUnicom.lsr) | Today |
-| Chromecast | - | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Chromecast.lsr) | Today |
+| Chromecast | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Chromecast.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Chromecast.lsr) | Today |
 | ChuangKeTie | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChuangKeTie.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChuangKeTie.lsr) | Today |
 | ChunYou | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChunYou.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChunYou.lsr) | Today |
 | Cisco | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Cisco.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Cisco.lsr) | Today |
@@ -349,7 +349,7 @@ rules:
 | GoogleDrive | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GoogleDrive.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GoogleDrive.lsr) | Today |
 | GoogleEarth | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GoogleEarth.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GoogleEarth.lsr) | Today |
 | GoogleFCM | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GoogleFCM.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GoogleFCM_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GoogleFCM.lsr) | Today |
-| GoogleSearch | - | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GoogleSearch.lsr) | Today |
+| GoogleSearch | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GoogleSearch.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GoogleSearch.lsr) | Today |
 | GoogleVoice | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GoogleVoice.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GoogleVoice.lsr) | Today |
 | GovCN | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GovCN.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GovCN.lsr) | Today |
 | Gucci | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gucci.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gucci.lsr) | Today |

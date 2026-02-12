@@ -1,8 +1,8 @@
 # Name = Amazon
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 13:55:40
-# Total = 202
+# Update = 2026-02-12 14:25:11
+# Total = 203
 
 IP-CIDR,13.32.0.0/15,no-resolve
 IP-CIDR,13.35.0.0/17,no-resolve
@@ -125,6 +125,7 @@ DOMAIN-SUFFIX,assoc-amazon.cn
 DOMAIN-SUFFIX,associates-amazon.com
 DOMAIN-SUFFIX,audible.com
 DOMAIN-SUFFIX,avodmp4s3ww-a.akamaihd.net
+DOMAIN-SUFFIX,aws
 DOMAIN-SUFFIX,aws-iot-hackathon.com
 DOMAIN-SUFFIX,awsautopilot.com
 DOMAIN-SUFFIX,awsautoscaling.com

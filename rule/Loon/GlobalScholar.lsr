@@ -1,8 +1,8 @@
 # Name = GlobalScholar
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 13:54:49
-# Total = 228
+# Update = 2026-02-12 14:23:30
+# Total = 229
 
 DOMAIN,scholar.google.com
 DOMAIN-SUFFIX,1lib.cloud
@@ -129,6 +129,7 @@ DOMAIN-SUFFIX,literatumonline.com
 DOMAIN-SUFFIX,ma1lib.org
 DOMAIN-SUFFIX,madsrevolution.net
 DOMAIN-SUFFIX,mdpi.com
+DOMAIN-SUFFIX,mit
 DOMAIN-SUFFIX,mit.edu
 DOMAIN-SUFFIX,mit.net
 DOMAIN-SUFFIX,mitpressjournals.org

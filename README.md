@@ -1,13 +1,13 @@
 # 🚀 Shunt Rules 规则集
 
-![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_15:25-green)
+![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_15:41-green)
 
 ## ℹ️ 数据源说明
-本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
+♻️本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
 
 ## ⚠️ 使用前必读
-* 🐱 **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已移除 `no-resolve` 属性以防止内核崩溃，需在配置文件中自行指定策略。
-* 🎈 **Loon**: `.lsr` 支持混合负载，已内置优化排序（`no-resolve IP` 优先）。
+* 🐱 **Mihomo**: .mrs 二进制格式。采用双重锚定策略，完美解决子域名漏网与视频流匹配。_IP.mrs 已移除 `no-resolve` 属性以防止内核崩溃。
+* 🎈 **Loon**: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率与防泄露表现。
 * 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。
 
 ## 📍 Mihomo 配置指引
@@ -32,7 +32,7 @@ rule-providers:
   # 🟢 案例 1：引用域名规则 (behavior: domain)
   Google:
     type: http
-    behavior: domain     # ✅ 完美兼容 domain 模式
+    behavior: domain
     format: mrs
     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs"
     path: ./rules/Mihomo/Google.mrs

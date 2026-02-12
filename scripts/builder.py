@@ -11,7 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v1.2" # 🐞 修复类型丢失Bug，升级版本号触发全量重写
+# ⚡️ 版本号升级: 强制触发全量重构，清洗之前的"中毒"缓存文件
+GENERATOR_VERSION = "v1.3_FORCE_REBUILD" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -115,6 +116,7 @@ class HistoryManager:
         last_hash = record.get('src_hash', "")
         last_ver = record.get('gen_ver', "")
         
+        # 版本号不一致，强制不跳过 (Force Rebuild)
         if src_hash != last_hash or last_ver != GENERATOR_VERSION:
             return False, src_hash
             
@@ -184,9 +186,9 @@ def process_entry(line, ruleset):
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
     if ruleset.domain_entries:
-        # ✅ 修复点：保留规则类型 (DOMAIN-SUFFIX/DOMAIN)，而不是只取 value
-        # 之前错误写法: clean = sorted(list(set([v for t,v in ruleset.domain_entries])))
-        clean = sorted(list(set([f"{t},{v}" for t,v in ruleset.domain_entries])))
+        # ✅ 正确逻辑：Mihomo 编译 domain 类型时，只接受纯域名列表，不接受类型前缀
+        # 只要列表中有 "google.com"，Mihomo 会自动处理后缀匹配 (clients6.google.com)
+        clean = sorted(list(set([v for t,v in ruleset.domain_entries])))
         
         if _compile_mihomo(kernel, name, clean, 'domain'): h_d = True
             
@@ -236,6 +238,8 @@ def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
+    
+    # 修复 404：Shields.io URL 编码修复
     time_badge_str = bj_time.replace("-", "--").replace(" ", "_")
 
     md = [

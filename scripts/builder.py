@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.4 完美排版版: 修复 README 换行问题，优化文案视觉层级
-GENERATOR_VERSION = "v2.4_PERFECT_LAYOUT" 
+# ⚡️ v2.5 荣耀徽章版: 在 README 中增加徽章
+GENERATOR_VERSION = "v2.5_BADGE_GLORY" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -298,26 +298,41 @@ def generate_readme(stats):
     config_name, found = detect_config_file()
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
+    # ✅ 徽章生成区
+    badges = [
+        # 1. 动态数据组
+        f"![Total](https://img.shields.io/badge/规则总数-{total}-blue?style=flat-square)",
+        f"![Update](https://img.shields.io/badge/更新时间-{time_badge_str}-2ea44f?style=flat-square)",
+        
+        # 2. 硬核技术组
+        f"![Dedupe](https://img.shields.io/badge/去重处理-Active-607d8b?style=flat-square)",   # 深灰：基础
+        f"![Anchor](https://img.shields.io/badge/双重锚定-Mihomo-8e44ad?style=flat-square)",   # 紫色：魔法
+        f"![Rescue](https://img.shields.io/badge/关键词转译-Rescue-e67e22?style=flat-square)",  # 橙色：救援
+        f"![Sort](https://img.shields.io/badge/排序优化-Loon-1abc9c?style=flat-square)",       # 青色：秩序
+        
+        # 3. 核心卖点组 (零配置)
+        f"![Config](https://img.shields.io/badge/配置难度-零_Zero-ff69b4?style=flat-square)"    # 粉色：醒目
+    ]
+    badge_line = " ".join(badges)
+
     md = [
         f"# 🚀 Shunt Rules 规则集", 
         f"",
-        f"![Total](https://img.shields.io/badge/规则总数-{total}-blue) "
-        f"![Update](https://img.shields.io/badge/更新时间-{time_badge_str}-green)",
+        f"{badge_line}",
         f"",
         f"## ℹ️ 数据源说明",
         f"♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
         f"",
         f"## ⚠️ 使用前必读",
-        f"* 🐱 **Mihomo**: .mrs 二进制格式。采用双重锚定策略（域名+点号），解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
-        f"* 🎈 **Loon**: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。",
-        f"* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
+        f"* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略（域名+点号），解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
+        f"* 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。",
+        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
-        # ✅ 修复点：使用引用块和空行来确保排版清晰、换行正确
-        f"> ⚡ **使用方式**: 用 `type: http` 远程引用规则集。",
-        f"> 🔗 **覆写参考**: {config_link}",
+        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
+        f"> 🔗 覆写参考: {config_link}",
         f"",
-        f"💾 **配置示例** (以 Google 为例，请按需修改):",
+        f"💾 配置示例 (以 Google 为例，请按需修改):",
         f"",
         f"1. 定义策略组 (Proxy Groups)",
         f"```yaml",

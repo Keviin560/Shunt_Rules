@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.7 最终修正版: 修复时间徽章显示，调整文案与排序
-GENERATOR_VERSION = "v2.7_BADGE_FINAL_FIX" 
+# ⚡️ v2.8 视觉升级版: 标题居中 + 代码折叠 + 文案微调
+GENERATOR_VERSION = "v2.8_VISUAL_UPGRADE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -292,46 +292,35 @@ def detect_config_file():
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
-    # ✅ 修复重点：使用点号(.)代替短横线(-)，彻底解决 Shields.io 404 问题
+    # 使用点号分割日期，修复 Shields.io 404 问题
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
-    time_badge_val = bj_time  # 现在不需要URL编码空格了，因为没有空格
+    time_badge_val = bj_time
     
     config_name, found = detect_config_file()
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
-    # ✅ 徽章生成区 (严格按你的排序要求)
-    # 排序规定：规则总数、更新时间、去重处理、双重锚定、关键词转译、排序优化、格式支持、开箱即用
+    # ✅ 徽章生成区 (纯色圆角风格)
     badges = [
-        # 1. 规则总数 (蓝)
         f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
-        
-        # 2. 更新时间 (绿 - 已修复格式 2026.02.12)
         f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
-        
-        # 3. 去重处理 (灰)
         f"![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat)",
-        
-        # 4. 双重锚定 (紫)
         f"![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat)",
-        
-        # 5. 关键词转译 (橙)
         f"![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat)",
-        
-        # 6. 排序优化 (青)
         f"![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat)",
-        
-        # 7. 格式支持 (深蓝 - 新增)
         f"![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat)",
-        
-        # 8. 开箱即用 (粉 - 已更名)
         f"![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)"
     ]
     badge_line = " ".join(badges)
 
     md = [
-        f"# 🚀 Shunt Rules 规则集", 
+        # ✅ 标题与徽章居中 (方案 C: Auto Shunt Rules)
+        f"<div align=\"center\">",
+        f"",
+        f"# 🤖 Auto Shunt Rules", 
         f"",
         f"{badge_line}",
+        f"",
+        f"</div>",
         f"",
         f"## ℹ️ 数据源说明",
         f"♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
@@ -345,9 +334,11 @@ def generate_readme(stats):
         f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
         f"> 🔗 覆写参考: {config_link}",
         f"",
-        f"💾 配置示例 (以 Google 为例，请按需修改):",
+        # ✅ 代码折叠 + 文案微调
+        f"<details>",
+        f"<summary><strong>💾 配置示例 <sub>(以 Google 为例，点击展开)</sub></strong></summary>",
         f"",
-        f"1. 定义策略组 (Proxy Groups)",
+        f"### 1. 定义策略组 (Proxy Groups)",
         f"```yaml",
         f"proxy-groups:",
         f"  - name: \"MyProxyGroup\"   # 策略组名称，可自定义",
@@ -357,7 +348,7 @@ def generate_readme(stats):
         f"      - 🇺🇸 美国节点      # 👈 或者填写 'DIRECT' (直连) / 'REJECT' (拒绝)",
         f"```",
         f"",
-        f"2. 配置规则集 (Rule Providers)",
+        f"### 2. 配置规则集 (Rule Providers)",
         f"```yaml",
         f"rule-providers:",
         f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
@@ -379,13 +370,14 @@ def generate_readme(stats):
         f"    interval: 86400",
         f"```",
         f"",
-        f"3. 应用规则 (Rules)",
+        f"### 3. 应用规则 (Rules)",
         f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",
         f"  - RULE-SET,Google_IP,MyProxyGroup,no-resolve",
         f"```",
+        f"</details>",
         f"",
         f"## 📊 规则索引",
         f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",

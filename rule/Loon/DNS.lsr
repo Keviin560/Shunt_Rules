@@ -1,7 +1,7 @@
 # Name = DNS
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 14:24:51
+# Update = 2026-02-12 14:43:31
 # Total = 119
 
 IP-CIDR,1.0.0.2/31,no-resolve

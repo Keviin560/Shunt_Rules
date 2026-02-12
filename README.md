@@ -1,6 +1,6 @@
 # 🚀 Shunt Rules 规则集
 
-![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_14:25-green)
+![Total](https://img.shields.io/badge/规则总数-689-blue) ![Update](https://img.shields.io/badge/更新时间-2026--02--12_14:43-green)
 
 ## ℹ️ 数据源说明
 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
@@ -12,6 +12,7 @@
 
 ## 📍 Mihomo 配置指引
 建议使用 `type: http` 远程引用规则集。以下代码以 Google 规则为例，请根据实际需求修改策略组名称。
+🔗 可参考复写配置：[Mihomo_ShuntRules.yaml](https://github.com/Keviin560/Shunt_Rules/blob/main/Mihomo_ShuntRules.yaml)
 
 1. 定义策略组 (Proxy Groups)
 ```yaml

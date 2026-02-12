@@ -1,6 +1,6 @@
 # 作者：Keviin560
-# GitHub：https://github.com/Keviin560/Shunt_Rules
-# 更新日期：2026-02-12 18:26
+# 仓库地址：https://github.com/Keviin560/Shunt_Rules
+# 更新日期：2026-02-12 23:26
 
 # =======================================================
 # 1. 核心锚点与过滤器 (Anchors & Filters)
@@ -20,7 +20,7 @@ RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 8
 ManualSelect: &ManualSelect {type: select, include-all: true}
 
 # --- [ 筛选 ] 地区节点正则 (Simplified Regex) ---
-# 港澳台日韩新美节点筛选，同时全部英文代码 (HK, US, SG...) 增加 \b 边界，防止匹配到 BUS, PLUS, MSG, PHKET 等无关词汇
+# 港澳台日韩新美节点筛选，同时全部英文代码 (HK, US, SG...) 增加 \b 边界，防止匹配到其他国家节点
 # 模式 \b(?:CODE)\d*\b 确保能匹配纯代码 (US) 或带数字代码 (US01, US-01)。
 FilterHK: &FilterHK '(?i)(?:🇭🇰|香港|Hong\s?Kong|\b(?:HK|HKG)\d*\b)'
 FilterMO: &FilterMAC '(?i)(?:🇲🇴|澳门|Maca[ou]|\b(?:MO|MAC)\b)'
@@ -57,7 +57,6 @@ proxy-groups:
   - {name: Spotify, type: select, proxies: [DIRECT, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Spotify.png"}
   - {name: TikTok, type: select, proxies: [美国节点, 台湾节点, 日本节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/TikTok.png"}
   - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png"}
-  - {name: App Store, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/App Store.png"}
   - {name: Apple账户, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/iCloud.png"}
   
   # 功能分组 (Functional Layer)
@@ -101,6 +100,8 @@ rule-providers:
  # [ Local & Direct ] 局域网直连
   Lan:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",                     path: ./rules/Lan.mrs }
   Lan_IP:       { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs",                  path: ./rules/Lan_IP.mrs }
+  China:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/China.mrs",                  path: ./rules/China.mrs }
+  ChinaIPs:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaIPs_IP.mrs",             path: ./rules/ChinaIPs_IP.mrs }
 
   # [ Intelligence ] 人工智能
   OpenAI:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",                  path: ./rules/OpenAI.mrs }
@@ -167,12 +168,11 @@ rules:
   - RULE-SET, AppleID, Apple账户
   - RULE-SET, Apple, Apple账户
   
-  # —————————— 直连与局域网层 ——————————
+  # —————————— 直连层 ——————————
   - RULE-SET, Lan, DIRECT
   - RULE-SET, Lan_IP, DIRECT, no-resolve
-  - GEOSITE, cn, DIRECT
-  
+  - RULE-SET, China, DIRECT
+  - RULE-SET, ChinaIPs, DIRECT, no-resolve
+ 
   # —————————— 兜底层 ——————————
-  - GEOIP, private, DIRECT, no-resolve
-  - GEOIP, cn, DIRECT, no-resolve
   - MATCH, 兜底策略

@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ 版本号升级: 强制触发全量重构，清洗之前的"中毒"缓存文件
-GENERATOR_VERSION = "v1.3_FORCE_REBUILD" 
+# ⚡️ 降维兼容模式: 强制清洗 Keyword，只保留纯域名以适配 behavior: domain
+GENERATOR_VERSION = "v1.4_STRICT_COMPAT" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -185,16 +185,30 @@ def process_entry(line, ruleset):
 
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
+    
+    # 1. 域名规则构建 (Domain Mode - 严格清洗版)
     if ruleset.domain_entries:
-        # ✅ 正确逻辑：Mihomo 编译 domain 类型时，只接受纯域名列表，不接受类型前缀
-        # 只要列表中有 "google.com"，Mihomo 会自动处理后缀匹配 (clients6.google.com)
-        clean = sorted(list(set([v for t,v in ruleset.domain_entries])))
-        
-        if _compile_mihomo(kernel, name, clean, 'domain'): h_d = True
+        valid_domains = []
+        for t, v in ruleset.domain_entries:
+            # 🚨 核心逻辑：扔掉 Keyword 和 Regex，只保留纯域名
+            # behavior: domain 不支持 Keyword，放进去就是毒药
+            # 我们依赖 Blackmatrix 库里通常会同时提供 DOMAIN-SUFFIX (例如 googlevideo.com)
+            if 'KEYWORD' in t.upper() or 'REGEX' in t.upper():
+                continue
+            valid_domains.append(v)
             
+        clean = sorted(list(set(valid_domains)))
+        
+        # 如果过滤后还有剩，才编译
+        if clean and _compile_mihomo(kernel, name, clean, 'domain'): 
+            h_d = True
+            
+    # 2. IP 规则构建 (IPCIDR Mode)
     if ruleset.ip_entries:
+        # IP 规则本身就是纯的，直接保留
         clean = sorted(ruleset.ip_entries.keys())
         if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
+        
     return h_d, h_i
 
 def _compile_mihomo(kernel, name, rules, behavior):
@@ -252,9 +266,9 @@ def generate_readme(stats):
         f"本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
         f"",
         f"## ⚠️ 使用前必读",
-        f"* 🐱 Mihomo: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已移除 `no-resolve` 属性以防止内核崩溃，需在配置文件中自行指定策略。",
-        f"* 🎈 Loon: `.lsr` 支持混合负载，已内置优化排序（`no-resolve IP` 优先）。",
-        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
+        f"* 🐱 **Mihomo**: `.mrs` 为二进制文件，不支持直接编辑。`_IP.mrs` 已移除 `no-resolve` 属性以防止内核崩溃，需在配置文件中自行指定策略。",
+        f"* 🎈 **Loon**: `.lsr` 支持混合负载，已内置优化排序（`no-resolve IP` 优先）。",
+        f"* 🎭 **DNS 泄露**: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的 DNS 服务器。这可能暴露访问目标。无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
         f"建议使用 `type: http` 远程引用规则集。以下代码以 Google 规则为例，请根据实际需求修改策略组名称。",

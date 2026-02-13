@@ -1,8 +1,8 @@
 # Name = JingDong
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 21:12:12
-# Total = 248
+# Update = 2026-02-14 04:52:46
+# Total = 249
 
 DOMAIN-SUFFIX,1huizhan.com
 DOMAIN-SUFFIX,3.cn
@@ -235,6 +235,7 @@ DOMAIN-SUFFIX,qianxun.com
 DOMAIN-SUFFIX,qingzhouip.com
 DOMAIN-SUFFIX,sgsic.com
 DOMAIN-SUFFIX,shlsyb.com
+DOMAIN-SUFFIX,tjjt360.com
 DOMAIN-SUFFIX,toplife.com
 DOMAIN-SUFFIX,vg.com
 DOMAIN-SUFFIX,wanggou.com

@@ -10,9 +10,9 @@
 ♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。
 
 ## ⚠️ 使用前必读
-* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略（域名+点号），解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。
+* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略，解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。
 * 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。
-* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。
+* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则，可添加 `no-resolve` 参数。
 
 ## 📍 Mihomo 配置指引
 > ⚡ 使用方式: 用 `type: http` 远程引用规则集。

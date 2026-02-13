@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.9 修复版: 移除版本强制重编逻辑，修复"Always Today" Bug
-GENERATOR_VERSION = "v2.9_TIME_FIXED" 
+# ⚡️ v3.0 最终完整版: 修复命名抢占 + 修复时间Bug + 全套UI美化
+GENERATOR_VERSION = "v3.0_FINAL_COMPLETE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -134,7 +134,7 @@ class HistoryManager:
         record = self.history.get(name, {})
         last_hash = record.get('src_hash', "")
         
-        # 🛑 修复逻辑：只检查 src_hash (源文件) 是否变化
+        # 🟢 修复 Bug: 仅当源文件 Hash 变化时才重编，忽略脚本版本变化
         if src_hash != last_hash:
             return False, src_hash
             
@@ -292,14 +292,14 @@ def detect_config_file():
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
-    # 使用点号分割日期，修复 Shields.io 404 问题
+    # 🟢 修复 Bug: 使用点号分割日期，修复 Shields.io 404
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
     time_badge_val = bj_time
     
     config_name, found = detect_config_file()
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
 
-    # ✅ 徽章生成区 (纯色圆角风格)
+    # ✅ 徽章生成区 (纯色圆角风格，按要求排序)
     badges = [
         f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
         f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
@@ -328,7 +328,7 @@ def generate_readme(stats):
         f"## ⚠️ 使用前必读",
         f"* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略，解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
         f"* 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。",
-        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则，可添加 `no-resolve` 参数。",
+        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则建议添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
         f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
@@ -422,7 +422,12 @@ def main():
     updated_count = 0
     skipped_count = 0
     
-    for rel, rs in aggregated.items():
+    # 🟢 核心修复：按路径深度排序，优先处理浅层目录，防止深层目录抢占简短文件名
+    # lambda x: (x.count(os.sep), x) 表示先按分隔符数量(深度)排，再按名称排
+    sorted_rels = sorted(aggregated.keys(), key=lambda x: (x.count(os.sep), x))
+    
+    for rel in sorted_rels:
+        rs = aggregated[rel]
         name = get_smart_filename(rel)
         source_path = rel_path_map.get(rel)
         if not source_path: continue

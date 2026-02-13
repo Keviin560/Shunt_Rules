@@ -11,8 +11,8 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v2.8 视觉升级版: 标题居中 + 代码折叠 + 文案微调
-GENERATOR_VERSION = "v2.8_VISUAL_UPGRADE" 
+# ⚡️ v2.9 修复版: 移除版本强制重编逻辑，修复"Always Today" Bug
+GENERATOR_VERSION = "v2.9_TIME_FIXED" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -126,16 +126,16 @@ class HistoryManager:
     def get_file_hash(self, filepath):
         if not filepath or not os.path.exists(filepath): return ""
         with open(filepath, 'rb') as f: return hashlib.md5(f.read()).hexdigest()
+        
     def should_skip(self, name, source_path, expected_files):
         src_hash = self.get_file_hash(source_path)
         if not src_hash: return False, ""
         
         record = self.history.get(name, {})
         last_hash = record.get('src_hash', "")
-        last_ver = record.get('gen_ver', "")
         
-        # 强制重写：只要版本不对，立刻重编
-        if src_hash != last_hash or last_ver != GENERATOR_VERSION:
+        # 🛑 修复逻辑：只检查 src_hash (源文件) 是否变化
+        if src_hash != last_hash:
             return False, src_hash
             
         for f in expected_files:
@@ -313,7 +313,7 @@ def generate_readme(stats):
     badge_line = " ".join(badges)
 
     md = [
-        # ✅ 标题与徽章居中 (方案 C: Auto Shunt Rules)
+        # ✅ 标题与徽章居中
         f"<div align=\"center\">",
         f"",
         f"# 🤖 Auto Shunt Rules", 
@@ -326,9 +326,9 @@ def generate_readme(stats):
         f"♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
         f"",
         f"## ⚠️ 使用前必读",
-        f"* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略（域名+点号），解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
+        f"* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略，解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
         f"* 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。",
-        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，无必要请避免使用 IP 规则，或添加 `no-resolve` 参数。",
+        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则，可添加 `no-resolve` 参数。",
         f"",
         f"## 📍 Mihomo 配置指引",
         f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",

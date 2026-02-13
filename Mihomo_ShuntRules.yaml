@@ -92,8 +92,10 @@ rule-providers:
   # [ Security ] 广告与隐私
   Ads:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs",                       path: ./rules/AdRules.mrs }
   Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",                 path: ./rules/Privacy.mrs }
+  # Win隐私跟踪域名列表
   WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",                   path: ./rules/WinSpy.txt }
-  WinExtra:     { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-extra.txt",                 path: ./rules/WinExtra.txt }
+  # Win附加隐私跟踪域名列表
+  # WinExtra:     { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-extra.txt",                 path: ./rules/WinExtra.txt }
   Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",               path: ./rules/Hijacking.mrs }
   Hijacking_IP: { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",            path: ./rules/Hijacking_IP.mrs }
 

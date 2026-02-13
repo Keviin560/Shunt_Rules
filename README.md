@@ -12,7 +12,7 @@
 ## ⚠️ 使用前必读
 * 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略，解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。
 * 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。
-* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则，可添加 `no-resolve` 参数。
+* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则建议添加 `no-resolve` 参数。
 
 ## 📍 Mihomo 配置指引
 > ⚡ 使用方式: 用 `type: http` 远程引用规则集。
@@ -106,6 +106,7 @@ rules:
 | Actalis | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Actalis.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Actalis.lsr) | Today |
 | AdColony | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdColony.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdColony.lsr) | Today |
 | AdGuardSDNSFilter | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdGuardSDNSFilter.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdGuardSDNSFilter.lsr) | Today |
+| AdGuardSDNSFilter_Direct | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdGuardSDNSFilter_Direct.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdGuardSDNSFilter_Direct.lsr) | Today |
 | AddToAny | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AddToAny.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AddToAny.lsr) | Today |
 | Addthis | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Addthis.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Addthis.lsr) | Today |
 | Adidas | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Adidas.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Adidas.lsr) | Today |
@@ -282,7 +283,6 @@ rules:
 | DingTalk | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DingTalk.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DingTalk.lsr) | Today |
 | DingXiangYuan | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DingXiangYuan.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DingXiangYuan.lsr) | Today |
 | Direct | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Direct.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Direct.lsr) | Today |
-| Direct_fd1d | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Direct_fd1d.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Direct_fd1d.lsr) | Today |
 | Discord | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Discord.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Discord.lsr) | Today |
 | DiscoveryPlus | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DiscoveryPlus.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DiscoveryPlus.lsr) | Today |
 | Disney | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Disney.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Disney.lsr) | Today |

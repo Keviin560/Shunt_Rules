@@ -131,8 +131,8 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1770945826,
-    "gen_ver": "v2.9_TIME_FIXED"
+    "updated_at": 1770948164,
+    "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "EasyPrivacy": {
     "src_hash": "b76740b4b02ac119832082fee0356cd9",
@@ -786,8 +786,8 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1770945826,
-    "gen_ver": "v2.9_TIME_FIXED"
+    "updated_at": 1770948164,
+    "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "Anonv": {
     "src_hash": "e64d6d72fa75719bf58c0a351a3cef09",
@@ -1685,9 +1685,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Direct": {
-    "src_hash": "54439c6916dd640b00d1223056f9fae1",
-    "updated_at": 1770929112,
-    "gen_ver": "v2.8_VISUAL_UPGRADE"
+    "src_hash": "0a80f3a423977079cc003cd635b1284d",
+    "updated_at": 1770948164,
+    "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "Clubhouse": {
     "src_hash": "3c48cdd11ab3991d54495963dff14c7c",
@@ -3443,5 +3443,10 @@
     "src_hash": "be12a050c98de51cecae892bc00ceeda",
     "updated_at": 1770929112,
     "gen_ver": "v2.8_VISUAL_UPGRADE"
+  },
+  "AdGuardSDNSFilter_Direct": {
+    "src_hash": "54439c6916dd640b00d1223056f9fae1",
+    "updated_at": 1770948164,
+    "gen_ver": "v3.0_FINAL_COMPLETE"
   }
 }

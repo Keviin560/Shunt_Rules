@@ -141,7 +141,7 @@ rules:
   - RULE-SET, Hijacking_IP, 反劫持, no-resolve
   - RULE-SET, Privacy, 隐私保护
   - RULE-SET, WinSpy, 隐私保护
-  - RULE-SET, WinExtra, 隐私保护
+  # - RULE-SET, WinExtra, 隐私保护
   - RULE-SET, Ads, 广告拦截  
 
 

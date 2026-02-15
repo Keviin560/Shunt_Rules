@@ -7,51 +7,114 @@ import shutil
 import re
 import ipaddress
 import json
-import time
-import socket
-import dns.message
-import dns.query
-import dns.rdatatype
-import dns.flags
-import dns.edns
-import geoip2.database
 from datetime import datetime, timedelta, timezone
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from collections import defaultdict
 
-# --- ⚡️ v3.5 FINAL FIX: 回归系统级下载 + README 自动修复 ---
-GENERATOR_VERSION = "v3.5_SYSTEM_CURL" 
-
-# 📂 目录配置
-DATA_DIR = "data"
+# --- 全局配置 ---
+# ⚡️ v3.0 最终完整版: 修复命名抢占 + 修复时间Bug + 全套UI美化
+GENERATOR_VERSION = "v3.0_FINAL_COMPLETE" 
+SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
-CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
-HISTORY_FILE = os.path.join(DATA_DIR, "history.json")
-GEOIP_DB_PATH = os.path.join(DATA_DIR, "GeoLite2-Country.mmdb")
+HISTORY_FILE = "history.json"
+README_FILE = "README.md"
 MIHOMO_BIN = "./mihomo"
 
-# 🛑 常量定义
+# 🛑 变体剔除黑名单
 IGNORE_KEYWORDS = ["Classical", "Domain", "For_Clash", "No_Resolve", "Clash"]
-SOURCE_URLS = {
-    "CN": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list",
-    "LAN": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list"
-}
-NON_CN_TLDS = {'.hk', '.tw', '.mo', '.sg', '.us', '.uk', '.jp', '.kr', '.au', '.ca', '.de', '.fr', '.in'}
-OVERSEA_KEYWORDS = ['-us-', '.us.', 'oversea', 'global', 'eu-central', 'us-west', 'us-east', 'hk-azure']
-TRAITOR_DOMAINS = {'tiktok.com', 'kwai.com', 'telegram.org', 'telegram.dog'}
-DNS_SERVER = '8.8.8.8' 
-FAKE_CN_IP = '223.5.5.5'
-MAX_WORKERS = 32
-DNS_TIMEOUT = 1.5
-FAILURE_THRESHOLD = 0.20
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("DigitalArchitect")
 
 filename_registry = {}
-geo_reader = None
 
-# --- 1. 基础类 ---
+# --- 关键词救援字典 ---
+KEYWORD_RESCUE_MAP = {
+    "googlevideo": ["googlevideo.com"],
+    "youtube": ["youtube.com", "ytimg.com"],
+    "google": ["google.com", "googleapis.com"],
+    "github": ["github.com", "githubusercontent.com"],
+    "twitter": ["twitter.com", "t.co", "twimg.com"],
+    "telegram": ["telegram.org", "t.me"],
+    "netflix": ["netflix.com", "nflxvideo.net"],
+    "facebook": ["facebook.com", "fbcdn.net"],
+    "instagram": ["instagram.com", "cdninstagram.com"],
+    "openai": ["openai.com"],
+    "chatgpt": ["chatgpt.com", "oaistatic.com", "oaiusercontent.com"],
+    "steam": ["steampowered.com", "steamcommunity.com"],
+    "xbox": ["xbox.com", "xboxlive.com"],
+    "microsoft": ["microsoft.com", "azure.com"]
+}
+
+# --- 动态元数据获取 ---
+def get_metadata():
+    repo_full = os.getenv('GITHUB_REPOSITORY')
+    if repo_full and "/" in repo_full:
+        author = repo_full.split("/")[0]
+        raw_base = f"https://raw.githubusercontent.com/{repo_full}/main"
+        repo_url = f"https://github.com/{repo_full}"
+    else:
+        author = "Unknown"
+        raw_base = "https://raw.githubusercontent.com/Unknown/Test/main"
+        repo_url = "https://github.com/Unknown/Test"
+        repo_full = "YourName/RepoName"
+    return author, raw_base, repo_url, repo_full
+
+AUTHOR_NAME, RAW_BASE_URL, REPO_URL, REPO_NAME_DISPLAY = get_metadata()
+
+# --- 核心组件类 ---
+class KernelIntrospector:
+    def __init__(self, bin_path):
+        self.bin_path = bin_path
+        if not os.path.exists(bin_path): raise FileNotFoundError(f"内核缺失: {bin_path}")
+        self.needs_format_arg = self._detect()
+    def _detect(self):
+        try:
+            res = subprocess.run([self.bin_path, "convert-ruleset"], capture_output=True, text=True, timeout=5)
+            out = res.stderr + res.stdout
+            return "<format>" in out or " [format] " in out
+        except: return False
+    def get_cmd(self, behavior, src, dst):
+        cmd = [self.bin_path, "convert-ruleset", behavior]
+        if self.needs_format_arg: cmd.append("yaml")
+        cmd.append(src)
+        cmd.append(dst)
+        return cmd
+
+class RuleSet:
+    def __init__(self):
+        self.domain_entries = set()
+        self.ip_entries = defaultdict(bool)
+    def add_domain(self, line):
+        line = line.strip().strip("'").strip('"')
+        if not line or line.startswith('#'): return
+        rule_type = "DOMAIN-SUFFIX"
+        value = line
+        if ',' in line:
+            parts = line.split(',')
+            if len(parts) >= 2:
+                t, v = parts[0].upper().strip(), parts[1].strip()
+                if 'DOMAIN' in t: rule_type, value = t, v
+        if len(value) > 2: self.domain_entries.add((rule_type, value))
+    def add_ip(self, line):
+        if not line: return
+        clean = line.replace("'", "").replace('"', "").strip()
+        parts = re.split(r'[,\s]+', clean)
+        target = None
+        no_res = False
+        for p in parts:
+            p = p.strip()
+            if not p or 'IP-' in p.upper(): continue
+            if p.lower() == 'no-resolve': 
+                no_res = True
+                continue
+            try:
+                ipaddress.ip_network(p, strict=False)
+                target = p
+            except ValueError: continue
+        if target:
+            if not self.ip_entries[target]: self.ip_entries[target] = no_res
+
 class HistoryManager:
     def __init__(self):
         self.history = {}
@@ -60,308 +123,358 @@ class HistoryManager:
                 with open(HISTORY_FILE, 'r') as f: self.history = json.load(f)
             except: pass
         self.current_time = int(datetime.now().timestamp())
+    def get_file_hash(self, filepath):
+        if not filepath or not os.path.exists(filepath): return ""
+        with open(filepath, 'rb') as f: return hashlib.md5(f.read()).hexdigest()
+        
+    def should_skip(self, name, source_path, expected_files):
+        src_hash = self.get_file_hash(source_path)
+        if not src_hash: return False, ""
+        
+        record = self.history.get(name, {})
+        last_hash = record.get('src_hash', "")
+        
+        # 🟢 修复 Bug: 仅当源文件 Hash 变化时才重编，忽略脚本版本变化
+        if src_hash != last_hash:
+            return False, src_hash
+            
+        for f in expected_files:
+            if not os.path.exists(f) or os.path.getsize(f) == 0:
+                return False, src_hash
+                
+        return True, src_hash
+
     def update_record(self, name, src_hash):
-        self.history[name] = {'src_hash': src_hash, 'updated_at': self.current_time}
+        self.history[name] = {
+            'src_hash': src_hash,
+            'updated_at': self.current_time,
+            'gen_ver': GENERATOR_VERSION
+        }
+    def get_days_ago(self, name):
+        record = self.history.get(name, {})
+        last_ts = record.get('updated_at', self.current_time)
+        diff = datetime.fromtimestamp(self.current_time) - datetime.fromtimestamp(last_ts)
+        return diff.days
     def save(self):
         with open(HISTORY_FILE, 'w') as f: json.dump(self.history, f, indent=2)
 
-class DomainCache:
-    def __init__(self):
-        self.data = {}
-        if os.path.exists(CACHE_FILE):
-            try:
-                with open(CACHE_FILE, 'r') as f: self.data = json.load(f)
-            except: pass
-    def get(self, domain): return self.data.get(domain)
-    def set(self, domain, is_cn): self.data[domain] = {'is_cn': is_cn, 'ts': int(time.time())}
-    def save(self):
-        sorted_data = dict(sorted(self.data.items()))
-        with open(CACHE_FILE, 'w') as f: json.dump(sorted_data, f, indent=None, separators=(',', ':'))
+def get_smart_filename(rel_path):
+    parts = rel_path.split(os.sep)
+    base = os.path.splitext(parts[-1])[0]
+    cand = base
+    stack = parts[:-1]
+    while cand in filename_registry:
+        if filename_registry[cand] == rel_path: return cand
+        if not stack:
+            cand = f"{cand}_{hashlib.md5(rel_path.encode()).hexdigest()[:4]}"
+            break
+        cand = f"{stack.pop()}_{cand}"
+    filename_registry[cand] = rel_path
+    return cand
 
-# --- 2. 🔥 核心修复：使用系统 Curl 下载 (跟wget一样稳) ---
-def robust_download(url):
-    """
-    既然 Python requests 不行，我们就用系统级的 curl。
-    日志里显示 wget 下载 GeoIP 成功了，那 curl 下载规则也一定能行。
-    """
-    # 自动尝试原始链接和 CDN 镜像
-    cdn_url = url.replace("raw.githubusercontent.com", "cdn.jsdelivr.net/gh").replace("/meta/", "@meta/")
-    targets = [url, cdn_url]
-    
-    for target in targets:
-        try:
-            # -s: 静默
-            # -L: 跟随跳转
-            # --fail: 404报错
-            # --retry: 重试3次
-            # --max-time: 20秒超时
-            cmd = ["curl", "-s", "-L", "--fail", "--retry", "3", "--max-time", "20", target]
-            result = subprocess.run(cmd, capture_output=True, text=True)
-            
-            if result.returncode != 0:
-                continue
-                
-            text = result.stdout
-            
-            # 🔥 垃圾拦截网：检查是否下载到了 HTML
-            # 如果包含 <html 或 <!doctype，说明被劫持了，不要用！
-            head = text[:500].lower()
-            if "<html" in head or "<!doctype" in head or "<body>" in head:
-                logger.warning(f"⚠️ 拦截到网页垃圾数据，跳过: {target}")
-                continue
-                
-            return text
-        except Exception as e:
-            logger.warning(f"⚠️ 下载异常: {e}")
+def should_skip_file(fname):
+    base = os.path.splitext(fname)[0]
+    for k in IGNORE_KEYWORDS:
+        if k in base: return True
+    return False
 
-    logger.error(f"❌ 下载彻底失败: {url}")
-    return ""
-
-# --- 3. 清洗逻辑 (保持完美逻辑) ---
-def check_domain_static(domain, cache):
-    domain = domain.strip().lower()
-    cached = cache.get(domain)
-    if cached and (time.time() - cached['ts'] < 60 * 86400):
-        return domain, cached['is_cn'], False 
-    if domain.endswith('.cn'): 
-        cache.set(domain, True)
-        return domain, True, False
-    for traitor in TRAITOR_DOMAINS:
-        if traitor in domain:
-            cache.set(domain, False)
-            return domain, False, False
-    for tld in NON_CN_TLDS:
-        if domain.endswith(tld):
-            cache.set(domain, False)
-            return domain, False, False
-    for kw in OVERSEA_KEYWORDS:
-        if kw in domain:
-            cache.set(domain, False)
-            return domain, False, False
-    return domain, None, True
-
-def worker_dns_check(domain):
+def parse_file(path, ruleset):
     try:
-        query = dns.message.make_query(domain, dns.rdatatype.A)
-        ecs = dns.edns.ECSOption(socket.inet_aton(FAKE_CN_IP), 24)
-        query.use_edns(options=[ecs])
-        response = dns.query.udp(query, DNS_SERVER, timeout=DNS_TIMEOUT)
-        has_ip = False
-        for answer in response.answer:
-            for item in answer:
-                if item.rdtype == dns.rdatatype.A:
-                    has_ip = True
-                    ip = item.address
-                    if geo_reader:
-                        try:
-                            match = geo_reader.country(ip)
-                            if match.country.iso_code == 'CN': return domain, True, False 
-                        except: pass
-        if not has_ip: return domain, False, False 
-        return domain, False, False 
-    except: return domain, False, True 
+        with open(path, 'r', encoding='utf-8', errors='ignore') as f:
+            if path.endswith(('.yaml', '.yml')):
+                try:
+                    data = yaml.safe_load(f)
+                    if data and 'payload' in data:
+                        for l in data['payload']: process_entry(str(l), ruleset)
+                except: pass
+            else:
+                for l in f: process_entry(l, ruleset)
+    except: pass
 
-def build_china_list(cache):
-    logger.info("🚀 开始构建 China 列表...")
+def process_entry(line, ruleset):
+    line = line.strip()
+    if not line or line.startswith('#'): return
+    if line.startswith("['"): line = line.replace('[','').replace(']','').replace("'", "")
+    upper = line.upper()
+    if 'DOMAIN' in upper or (not 'IP-' in upper and '.' in line and not line[0].isdigit()):
+        ruleset.add_domain(line)
+    else:
+        ruleset.add_ip(line)
+
+def build_mihomo(kernel, name, ruleset):
+    h_d, h_i = False, False
     
-    # 使用 curl 下载
-    content = robust_download(SOURCE_URLS["CN"])
-    
-    # 🔥 熔断点 1：下载为空
-    if not content:
-        logger.error("☠️ 下载内容为空，跳过构建！")
-        return []
+    if ruleset.domain_entries:
+        final_domains = set()
+        raw_candidates = set()
 
-    candidates = set()
-    for line in content.splitlines():
-        line = line.strip()
-        line = re.sub(r'^(full:|domain:)', '', line)
-        if line and ',' not in line and '.' in line and ' ' not in line and len(line) < 100:
-            if not line.startswith('#') and not line.startswith('regexp:'):
-                candidates.add(line)
-            
-    logger.info(f"📥 主源有效域名: {len(candidates)} 条")
-    
-    # 🔥 熔断点 2：数据量异常暴增 (防止 HTML 注入，正常也就7000条左右)
-    if len(candidates) > 20000:
-        logger.error(f"☠️ 域名数量 {len(candidates)} 异常，判定为下载中毒！强制停止！")
-        return []
+        for t, v in ruleset.domain_entries:
+            if 'KEYWORD' in t.upper():
+                for kw, domains in KEYWORD_RESCUE_MAP.items():
+                    if kw in v.lower():
+                        for d in domains:
+                            raw_candidates.add(d)
+                continue 
 
-    final_cn_domains = set()
-    pending_domains = []
-
-    for domain in candidates:
-        d, is_cn, need_dns = check_domain_static(domain, cache)
-        if not need_dns:
-            if is_cn: final_cn_domains.add(d)
-        else:
-            pending_domains.append(d)
-
-    logger.info(f"⚡️ 静态过滤完成。需 DNS 清洗: {len(pending_domains)} 条")
-
-    if pending_domains:
-        network_errors = 0
-        processed_count = 0
-        circuit_broken = False
+            if 'REGEX' in t.upper(): continue
+            raw_candidates.add(v)
         
-        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-            future_to_domain = {executor.submit(worker_dns_check, d): d for d in pending_domains}
-            for future in as_completed(future_to_domain):
-                d, is_cn, is_net_err = future.result()
-                processed_count += 1
-                if is_net_err: network_errors += 1
-                
-                # 🔥 熔断点 3：网络错误率过高
-                current_fail_rate = network_errors / processed_count
-                if not circuit_broken and processed_count > 100 and current_fail_rate > FAILURE_THRESHOLD:
-                    logger.warning(f"⚠️ 网络错误率 {current_fail_rate:.2%} 过高，触发熔断！")
-                    circuit_broken = True
-                    executor.shutdown(wait=False, cancel_futures=True)
-                    break 
-                
-                if circuit_broken: break
-                if not is_net_err: cache.set(d, is_cn)
-                if is_cn: final_cn_domains.add(d)
-                
-                if processed_count % 200 == 0:
-                    print(f"   ⏳ 清洗进度: {processed_count}/{len(pending_domains)}...", end='\r')
+        for d in raw_candidates:
+            if d.startswith('.'):
+                clean_d = d[1:] 
+                final_domains.add(clean_d)
+                final_domains.add(d) 
+            else:
+                final_domains.add(d)
+                final_domains.add(f".{d}")
 
-        if circuit_broken:
-            # 熔断后，将剩余未检测域名默认保留，防止误杀
-            for d in pending_domains:
-                if d not in final_cn_domains: final_cn_domains.add(d)
+        clean = sorted(list(final_domains))
+        
+        if clean and _compile_mihomo(kernel, name, clean, 'domain'): 
+            h_d = True
+            
+    if ruleset.ip_entries:
+        clean = sorted(ruleset.ip_entries.keys())
+        if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
+        
+    return h_d, h_i
 
-    return sorted(list(final_cn_domains))
-
-class KernelIntrospector:
-    def __init__(self, bin_path): self.bin_path = bin_path
-    def get_cmd(self, behavior, src, dst): return [self.bin_path, "convert-ruleset", behavior, "yaml", src, dst]
-
-def compile_mrs(kernel, name, rules, behavior):
-    os.makedirs(TARGET_DIR_MIHOMO, exist_ok=True)
+def _compile_mihomo(kernel, name, rules, behavior):
     tmp = f"temp_{name}.yaml"
     dst = os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs")
     try:
         with open(tmp, 'w', encoding='utf-8') as f: yaml.dump({'payload': rules}, f)
-        subprocess.run(kernel.get_cmd(behavior, tmp, dst), check=True)
+        res = subprocess.run(kernel.get_cmd(behavior, tmp, dst), capture_output=True, text=True, timeout=20)
+        if res.returncode != 0 or os.path.getsize(dst) == 0:
+            if os.path.exists(dst): os.remove(dst)
+            return False
         return True
     except: return False
     finally:
         if os.path.exists(tmp): os.remove(tmp)
 
-# --- 🔥 核心修复：README 自动再生 ---
-def auto_fix_readme(stats):
-    """
-    因为上一次运行把 README 弄坏了，这里必须自动检测并修复。
-    如果发现 README 没有锚点或者内容太少，直接重写一个标准的。
-    """
-    readme_path = "README.md"
-    needs_rebuild = False
-    
-    # 1. 检测是否需要重建
-    if not os.path.exists(readme_path) or os.path.getsize(readme_path) < 50:
-        needs_rebuild = True
-    else:
-        with open(readme_path, 'r') as f:
-            content = f.read()
-            if "" not in content:
-                needs_rebuild = True
-
-    # 2. 如果需要重建，写入标准模板 (恢复第一阶段的样子)
-    if needs_rebuild:
-        logger.warning("⚠️ 检测到 README 损坏，正在自动修复...")
-        base_content = """# 🤖 Auto Shunt Rules
-
-High-performance, auto-updated China domain & IP rules for Mihomo/Clash.
-Powered by ECS Fake-IP & GeoIP validation.
-
-### 📊 Rule Statistics
-### 🚀 Usage
-- **China List**: `https://raw.githubusercontent.com/{repo}/main/rule/Mihomo/China.mrs`
-- **China IP**: `https://raw.githubusercontent.com/{repo}/main/rule/Mihomo/China_IP.mrs`
-
-> Auto-generated by v3.5 Builder
-""".format(repo=os.getenv("GITHUB_REPOSITORY", "Your/Repo"))
-    else:
-        with open(readme_path, 'r') as f:
-            base_content = f.read()
-
-    # 3. 生成统计表格
-    table_md = [
-        f"\nUpdate: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}\n",
-        "| Rule Name | Count | Status |",
-        "| :--- | :--- | :--- |"
-    ]
-    for name, count in stats:
-        status = "✅ Active" if count > 0 else "❌ Error"
-        table_md.append(f"| {name} | {count} | {status} |")
-    
-    insert_block = "\n".join(table_md)
-    
-    # 4. 注入内容 (正则替换)
-    pattern = r"()(.*?)()"
-    # 如果正则匹配不到，说明模板可能刚写进去还不是正则格式，兜底处理
-    if re.search(pattern, base_content, flags=re.DOTALL):
-        new_content = re.sub(pattern, f"\\1\n{insert_block}\n\\3", base_content, flags=re.DOTALL)
-    else:
-        # 兜底：直接追加
-        new_content = base_content + "\n" + insert_block
-    
-    with open(readme_path, 'w') as f:
-        f.write(new_content)
-    logger.info("✅ README 已更新")
-
-# --- 主入口 ---
-def main():
-    os.makedirs(DATA_DIR, exist_ok=True)
-    os.makedirs(TARGET_DIR_MIHOMO, exist_ok=True)
-    os.makedirs(TARGET_DIR_LOON, exist_ok=True)
-    
-    global geo_reader
+def build_loon(name, ruleset):
+    count = len(ruleset.domain_entries) + len(ruleset.ip_entries)
+    if count == 0: return False
+    dst = os.path.join(TARGET_DIR_LOON, f"{name}.lsr")
+    lines = []
+    for ip, no_res in ruleset.ip_entries.items():
+        lines.append(f"IP-CIDR,{ip}{',no-resolve' if no_res else ''}")
+    for t, v in ruleset.domain_entries: lines.append(f"{t},{v}")
+    lines.sort()
+    lines.sort(key=lambda x: 0 if "no-resolve" in x else (1 if "DOMAIN" in x else 2))
+    bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
     try:
-        geo_reader = geoip2.database.Reader(GEOIP_DB_PATH)
-        logger.info("🌍 GeoIP 数据库就绪")
+        with open(dst, 'w', encoding='utf-8') as f:
+            f.write(f"# Name = {name}\n# Author = {AUTHOR_NAME}\n# REPO = {REPO_URL}\n# Update = {bj_time}\n# Total = {count}\n\n")
+            f.write("\n".join(lines))
+        return True
+    except: return False
+
+def get_status_text(days):
+    if days == 0: return "Today"
+    if days == 1: return "Yesterday"
+    return f"{days} days ago"
+
+def detect_config_file():
+    try:
+        files = os.listdir('.')
     except:
-        logger.warning("⚠️ GeoIP 缺失")
+        return "Mihomo_ShuntRules.yaml", False
+    for f in files:
+        if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f:
+            return f, True
+    for f in files:
+         if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f):
+            return f, True
+    return "Mihomo_ShuntRules.yaml", False
 
-    cache = DomainCache()
-    history = HistoryManager()
-    kernel = KernelIntrospector(MIHOMO_BIN)
+def generate_readme(stats):
+    stats.sort(key=lambda x: x[0])
+    total = len(stats)
+    # 🟢 修复 Bug: 使用点号分割日期，修复 Shields.io 404
+    bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
+    time_badge_val = bj_time
+    
+    config_name, found = detect_config_file()
+    config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
+
+    # ✅ 徽章生成区 (纯色圆角风格，按要求排序)
+    badges = [
+        f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
+        f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
+        f"![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat)",
+        f"![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat)",
+        f"![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat)",
+        f"![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat)",
+        f"![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat)",
+        f"![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)"
+    ]
+    badge_line = " ".join(badges)
+
+    md = [
+        # ✅ 标题与徽章居中
+        f"<div align=\"center\">",
+        f"",
+        f"# 🤖 Auto Shunt Rules", 
+        f"",
+        f"{badge_line}",
+        f"",
+        f"</div>",
+        f"",
+        f"## ℹ️ 数据源说明",
+        f"♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
+        f"",
+        f"## ⚠️ 使用前必读",
+        f"* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略，解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
+        f"* 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。",
+        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则建议添加 `no-resolve` 参数。",
+        f"",
+        f"## 📍 Mihomo 配置指引",
+        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
+        f"> 🔗 覆写参考: {config_link}",
+        f"",
+        # ✅ 代码折叠 + 文案微调
+        f"<details>",
+        f"<summary><strong>💾 配置示例 <sub>(以 Google 为例，点击展开)</sub></strong></summary>",
+        f"",
+        f"### 1. 定义策略组 (Proxy Groups)",
+        f"```yaml",
+        f"proxy-groups:",
+        f"  - name: \"MyProxyGroup\"   # 策略组名称，可自定义",
+        f"    type: select",
+        f"    proxies:",
+        f"      - 🇭🇰 香港节点      # 👈 这里填写你在 'proxies' 中定义的节点名称",
+        f"      - 🇺🇸 美国节点      # 👈 或者填写 'DIRECT' (直连) / 'REJECT' (拒绝)",
+        f"```",
+        f"",
+        f"### 2. 配置规则集 (Rule Providers)",
+        f"```yaml",
+        f"rule-providers:",
+        f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
+        f"  Google:",
+        f"    type: http",
+        f"    behavior: domain",
+        f"    format: mrs",
+        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google.mrs\"",
+        f"    path: ./rules/Mihomo/Google.mrs",
+        f"    interval: 86400",
+        f"",
+        f"  # 🟢 案例 2：引用 IP 规则 (behavior: ipcidr)",
+        f"  Google_IP:",
+        f"    type: http",
+        f"    behavior: ipcidr",
+        f"    format: mrs",
+        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google_IP.mrs\"",
+        f"    path: ./rules/Mihomo/Google_IP.mrs",
+        f"    interval: 86400",
+        f"```",
+        f"",
+        f"### 3. 应用规则 (Rules)",
+        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
+        f"```yaml",
+        f"rules:",
+        f"  - RULE-SET,Google,MyProxyGroup",
+        f"  - RULE-SET,Google_IP,MyProxyGroup,no-resolve",
+        f"```",
+        f"</details>",
+        f"",
+        f"## 📊 规则索引",
+        f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",
+        f"| :---: | :---: | :---: | :---: |"
+    ]
+    
+    for name, status, has_d, has_i, has_l in stats:
+        mihomo_links = []
+        if has_d: mihomo_links.append(f"[`DOMAIN`]({RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/{name}.mrs)")
+        if has_i: mihomo_links.append(f"[`IP-CIDR`]({RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/{name}_IP.mrs)")
+        m_cell = " \\| ".join(mihomo_links) if mihomo_links else "-"
+        l_cell = f"[`RAW Link`]({RAW_BASE_URL}/{TARGET_DIR_LOON}/{name}.lsr)" if has_l else "-"
+        md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
+        
+    with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
+
+def main():
+    for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
+        os.makedirs(d, exist_ok=True)
+    if not os.path.exists(SOURCE_DIR): return
+    kernel, history, aggregated = KernelIntrospector(MIHOMO_BIN), HistoryManager(), defaultdict(RuleSet)
+    logger.info("🔍 扫描源文件...")
+    
+    rel_path_map = {} 
+    cnt, skip = 0, 0
+    for root, _, files in os.walk(SOURCE_DIR):
+        rel = os.path.relpath(root, SOURCE_DIR)
+        if rel == '.': continue
+        rs = aggregated[rel]
+        for f in files:
+            if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip_file(f):
+                full_path = os.path.join(root, f)
+                parse_file(full_path, rs)
+                rel_path_map[rel] = full_path 
+                cnt += 1
+                
+    logger.info(f"✅ 解析完成。规则组: {len(aggregated)}")
+    
     stats = []
+    valid_outputs = set()
     
-    # China
-    cn_domains = build_china_list(cache)
-    if cn_domains:
-        compile_mrs(kernel, "China", cn_domains, 'domain')
-        with open(os.path.join(TARGET_DIR_LOON, "China.lsr"), 'w') as f:
-            f.write("\n".join([f"DOMAIN-SUFFIX,{d}" for d in cn_domains]))
-        stats.append(("China", len(cn_domains)))
-        logger.info(f"✅ China 构建完成: {len(cn_domains)} 条")
-    else:
-        stats.append(("China", 0))
+    updated_count = 0
+    skipped_count = 0
+    
+    # 🟢 核心修复：按路径深度排序，优先处理浅层目录，防止深层目录抢占简短文件名
+    # lambda x: (x.count(os.sep), x) 表示先按分隔符数量(深度)排，再按名称排
+    sorted_rels = sorted(aggregated.keys(), key=lambda x: (x.count(os.sep), x))
+    
+    for rel in sorted_rels:
+        rs = aggregated[rel]
+        name = get_smart_filename(rel)
+        source_path = rel_path_map.get(rel)
+        if not source_path: continue
 
-    # IP
-    lan_content = robust_download(SOURCE_URLS["LAN"])
-    if lan_content:
-        ip_list = []
-        for line in lan_content.splitlines():
-            if 'IP-CIDR' in line or '/' in line:
-                ip_list.append(line.strip().replace("'", ""))
-        if ip_list:
-            compile_mrs(kernel, "China_IP", ip_list, 'ipcidr')
-            with open(os.path.join(TARGET_DIR_LOON, "China_IP.lsr"), 'w') as f:
-                f.write("\n".join([f"IP-CIDR,{ip}" for ip in ip_list]))
-            stats.append(("China_IP", len(ip_list)))
-    else:
-        stats.append(("China_IP", 0))
-
-    cache.save()
+        expect_d = bool(rs.domain_entries)
+        expect_i = bool(rs.ip_entries)
+        expect_l = expect_d or expect_i
+        
+        expected_files = []
+        if expect_d: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
+        if expect_i: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
+        if expect_l: expected_files.append(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
+        
+        should_skip_build, src_hash = history.should_skip(name, source_path, expected_files)
+        
+        h_d, h_i, h_l = expect_d, expect_i, expect_l
+        
+        if should_skip_build:
+            skipped_count += 1
+            days = history.get_days_ago(name)
+        else:
+            updated_count += 1
+            h_d, h_i = build_mihomo(kernel, name, rs)
+            h_l = build_loon(name, rs)
+            history.update_record(name, src_hash)
+            days = 0
+            
+        if h_d: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
+        if h_i: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
+        if h_l: valid_outputs.add(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
+        
+        if h_d or h_i or h_l:
+            stats.append((name, get_status_text(days), h_d, h_i, h_l))
+            
+    logger.info("🧹 执行清理...")
+    removed_zombies = 0
+    for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
+        if not os.path.exists(d): continue
+        for f in os.listdir(d):
+            full_p = os.path.join(d, f)
+            if full_p not in valid_outputs:
+                os.remove(full_p)
+                removed_zombies += 1
+                
     history.save()
-    
-    # 自动修复并更新 README
-    auto_fix_readme(stats)
-    
-    logger.info("💾 全流程结束")
+    generate_readme(stats)
+    logger.info(f"🎉 完成: 更新 {updated_count}, 跳过 {skipped_count}, 清理 {removed_zombies}")
 
 if __name__ == "__main__":
     main()

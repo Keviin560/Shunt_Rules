@@ -19,21 +19,21 @@ import geoip2.database
 from datetime import datetime, timedelta, timezone
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# --- ⚡️ v3.1 Phase 2: 纯净自研 + 极致收纳 + 熔断保护 ---
-GENERATOR_VERSION = "v3.1_PHASE2_FINAL" 
+# --- ⚡️ v3.2 Stable Fix: 内容防御 + 纯净自研 + 熔断保护 ---
+GENERATOR_VERSION = "v3.2_STABLE_FIX" 
 
 # 📂 目录结构配置
 DATA_DIR = "data"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
 
-# 📄 关键文件路径 (全部收纳进 data/)
+# 📄 关键文件路径
 CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
 HISTORY_FILE = os.path.join(DATA_DIR, "history.json")
 GEOIP_DB_PATH = os.path.join(DATA_DIR, "GeoLite2-Country.mmdb")
 MIHOMO_BIN = "./mihomo"
 
-# 🛑 变体剔除黑名单 (文件名包含这些则跳过)
+# 🛑 变体剔除黑名单
 IGNORE_KEYWORDS = ["Classical", "Domain", "For_Clash", "No_Resolve", "Clash"]
 
 # 🎯 权威源配置 (MetaCubeX)
@@ -42,7 +42,7 @@ SOURCE_URLS = {
     "LAN": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list"
 }
 
-# 🏴‍☠️ 静态净化规则 (秒杀名单)
+# 🏴‍☠️ 静态净化规则
 NON_CN_TLDS = {'.hk', '.tw', '.mo', '.sg', '.us', '.uk', '.jp', '.kr', '.au', '.ca', '.de', '.fr', '.in'}
 OVERSEA_KEYWORDS = ['-us-', '.us.', 'oversea', 'global', 'eu-central', 'us-west', 'us-east', 'hk-azure']
 TRAITOR_DOMAINS = {'tiktok.com', 'kwai.com', 'telegram.org', 'telegram.dog'}
@@ -51,8 +51,8 @@ TRAITOR_DOMAINS = {'tiktok.com', 'kwai.com', 'telegram.org', 'telegram.dog'}
 DNS_SERVER = '8.8.8.8'   # Google DNS
 FAKE_CN_IP = '223.5.5.5' # 伪装阿里北京 DNS
 MAX_WORKERS = 32         # 🔥 32线程并发
-DNS_TIMEOUT = 1.5        # ⚡️ 1.5秒超时 (快速失败)
-FAILURE_THRESHOLD = 0.20 # 🛡️ 熔断阈值 (错误率 > 20% 触发降级)
+DNS_TIMEOUT = 1.5        # 1.5秒超时
+FAILURE_THRESHOLD = 0.20 # 20% 熔断
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("DigitalArchitect")
@@ -60,7 +60,7 @@ logger = logging.getLogger("DigitalArchitect")
 filename_registry = {}
 geo_reader = None
 
-# --- 1. 历史与缓存管理 (收纳版) ---
+# --- 1. 历史与缓存管理 ---
 class HistoryManager:
     def __init__(self):
         self.history = {}
@@ -69,9 +69,6 @@ class HistoryManager:
                 with open(HISTORY_FILE, 'r') as f: self.history = json.load(f)
             except: pass
         self.current_time = int(datetime.now().timestamp())
-
-    def get_file_hash(self, content):
-        return hashlib.md5(content.encode('utf-8')).hexdigest()
 
     def update_record(self, name, src_hash):
         self.history[name] = {
@@ -105,24 +102,45 @@ class DomainCache:
         with open(CACHE_FILE, 'w') as f:
             json.dump(sorted_data, f, indent=None, separators=(',', ':'))
 
-# --- 2. 核心清洗逻辑 ---
+# --- 2. 网络下载与防御 (核心修复) ---
+def validate_content(text):
+    """🛡️ 内容防御：检查下载的是不是 HTML 垃圾"""
+    head = text[:500].lower()
+    if "<html" in head or "<!doctype" in head or "<body>" in head:
+        return False
+    return True
+
 def robust_download(url):
+    # 模拟浏览器 User-Agent，防止被 GitHub 拦截返回 403 页面
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+    }
+    
+    # 自动生成 jsDelivr CDN 链接
     cdn_url = url.replace("raw.githubusercontent.com", "cdn.jsdelivr.net/gh").replace("/meta/", "@meta/")
+    
     targets = [url, cdn_url]
     for target in targets:
         for attempt in range(2):
             try:
-                resp = requests.get(target, timeout=10)
-                if resp.status_code == 200: return resp.text
-            except: pass
-    logger.warning(f"⚠️ 下载失败: {url}")
+                resp = requests.get(target, headers=headers, timeout=15)
+                if resp.status_code == 200:
+                    text = resp.text
+                    # ✅ 核心校验：如果是 HTML，说明下载错了，立刻报错，不让它污染后续流程
+                    if validate_content(text):
+                        return text
+                    else:
+                        logger.warning(f"⚠️ 下载到网页 HTML，视为无效: {target}")
+            except Exception as e:
+                pass
+    
+    logger.error(f"❌ 所有源下载失败: {url}")
     return ""
 
+# --- 3. 清洗逻辑 ---
 def check_domain_static(domain, cache):
     domain = domain.strip().lower()
-    
     cached = cache.get(domain)
-    # 缓存有效期 60 天
     if cached and (time.time() - cached['ts'] < 60 * 86400):
         return domain, cached['is_cn'], False 
 
@@ -168,27 +186,36 @@ def worker_dns_check(domain):
                                 return domain, True, False 
                         except: pass
         
-        if not has_ip:
-            return domain, False, False 
-            
+        if not has_ip: return domain, False, False 
         return domain, False, False 
 
     except Exception:
         return domain, False, True 
 
-# --- 3. 构建流程 ---
+# --- 4. 构建流程 ---
 def build_china_list(cache):
-    logger.info("🚀 开始构建 China 列表 (v3.1 Phase 2)...")
+    logger.info("🚀 开始构建 China 列表...")
     
     content = robust_download(SOURCE_URLS["CN"])
+    if not content:
+        logger.error("☠️ 严重错误：主源内容为空！停止构建，防止生成空规则。")
+        return []
+
     candidates = set()
     for line in content.splitlines():
         line = line.strip()
         line = re.sub(r'^(full:|domain:)', '', line)
-        if line and ',' not in line and '.' in line and not line.startswith('#') and not line.startswith('regexp:'):
-            candidates.add(line)
+        # 严格过滤：必须包含点，不能有空格，长度合理
+        if line and ',' not in line and '.' in line and ' ' not in line and len(line) < 100:
+            if not line.startswith('#') and not line.startswith('regexp:'):
+                candidates.add(line)
             
-    logger.info(f"📥 主源待处理: {len(candidates)} 条")
+    logger.info(f"📥 主源有效域名: {len(candidates)} 条")
+
+    # 如果解析出来超过 2万条，肯定又是下载错了（防御性编程）
+    if len(candidates) > 20000:
+        logger.error(f"☠️ 异常：域名数量 {len(candidates)} 远超预期，怀疑下载内容中毒！")
+        return []
 
     final_cn_domains = set()
     pending_domains = []
@@ -214,9 +241,9 @@ def build_china_list(cache):
                 d, is_cn, is_net_err = future.result()
                 processed_count += 1
                 
-                if is_net_err:
-                    network_errors += 1
+                if is_net_err: network_errors += 1
                 
+                # 熔断检测
                 current_fail_rate = network_errors / processed_count
                 if not circuit_broken and processed_count > 100 and current_fail_rate > FAILURE_THRESHOLD:
                     logger.warning(f"⚠️ 触发网络熔断! 错误率 {current_fail_rate:.2%} > {FAILURE_THRESHOLD:.0%}")
@@ -226,27 +253,21 @@ def build_china_list(cache):
 
                 if circuit_broken: break
 
-                if not is_net_err:
-                    cache.set(d, is_cn)
-                
-                if is_cn:
-                    final_cn_domains.add(d)
+                if not is_net_err: cache.set(d, is_cn)
+                if is_cn: final_cn_domains.add(d)
                 
                 if processed_count % 200 == 0:
                     print(f"   ⏳ 清洗进度: {processed_count}/{len(pending_domains)}...", end='\r')
 
         if circuit_broken:
+            # 熔断后，保守策略：把剩下的未检测域名都加回来（防止误杀导致断网）
             for d in pending_domains:
                 if d not in final_cn_domains:
-                    cached = cache.get(d)
-                    if cached and cached['is_cn']: 
-                        final_cn_domains.add(d)
-                    else:
-                        final_cn_domains.add(d) 
+                    final_cn_domains.add(d)
 
     return sorted(list(final_cn_domains))
 
-# --- 4. 编译与工具类 ---
+# --- 5. 编译与工具类 ---
 class KernelIntrospector:
     def __init__(self, bin_path): self.bin_path = bin_path
     def get_cmd(self, behavior, src, dst): return [self.bin_path, "convert-ruleset", behavior, "yaml", src, dst]
@@ -292,6 +313,7 @@ def main():
     kernel = KernelIntrospector(MIHOMO_BIN)
     stats = []
     
+    # 1. China
     cn_domains = build_china_list(cache)
     if cn_domains:
         compile_mrs(kernel, "China", cn_domains, 'domain')
@@ -300,17 +322,19 @@ def main():
         stats.append(("China", len(cn_domains)))
         logger.info(f"✅ China 构建完成: {len(cn_domains)} 条")
 
+    # 2. IP
     lan_content = robust_download(SOURCE_URLS["LAN"])
-    ip_list = []
-    for line in lan_content.splitlines():
-        if 'IP-CIDR' in line or '/' in line:
-            ip_list.append(line.strip().replace("'", ""))
-    
-    if ip_list:
-        compile_mrs(kernel, "China_IP", ip_list, 'ipcidr')
-        with open(os.path.join(TARGET_DIR_LOON, "China_IP.lsr"), 'w') as f:
-            f.write("\n".join([f"IP-CIDR,{ip}" for ip in ip_list]))
-        stats.append(("China_IP", len(ip_list)))
+    if lan_content:
+        ip_list = []
+        for line in lan_content.splitlines():
+            if 'IP-CIDR' in line or '/' in line:
+                ip_list.append(line.strip().replace("'", ""))
+        
+        if ip_list:
+            compile_mrs(kernel, "China_IP", ip_list, 'ipcidr')
+            with open(os.path.join(TARGET_DIR_LOON, "China_IP.lsr"), 'w') as f:
+                f.write("\n".join([f"IP-CIDR,{ip}" for ip in ip_list]))
+            stats.append(("China_IP", len(ip_list)))
 
     cache.save()
     history.save()

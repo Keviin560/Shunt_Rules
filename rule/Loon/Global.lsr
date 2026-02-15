@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-12 21:12:31
-# Total = 32924
+# Update = 2026-02-16 04:39:09
+# Total = 32944
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -223,6 +223,7 @@ DOMAIN,straitsx-826709081262441084-b790f87a2ae6fd417434295.freshchat.com
 DOMAIN,tesla-cdn.thron.com
 DOMAIN,time.windows.com
 DOMAIN,translomatic.foxfortmobile.com
+DOMAIN,ubisoft.siteintercept.qualtrics.com
 DOMAIN,ut1-time.colorado.edu
 DOMAIN,utcnist.colorado.edu
 DOMAIN,utcnist2.colorado.edu
@@ -2325,6 +2326,7 @@ DOMAIN-SUFFIX,apkmonk.com
 DOMAIN-SUFFIX,apkplz.com
 DOMAIN-SUFFIX,apkpure.com
 DOMAIN-SUFFIX,apkpure.net
+DOMAIN-SUFFIX,apkpures.xyz
 DOMAIN-SUFFIX,aple.com
 DOMAIN-SUFFIX,aplestore.com
 DOMAIN-SUFFIX,aplleipods.com
@@ -2991,6 +2993,7 @@ DOMAIN-SUFFIX,attcenter.com
 DOMAIN-SUFFIX,attcollaborate.com
 DOMAIN-SUFFIX,attdns.com
 DOMAIN-SUFFIX,attdns.net
+DOMAIN-SUFFIX,attestation.app
 DOMAIN-SUFFIX,attexperts.com
 DOMAIN-SUFFIX,attglobal.net
 DOMAIN-SUFFIX,atthelimits.ac.uk
@@ -13066,6 +13069,19 @@ DOMAIN-SUFFIX,grantleyhall.ac.uk
 DOMAIN-SUFFIX,granulate.io
 DOMAIN-SUFFIX,graph.org
 DOMAIN-SUFFIX,graphenecentre.ac.uk
+DOMAIN-SUFFIX,grapheneos.app
+DOMAIN-SUFFIX,grapheneos.ca
+DOMAIN-SUFFIX,grapheneos.com
+DOMAIN-SUFFIX,grapheneos.dev
+DOMAIN-SUFFIX,grapheneos.foundation
+DOMAIN-SUFFIX,grapheneos.info
+DOMAIN-SUFFIX,grapheneos.net
+DOMAIN-SUFFIX,grapheneos.network
+DOMAIN-SUFFIX,grapheneos.online
+DOMAIN-SUFFIX,grapheneos.org
+DOMAIN-SUFFIX,grapheneos.ovh
+DOMAIN-SUFFIX,grapheneos.page
+DOMAIN-SUFFIX,grapheneos.social
 DOMAIN-SUFFIX,graphengine.io
 DOMAIN-SUFFIX,graphis.ne.jp
 DOMAIN-SUFFIX,graphql.org
@@ -25294,6 +25310,7 @@ DOMAIN-SUFFIX,sea-mammal-research-unit.ac.uk
 DOMAIN-SUFFIX,seacams.ac.uk
 DOMAIN-SUFFIX,seagroup.com
 DOMAIN-SUFFIX,seaha-cdt.ac.uk
+DOMAIN-SUFFIX,seamlessupdate.app
 DOMAIN-SUFFIX,seamonkey-project.org
 DOMAIN-SUFFIX,seancody.com
 DOMAIN-SUFFIX,seaofsolitude.com
@@ -28387,6 +28404,7 @@ DOMAIN-SUFFIX,tomovie.net
 DOMAIN-SUFFIX,tomp3.cc
 DOMAIN-SUFFIX,tomsguide.com
 DOMAIN-SUFFIX,tomshardware.com
+DOMAIN-SUFFIX,ton.org
 DOMAIN-SUFFIX,tonec.com
 DOMAIN-SUFFIX,tongil.or.kr
 DOMAIN-SUFFIX,tonicmovies.com
@@ -29600,6 +29618,7 @@ DOMAIN-SUFFIX,vam.ac.uk
 DOMAIN-SUFFIX,vamsas.ac.uk
 DOMAIN-SUFFIX,van001.com
 DOMAIN-SUFFIX,van698.com
+DOMAIN-SUFFIX,vanadium.app
 DOMAIN-SUFFIX,vancouverbmwretailers.ca
 DOMAIN-SUFFIX,vanilla-jp.com
 DOMAIN-SUFFIX,vanish.at
@@ -30620,6 +30639,7 @@ DOMAIN-SUFFIX,wallornot.org
 DOMAIN-SUFFIX,wallpapercasa.com
 DOMAIN-SUFFIX,wallproxy.com
 DOMAIN-SUFFIX,wallsttv.com
+DOMAIN-SUFFIX,wallzhihu.com
 DOMAIN-SUFFIX,walmart-content.com
 DOMAIN-SUFFIX,walmart.com
 DOMAIN-SUFFIX,walmart.pharmacy

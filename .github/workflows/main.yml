@@ -1,4 +1,4 @@
-name: Auto Shunt Rules v3.1
+name: Auto Shunt Rules v3.1 (Fix)
 
 on:
   schedule:
@@ -15,7 +15,7 @@ jobs:
       - name: 📥 检出代码
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 拉取完整历史，避免冲突
+          fetch-depth: 0 # 拉取完整历史
 
       - name: 🐍 配置 Python
         uses: actions/setup-python@v4
@@ -25,22 +25,42 @@ jobs:
       - name: 📦 安装依赖
         run: pip install PyYAML requests dnspython geoip2
 
-      - name: 🌍 下载 GeoIP 数据库
-        uses: themichailov/geoip-download-action@v1
-        with:
-          edition: GeoLite2-Country
-          license_key: ${{ secrets.MAXMIND_LICENSE_KEY }}
-      
-      - name: 🚚 部署数据文件
+      - name: 🌍 下载 GeoIP 数据库 (官方原生方式)
+        env:
+          MAXMIND_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
         run: |
           mkdir -p data
-          # 将下载的数据库移动到 data 目录
-          mv GeoLite2-Country.mmdb data/
+          echo "正在从 MaxMind 官方下载..."
+          
+          # 1. 构造下载链接 (使用 secrets)
+          # 注意：链接最后的 suffix=tar.gz 是必须的
+          URL="https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${MAXMIND_KEY}&suffix=tar.gz"
+          
+          # 2. 下载
+          wget -O GeoLite2.tar.gz "$URL"
+          
+          # 3. 解压
+          tar -xzf GeoLite2.tar.gz
+          
+          # 4. 精准提取 .mmdb 到 data/ 目录
+          # (解压出来的文件夹名带日期，用 find 命令最稳)
+          find . -name "GeoLite2-Country.mmdb" -exec mv {} data/ \;
+          
+          # 5. 验证
+          if [ -f "data/GeoLite2-Country.mmdb" ]; then
+            echo "✅ 数据库已就绪: data/GeoLite2-Country.mmdb"
+          else
+            echo "❌ 数据库下载失败，请检查 License Key！"
+            exit 1
+          fi
 
       - name: 🛠️ 部署内核 (Mihomo)
         run: |
+          # 下载并解压 Mihomo 内核
           wget -q -O mihomo.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.18.1/mihomo-linux-amd64-v1.18.1.gz
-          gunzip mihomo.gz && chmod +x mihomo
+          gunzip mihomo.gz 
+          chmod +x mihomo
+          ./mihomo -v
 
       - name: 🚀 执行构建
         run: python scripts/builder.py
@@ -49,17 +69,15 @@ jobs:
 
       - name: 💾 提交产物与缓存
         run: |
-          # 配置 Git 身份
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # ✅ 核心：只提交 data/ 下的 json 和 rule/ 产物
-          git add data/domain_cache.json data/history.json rule/ README.md
+          # ✅ 强制添加 data 目录下的关键文件
+          git add data/domain_cache.json data/history.json rule/ README.md || true
           
-          # 检查是否有变动，有则提交
           if git diff --staged --quiet; then
             echo "zk: No changes detected."
           else
-            git commit -m "chore: auto-update rules (v3.1 Phase 2)"
+            git commit -m "chore: auto-update rules (v3.1 Fix)"
             git push
           fi

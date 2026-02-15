@@ -1,20 +1,22 @@
-name: Auto Shunt Rules v3.2 (Fix)
+name: Auto Convert Rules
 
 on:
   schedule:
-    - cron: '0 20 * * *' # 北京时间 04:00 自动更新
-  workflow_dispatch:     # 手动触发
+    # 核心修正：北京时间 04:00 = UTC 20:00
+    - cron: '0 20 * * *'
+  workflow_dispatch: # 允许手动点击运行
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 必须有写权限
+      contents: write
 
     steps:
       - name: 📥 检出代码
         uses: actions/checkout@v4
         with:
+          # 必须设置为 0 以拉取所有历史，确保 history.json 的更新能被 Git 正确识别
           fetch-depth: 0
 
       - name: 🐍 配置 Python
@@ -23,57 +25,63 @@ jobs:
           python-version: '3.10'
 
       - name: 📦 安装依赖
-        run: pip install PyYAML requests dnspython geoip2
-
-      - name: 🌍 下载 GeoIP 数据库 (MaxMind官方源)
-        env:
-          MAXMIND_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
         run: |
-          mkdir -p data
-          echo "正在下载 GeoLite2-Country..."
+          sudo apt-get update
+          sudo apt-get install -y jq
+          pip install PyYAML requests
+
+      - name: 📡 克隆规则源
+        # 浅克隆上游仓库以节省时间
+        run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
+
+      - name: 🛠️ 部署内核
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
+          # 只取 Latest Stable (非 prerelease)
+          DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
           
-          # 使用 MaxMind 官方接口下载 tar.gz
-          # 关键点：使用 &suffix=tar.gz 确保格式正确
-          wget -O GeoLite2.tar.gz "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${MAXMIND_KEY}&suffix=tar.gz"
-          
-          # 解压
-          tar -xzf GeoLite2.tar.gz
-          
-          # 提取 .mmdb 文件到 data/ 目录
-          find . -name "GeoLite2-Country.mmdb" -exec mv {} data/ \;
-          
-          # 验证
-          if [ -f "data/GeoLite2-Country.mmdb" ]; then
-            echo "✅ GeoIP 数据库部署成功"
-            rm -rf GeoLite2.tar.gz GeoLite2-Country_*
-          else
-            echo "❌ GeoIP 数据库下载失败，请检查 Secret Key 是否正确！"
+          if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then
+            echo "❌ Error: Could not find a valid Stable download URL!"
             exit 1
           fi
+          
+          wget -q -O mihomo.gz "$DOWNLOAD_URL"
+          gunzip mihomo.gz
+          mv mihomo mihomo-bin
+          chmod +x mihomo-bin
+          ./mihomo-bin -v
+          mv mihomo-bin mihomo
 
-      - name: 🛠️ 部署内核 (Mihomo)
-        run: |
-          wget -q -O mihomo.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.18.1/mihomo-linux-amd64-v1.18.1.gz
-          gunzip mihomo.gz 
-          chmod +x mihomo
-          ./mihomo -v
-
-      - name: 🚀 执行构建
+      - name: 🚀 执行转换与更新 README 页
         run: python scripts/builder.py
         env:
+          # 关键：传递环境变量，让脚本智能识别 Author 和 Repo URL
           GITHUB_REPOSITORY: ${{ github.repository }}
 
-      - name: 💾 提交产物与缓存
+      - name: 🧹 提交产物
         run: |
+          # 清理临时文件
+          rm -rf temp_source mihomo
+          
+          # 配置 Git 身份
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 提交 data 目录下的缓存文件和 rule 目录
-          git add data/domain_cache.json data/history.json rule/ README.md || true
+          # 检查是否有产物生成
+          if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
+             echo "⚠️ No rules generated, skipping git ops."
+             exit 0
+          fi
           
+          # ✅ 关键点：添加所有目录和必要的状态文件
+          git add rule/Mihomo/ rule/Loon/ history.json README.md
+          
+          # 提交并推送
           if git diff --staged --quiet; then
-            echo "zk: No changes detected."
+            echo "zk: No changes detected in rules or dashboard."
           else
-            git commit -m "chore: auto-update rules (v3.2 Stable)"
+            git commit -m "chore: auto-sync rules & dashboard [$(date +'%Y-%m-%d %H:%M')]"
             git push
           fi

@@ -1,23 +1,21 @@
-name: Auto Convert Rules
+name: Auto Shunt Rules v3.1
 
 on:
   schedule:
-    # 核心修正：北京时间 04:00 = UTC 20:00
-    - cron: '0 20 * * *'
-  workflow_dispatch: # 允许手动点击运行
+    - cron: '0 20 * * *' # 北京时间 04:00 自动更新
+  workflow_dispatch:     # 手动触发
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # ✅ 必须给写权限，才能提交缓存
 
     steps:
       - name: 📥 检出代码
         uses: actions/checkout@v4
         with:
-          # 必须设置为 0 以拉取所有历史，确保 history.json 的更新能被 Git 正确识别
-          fetch-depth: 0
+          fetch-depth: 0 # 拉取完整历史，避免冲突
 
       - name: 🐍 配置 Python
         uses: actions/setup-python@v4
@@ -25,63 +23,43 @@ jobs:
           python-version: '3.10'
 
       - name: 📦 安装依赖
+        run: pip install PyYAML requests dnspython geoip2
+
+      - name: 🌍 下载 GeoIP 数据库
+        uses: themichailov/geoip-download-action@v1
+        with:
+          edition: GeoLite2-Country
+          license_key: ${{ secrets.MAXMIND_LICENSE_KEY }}
+      
+      - name: 🚚 部署数据文件
         run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-          pip install PyYAML requests
+          mkdir -p data
+          # 将下载的数据库移动到 data 目录
+          mv GeoLite2-Country.mmdb data/
 
-      - name: 📡 克隆规则源
-        # 浅克隆上游仓库以节省时间
-        run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
-
-      - name: 🛠️ 部署内核
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 🛠️ 部署内核 (Mihomo)
         run: |
-          API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
-          # 只取 Latest Stable (非 prerelease)
-          DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
-          
-          if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then
-            echo "❌ Error: Could not find a valid Stable download URL!"
-            exit 1
-          fi
-          
-          wget -q -O mihomo.gz "$DOWNLOAD_URL"
-          gunzip mihomo.gz
-          mv mihomo mihomo-bin
-          chmod +x mihomo-bin
-          ./mihomo-bin -v
-          mv mihomo-bin mihomo
+          wget -q -O mihomo.gz https://github.com/MetaCubeX/mihomo/releases/download/v1.18.1/mihomo-linux-amd64-v1.18.1.gz
+          gunzip mihomo.gz && chmod +x mihomo
 
-      - name: 🚀 执行转换与更新 README 页
+      - name: 🚀 执行构建
         run: python scripts/builder.py
         env:
-          # 关键：传递环境变量，让脚本智能识别 Author 和 Repo URL
           GITHUB_REPOSITORY: ${{ github.repository }}
 
-      - name: 🧹 提交产物
+      - name: 💾 提交产物与缓存
         run: |
-          # 清理临时文件
-          rm -rf temp_source mihomo
-          
           # 配置 Git 身份
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 检查是否有产物生成
-          if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
-             echo "⚠️ No rules generated, skipping git ops."
-             exit 0
-          fi
+          # ✅ 核心：只提交 data/ 下的 json 和 rule/ 产物
+          git add data/domain_cache.json data/history.json rule/ README.md
           
-          # ✅ 关键点：添加所有目录和必要的状态文件
-          git add rule/Mihomo/ rule/Loon/ history.json README.md
-          
-          # 提交并推送
+          # 检查是否有变动，有则提交
           if git diff --staged --quiet; then
-            echo "zk: No changes detected in rules or dashboard."
+            echo "zk: No changes detected."
           else
-            git commit -m "chore: auto-sync rules & dashboard [$(date +'%Y-%m-%d %H:%M')]"
+            git commit -m "chore: auto-update rules (v3.1 Phase 2)"
             git push
           fi

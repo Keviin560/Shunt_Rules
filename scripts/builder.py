@@ -17,7 +17,6 @@ import dns.flags
 import dns.edns
 import geoip2.database
 from datetime import datetime, timedelta, timezone
-from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # --- ⚡️ v3.1 Phase 2: 纯净自研 + 极致收纳 + 熔断保护 ---
@@ -93,7 +92,6 @@ class DomainCache:
             except: pass
     
     def get(self, domain):
-        # 返回 {is_cn: bool, ts: int} 或 None
         return self.data.get(domain) 
         
     def set(self, domain, is_cn):
@@ -103,14 +101,12 @@ class DomainCache:
         }
     
     def save(self):
-        # 排序并压缩保存
         sorted_data = dict(sorted(self.data.items()))
         with open(CACHE_FILE, 'w') as f:
             json.dump(sorted_data, f, indent=None, separators=(',', ':'))
 
 # --- 2. 核心清洗逻辑 ---
 def robust_download(url):
-    # 自动尝试 GitHub Raw 和 jsDelivr CDN
     cdn_url = url.replace("raw.githubusercontent.com", "cdn.jsdelivr.net/gh").replace("/meta/", "@meta/")
     targets = [url, cdn_url]
     for target in targets:
@@ -123,15 +119,13 @@ def robust_download(url):
     return ""
 
 def check_domain_static(domain, cache):
-    """静态规则初筛 (极速)"""
     domain = domain.strip().lower()
     
-    # 1. 查缓存 (60天有效期)
     cached = cache.get(domain)
+    # 缓存有效期 60 天
     if cached and (time.time() - cached['ts'] < 60 * 86400):
-        return domain, cached['is_cn'], False # False 表示无需 DNS
+        return domain, cached['is_cn'], False 
 
-    # 2. 静态规则
     if domain.endswith('.cn'): 
         cache.set(domain, True)
         return domain, True, False
@@ -151,11 +145,9 @@ def check_domain_static(domain, cache):
             cache.set(domain, False)
             return domain, False, False
 
-    # 3. 未命中任何静态规则 -> 需要 DNS 清洗
     return domain, None, True
 
 def worker_dns_check(domain):
-    """多线程 DNS 清洗工作单元"""
     try:
         query = dns.message.make_query(domain, dns.rdatatype.A)
         ecs = dns.edns.ECSOption(socket.inet_aton(FAKE_CN_IP), 24)
@@ -171,23 +163,20 @@ def worker_dns_check(domain):
                     ip = item.address
                     if geo_reader:
                         try:
-                            # 🔥 核心判决：严格 GeoIP
-                            # 只有 CN 才能活。HK/TW/US 全部判死刑。
                             match = geo_reader.country(ip)
                             if match.country.iso_code == 'CN':
-                                return domain, True, False # True=是CN, False=无网络错误
+                                return domain, True, False 
                         except: pass
         
         if not has_ip:
-            return domain, False, False # 死链 -> 杀
+            return domain, False, False 
             
-        return domain, False, False # 有 IP 但不是 CN -> 杀
+        return domain, False, False 
 
     except Exception:
-        # DNS 超时或网络错误
-        return domain, False, True # True 表示发生了网络错误
+        return domain, False, True 
 
-# --- 3. 构建流程 (带熔断) ---
+# --- 3. 构建流程 ---
 def build_china_list(cache):
     logger.info("🚀 开始构建 China 列表 (v3.1 Phase 2)...")
     
@@ -195,7 +184,6 @@ def build_china_list(cache):
     candidates = set()
     for line in content.splitlines():
         line = line.strip()
-        # 去除 full: domain: 前缀
         line = re.sub(r'^(full:|domain:)', '', line)
         if line and ',' not in line and '.' in line and not line.startswith('#') and not line.startswith('regexp:'):
             candidates.add(line)
@@ -205,7 +193,6 @@ def build_china_list(cache):
     final_cn_domains = set()
     pending_domains = []
 
-    # 静态初筛
     for domain in candidates:
         d, is_cn, need_dns = check_domain_static(domain, cache)
         if not need_dns:
@@ -215,7 +202,6 @@ def build_china_list(cache):
 
     logger.info(f"⚡️ 静态过滤完成。需 DNS 清洗: {len(pending_domains)} 条")
 
-    # 多线程并发清洗
     if pending_domains:
         network_errors = 0
         processed_count = 0
@@ -228,24 +214,20 @@ def build_china_list(cache):
                 d, is_cn, is_net_err = future.result()
                 processed_count += 1
                 
-                # 🛡️ 熔断检测
                 if is_net_err:
                     network_errors += 1
                 
                 current_fail_rate = network_errors / processed_count
                 if not circuit_broken and processed_count > 100 and current_fail_rate > FAILURE_THRESHOLD:
                     logger.warning(f"⚠️ 触发网络熔断! 错误率 {current_fail_rate:.2%} > {FAILURE_THRESHOLD:.0%}")
-                    logger.warning("🛡️ 启动降级保护：停止清洗，保留剩余域名。")
                     circuit_broken = True
-                    executor.shutdown(wait=False, cancel_futures=True) # 尝试停止
+                    executor.shutdown(wait=False, cancel_futures=True)
                     break 
 
-                if circuit_broken:
-                    break
+                if circuit_broken: break
 
-                # 正常逻辑
                 if not is_net_err:
-                    cache.set(d, is_cn) # 只有非网络错误才更新缓存
+                    cache.set(d, is_cn)
                 
                 if is_cn:
                     final_cn_domains.add(d)
@@ -253,17 +235,14 @@ def build_china_list(cache):
                 if processed_count % 200 == 0:
                     print(f"   ⏳ 清洗进度: {processed_count}/{len(pending_domains)}...", end='\r')
 
-        # 熔断后的残局处理
         if circuit_broken:
-            # 将剩余所有未处理的 pending_domains 默认视为 True (保留)
-            # 或者尝试读取旧缓存复活
             for d in pending_domains:
-                if d not in final_cn_domains: # 还没处理过的
+                if d not in final_cn_domains:
                     cached = cache.get(d)
                     if cached and cached['is_cn']: 
-                        final_cn_domains.add(d) # 缓存复活
+                        final_cn_domains.add(d)
                     else:
-                        final_cn_domains.add(d) # 默认保留 (保守策略)
+                        final_cn_domains.add(d) 
 
     return sorted(list(final_cn_domains))
 
@@ -285,7 +264,6 @@ def compile_mrs(kernel, name, rules, behavior):
         if os.path.exists(tmp): os.remove(tmp)
 
 def generate_readme(stats):
-    # (简化版 README 生成，保留核心信息)
     md = [
         "# 🤖 Auto Shunt Rules",
         f"Update: {datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
@@ -302,31 +280,26 @@ def main():
     os.makedirs(TARGET_DIR_MIHOMO, exist_ok=True)
     os.makedirs(TARGET_DIR_LOON, exist_ok=True)
     
-    # 0. 加载 GeoIP
     global geo_reader
     try:
         geo_reader = geoip2.database.Reader(GEOIP_DB_PATH)
         logger.info("🌍 GeoIP 数据库就绪")
     except:
-        logger.warning("⚠️ GeoIP 缺失，IP 判定功能受限 (将默认放行)")
+        logger.warning("⚠️ GeoIP 缺失，IP 判定功能受限")
 
     cache = DomainCache()
     history = HistoryManager()
     kernel = KernelIntrospector(MIHOMO_BIN)
     stats = []
     
-    # 1. 🇨🇳 China 域名构建
     cn_domains = build_china_list(cache)
     if cn_domains:
         compile_mrs(kernel, "China", cn_domains, 'domain')
-        # Loon 格式导出
         with open(os.path.join(TARGET_DIR_LOON, "China.lsr"), 'w') as f:
             f.write("\n".join([f"DOMAIN-SUFFIX,{d}" for d in cn_domains]))
         stats.append(("China", len(cn_domains)))
         logger.info(f"✅ China 构建完成: {len(cn_domains)} 条")
 
-    # 2. 🛡️ IP 列表构建 (直接编译 MetaCubeX 原版)
-    # 因为 IP 列表通常很纯净，且无法做 ECS 清洗，直接使用
     lan_content = robust_download(SOURCE_URLS["LAN"])
     ip_list = []
     for line in lan_content.splitlines():
@@ -334,13 +307,11 @@ def main():
             ip_list.append(line.strip().replace("'", ""))
     
     if ip_list:
-        compile_mrs(kernel, "China_IP", ip_list, 'ipcidr') # 这里实际上包含了 Private + CN
-        # Loon 格式
+        compile_mrs(kernel, "China_IP", ip_list, 'ipcidr')
         with open(os.path.join(TARGET_DIR_LOON, "China_IP.lsr"), 'w') as f:
             f.write("\n".join([f"IP-CIDR,{ip}" for ip in ip_list]))
         stats.append(("China_IP", len(ip_list)))
 
-    # 3. 保存状态
     cache.save()
     history.save()
     generate_readme(stats)

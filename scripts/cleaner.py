@@ -72,7 +72,7 @@ class GeoIPEngine:
         except: return False
 
     def export_clean_list(self, raw_cn_path, output_path):
-        print("🧹 [GeoIP] 执行 IP 减法清洗...")
+        print("🧹 [GeoIP] 执行 IP 减法清洗并导出...")
         clean_lines = []
         if os.path.exists(raw_cn_path):
             with open(raw_cn_path, 'r', encoding='utf-8') as f:
@@ -90,7 +90,7 @@ class GeoIPEngine:
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write("# NAME: GeoIP:CN\n")
             f.write("\n".join(clean_lines))
-        print(f"✅ 生成规则: {output_path} (保留: {len(clean_lines)} 条)")
+        print(f"✅ 生成 IP 规则: {output_path} (保留: {len(clean_lines)} 条)")
 
 class Cleaner:
     def __init__(self, geoip_engine):
@@ -121,11 +121,10 @@ class Cleaner:
 
     async def inspect(self, session, raw_domain):
         # 🔥 关键修正：剥离所有前缀，只保留纯域名用于 DNS 解析
-        # 例子：+.google.com -> google.com
         domain = raw_domain.lower().strip().replace("+.", "").replace("*.", "")
         if not domain: return
 
-        # A. 缓存检查
+        # A. 缓存分级检查
         cached = self.cache.get(domain)
         if cached:
             ts = cached['ts']
@@ -238,7 +237,7 @@ class Cleaner:
         with open(domain_path, 'w', encoding='utf-8') as f:
             f.write("# NAME: GeoSite:CN\n")
             f.write("\n".join(final_domains))
-        print(f"✅ 生成规则: {domain_path} (数量: {len(final_domains)})")
+        print(f"✅ 生成域名规则: {domain_path} (数量: {len(final_domains)})")
 
 async def main():
     # 路径需与 Workflow 对应
@@ -247,6 +246,7 @@ async def main():
     
     # 1. 启动 GeoIP 引擎与清洗
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
+    # 导出清洗后的纯净 IP 规则
     engine.export_clean_list(raw_cn_ip, os.path.join(INJECT_DIR, "GeoIP_CN.list"))
 
     # 2. 启动域名清洗

@@ -52,38 +52,27 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      # 🔥 核心修正：使用 -o 参数 (日志证明 v2dat 需要 -o)
       - name: 🧩 Prepare Raw Data (Source Build)
         run: |
           mkdir -p raw_data
-          
-          # 1. 现场编译 v2dat
           echo "🛠️ Installing v2dat from source..."
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
-          # 2. 下载数据
           echo "⬇️ Downloading Data Files..."
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
           wget -q -O geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
           
-          # 3. 执行解包 (已修正为 -o)
           echo "🔓 Unpacking GeoIP..."
-          # v2dat unpack geoip -o <dir> -f <tag> <file>
           ./v2dat unpack geoip -o raw_data -f cn geoip.dat
-          
-          if [ -f "raw_data/geoip_cn.txt" ]; then
-            echo "✅ GeoIP CN extracted."
-          else
+          if [ ! -f "raw_data/geoip_cn.txt" ]; then
             echo "❌ GeoIP CN extraction failed!"
-            ls -R raw_data
             exit 1
           fi
           
           echo "🔓 Unpacking Blacklist IPs..."
           cat /dev/null > raw_data/geoip_black.txt
           for tag in google cloudflare telegram twitter facebook netflix; do
-            # 修正为 -o
             ./v2dat unpack geoip -o raw_data -f $tag geoip.dat
             if [ -f "raw_data/geoip_$tag.txt" ]; then
               cat "raw_data/geoip_$tag.txt" >> raw_data/geoip_black.txt
@@ -92,10 +81,8 @@ jobs:
           done
           
           echo "🔓 Unpacking GeoSite..."
-          # 修正为 -o
           ./v2dat unpack geosite -o raw_data -f cn geosite.dat
           
-          # 4. 合并 Accademia
           echo "⬇️ Merging Accademia..."
           wget -q -O acc.list https://raw.githubusercontent.com/Accademia/Additional_Rule_For_Clash/main/GeositeCN/Geosite.list || true
           if [ -f acc.list ]; then
@@ -122,6 +109,12 @@ jobs:
              exit 0
           fi
           
+          # 🔥 关键修正：确保 Git 索引中删除根目录 history.json
+          if [ -f "history.json" ] || git ls-files --error-unmatch history.json > /dev/null 2>&1; then
+            git rm -f history.json --ignore-unmatch
+          fi
+          
+          # 提交所有产物 (包含 .mrs 和 .lsr)
           git add rule/Mihomo/ rule/Loon/ data/ README.md
           
           if git diff --staged --quiet; then

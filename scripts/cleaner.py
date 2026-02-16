@@ -87,6 +87,9 @@ class GeoIPEngine:
                             clean_lines.append(line)
                     except: pass
         
+        # 🔥 关键修复：写入前确保目录存在
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write("# NAME: GeoIP:CN\n")
             f.write("\n".join(clean_lines))
@@ -120,7 +123,7 @@ class Cleaner:
         return None
 
     async def inspect(self, session, raw_domain):
-        # 🔥 关键修正：剥离所有前缀，只保留纯域名用于 DNS 解析
+        # 剥离所有前缀，只保留纯域名用于 DNS 解析
         domain = raw_domain.lower().strip().replace("+.", "").replace("*.", "")
         if not domain: return
 
@@ -145,7 +148,6 @@ class Cleaner:
                 else: self.non_cn.append(f"{domain} # {cached['reason']}")
                 return
             
-            # 如果不是 Dead 状态且缓存过期，重置失败计数
             if status != 'dead': fail_count = 0
         else:
             fail_count = 0
@@ -201,7 +203,6 @@ class Cleaner:
 
     def optimize_subdomains(self):
         print("✂️ [GeoSite] 泛域名塌陷优化...")
-        # 排序：短域名在前 (baidu.com 在 tieba.baidu.com 之前)
         sorted_d = sorted(list(self.valid_domains), key=lambda x: (len(x), x))
         final = []
         if not sorted_d: return []
@@ -240,16 +241,13 @@ class Cleaner:
         print(f"✅ 生成域名规则: {domain_path} (数量: {len(final_domains)})")
 
 async def main():
-    # 路径需与 Workflow 对应
     raw_cn_ip = os.path.join(RAW_DIR, "geoip_cn.txt")
     raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt")
     
-    # 1. 启动 GeoIP 引擎与清洗
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
-    # 导出清洗后的纯净 IP 规则
+    # 导出前会自动创建目录
     engine.export_clean_list(raw_cn_ip, os.path.join(INJECT_DIR, "GeoIP_CN.list"))
 
-    # 2. 启动域名清洗
     cleaner = Cleaner(engine)
     domains = set()
     if os.path.exists(os.path.join(RAW_DIR, "geosite_cn.txt")):

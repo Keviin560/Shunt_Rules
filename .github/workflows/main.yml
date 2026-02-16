@@ -17,7 +17,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      # 1. 恢复清洗缓存 (Domain Cache)
       - name: 💾 Restore Cleaner Cache
         uses: actions/cache@v3
         with:
@@ -37,7 +36,7 @@ jobs:
           sudo apt-get install -y jq
           pip install PyYAML requests aiohttp
 
-      - name: 📡 克隆规则源 (Blackmatrix7)
+      - name: 📡 克隆规则源
         run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
 
       - name: 🛠️ 部署内核
@@ -53,43 +52,36 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      # 2. 准备原料
       - name: 🧩 Prepare Raw Data
         run: |
           mkdir -p raw_data
           wget -q -O raw_data/geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
           wget -q -O raw_data/geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
           
-          # 解包 CN IP (用于标尺)
-          ./mihomo convert-ruleset ipcidr raw_data/geoip.dat:cn raw_data/geoip_cn.yaml
+          # 🔥 关键修正：添加 'yaml' 参数，防止 Panic
+          ./mihomo convert-ruleset ipcidr yaml raw_data/geoip.dat:cn raw_data/geoip_cn.yaml
           grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' raw_data/geoip_cn.yaml > raw_data/geoip_cn.txt
           
-          # 解包黑名单 IP (用于清洗标尺)
           cat /dev/null > raw_data/geoip_black.txt
           for tag in google cloudflare telegram twitter facebook netflix; do
-            ./mihomo convert-ruleset ipcidr raw_data/geoip.dat:$tag raw_data/temp_black.yaml
+            ./mihomo convert-ruleset ipcidr yaml raw_data/geoip.dat:$tag raw_data/temp_black.yaml
             grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' raw_data/temp_black.yaml >> raw_data/geoip_black.txt
           done
 
-          # 解包 Domain (用于待清洗数据)
-          ./mihomo convert-ruleset domain raw_data/geosite.dat:cn raw_data/geosite_cn.yaml
+          ./mihomo convert-ruleset domain yaml raw_data/geosite.dat:cn raw_data/geosite_cn.yaml
           grep -v "payload:" raw_data/geosite_cn.yaml | sed "s/- //g" | sed "s/'//g" | sed 's/"//g' > raw_data/geosite_cn.txt
           
-          # 合并 Accademia
           wget -q -O acc.list https://raw.githubusercontent.com/Accademia/Additional_Rule_For_Clash/main/GeositeCN/Geosite.list || true
           cat acc.list >> raw_data/geosite_cn.txt
 
-      # 3. 执行清洗 (生成 temp_source/.../GeoSite_CN.list)
       - name: 🧹 Execute Cleaner
         run: python scripts/cleaner.py
 
-      # 4. 执行构建 (Builder 原生接管 History 归档)
       - name: 🚀 执行转换与更新 README 页
         run: python scripts/builder.py
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
 
-      # 5. 提交产物 (无需手动 mv history.json)
       - name: 🧹 提交产物
         run: |
           rm -rf temp_source mihomo raw_data
@@ -102,7 +94,6 @@ jobs:
              exit 0
           fi
           
-          # 提交规则、Data目录(含History/Cache/Log)、文档
           git add rule/Mihomo/ rule/Loon/ data/ README.md
           
           if git diff --staged --quiet; then

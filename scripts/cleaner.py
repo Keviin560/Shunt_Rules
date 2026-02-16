@@ -13,8 +13,8 @@ CONCURRENCY = 64
 
 RAW_DIR = "raw_data"
 DATA_DIR = "data"
-# 注入路径：builder.py 会扫描此目录
-INJECT_DIR = "temp_source/rule/Clash/DigitalArchitect"
+# 🔥 注入根路径：这是 builder.py 扫描的起始点
+INJECT_ROOT = "temp_source/rule/Clash"
 
 CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
 LOG_UNRESOLVED = os.path.join(DATA_DIR, "dns_unresolved.txt")   
@@ -66,13 +66,15 @@ class GeoIPEngine:
     def is_pure_cn(self, ip_str):
         try:
             ip_int = int(ipaddress.ip_address(ip_str))
-            # 逻辑：在 CN 白名单 AND 不在 黑名单
             return self._contains(self.cn_intervals, ip_int) and \
                    not self._contains(self.black_intervals, ip_int)
         except: return False
 
-    def export_clean_list(self, raw_cn_path, output_path):
-        print("🧹 [GeoIP] 执行 IP 减法清洗并导出...")
+    def export_clean_list(self, raw_cn_path):
+        # 🔥 修正 A：建立 GeoIP_CN 文件夹，让 builder 生成 GeoIP_CN.mrs/.lsr
+        output_path = os.path.join(INJECT_ROOT, "GeoIP_CN", "list.txt")
+        print(f"🧹 [GeoIP] 导出到: {output_path}")
+        
         clean_lines = []
         if os.path.exists(raw_cn_path):
             with open(raw_cn_path, 'r', encoding='utf-8') as f:
@@ -80,20 +82,20 @@ class GeoIPEngine:
                     line = line.strip()
                     if not line: continue
                     try:
-                        # 简单的剔除逻辑：如果该网段的网络地址在黑名单中，则剔除
                         net = ipaddress.ip_network(line, strict=False)
                         ip_int = int(net.network_address)
                         if not self._contains(self.black_intervals, ip_int):
                             clean_lines.append(line)
                     except: pass
         
-        # 🔥 关键修复：写入前确保目录存在
+        # 确保目录存在
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         
         with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("# NAME: GeoIP:CN\n")
+            # 注释名仅作参考，实际以文件夹名为准
+            f.write("# NAME: GeoIP:CN\n") 
             f.write("\n".join(clean_lines))
-        print(f"✅ 生成 IP 规则: {output_path} (保留: {len(clean_lines)} 条)")
+        print(f"✅ 生成 IP 规则 (保留: {len(clean_lines)} 条)")
 
 class Cleaner:
     def __init__(self, geoip_engine):
@@ -123,11 +125,9 @@ class Cleaner:
         return None
 
     async def inspect(self, session, raw_domain):
-        # 剥离所有前缀，只保留纯域名用于 DNS 解析
         domain = raw_domain.lower().strip().replace("+.", "").replace("*.", "")
         if not domain: return
 
-        # A. 缓存分级检查
         cached = self.cache.get(domain)
         if cached:
             ts = cached['ts']
@@ -152,16 +152,13 @@ class Cleaner:
         else:
             fail_count = 0
 
-        # B. 静态黑名单
         for kw in BLACKLIST_KEYWORDS:
             if kw in domain:
                 self._record(domain, 'non_cn', f"Blacklist: {kw}")
                 return
 
-        # C. 网络验活
         data = await self.resolve(session, domain)
         
-        # [三振出局逻辑]
         if not data or 'Answer' not in data:
             new_fail_count = fail_count + 1
             if new_fail_count >= 3:
@@ -170,7 +167,6 @@ class Cleaner:
                 self._record(domain, 'dead', 'NXDOMAIN/Timeout', failures=new_fail_count)
             return
 
-        # D. 深度审计
         has_cn_ip = False
         reject = None
         for rec in data['Answer']:
@@ -206,23 +202,18 @@ class Cleaner:
         sorted_d = sorted(list(self.valid_domains), key=lambda x: (len(x), x))
         final = []
         if not sorted_d: return []
-        
         final_set = set()
-        
         for domain in sorted_d:
             parts = domain.split('.')
             is_redundant = False
-            # 检查是否有父级域名已存在
             for i in range(len(parts) - 1):
                 parent = ".".join(parts[i+1:])
                 if parent in final_set:
                     is_redundant = True
                     break
-            
             if not is_redundant:
                 final.append(domain)
                 final_set.add(domain)
-                
         return sorted(final)
 
     def save(self):
@@ -232,21 +223,22 @@ class Cleaner:
         with open(LOG_ABANDONED, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.abandoned)))
         with open(LOG_NON_CN, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.non_cn)))
         
-        os.makedirs(INJECT_DIR, exist_ok=True)
+        # 🔥 修正 B：建立 GeoSite_CN 文件夹，让 builder 生成 GeoSite_CN.mrs/.lsr
+        output_path = os.path.join(INJECT_ROOT, "GeoSite_CN", "list.txt")
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        
         final_domains = self.optimize_subdomains()
-        domain_path = os.path.join(INJECT_DIR, "GeoSite_CN.list")
-        with open(domain_path, 'w', encoding='utf-8') as f:
+        with open(output_path, 'w', encoding='utf-8') as f:
             f.write("# NAME: GeoSite:CN\n")
             f.write("\n".join(final_domains))
-        print(f"✅ 生成域名规则: {domain_path} (数量: {len(final_domains)})")
+        print(f"✅ 生成域名规则: {output_path} (数量: {len(final_domains)})")
 
 async def main():
     raw_cn_ip = os.path.join(RAW_DIR, "geoip_cn.txt")
     raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt")
     
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
-    # 导出前会自动创建目录
-    engine.export_clean_list(raw_cn_ip, os.path.join(INJECT_DIR, "GeoIP_CN.list"))
+    engine.export_clean_list(raw_cn_ip) # 目录由内部自动创建
 
     cleaner = Cleaner(engine)
     domains = set()

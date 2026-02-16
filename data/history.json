@@ -131,7 +131,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1771257670,
+    "updated_at": 1771260088,
     "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "EasyPrivacy": {
@@ -786,7 +786,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1771257670,
+    "updated_at": 1771260088,
     "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "Anonv": {
@@ -3452,6 +3452,16 @@
   "DigitalArchitect": {
     "src_hash": "65083ffbc1fbba4896f6c873ebbbb46a",
     "updated_at": 1771257670,
+    "gen_ver": "v3.0_FINAL_COMPLETE"
+  },
+  "GeoIP_CN": {
+    "src_hash": "65083ffbc1fbba4896f6c873ebbbb46a",
+    "updated_at": 1771260088,
+    "gen_ver": "v3.0_FINAL_COMPLETE"
+  },
+  "GeoSite_CN": {
+    "src_hash": "672a229db5cd65b140bde375d391ef9a",
+    "updated_at": 1771260088,
     "gen_ver": "v3.0_FINAL_COMPLETE"
   }
 }

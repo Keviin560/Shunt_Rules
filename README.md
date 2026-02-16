@@ -2,7 +2,7 @@
 
 # 🤖 Auto Shunt Rules
 
-![Total](https://img.shields.io/badge/-规则总数%20690-blue?style=flat) ![Update](https://img.shields.io/badge/-更新时间%202026.02.17-2ea44f?style=flat) ![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat) ![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat) ![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat) ![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat) ![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat) ![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)
+![Total](https://img.shields.io/badge/-规则总数%20691-blue?style=flat) ![Update](https://img.shields.io/badge/-更新时间%202026.02.17-2ea44f?style=flat) ![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat) ![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat) ![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat) ![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat) ![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat) ![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)
 
 </div>
 
@@ -279,7 +279,6 @@ rules:
 | DiabloIII | [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DiabloIII_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DiabloIII.lsr) | 3 days ago |
 | DianCeWangKe | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DianCeWangKe.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DianCeWangKe.lsr) | 3 days ago |
 | DigiCert | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DigiCert.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DigiCert.lsr) | 4 days ago |
-| DigitalArchitect | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DigitalArchitect.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DigitalArchitect_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DigitalArchitect.lsr) | Today |
 | DigitalOcean | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DigitalOcean.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DigitalOcean.lsr) | 3 days ago |
 | DingTalk | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DingTalk.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DingTalk.lsr) | 3 days ago |
 | DingXiangYuan | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DingXiangYuan.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DingXiangYuan.lsr) | 3 days ago |
@@ -344,6 +343,8 @@ rules:
 | Garena | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Garena.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Garena.lsr) | 3 days ago |
 | Geely | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Geely.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Geely.lsr) | 4 days ago |
 | Gemini | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gemini.lsr) | 3 days ago |
+| GeoIP_CN | [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoIP_CN.lsr) | Today |
+| GeoSite_CN | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoSite_CN.lsr) | Today |
 | Gettyimages | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gettyimages.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gettyimages.lsr) | 3 days ago |
 | Gigabyte | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gigabyte.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gigabyte.lsr) | 4 days ago |
 | GitBook | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GitBook.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GitBook.lsr) | 4 days ago |

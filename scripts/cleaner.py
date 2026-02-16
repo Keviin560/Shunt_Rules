@@ -7,24 +7,20 @@ import os
 import time
 
 # --- 核心配置 ---
-# 网络
 TIMEOUT_SEC = 5
 RETRIES = 2
 CONCURRENCY = 64
 
-# 路径
 RAW_DIR = "raw_data"
 DATA_DIR = "data"
 # 注入路径：builder.py 会扫描此目录
 INJECT_DIR = "temp_source/rule/Clash/DigitalArchitect"
 
-# 文件
 CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
-LOG_UNRESOLVED = os.path.join(DATA_DIR, "dns_unresolved.txt")   # 观察期死链
-LOG_ABANDONED = os.path.join(DATA_DIR, "dns_abandoned.txt")     # 冷宫死链
-LOG_NON_CN = os.path.join(DATA_DIR, "resolved_non_cn.txt")      # 境外/黑名单
+LOG_UNRESOLVED = os.path.join(DATA_DIR, "dns_unresolved.txt")   
+LOG_ABANDONED = os.path.join(DATA_DIR, "dns_abandoned.txt")     
+LOG_NON_CN = os.path.join(DATA_DIR, "resolved_non_cn.txt")      
 
-# 黑名单与指纹
 BLACKLIST_KEYWORDS = [
     "google", "youtube", "facebook", "twitter", "instagram", "telegram",
     "github", "apple", "microsoft", "amazon", "aws", "azure",
@@ -37,7 +33,6 @@ FOREIGN_CDN_FINGERPRINTS = [
     "apigee", "facebook", "cdn77"
 ]
 
-# --- 1. GeoIP 引擎 (支持减法清洗) ---
 class GeoIPEngine:
     def __init__(self, cn_path, black_paths):
         print("🛡️ [GeoIP] 初始化清洗引擎...")
@@ -51,7 +46,7 @@ class GeoIPEngine:
     def _load(self, path):
         intervals = []
         if not os.path.exists(path): return intervals
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
                 if not line or not line[0].isdigit(): continue
@@ -77,43 +72,40 @@ class GeoIPEngine:
         except: return False
 
     def export_clean_list(self, raw_cn_path, output_path):
-        """生成清洗后的 GeoIP_CN.list"""
         print("🧹 [GeoIP] 执行 IP 减法清洗...")
         clean_lines = []
-        with open(raw_cn_path, 'r') as f:
-            for line in f:
-                line = line.strip()
-                if not line: continue
-                try:
-                    # 采样检查：如果网段的网络地址在黑名单里，则剔除
-                    # (简化逻辑：不处理拆分，只要重叠就剔除)
-                    net = ipaddress.ip_network(line, strict=False)
-                    ip_int = int(net.network_address)
-                    if not self._contains(self.black_intervals, ip_int):
-                        clean_lines.append(line)
-                except: pass
+        if os.path.exists(raw_cn_path):
+            with open(raw_cn_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.strip()
+                    if not line: continue
+                    try:
+                        # 简单的剔除逻辑：如果该网段的网络地址在黑名单中，则剔除
+                        net = ipaddress.ip_network(line, strict=False)
+                        ip_int = int(net.network_address)
+                        if not self._contains(self.black_intervals, ip_int):
+                            clean_lines.append(line)
+                    except: pass
         
-        with open(output_path, 'w') as f:
+        with open(output_path, 'w', encoding='utf-8') as f:
             f.write("# NAME: GeoIP:CN\n")
             f.write("\n".join(clean_lines))
         print(f"✅ 生成规则: {output_path} (保留: {len(clean_lines)} 条)")
 
-# --- 2. 域名清洗器 (含三振出局逻辑) ---
 class Cleaner:
     def __init__(self, geoip_engine):
         self.geoip = geoip_engine
         self.sem = asyncio.Semaphore(CONCURRENCY)
         self.cache = self._load_cache()
-        # 结果容器
         self.valid_domains = set()
-        self.unresolved = []    # 观察期
-        self.abandoned = []     # 冷宫
-        self.non_cn = []        # 境外
+        self.unresolved = []    
+        self.abandoned = []     
+        self.non_cn = []        
 
     def _load_cache(self):
         if os.path.exists(CACHE_FILE):
             try:
-                with open(CACHE_FILE, 'r') as f: return json.load(f)
+                with open(CACHE_FILE, 'r', encoding='utf-8') as f: return json.load(f)
             except: pass
         return {}
 
@@ -127,11 +119,13 @@ class Cleaner:
             except: await asyncio.sleep(1)
         return None
 
-    async def inspect(self, session, domain):
-        domain = domain.lower().strip()
+    async def inspect(self, session, raw_domain):
+        # 🔥 关键修正：剥离所有前缀，只保留纯域名用于 DNS 解析
+        # 例子：+.google.com -> google.com
+        domain = raw_domain.lower().strip().replace("+.", "").replace("*.", "")
         if not domain: return
 
-        # --- A. 缓存分级检查 ---
+        # A. 缓存检查
         cached = self.cache.get(domain)
         if cached:
             ts = cached['ts']
@@ -139,63 +133,57 @@ class Cleaner:
             fail_count = cached.get('failures', 0)
             age_days = (time.time() - ts) / 86400
             
-            # TTL 策略
             ttl = 0
-            if status == 'valid': ttl = 180         # Valid: 半年
-            elif status == 'non_cn': ttl = 365      # Non-CN: 一年
-            elif status == 'dead': ttl = 3          # Dead(观察期): 3天
-            elif status == 'abandoned': ttl = 180   # Abandoned(冷宫): 半年
+            if status == 'valid': ttl = 180         
+            elif status == 'non_cn': ttl = 365      
+            elif status == 'dead': ttl = 3          
+            elif status == 'abandoned': ttl = 180   
 
             if age_days < ttl:
-                # 缓存命中，直接归类
                 if status == 'valid': self.valid_domains.add(domain)
                 elif status == 'dead': self.unresolved.append(domain)
                 elif status == 'abandoned': self.abandoned.append(domain)
                 else: self.non_cn.append(f"{domain} # {cached['reason']}")
                 return
             
-            # 如果是 Dead 且过期了，说明要复查，保留 fail_count
-            # 其他状态过期，重置 fail_count
+            # 如果不是 Dead 状态且缓存过期，重置失败计数
             if status != 'dead': fail_count = 0
         else:
             fail_count = 0
 
-        # --- B. 静态黑名单 ---
+        # B. 静态黑名单
         for kw in BLACKLIST_KEYWORDS:
             if kw in domain:
                 self._record(domain, 'non_cn', f"Blacklist: {kw}")
                 return
 
-        # --- C. 网络验活 ---
+        # C. 网络验活
         data = await self.resolve(session, domain)
         
         # [三振出局逻辑]
         if not data or 'Answer' not in data:
             new_fail_count = fail_count + 1
             if new_fail_count >= 3:
-                # 三振出局 -> 冷宫
                 self._record(domain, 'abandoned', 'Three Strikes', failures=new_fail_count)
             else:
-                # 观察期
                 self._record(domain, 'dead', 'NXDOMAIN/Timeout', failures=new_fail_count)
             return
 
-        # --- D. 深度审计 ---
+        # D. 深度审计
         has_cn_ip = False
         reject = None
         for rec in data['Answer']:
-            if rec['type'] == 5: # CNAME
+            if rec['type'] == 5: 
                 t = rec['data'].lower()
                 for fp in FOREIGN_CDN_FINGERPRINTS:
                     if fp in t: reject = f"CDN: {fp}"; break
-            if rec['type'] == 1: # IP
+            if rec['type'] == 1: 
                 if self.geoip.is_pure_cn(rec['data']): has_cn_ip = True
             if reject: break
 
         if reject: 
             self._record(domain, 'non_cn', reject)
         elif has_cn_ip: 
-            # 复活/通过 -> 失败计数归零
             self._record(domain, 'valid', 'Verified', failures=0)
         else: 
             self._record(domain, 'non_cn', 'Foreign IP')
@@ -214,32 +202,40 @@ class Cleaner:
 
     def optimize_subdomains(self):
         print("✂️ [GeoSite] 泛域名塌陷优化...")
-        sorted_d = sorted(list(self.valid_domains))
+        # 排序：短域名在前 (baidu.com 在 tieba.baidu.com 之前)
+        sorted_d = sorted(list(self.valid_domains), key=lambda x: (len(x), x))
         final = []
         if not sorted_d: return []
-        prev = sorted_d[0]
-        final.append(prev)
-        for i in range(1, len(sorted_d)):
-            curr = sorted_d[i]
-            if curr.endswith("." + prev) or curr == prev: continue
-            final.append(curr)
-            prev = curr
-        return final
+        
+        final_set = set()
+        
+        for domain in sorted_d:
+            parts = domain.split('.')
+            is_redundant = False
+            # 检查是否有父级域名已存在
+            for i in range(len(parts) - 1):
+                parent = ".".join(parts[i+1:])
+                if parent in final_set:
+                    is_redundant = True
+                    break
+            
+            if not is_redundant:
+                final.append(domain)
+                final_set.add(domain)
+                
+        return sorted(final)
 
     def save(self):
         os.makedirs(DATA_DIR, exist_ok=True)
-        # 保存缓存
-        with open(CACHE_FILE, 'w') as f: json.dump(self.cache, f)
-        # 保存审计日志
-        with open(LOG_UNRESOLVED, 'w') as f: f.write("\n".join(sorted(self.unresolved)))
-        with open(LOG_ABANDONED, 'w') as f: f.write("\n".join(sorted(self.abandoned)))
-        with open(LOG_NON_CN, 'w') as f: f.write("\n".join(sorted(self.non_cn)))
+        with open(CACHE_FILE, 'w', encoding='utf-8') as f: json.dump(self.cache, f)
+        with open(LOG_UNRESOLVED, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.unresolved)))
+        with open(LOG_ABANDONED, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.abandoned)))
+        with open(LOG_NON_CN, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.non_cn)))
         
-        # 注入给 builder.py
         os.makedirs(INJECT_DIR, exist_ok=True)
         final_domains = self.optimize_subdomains()
         domain_path = os.path.join(INJECT_DIR, "GeoSite_CN.list")
-        with open(domain_path, 'w') as f:
+        with open(domain_path, 'w', encoding='utf-8') as f:
             f.write("# NAME: GeoSite:CN\n")
             f.write("\n".join(final_domains))
         print(f"✅ 生成规则: {domain_path} (数量: {len(final_domains)})")
@@ -247,18 +243,17 @@ class Cleaner:
 async def main():
     # 路径需与 Workflow 对应
     raw_cn_ip = os.path.join(RAW_DIR, "geoip_cn.txt")
-    raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt") # 各种黑名单合并的文件
+    raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt")
     
-    # 1. 启动 GeoIP 引擎
+    # 1. 启动 GeoIP 引擎与清洗
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
-    # 导出清洗后的 IP 列表
     engine.export_clean_list(raw_cn_ip, os.path.join(INJECT_DIR, "GeoIP_CN.list"))
 
     # 2. 启动域名清洗
     cleaner = Cleaner(engine)
     domains = set()
     if os.path.exists(os.path.join(RAW_DIR, "geosite_cn.txt")):
-        with open(os.path.join(RAW_DIR, "geosite_cn.txt")) as f:
+        with open(os.path.join(RAW_DIR, "geosite_cn.txt"), 'r', encoding='utf-8') as f:
             for l in f: domains.add(l.strip())
     
     print(f"🚀 开始清洗 {len(domains)} 个域名...")

@@ -2,9 +2,8 @@ name: Auto Convert Rules
 
 on:
   schedule:
-    # 核心修正：北京时间 04:00 = UTC 20:00
     - cron: '0 20 * * *'
-  workflow_dispatch: # 允许手动点击运行
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,22 +15,29 @@ jobs:
       - name: 📥 检出代码
         uses: actions/checkout@v4
         with:
-          # 必须设置为 0 以拉取所有历史，确保 history.json 的更新能被 Git 正确识别
           fetch-depth: 0
+
+      # 1. 恢复清洗缓存 (Domain Cache)
+      - name: 💾 Restore Cleaner Cache
+        uses: actions/cache@v3
+        with:
+          path: data/domain_cache.json
+          key: ${{ runner.os }}-domain-cache-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-domain-cache-
 
       - name: 🐍 配置 Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
-
+      
       - name: 📦 安装依赖
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
-          pip install PyYAML requests
+          pip install PyYAML requests aiohttp
 
-      - name: 📡 克隆规则源
-        # 浅克隆上游仓库以节省时间
+      - name: 📡 克隆规则源 (Blackmatrix7)
         run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
 
       - name: 🛠️ 部署内核
@@ -39,14 +45,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
-          # 只取 Latest Stable (非 prerelease)
           DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
-          
-          if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" == "null" ]; then
-            echo "❌ Error: Could not find a valid Stable download URL!"
-            exit 1
-          fi
-          
           wget -q -O mihomo.gz "$DOWNLOAD_URL"
           gunzip mihomo.gz
           mv mihomo mihomo-bin
@@ -54,34 +53,61 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
+      # 2. 准备原料
+      - name: 🧩 Prepare Raw Data
+        run: |
+          mkdir -p raw_data
+          wget -q -O raw_data/geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+          wget -q -O raw_data/geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+          
+          # 解包 CN IP (用于标尺)
+          ./mihomo convert-ruleset ipcidr raw_data/geoip.dat:cn raw_data/geoip_cn.yaml
+          grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' raw_data/geoip_cn.yaml > raw_data/geoip_cn.txt
+          
+          # 解包黑名单 IP (用于清洗标尺)
+          cat /dev/null > raw_data/geoip_black.txt
+          for tag in google cloudflare telegram twitter facebook netflix; do
+            ./mihomo convert-ruleset ipcidr raw_data/geoip.dat:$tag raw_data/temp_black.yaml
+            grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/[0-9]+' raw_data/temp_black.yaml >> raw_data/geoip_black.txt
+          done
+
+          # 解包 Domain (用于待清洗数据)
+          ./mihomo convert-ruleset domain raw_data/geosite.dat:cn raw_data/geosite_cn.yaml
+          grep -v "payload:" raw_data/geosite_cn.yaml | sed "s/- //g" | sed "s/'//g" | sed 's/"//g' > raw_data/geosite_cn.txt
+          
+          # 合并 Accademia
+          wget -q -O acc.list https://raw.githubusercontent.com/Accademia/Additional_Rule_For_Clash/main/GeositeCN/Geosite.list || true
+          cat acc.list >> raw_data/geosite_cn.txt
+
+      # 3. 执行清洗 (生成 temp_source/.../GeoSite_CN.list)
+      - name: 🧹 Execute Cleaner
+        run: python scripts/cleaner.py
+
+      # 4. 执行构建 (Builder 原生接管 History 归档)
       - name: 🚀 执行转换与更新 README 页
         run: python scripts/builder.py
         env:
-          # 关键：传递环境变量，让脚本智能识别 Author 和 Repo URL
           GITHUB_REPOSITORY: ${{ github.repository }}
 
+      # 5. 提交产物 (无需手动 mv history.json)
       - name: 🧹 提交产物
         run: |
-          # 清理临时文件
-          rm -rf temp_source mihomo
+          rm -rf temp_source mihomo raw_data
           
-          # 配置 Git 身份
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # 检查是否有产物生成
           if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
              echo "⚠️ No rules generated, skipping git ops."
              exit 0
           fi
           
-          # ✅ 关键点：添加所有目录和必要的状态文件
-          git add rule/Mihomo/ rule/Loon/ history.json README.md
+          # 提交规则、Data目录(含History/Cache/Log)、文档
+          git add rule/Mihomo/ rule/Loon/ data/ README.md
           
-          # 提交并推送
           if git diff --staged --quiet; then
-            echo "zk: No changes detected in rules or dashboard."
+            echo "zk: No changes detected."
           else
-            git commit -m "chore: auto-sync rules & dashboard [$(date +'%Y-%m-%d %H:%M')]"
+            git commit -m "chore: auto-sync & clean rules [$(date +'%Y-%m-%d %H:%M')]"
             git push
           fi

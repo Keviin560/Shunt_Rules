@@ -11,24 +11,23 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-# ⚡️ v3.0 最终完整版: 修复命名抢占 + 修复时间Bug + 全套UI美化
 GENERATOR_VERSION = "v3.0_FINAL_COMPLETE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
-HISTORY_FILE = "history.json"
+# 🔥 历史记录的最终归宿
+DATA_HISTORY_FILE = "data/history.json"
+# 兼容根目录旧文件
+ROOT_HISTORY_FILE = "history.json"
+
 README_FILE = "README.md"
 MIHOMO_BIN = "./mihomo"
-
-# 🛑 变体剔除黑名单
 IGNORE_KEYWORDS = ["Classical", "Domain", "For_Clash", "No_Resolve", "Clash"]
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger("DigitalArchitect")
 
 filename_registry = {}
-
-# --- 关键词救援字典 ---
 KEYWORD_RESCUE_MAP = {
     "googlevideo": ["googlevideo.com"],
     "youtube": ["youtube.com", "ytimg.com"],
@@ -46,7 +45,6 @@ KEYWORD_RESCUE_MAP = {
     "microsoft": ["microsoft.com", "azure.com"]
 }
 
-# --- 动态元数据获取 ---
 def get_metadata():
     repo_full = os.getenv('GITHUB_REPOSITORY')
     if repo_full and "/" in repo_full:
@@ -62,7 +60,6 @@ def get_metadata():
 
 AUTHOR_NAME, RAW_BASE_URL, REPO_URL, REPO_NAME_DISPLAY = get_metadata()
 
-# --- 核心组件类 ---
 class KernelIntrospector:
     def __init__(self, bin_path):
         self.bin_path = bin_path
@@ -115,14 +112,29 @@ class RuleSet:
         if target:
             if not self.ip_entries[target]: self.ip_entries[target] = no_res
 
+# 🔥 核心修正：智能历史管理器
 class HistoryManager:
     def __init__(self):
         self.history = {}
-        if os.path.exists(HISTORY_FILE):
+        # 1. 优先读 data/history.json
+        if os.path.exists(DATA_HISTORY_FILE):
             try:
-                with open(HISTORY_FILE, 'r') as f: self.history = json.load(f)
+                with open(DATA_HISTORY_FILE, 'r') as f: 
+                    self.history = json.load(f)
+                logger.info(f"📂 Loaded history from {DATA_HISTORY_FILE}")
             except: pass
+        # 2. 其次读 history.json (兼容旧环境)
+        elif os.path.exists(ROOT_HISTORY_FILE):
+            try:
+                with open(ROOT_HISTORY_FILE, 'r') as f: 
+                    self.history = json.load(f)
+                logger.info(f"📂 Loaded history from {ROOT_HISTORY_FILE} (Migration mode)")
+            except: pass
+        else:
+            logger.info("📂 No history found, starting fresh.")
+            
         self.current_time = int(datetime.now().timestamp())
+
     def get_file_hash(self, filepath):
         if not filepath or not os.path.exists(filepath): return ""
         with open(filepath, 'rb') as f: return hashlib.md5(f.read()).hexdigest()
@@ -130,18 +142,11 @@ class HistoryManager:
     def should_skip(self, name, source_path, expected_files):
         src_hash = self.get_file_hash(source_path)
         if not src_hash: return False, ""
-        
         record = self.history.get(name, {})
         last_hash = record.get('src_hash', "")
-        
-        # 🟢 修复 Bug: 仅当源文件 Hash 变化时才重编，忽略脚本版本变化
-        if src_hash != last_hash:
-            return False, src_hash
-            
+        if src_hash != last_hash: return False, src_hash
         for f in expected_files:
-            if not os.path.exists(f) or os.path.getsize(f) == 0:
-                return False, src_hash
-                
+            if not os.path.exists(f) or os.path.getsize(f) == 0: return False, src_hash
         return True, src_hash
 
     def update_record(self, name, src_hash):
@@ -155,8 +160,19 @@ class HistoryManager:
         last_ts = record.get('updated_at', self.current_time)
         diff = datetime.fromtimestamp(self.current_time) - datetime.fromtimestamp(last_ts)
         return diff.days
+
     def save(self):
-        with open(HISTORY_FILE, 'w') as f: json.dump(self.history, f, indent=2)
+        # 确保 data 目录存在
+        os.makedirs(os.path.dirname(DATA_HISTORY_FILE), exist_ok=True)
+        # 1. 强制写入 data/history.json
+        with open(DATA_HISTORY_FILE, 'w') as f: 
+            json.dump(self.history, f, indent=2)
+        logger.info(f"💾 Saved history to {DATA_HISTORY_FILE}")
+        
+        # 2. 清理根目录旧文件
+        if os.path.exists(ROOT_HISTORY_FILE):
+            os.remove(ROOT_HISTORY_FILE)
+            logger.info(f"🧹 Removed legacy {ROOT_HISTORY_FILE}")
 
 def get_smart_filename(rel_path):
     parts = rel_path.split(os.sep)
@@ -203,22 +219,17 @@ def process_entry(line, ruleset):
 
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
-    
     if ruleset.domain_entries:
         final_domains = set()
         raw_candidates = set()
-
         for t, v in ruleset.domain_entries:
             if 'KEYWORD' in t.upper():
                 for kw, domains in KEYWORD_RESCUE_MAP.items():
                     if kw in v.lower():
-                        for d in domains:
-                            raw_candidates.add(d)
+                        for d in domains: raw_candidates.add(d)
                 continue 
-
             if 'REGEX' in t.upper(): continue
             raw_candidates.add(v)
-        
         for d in raw_candidates:
             if d.startswith('.'):
                 clean_d = d[1:] 
@@ -227,16 +238,12 @@ def build_mihomo(kernel, name, ruleset):
             else:
                 final_domains.add(d)
                 final_domains.add(f".{d}")
-
         clean = sorted(list(final_domains))
-        
-        if clean and _compile_mihomo(kernel, name, clean, 'domain'): 
-            h_d = True
+        if clean and _compile_mihomo(kernel, name, clean, 'domain'): h_d = True
             
     if ruleset.ip_entries:
         clean = sorted(ruleset.ip_entries.keys())
         if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
-        
     return h_d, h_i
 
 def _compile_mihomo(kernel, name, rules, behavior):
@@ -277,29 +284,21 @@ def get_status_text(days):
     return f"{days} days ago"
 
 def detect_config_file():
-    try:
-        files = os.listdir('.')
-    except:
-        return "Mihomo_ShuntRules.yaml", False
+    try: files = os.listdir('.')
+    except: return "Mihomo_ShuntRules.yaml", False
     for f in files:
-        if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f:
-            return f, True
+        if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f: return f, True
     for f in files:
-         if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f):
-            return f, True
+         if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f): return f, True
     return "Mihomo_ShuntRules.yaml", False
 
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
-    # 🟢 修复 Bug: 使用点号分割日期，修复 Shields.io 404
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
     time_badge_val = bj_time
-    
     config_name, found = detect_config_file()
     config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
-
-    # ✅ 徽章生成区 (纯色圆角风格，按要求排序)
     badges = [
         f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
         f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
@@ -311,9 +310,7 @@ def generate_readme(stats):
         f"![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)"
     ]
     badge_line = " ".join(badges)
-
     md = [
-        # ✅ 标题与徽章居中
         f"<div align=\"center\">",
         f"",
         f"# 🤖 Auto Shunt Rules", 
@@ -334,7 +331,6 @@ def generate_readme(stats):
         f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
         f"> 🔗 覆写参考: {config_link}",
         f"",
-        # ✅ 代码折叠 + 文案微调
         f"<details>",
         f"<summary><strong>💾 配置示例 <sub>(以 Google 为例，点击展开)</sub></strong></summary>",
         f"",
@@ -383,7 +379,6 @@ def generate_readme(stats):
         f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",
         f"| :---: | :---: | :---: | :---: |"
     ]
-    
     for name, status, has_d, has_i, has_l in stats:
         mihomo_links = []
         if has_d: mihomo_links.append(f"[`DOMAIN`]({RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/{name}.mrs)")
@@ -391,7 +386,6 @@ def generate_readme(stats):
         m_cell = " \\| ".join(mihomo_links) if mihomo_links else "-"
         l_cell = f"[`RAW Link`]({RAW_BASE_URL}/{TARGET_DIR_LOON}/{name}.lsr)" if has_l else "-"
         md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
-        
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 
 def main():
@@ -413,38 +407,26 @@ def main():
                 parse_file(full_path, rs)
                 rel_path_map[rel] = full_path 
                 cnt += 1
-                
     logger.info(f"✅ 解析完成。规则组: {len(aggregated)}")
-    
     stats = []
     valid_outputs = set()
-    
     updated_count = 0
     skipped_count = 0
-    
-    # 🟢 核心修复：按路径深度排序，优先处理浅层目录，防止深层目录抢占简短文件名
-    # lambda x: (x.count(os.sep), x) 表示先按分隔符数量(深度)排，再按名称排
     sorted_rels = sorted(aggregated.keys(), key=lambda x: (x.count(os.sep), x))
-    
     for rel in sorted_rels:
         rs = aggregated[rel]
         name = get_smart_filename(rel)
         source_path = rel_path_map.get(rel)
         if not source_path: continue
-
         expect_d = bool(rs.domain_entries)
         expect_i = bool(rs.ip_entries)
         expect_l = expect_d or expect_i
-        
         expected_files = []
         if expect_d: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
         if expect_i: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
         if expect_l: expected_files.append(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
-        
         should_skip_build, src_hash = history.should_skip(name, source_path, expected_files)
-        
         h_d, h_i, h_l = expect_d, expect_i, expect_l
-        
         if should_skip_build:
             skipped_count += 1
             days = history.get_days_ago(name)
@@ -454,14 +436,11 @@ def main():
             h_l = build_loon(name, rs)
             history.update_record(name, src_hash)
             days = 0
-            
         if h_d: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
         if h_i: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
         if h_l: valid_outputs.add(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
-        
         if h_d or h_i or h_l:
             stats.append((name, get_status_text(days), h_d, h_i, h_l))
-            
     logger.info("🧹 执行清理...")
     removed_zombies = 0
     for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
@@ -471,7 +450,6 @@ def main():
             if full_p not in valid_outputs:
                 os.remove(full_p)
                 removed_zombies += 1
-                
     history.save()
     generate_readme(stats)
     logger.info(f"🎉 完成: 更新 {updated_count}, 跳过 {skipped_count}, 清理 {removed_zombies}")

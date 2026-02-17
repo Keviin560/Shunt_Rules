@@ -83,10 +83,10 @@ jobs:
           echo "🔓 Unpacking GeoSite..."
           ./v2dat unpack geosite -o raw_data -f cn geosite.dat
           
-          echo "⬇️ Merging Accademia..."
-          wget -q -O acc.list https://raw.githubusercontent.com/Accademia/Additional_Rule_For_Clash/main/GeositeCN/Geosite.list || true
-          if [ -f acc.list ]; then
-            cat acc.list >> raw_data/geosite_cn.txt
+          # echo "⬇️ Merging Accademia..."
+          # wget -q -O acc.list https://raw.githubusercontent.com/Accademia/Additional_Rule_For_Clash/main/GeositeCN/Geosite.list || true
+          # if [ -f acc.list ]; then
+            # cat acc.list >> raw_data/geosite_cn.txt
           fi
 
       - name: 🧹 Execute Cleaner

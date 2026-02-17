@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v3.6_CHINESE_HEADER" 
+GENERATOR_VERSION = "v3.4_SINGLE_LINE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -264,12 +264,7 @@ def build_loon(name, ruleset):
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
     try:
         with open(dst, 'w', encoding='utf-8') as f:
-            # ✅ Loon 头部信息全汉化 (按要求更改)
-            f.write(f"# 规则名称 = {name}\n")
-            f.write(f"# 规则作者 = {AUTHOR_NAME}\n")
-            f.write(f"# 仓库地址 = {REPO_URL}\n")
-            f.write(f"# 更新时间 = {bj_time}\n")
-            f.write(f"# 规则总数 = {count}\n\n")
+            f.write(f"# Name = {name}\n# Author = {AUTHOR_NAME}\n# REPO = {REPO_URL}\n# Update = {bj_time}\n# Total = {count}\n\n")
             f.write("\n".join(lines))
         return True
     except: return False
@@ -321,7 +316,7 @@ def generate_readme(stats):
     link_mihomo = "https://github.com/MetaCubeX/mihomo"
     link_v2dat = "https://github.com/urlesistiana/v2dat"
 
-    # 📝 终极文档结构 (严格使用你提供的文案)
+    # 📝 终极文档结构
     md = [
         f"<div align=\"center\">",
         f"",
@@ -341,15 +336,13 @@ def generate_readme(stats):
         f"> **对象**：Blackmatrix7 全量规则库",
         f"",
         f"根据目标客户端特性进行了逻辑重构：",
-        f"* **Mihomo (.mrs) —— 双重锚定 (Double Anchoring)**",
-        f"  采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
-        f"* **Loon (.lsr) —— 智能排序 (Smart Sorting)**",
-        f"  自动将带有 `no-resolve` 属性的 IP 规则强制置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险。",
+        f"* **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
+        f"* **Loon (.lsr) —— 智能排序**：自动将带有 `no-resolve` 属性的 IP 规则强制置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险。",
         f"",
         f"### 引擎二：区域深度净化 (The Purifier)",
         f"> **对象**：GeoIP/GeoSite CN 区域规则",
         f"",
-        f"针对中国大陆地区（不含港澳台）的网站，进行深度清洗：",
+        f"针对中国大陆地区网站进行深度清洗：",
         f"* **IP 减法**：留存物理位置在中国境内且非外国实体的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP",
         f"* **域名审计**：“六层漏斗”严苛筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤",
         f"* **域名验证**：生命周期管理，所有 CN 域名需经过 DNS 验活，连续 3 次（9天）解析失败的域名将被暂时移出规则库（进入180天冷冻期），防止规则体积无效膨胀",
@@ -357,7 +350,7 @@ def generate_readme(stats):
         f"",
         f"## 📦 特性与格式说明 (Features & Formats)",
         f"### 1. 规则集 (Rule Sets)",
-        f"源自 Blackmatrix7，同步上游数千个规则文件（如 Global, Google, YouTube, Netflix 等）。",
+        f"源自 Blackmatrix7，同步并编译上游规则文件。",
         f"* **Mihomo (.mrs)**：二进制编译格式，加载速度快，资源占用极低。",
         f"* **Loon (.lsr)**：纯文本格式，已针对 Loon 优化混合负载结构。",
         f"",

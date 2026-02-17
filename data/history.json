@@ -85,9 +85,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Proxy": {
-    "src_hash": "9788074d3ee43bb4dadeb0016eeb7174",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "e012b96a721b052e98bbaaf428424315",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "CNNIC": {
     "src_hash": "0c10dcb872dfac0a52dd30593ecd3330",
@@ -131,7 +131,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1771310271,
+    "updated_at": 1771361439,
     "gen_ver": "v3.4_SINGLE_LINE"
   },
   "EasyPrivacy": {
@@ -535,9 +535,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Blizzard": {
-    "src_hash": "0a9ace50dfd683e57064020953daee01",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "8081f58d52efc7d58d22475ace725165",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "HBOHK": {
     "src_hash": "7057e3556e99b144ab90bf4536d48013",
@@ -755,9 +755,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaMaxNoMedia": {
-    "src_hash": "3d7df99d6600dffe6e82ca65fdeab9f5",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "fa838d219e53c1e275a04616be3fff28",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "Yandex": {
     "src_hash": "43cf55853aa3b88ec80b62d66dc2779a",
@@ -786,7 +786,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1771310271,
+    "updated_at": 1771361439,
     "gen_ver": "v3.4_SINGLE_LINE"
   },
   "Anonv": {
@@ -890,9 +890,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "PrivateTracker": {
-    "src_hash": "34f93946af019a3fd5ef6b22e3d7cf9b",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "6c9729b48ce2af8761d0fc6716a83cc7",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "AFP": {
     "src_hash": "4175b7d863d042339835927f41ca338a",
@@ -1140,9 +1140,9 @@
     "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "ChinaIPsTest": {
-    "src_hash": "ff47bc7f8819a11b5d4ea3efe313ff74",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "a38c65ca695f77f99798a3d3569f296e",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "Opera": {
     "src_hash": "00198bc19bbac19c4074e7cb0742e68c",
@@ -1350,9 +1350,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Advertising": {
-    "src_hash": "38d1392684e6b4c6cac4242bd7e42fde",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "a743e12eabbed820b44a4b9f491884fa",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "GaoDe": {
     "src_hash": "3a4a0abf674fa07188399b21c6448c96",
@@ -1445,9 +1445,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Global": {
-    "src_hash": "c1ff9191773f82653c0ccf07456ca3e0",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "fdd435ee6ef10e71121f2886181d4756",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "GitBook": {
     "src_hash": "0c583c6cde0c41a530b9d437c95cfefc",
@@ -1735,9 +1735,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaIPsBGP": {
-    "src_hash": "1c1c49de311a7b54ad53aa3f57fcb725",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "0864f35433f1829f03e78aede8aac492",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "WeTV": {
     "src_hash": "a6ba4b5218aa4ed5c5f214f3c1cec711",
@@ -1935,9 +1935,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Apple": {
-    "src_hash": "eeb0048bf8f7c901857741b90e28331f",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "c9ee8ee2a74e475b8212085a4c9d425b",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "CETV": {
     "src_hash": "2f95c9b58107ec45b03b090d8d0dd3dc",
@@ -2025,9 +2025,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaMaxNoIP": {
-    "src_hash": "65bb36c42808499f6ecb7b9c3130da9c",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "929b6ace04683bbe6a4ac60f2f730e22",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "51nod": {
     "src_hash": "cff23c68bb5764a987c294f0b8cb4776",
@@ -2670,9 +2670,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Game": {
-    "src_hash": "2a93eec98625af03dbed393c7b60610b",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "9b78b3eabdcb7706d01dd3f355678bf7",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "Game_Assassin'sCreed-Odyssey": {
     "src_hash": "e5471d801a7cde0ec802acc448b6a7dc",
@@ -2955,9 +2955,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaMax": {
-    "src_hash": "70379ea0b1dbaf0e75e9bee0f0528fa6",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "3c1808d80d8ab2ab16b72ca3f06a8947",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "YunFanJiaSu": {
     "src_hash": "8abe138bb09d22c2955d47ab1ead7da8",
@@ -3280,9 +3280,9 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "AdvertisingTest": {
-    "src_hash": "a61389a7ea4701a8977ae1f503bd6c57",
-    "updated_at": 1771187865,
-    "gen_ver": "v3.0_FINAL_COMPLETE"
+    "src_hash": "8400f7f57bf18be128aabfd1270f1e64",
+    "updated_at": 1771361439,
+    "gen_ver": "v3.4_SINGLE_LINE"
   },
   "XiaoGouKeJi": {
     "src_hash": "d55a76d7e556871d774bc4725cf0dd81",

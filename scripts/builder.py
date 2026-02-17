@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v3.0_FINAL_COMPLETE" 
+GENERATOR_VERSION = "v3.2_README_UPGRADE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -112,18 +112,15 @@ class RuleSet:
         if target:
             if not self.ip_entries[target]: self.ip_entries[target] = no_res
 
-# 🔥 核心修正：智能历史管理器
 class HistoryManager:
     def __init__(self):
         self.history = {}
-        # 1. 优先读 data/history.json
         if os.path.exists(DATA_HISTORY_FILE):
             try:
                 with open(DATA_HISTORY_FILE, 'r') as f: 
                     self.history = json.load(f)
                 logger.info(f"📂 Loaded history from {DATA_HISTORY_FILE}")
             except: pass
-        # 2. 其次读 history.json (兼容旧环境)
         elif os.path.exists(ROOT_HISTORY_FILE):
             try:
                 with open(ROOT_HISTORY_FILE, 'r') as f: 
@@ -162,14 +159,10 @@ class HistoryManager:
         return diff.days
 
     def save(self):
-        # 确保 data 目录存在
         os.makedirs(os.path.dirname(DATA_HISTORY_FILE), exist_ok=True)
-        # 1. 强制写入 data/history.json
         with open(DATA_HISTORY_FILE, 'w') as f: 
             json.dump(self.history, f, indent=2)
         logger.info(f"💾 Saved history to {DATA_HISTORY_FILE}")
-        
-        # 2. 清理根目录旧文件
         if os.path.exists(ROOT_HISTORY_FILE):
             os.remove(ROOT_HISTORY_FILE)
             logger.info(f"🧹 Removed legacy {ROOT_HISTORY_FILE}")
@@ -297,83 +290,87 @@ def generate_readme(stats):
     total = len(stats)
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
     time_badge_val = bj_time
-    config_name, found = detect_config_file()
-    config_link = f"[{config_name}]({RAW_BASE_URL}/{config_name})"
-    badges = [
-        f"![Total](https://img.shields.io/badge/-规则总数%20{total}-blue?style=flat)", 
-        f"![Update](https://img.shields.io/badge/-更新时间%20{time_badge_val}-2ea44f?style=flat)",
-        f"![Dedupe](https://img.shields.io/badge/-去重处理-607d8b?style=flat)",
+    
+    # 动态获取 GitHub 仓库路径 (用于构建状态徽章)
+    repo_path = os.getenv('GITHUB_REPOSITORY', 'YourName/Repo')
+
+    # ✅ 徽章生成区 (V3.2 新版 - 两行布局)
+    # 第一行：核心状态与硬指标 (Standard)
+    badges_row1 = [
+        f"![Build](https://img.shields.io/github/actions/workflow/status/{repo_path}/main.yml?label=Build&style=flat&color=brightgreen)",
+        f"![Update](https://img.shields.io/badge/Update-{time_badge_val}-2ea44f?style=flat)",
+        f"![Rules](https://img.shields.io/badge/Rules-{total}-blue?style=flat)"
+    ]
+    
+    # 第二行：ASR 独家特性 (Features)
+    badges_row2 = [
         f"![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat)",
-        f"![Rescue](https://img.shields.io/badge/-关键词转译-e67e22?style=flat)",
-        f"![Sort](https://img.shields.io/badge/-排序优化-009688?style=flat)",
-        f"![Format](https://img.shields.io/badge/-格式支持%20MRS%20&%20LSR-003366?style=flat)",
+        f"![Sort](https://img.shields.io/badge/-智能排序-009688?style=flat)",
+        f"![Audit](https://img.shields.io/badge/-DNS%20审计-f44336?style=flat)",
+        f"![Pure](https://img.shields.io/badge/-纯净标尺-007bff?style=flat)",
         f"![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)"
     ]
-    badge_line = " ".join(badges)
+
+    badge_line = " ".join(badges_row1) + "\n\n" + " ".join(badges_row2)
+
+    # 🔗 致谢链接
+    link_ls = "https://github.com/Loyalsoldier/v2ray-rules-dat"
+    link_bm = "https://github.com/blackmatrix7/ios_rule_script"
+    link_mihomo = "https://github.com/MetaCubeX/mihomo"
+    link_v2dat = "https://github.com/urlesistiana/v2dat"
+
+    # 📝 全新文档结构 (V3.2)
     md = [
         f"<div align=\"center\">",
         f"",
-        f"# 🤖 Auto Shunt Rules", 
+        f"# 🤖 Auto Shunt Rules (ASR)", 
         f"",
         f"{badge_line}",
         f"",
         f"</div>",
         f"",
-        f"## ℹ️ 数据源说明",
-        f"♻️ 本仓库规则数据同步自 [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script) 项目，感谢各位维护规则的大佬们。",
+        f"## 📖 项目简述 (Overview)",
+        f"ASR (Auto Shunt Rules) 是一套全自动化的 CI/CD 流水线。它每天定时从上游拉取最新数据，通过原子级转译和外科手术般的深度清洗，输出贴合内核运行逻辑的纯净规则。",
+        f"* **Mihomo**: 享受 .mrs 二进制格式带来的极速加载与低内存占用。",
+        f"* **Loon**: 获得针对其“混合负载”特性优化的排序逻辑。",
         f"",
-        f"## ⚠️ 使用前必读",
-        f"* 🐱 Mihomo: .mrs 二进制格式。采用双重锚定策略，解决子域名漏网与视频流匹配难题。_IP.mrs 已移除 `no-resolve` 参数。",
-        f"* 🎈 Loon: .lsr 文本格式。支持混合负载并优化排序（`no-resolve IP` 优先），确保匹配效率并防止 DNS 泄露。",
-        f"* 🎭 DNS 泄露: IP 规则在匹配前必须先解析域名，而解析过程会使用 DNS 配置中的 `nameserver` 字段指定的服务器。这可能会暴露访问目标，如需使用 IP 规则建议添加 `no-resolve` 参数。",
+        f"## 🧠 核心逻辑架构 (Core Logic)",
+        f"本项目由双引擎驱动，分别处理通用规则与区域规则：",
         f"",
-        f"## 📍 Mihomo 配置指引",
-        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
-        f"> 🔗 覆写参考: {config_link}",
+        f"### 引擎一：全量规则转译 (The Transmuter)",
+        f"> **对象**：Blackmatrix7 全量规则库 (Google, YouTube, Telegram, OpenAI 等)",
         f"",
-        f"<details>",
-        f"<summary><strong>💾 配置示例 <sub>(以 Google 为例，点击展开)</sub></strong></summary>",
+        f"根据目标客户端特性进行了逻辑重构：",
+        f"* **Mihomo (.mrs) —— 双重锚定 (Double Anchoring)**",
+        f"  采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”两条指令（例如同时生成 `google.com` 和 `+.google.com`）。解决子域名匹配遗漏的问题，提升了流媒体与复杂应用服务的匹配精准度。",
+        f"* **Loon (.lsr) —— 智能排序 (Smart Sorting)**",
+        f"  针对 Loon 的 IP-CIDR 优先匹配机制，自动将带有 `no-resolve` 属性的 IP 规则强制置顶。确保内核在匹配时优先处理纯 IP 请求，减少不必要的 DNS 解析行为，从而有效降低 DNS 泄露风险。",
         f"",
-        f"### 1. 定义策略组 (Proxy Groups)",
-        f"```yaml",
-        f"proxy-groups:",
-        f"  - name: \"MyProxyGroup\"   # 策略组名称，可自定义",
-        f"    type: select",
-        f"    proxies:",
-        f"      - 🇭🇰 香港节点      # 👈 这里填写你在 'proxies' 中定义的节点名称",
-        f"      - 🇺🇸 美国节点      # 👈 或者填写 'DIRECT' (直连) / 'REJECT' (拒绝)",
-        f"```",
+        f"### 引擎二：区域深度净化 (The Purifier)",
+        f"> **对象**：GeoIP/GeoSite CN 区域规则",
         f"",
-        f"### 2. 配置规则集 (Rule Providers)",
-        f"```yaml",
-        f"rule-providers:",
-        f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
-        f"  Google:",
-        f"    type: http",
-        f"    behavior: domain",
-        f"    format: mrs",
-        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google.mrs\"",
-        f"    path: ./rules/Mihomo/Google.mrs",
-        f"    interval: 86400",
+        f"针对中国大陆地区（不含港澳台）的网站，实施“零信任”清洗：",
+        f"* **IP 减法**：不盲信原版 CN IP 库。引入 Google, Cloudflare, AWS 等境外实体 IP 作为“黑名单”，从 CN 库中将其移除，实现真正的“提纯”。",
+        f"* **域名验证**：引入生命周期管理。所有 CN 域名需经过 DNS 验活，连续 3 次（9天）解析失败的域名将被暂时移出规则库（进入180天冷冻期），防止规则体积无效膨胀。",
+        f"* **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效。",
         f"",
-        f"  # 🟢 案例 2：引用 IP 规则 (behavior: ipcidr)",
-        f"  Google_IP:",
-        f"    type: http",
-        f"    behavior: ipcidr",
-        f"    format: mrs",
-        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google_IP.mrs\"",
-        f"    path: ./rules/Mihomo/Google_IP.mrs",
-        f"    interval: 86400",
-        f"```",
+        f"## 📦 特性与格式说明 (Features & Formats)",
+        f"### 1. 规则集 (Rule Sets)",
+        f"源自 Blackmatrix7，同步上游数千个规则文件（如 Global, Google, YouTube, Netflix 等）。",
+        f"* **Mihomo (.mrs)**：二进制编译格式，加载速度快，资源占用极低。",
+        f"* **Loon (.lsr)**：纯文本格式，已针对 Loon 优化混合负载结构。",
         f"",
-        f"### 3. 应用规则 (Rules)",
-        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露。*",
-        f"```yaml",
-        f"rules:",
-        f"  - RULE-SET,Google,MyProxyGroup",
-        f"  - RULE-SET,Google_IP,MyProxyGroup,no-resolve",
-        f"```",
-        f"</details>",
+        f"### 2. 区域集 (Regional Sets)",
+        f"源自 Loyalsoldier，经过 ASR 引擎深度清洗。",
+        f"* **GeoSite_CN**",
+        f"  * 核心逻辑：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名。",
+        f"* **GeoIP_CN**",
+        f"  * 核心逻辑：剔除 Cloudflare/Google 等境外实体 IP，仅保留物理位置真实的纯 CN IP，Mihomo 建议配合 `no-resolve` 使用。",
+        f"",
+        f"## 🤝 致谢 (Credits)",
+        f"感谢以下项目提供的数据与工具支持：",
+        f"* 数据来源：[Loyalsoldier/v2ray-rules-dat]({link_ls}), [blackmatrix7/ios_rule_script]({link_bm})",
+        f"* 构建工具：[MetaCubeX/mihomo]({link_mihomo}), [urlesistiana/v2dat]({link_v2dat})",
         f"",
         f"## 📊 规则索引",
         f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",
@@ -386,6 +383,11 @@ def generate_readme(stats):
         m_cell = " \\| ".join(mihomo_links) if mihomo_links else "-"
         l_cell = f"[`RAW Link`]({RAW_BASE_URL}/{TARGET_DIR_LOON}/{name}.lsr)" if has_l else "-"
         md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
+        
+    # 添加免责声明
+    md.append(f"")
+    md.append(f"> **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。")
+
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 
 def main():

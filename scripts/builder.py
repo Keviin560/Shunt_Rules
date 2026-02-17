@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v3.3_BADGE_FIX" 
+GENERATOR_VERSION = "v3.4_SINGLE_LINE" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -287,26 +287,20 @@ def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
     
-    # 🟢 修复 Bug: 使用点号分割日期，避免 Shields.io 404
+    # 🟢 修复 Bug: 使用点号分割日期
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
     time_badge_val = bj_time
     
     # 动态获取 GitHub 仓库路径
     repo_path = os.getenv('GITHUB_REPOSITORY', 'YourName/Repo')
 
-    # ✅ 徽章生成区 (纯色圆角风格 style=flat，标签汉化)
-    # 第一行：核心状态
-    badges_row1 = [
-        # 构建状态：使用 GitHub 原生 API，label=构建状态，color 自动变色 (Passing 为绿色)
-        f"![Build](https://img.shields.io/github/actions/workflow/status/{repo_path}/main.yml?label=%E6%9E%84%E5%BB%BA%E7%8A%B6%E6%80%81&style=flat)",
-        # 更新时间：原版绿色
+    # ✅ 徽章生成区 (单行、纯色扁平风格 style=flat)
+    badges = [
+        # 更新时间：纯色绿色
         f"![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%20{time_badge_val}-2ea44f?style=flat)",
-        # 规则总数：原版蓝色
-        f"![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20{total}-blue?style=flat)"
-    ]
-    
-    # 第二行：ASR 独家特性 (保持之前选定的漂亮纯色)
-    badges_row2 = [
+        # 规则总数：纯色蓝色
+        f"![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20{total}-blue?style=flat)",
+        # 独家特性：纯色
         f"![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat)",
         f"![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat)",
         f"![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat)",
@@ -314,7 +308,7 @@ def generate_readme(stats):
         f"![Ready](https://img.shields.io/badge/-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8-ff69b4?style=flat)"
     ]
 
-    badge_line = " ".join(badges_row1) + "\n\n" + " ".join(badges_row2)
+    badge_line = " ".join(badges)
 
     # 🔗 致谢链接
     link_ls = "https://github.com/Loyalsoldier/v2ray-rules-dat"
@@ -322,7 +316,7 @@ def generate_readme(stats):
     link_mihomo = "https://github.com/MetaCubeX/mihomo"
     link_v2dat = "https://github.com/urlesistiana/v2dat"
 
-    # 📝 全新文档结构 (V3.3)
+    # 📝 终极文档结构
     md = [
         f"<div align=\"center\">",
         f"",
@@ -334,8 +328,6 @@ def generate_readme(stats):
         f"",
         f"## 📖 项目简述 (Overview)",
         f"ASR 是一套全自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则。",
-        f"* **Mihomo**: 享受 .mrs 二进制格式的极速加载与低内存占用。",
-        f"* **Loon**: 针对其“混合负载”特性优化排序逻辑。",
         f"",
         f"## 🧠 核心逻辑架构 (Core Logic)",
         f"双引擎驱动，分别处理通用规则与区域规则：",
@@ -344,10 +336,8 @@ def generate_readme(stats):
         f"> **对象**：Blackmatrix7 全量规则库",
         f"",
         f"根据目标客户端特性进行了逻辑重构：",
-        f"* **Mihomo (.mrs) —— 双重锚定 (Double Anchoring)**",
-        f"  采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
-        f"* **Loon (.lsr) —— 智能排序 (Smart Sorting)**",
-        f"  自动将带有 `no-resolve` 属性的 IP 规则强制置顶。确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险。",
+        f"* **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
+        f"* **Loon (.lsr) —— 智能排序**：自动将带有 `no-resolve` 属性的 IP 规则强制置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险。",
         f"",
         f"### 引擎二：区域深度净化 (The Purifier)",
         f"> **对象**：GeoIP/GeoSite CN 区域规则",
@@ -366,10 +356,8 @@ def generate_readme(stats):
         f"",
         f"### 2. 区域集 (Regional Sets)",
         f"源自 Loyalsoldier，经过 ASR 引擎深度清洗。",
-        f"* **GeoSite_CN**",
-        f"  * 核心逻辑：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名。",
-        f"* **GeoIP_CN**",
-        f"  * 核心逻辑：剔除 Cloudflare/Google 等境外实体 IP，仅保留物理位置真实的纯 CN IP。Mihomo 建议配合 `no-resolve` 使用。"
+        f"* **GeoSite_CN**：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名。",
+        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外实体 IP，仅保留物理位置真实的纯 CN IP。Mihomo 建议配合 `no-resolve` 使用。",
         f"",
         f"## 🤝 致谢 (Credits)",
         f"感谢以下项目提供的数据与工具支持：",

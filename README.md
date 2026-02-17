@@ -2,35 +2,36 @@
 
 # 🤖 Auto Shunt Rules (ASR)
 
-![Build](https://img.shields.io/github/actions/workflow/status/Keviin560/Shunt_Rules/main.yml?label=Build&style=flat&color=brightgreen) ![Update](https://img.shields.io/badge/Update-2026.02.17-2ea44f?style=flat) ![Rules](https://img.shields.io/badge/Rules-691-blue?style=flat)
+![Build](https://img.shields.io/github/actions/workflow/status/Keviin560/Shunt_Rules/main.yml?label=%E6%9E%84%E5%BB%BA%E7%8A%B6%E6%80%81&style=flat) ![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%202026.02.17-2ea44f?style=flat) ![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20691-blue?style=flat)
 
-![Anchor](https://img.shields.io/badge/-双重锚定-8e44ad?style=flat) ![Sort](https://img.shields.io/badge/-智能排序-009688?style=flat) ![Audit](https://img.shields.io/badge/-DNS%20审计-f44336?style=flat) ![Pure](https://img.shields.io/badge/-纯净标尺-007bff?style=flat) ![Ready](https://img.shields.io/badge/-开箱即用-ff69b4?style=flat)
+![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat) ![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat) ![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat) ![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat) ![Ready](https://img.shields.io/badge/-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8-ff69b4?style=flat)
 
 </div>
 
 ## 📖 项目简述 (Overview)
-ASR (Auto Shunt Rules) 是一套全自动化的 CI/CD 流水线。它每天定时从上游拉取最新数据，通过原子级转译和外科手术般的深度清洗，输出贴合内核运行逻辑的纯净规则。
-* **Mihomo**: 享受 .mrs 二进制格式带来的极速加载与低内存占用。
-* **Loon**: 获得针对其“混合负载”特性优化的排序逻辑。
+ASR 是一套全自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则。
+* **Mihomo**: 享受 .mrs 二进制格式的极速加载与低内存占用。
+* **Loon**: 针对其“混合负载”特性优化排序逻辑。
 
 ## 🧠 核心逻辑架构 (Core Logic)
-本项目由双引擎驱动，分别处理通用规则与区域规则：
+双引擎驱动，分别处理通用规则与区域规则：
 
 ### 引擎一：全量规则转译 (The Transmuter)
-> **对象**：Blackmatrix7 全量规则库 (Google, YouTube, Telegram, OpenAI 等)
+> **对象**：Blackmatrix7 全量规则库
 
 根据目标客户端特性进行了逻辑重构：
 * **Mihomo (.mrs) —— 双重锚定 (Double Anchoring)**
-  采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”两条指令（例如同时生成 `google.com` 和 `+.google.com`）。解决子域名匹配遗漏的问题，提升了流媒体与复杂应用服务的匹配精准度。
+  采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。
 * **Loon (.lsr) —— 智能排序 (Smart Sorting)**
-  针对 Loon 的 IP-CIDR 优先匹配机制，自动将带有 `no-resolve` 属性的 IP 规则强制置顶。确保内核在匹配时优先处理纯 IP 请求，减少不必要的 DNS 解析行为，从而有效降低 DNS 泄露风险。
+  自动将带有 `no-resolve` 属性的 IP 规则强制置顶。确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险。
 
 ### 引擎二：区域深度净化 (The Purifier)
 > **对象**：GeoIP/GeoSite CN 区域规则
 
-针对中国大陆地区（不含港澳台）的网站，实施“零信任”清洗：
-* **IP 减法**：不盲信原版 CN IP 库。引入 Google, Cloudflare, AWS 等境外实体 IP 作为“黑名单”，从 CN 库中将其移除，实现真正的“提纯”。
-* **域名验证**：引入生命周期管理。所有 CN 域名需经过 DNS 验活，连续 3 次（9天）解析失败的域名将被暂时移出规则库（进入180天冷冻期），防止规则体积无效膨胀。
+针对中国大陆地区（不含港澳台）的网站，进行深度清洗：
+* **IP 减法**：留存物理位置在中国境内且非外国实体的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP
+* **域名审计**：“六层漏斗”严苛筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤
+* **域名验证**：生命周期管理，所有 CN 域名需经过 DNS 验活，连续 3 次解析失败的域名将被暂时移出规则库（进入180天冷冻期），防止规则体积无效膨胀
 * **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效。
 
 ## 📦 特性与格式说明 (Features & Formats)
@@ -44,8 +45,7 @@ ASR (Auto Shunt Rules) 是一套全自动化的 CI/CD 流水线。它每天定�
 * **GeoSite_CN**
   * 核心逻辑：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名。
 * **GeoIP_CN**
-  * 核心逻辑：剔除 Cloudflare/Google 等境外实体 IP，仅保留物理位置真实的纯 CN IP，Mihomo 建议配合 `no-resolve` 使用。
-
+  * 核心逻辑：剔除 Cloudflare/Google 等境外实体 IP，仅保留物理位置真实的纯 CN IP。Mihomo 建议配合 `no-resolve` 使用。
 ## 🤝 致谢 (Credits)
 感谢以下项目提供的数据与工具支持：
 * 数据来源：[Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat), [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)

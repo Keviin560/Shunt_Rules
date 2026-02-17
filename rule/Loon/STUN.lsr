@@ -1,8 +1,8 @@
-# Name = STUN
-# Author = Keviin560
-# REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-17 13:54:01
-# Total = 366
+# 规则名称 = STUN
+# 规则作者 = Keviin560
+# 仓库地址 = https://github.com/Keviin560/Shunt_Rules
+# 更新时间 = 2026-02-17 14:19:35
+# 规则总数 = 366
 
 IP-CIDR,2001:4060:1:1005::10:32,no-resolve
 IP-CIDR,2001:41d0:2:12b9::1,no-resolve

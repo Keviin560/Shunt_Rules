@@ -12,12 +12,12 @@ jobs:
       contents: write
 
     steps:
-      - name: 📥 检出代码
+      - name: 📥 检出代码仓库
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: 💾 Restore Cleaner Cache
+      - name: 💾 恢复域名缓存
         uses: actions/cache@v3
         with:
           path: data/domain_cache.json
@@ -25,21 +25,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-domain-cache-
 
-      - name: 🐍 配置 Python
+      - name: 🐍 配置 Python 环境
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       
-      - name: 📦 安装依赖
+      - name: 📦 安装依赖库
         run: |
           sudo apt-get update
           sudo apt-get install -y jq
           pip install PyYAML requests aiohttp
 
-      - name: 📡 克隆规则源 (Blackmatrix7)
+      - name: 📡 克隆上游规则库 (Blackmatrix7)
         run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
 
-      - name: 🛠️ 部署内核 (Mihomo)
+      - name: 🛠️ 部署 Mihomo 编译内核
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -52,19 +52,25 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      - name: 🧩 Prepare Raw Data (Source Build)
+      - name: 🧩 准备基础数据 (源码编译 v2dat)
         run: |
           mkdir -p raw_data
+          
+          # 1. 现场编译 v2dat
           echo "🛠️ Installing v2dat from source..."
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
+          # 2. 下载数据 (仅保留 Loyalsoldier)
           echo "⬇️ Downloading Data Files..."
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
           wget -q -O geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
           
+          # 3. 执行解包
           echo "🔓 Unpacking GeoIP..."
           ./v2dat unpack geoip -o raw_data -f cn geoip.dat
+          
+          # 检查解包结果
           if [ ! -f "raw_data/geoip_cn.txt" ]; then
             echo "❌ GeoIP CN extraction failed!"
             exit 1
@@ -82,24 +88,19 @@ jobs:
           
           echo "🔓 Unpacking GeoSite..."
           ./v2dat unpack geosite -o raw_data -f cn geosite.dat
-          
-          # echo "⬇️ Merging Accademia..."
-          # wget -q -O acc.list https://raw.githubusercontent.com/Accademia/Additional_Rule_For_Clash/main/GeositeCN/Geosite.list || true
-          # if [ -f acc.list ]; then
-            # cat acc.list >> raw_data/geosite_cn.txt
-          fi
 
-      - name: 🧹 Execute Cleaner
+      - name: 🧹 执行深度清洗 (Cleaner)
         run: python scripts/cleaner.py
 
-      - name: 🚀 执行转换与更新 README 页
+      - name: 🚀 执行编译与文档生成 (Builder)
         run: python scripts/builder.py
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
 
-      - name: 🧹 提交产物
+      - name: 📤 提交构建产物
         run: |
-          rm -rf temp_source mihomo raw_data v2dat geoip.dat geosite.dat acc.list
+          # 清理临时文件
+          rm -rf temp_source mihomo raw_data v2dat geoip.dat geosite.dat
           
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -109,12 +110,12 @@ jobs:
              exit 0
           fi
           
-          # 🔥 关键修正：确保 Git 索引中删除根目录 history.json
+          # 移除根目录历史文件 (如果存在)
           if [ -f "history.json" ] || git ls-files --error-unmatch history.json > /dev/null 2>&1; then
             git rm -f history.json --ignore-unmatch
           fi
           
-          # 提交所有产物 (包含 .mrs 和 .lsr)
+          # 提交所有变更
           git add rule/Mihomo/ rule/Loon/ data/ README.md
           
           if git diff --staged --quiet; then

@@ -2,36 +2,37 @@
 # 仓库地址：https://github.com/Keviin560/Shunt_Rules
 # 更新日期：2026-02-19 15:28
 
-# =======================================================
+# -------------------------------------------------------
 # [ 核心架构说明 ]
-# 1. 分流逻辑：Split-Horizon DNS (水平分割 DNS) + "Fake-IP" 模式
+#  >>> 分流逻辑：Split-Horizon DNS (水平分割 DNS) + "Fake-IP" 模式
 #    - 国内流量：由 nameserver-policy 引导至字节/阿里/腾讯 DNS -> 解析真实 IP -> 直连
 #    - 国外流量：走 Fake-IP 模式 -> 立即返回假 IP -> 流量封装发送至机场节点 -> 远端解析
 #    - 联动机制：DNS 策略 (nameserver-policy) 与分流规则 (rule-providers) 绑定
 #
 # [ ⚠️ 必读设置 ]
-# 2. 开启 TUN 模式：
+#  >>> 开启 TUN 模式：
 #    在 Mihomo/Clash 界面必须开启 "TUN Mode" (服务模式/虚拟网卡)，否则 Fake-IP 无法接管所有流量
-# 3. 关闭浏览器安全 DNS：
+# >>> 关闭浏览器安全 DNS：
 #    Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"。防止浏览器会绕过客户端自己去解析 DNS，导致分流失败。
-# 4. Windows 用户建议：
+# >>> Windows 用户建议：
 #    建议关闭 "智能多宿主名称解析" (组策略或注册表修改)，防止 DNS 请求泄露；同时也可考虑把 并行 DNS 性能优化 干掉
 
 
 # -------------------------------------------------------
 # 1. 基础设置
 # -------------------------------------------------------
-mode: rule
-mixed-port: 7890
-allow-lan: true
-log-level: info
-ipv6: true
-external-controller: 0.0.0.0:9090
-secret: ''
+# 注：以下注释掉的设置，请确保客户端进行对应的设置
+# mode: rule    # 分流模式
+# mixed-port: 7890    # 混合端口
+# allow-lan: true    # 局域网代理
+# log-level: info
+# ipv6: true    # IPV6 开关
+# external-controller: 0.0.0.0:9090
+# secret: ''
 find-process-mode: strict
 global-client-fingerprint: chrome
 
-# 统一延迟计算。测速时去除 TCP 握手时间，只计算传输层的物理延迟。
+# 统一延迟计算。测速时去除 TCP 握手时间，只计算传输层的物理延迟
 unified-delay: true
 
 
@@ -56,7 +57,7 @@ dns:
     - https://1.1.1.1/dns-query
     - https://8.8.8.8/dns-query
 
-  # [分流策略] Nameserver-Policy. 只有命中这里规则的域名，才会走指定的 DNS，否则全部走上面的默认 DNS (国外)。
+  # [分流策略] Nameserver-Policy. 只有命中这里规则的域名，才会走指定的 DNS，否则全部走上面的默认 DNS (国外)
   nameserver-policy:
     # 1. 局域网域名 -> 走系统 DNS (路由器/内网DNS)
     "rule-set:Lan":

@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write    # 👈 [注入点 1] 赋予机器人自动创建 PR 的权限
 
     steps:
       - name: 📥 检出代码仓库
@@ -61,7 +62,7 @@ jobs:
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
-          # 2. 下载数据 (仅保留 Loyalsoldier)
+          # 2. 下载数据
           echo "⬇️ Downloading Data Files..."
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
           wget -q -O geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
@@ -96,6 +97,7 @@ jobs:
         run: python scripts/builder.py
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}    # 👈 [注入点 2] 将 Token 环境变量传递给 Python 脚本以执行 gh pr create
 
       - name: 📤 提交构建产物
         run: |

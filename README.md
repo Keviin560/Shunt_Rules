@@ -10,17 +10,17 @@
 ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则
 
 * **Mihomo (.mrs)** : 二进制编译格式，加载速度快，资源占用极低
-* **Loon (.lsr)** : 纯文本格式，已针对 Loon 优化混合负载结构
+* **Loon (.lsr)** : 纯文本格式，已优化混合负载结构
 
 * **GeoSite_CN**：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名
 * **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆内的 IP。Mihomo 建议配合 `no-resolve` 使用
 
 ## ⚙️ 逻辑架构
-### 全量规则转译
+全量规则转译
 * **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。
 * **Loon (.lsr) —— 智能排序**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
-### 区域深度净化
+区域深度净化
 * **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP
 * **域名审计**：“六层漏斗”筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤
 * **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期
@@ -31,7 +31,7 @@ ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时
 <details>
 <summary><strong>💾 配置示例 <sub>(点击展开)</sub></strong></summary>
 
-### 1. 配置规则集
+ 1. 配置规则集
 ```yaml
 rule-providers:
   # 🟢 案例 1：引用域名规则 (behavior: domain)
@@ -53,7 +53,7 @@ rule-providers:
     interval: 86400
 ```
 
-### 2. 应用规则
+ 2. 应用规则
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup

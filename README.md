@@ -56,7 +56,7 @@ rule-providers:
 ```
 
 ### 2. 应用规则
-*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露*
+引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup
@@ -764,4 +764,4 @@ rules:
 | myTVSUPER | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/myTVSUPER.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/myTVSUPER.lsr) | 6 days ago |
 | zhanqi | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/zhanqi.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/zhanqi.lsr) | 6 days ago |
 
- **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。
+ **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规

@@ -144,12 +144,25 @@ class HistoryManager:
             if not os.path.exists(f) or os.path.getsize(f) == 0: return False, src_hash
         return True, src_hash
 
-    def update_record(self, name, src_hash):
+    # === [新增]：检测跌幅是否大于 30% ===
+    def check_anomaly(self, name, current_count):
+        record = self.history.get(name, {})
+        last_count = record.get('rule_count', 0)
+        if last_count > 0 and current_count > 0:
+            drop_ratio = (last_count - current_count) / last_count
+            if drop_ratio > 0.30: # 跌幅 > 30%
+                return True, drop_ratio, last_count
+        return False, 0.0, last_count
+
+    # === [修改]：存入 rule_count (规则条数) ===
+    def update_record(self, name, src_hash, rule_count):
         self.history[name] = {
             'src_hash': src_hash,
             'updated_at': self.current_time,
-            'gen_ver': GENERATOR_VERSION
+            'gen_ver': GENERATOR_VERSION,
+            'rule_count': rule_count
         }
+        
     def get_days_ago(self, name):
         record = self.history.get(name, {})
         last_ts = record.get('updated_at', self.current_time)
@@ -440,12 +453,23 @@ def main():
     valid_outputs = set()
     updated_count = 0
     skipped_count = 0
+    anomalies = []  # === [新增]：记录触发熔断的异常数据 ===
+    
     sorted_rels = sorted(aggregated.keys(), key=lambda x: (x.count(os.sep), x))
     for rel in sorted_rels:
         rs = aggregated[rel]
         name = get_smart_filename(rel)
         source_path = rel_path_map.get(rel)
         if not source_path: continue
+        
+        # === [新增]：计算当前条数并进行 30% 跌幅判定 ===
+        current_count = len(rs.domain_entries) + len(rs.ip_entries)
+        is_anomaly, drop_ratio, old_count = history.check_anomaly(name, current_count)
+        if is_anomaly:
+            logger.warning(f"🚨 警告: {name} 规则条数骤降 {drop_ratio*100:.1f}% ({old_count} -> {current_count})")
+            anomalies.append((name, drop_ratio, old_count, current_count))
+        # ========================================================
+
         expect_d = bool(rs.domain_entries)
         expect_i = bool(rs.ip_entries)
         expect_l = expect_d or expect_i
@@ -453,6 +477,7 @@ def main():
         if expect_d: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
         if expect_i: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
         if expect_l: expected_files.append(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
+        
         should_skip_build, src_hash = history.should_skip(name, source_path, expected_files)
         h_d, h_i, h_l = expect_d, expect_i, expect_l
         if should_skip_build:
@@ -462,13 +487,16 @@ def main():
             updated_count += 1
             h_d, h_i = build_mihomo(kernel, name, rs)
             h_l = build_loon(name, rs)
-            history.update_record(name, src_hash)
+            # === [修改]：传入 current_count ===
+            history.update_record(name, src_hash, current_count)
             days = 0
+            
         if h_d: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
         if h_i: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
         if h_l: valid_outputs.add(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
         if h_d or h_i or h_l:
             stats.append((name, get_status_text(days), h_d, h_i, h_l))
+            
     logger.info("🧹 执行清理...")
     removed_zombies = 0
     for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
@@ -478,9 +506,54 @@ def main():
             if full_p not in valid_outputs:
                 os.remove(full_p)
                 removed_zombies += 1
+                
     history.save()
     generate_readme(stats)
     logger.info(f"🎉 完成: 更新 {updated_count}, 跳过 {skipped_count}, 清理 {removed_zombies}")
+
+    # === [新增核心]：方案一 (PR 熔断拦截机制) 执行块 ===
+    if anomalies:
+        logger.warning("🚨 触发 >30% 跌幅熔断机制！开始拦截并创建 PR...")
+        try:
+            current_branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True, text=True).stdout.strip()
+            if current_branch == "HEAD" or not current_branch:
+                current_branch = "main"
+                
+            branch_name = f"alert/rules-dropped-{int(datetime.now().timestamp())}"
+            
+            # 配置临时的 Github Action Git Bot 环境
+            subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"], check=False)
+            subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
+            
+            # 创建新分支并提交新文件
+            subprocess.run(["git", "checkout", "-b", branch_name], check=True)
+            subprocess.run(["git", "add", "."], check=True)
+            subprocess.run(["git", "commit", "-m", "🚨 熔断警报: 规则数量骤降，触发 PR 拦截机制"], check=True)
+            subprocess.run(["git", "push", "-u", "origin", branch_name], check=True)
+            
+            # 组装并发送 PR
+            pr_title = "[🚨 熔断警报] 检测到上游规则大面积删减，请人工审核"
+            pr_body = "### 🚨 规则熔断警报\n\n检测到以下规则数量骤降超过 **30%**，为防止灾难级误删，系统已自动拦截本次主分支更新：\n\n"
+            for n, dr, oc, nc in anomalies:
+                pr_body += f"- **{n}**: 骤降 {dr*100:.1f}% ({oc} 条 -> {nc} 条)\n"
+            pr_body += "\n---\n**💡 您的决策：**\n- **✅ 同意更新**：如果是上游正常调整，请点击 `Merge pull request`\n- **❌ 拒绝更新**：如果是上游被封或误操作，请点击 `Close pull request`，您的主分支规则将毫发无损地保留。"
+            
+            subprocess.run(["gh", "pr", "create", "--title", pr_title, "--body", pr_body, "--base", current_branch, "--head", branch_name], check=True)
+            logger.info("✅ 拦截 PR 创建成功！已向您的 GitHub 发送提醒。")
+            
+            # ⚔️ 最关键的一步：清空本地工作区！
+            # 切回主分支，将所有本地修改还原为上一次 commit，防止被 GitHub Actions 后续动作意外提交到 main
+            subprocess.run(["git", "checkout", current_branch], check=True)
+            subprocess.run(["git", "reset", "--hard", "HEAD"], check=True)
+            subprocess.run(["git", "clean", "-fd"], check=False)
+            logger.info("🛡️ 已强制重置本地工作区，主分支受到完美保护！")
+            
+        except Exception as e:
+            logger.error(f"❌ 自动创建 PR 失败 (请确保 GitHub Actions 已配置 `GH_TOKEN` 并赋予 Pull requests 权限): {e}")
+            # 即使创建 PR 失败，也要死守底线，恢复工作区
+            subprocess.run(["git", "reset", "--hard", "HEAD"], check=False)
+            subprocess.run(["git", "clean", "-fd"], check=False)
+    # =======================================================
 
 if __name__ == "__main__":
     main()

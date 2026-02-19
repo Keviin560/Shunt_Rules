@@ -1,12 +1,12 @@
 # 作者：Keviin560
 # 仓库地址：https://github.com/Keviin560/Shunt_Rules
-# 更新日期：2026-02-12 23:26
+# 更新日期：2026-02-19 07:26
 
 # =======================================================
-# 1. 核心锚点与过滤器 (Anchors & Filters)
+# 1. 锚点
 # =======================================================
 
-# --- [ 架构 ] 规则源继承模版 (Inheritance Templates) ---
+# --- [ 架构 ] 规则源继承模版 ---
 # - format: mrs  -> 二进制文件，加载速度最快 (Mihomo 专用)
 # - format: text -> 纯文本域名列表，兼容性最强 (如 Loyalsoldier 列表)
 
@@ -19,7 +19,7 @@ RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 8
 # 通用策略组描点模版
 ManualSelect: &ManualSelect {type: select, include-all: true}
 
-# --- [ 筛选 ] 地区节点正则 (Simplified Regex) ---
+# --- [ 筛选 ] 地区节点正则 ---
 # 港澳台日韩新美节点筛选，同时全部英文代码 (HK, US, SG...) 增加 \b 边界，防止匹配到其他国家节点
 # 模式 \b(?:CODE)\d*\b 确保能匹配纯代码 (US) 或带数字代码 (US01, US-01)。
 FilterHK: &FilterHK '(?i)(?:🇭🇰|香港|Hong\s?Kong|\b(?:HK|HKG)\d*\b)'
@@ -43,13 +43,13 @@ FilterAll: &FilterAll '^(?!.*(?:(?i)群|邀请|返利|循环|官网|客服|网�
 
 
 # =======================================================
-# 2. 策略组 (Proxy Groups)
+# 2. 策略组
 # =======================================================
 proxy-groups:
   # 总入口 (同时作为规则下载的出口)
   - {name: 节点选择, type: select, include-all: true, filter: *FilterAll, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Locator.png"}
   
-  # 应用分组 (Application Layer)
+  # 应用分组
   - {name: AI Rules, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Chatbot.png"}
   - {name: YouTube, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/YouTube.png"}
   - {name: Google, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Google.png"}
@@ -59,13 +59,13 @@ proxy-groups:
   - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png"}
   - {name: Apple账户, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/iCloud.png"}
   
-  # 功能分组 (Functional Layer)
+  # 功能分组
   - {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Ad Blocker.png"}
   - {name: 隐私保护, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Privacy.png"}
   - {name: 反劫持, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Hijacking.png"}
   - {name: 兜底策略, type: select, proxies: [节点选择, 香港节点, 新加坡节点, 美国节点, 亚洲节点, 欧洲节点, 美洲节点, 大洋洲节点, 非洲节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Rules.png"}
 
-  # 地区分组 (Regional Layer)
+  # 地区分组
   - {name: 香港节点, <<: *ManualSelect, filter: *FilterHK, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/HK.png"}
   - {name: 澳门节点, <<: *ManualSelect, filter: *FilterMAC, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/MAC.png"}
   - {name: 台湾节点, <<: *ManualSelect, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/CHN.png"}
@@ -82,15 +82,14 @@ proxy-groups:
 
 
 # =======================================================
-# 3. 规则源 (Rule Providers)
+# 3. 规则源
 # =======================================================
-# - URL 指向 Keviin560 远程仓库的二进制 .mrs 文件
 # - Path 定义本地缓存路径，支持断网启动
 # - 自动继承顶部的 *RuleDomain 或 *RuleIP 锚点属性
 
 rule-providers:
   # [ Security ] 广告与隐私
-  Ads:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs",                       path: ./rules/AdRules.mrs }
+  AdRules:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs",              path: ./rules/AdRules.mrs }
   Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",                 path: ./rules/Privacy.mrs }
   # Win隐私跟踪域名列表
   WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",                   path: ./rules/WinSpy.txt }
@@ -99,11 +98,15 @@ rule-providers:
   Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",               path: ./rules/Hijacking.mrs }
   Hijacking_IP: { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",            path: ./rules/Hijacking_IP.mrs }
 
- # [ Local & Direct ] 局域网直连
+  # [ Local & Direct ] 局域网直连
   Lan:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",                     path: ./rules/Lan.mrs }
   Lan_IP:       { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs",                  path: ./rules/Lan_IP.mrs }
-  China:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/China.mrs",                  path: ./rules/China.mrs }
-  ChinaIPs:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaIPs_IP.mrs",             path: ./rules/ChinaIPs_IP.mrs }
+  # 国内游戏下载直连 (Steam CN / 暴雪等)
+  GameDownloadCN: { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GameDownloadCN.mrs",          path: ./rules/GameDownloadCN.mrs }
+  
+  # [ Domestic ] 国内规则
+  GeoSite_CN:   { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/China.mrs",                  path: ./rules/China.mrs }
+  GeoIP_CN:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN.mrs",                path: ./rules/GeoIP_CN.mrs }
 
   # [ Intelligence ] 人工智能
   OpenAI:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",                  path: ./rules/OpenAI.mrs }
@@ -130,51 +133,64 @@ rule-providers:
   Apple:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",                   path: ./rules/Apple.mrs }
 
 # =======================================================
-# 4. 分流规则 (Rules)
+# 4. 分流规则
 # =======================================================
-# 排序逻辑：1. 净化 (Ads/Privacy) -> 2. AI -> 3. 流媒体 -> 4. 社媒 -> 5. 常用服务 -> 6. 直连 -> 7. 兜底
-# 性能逻辑：Domain 规则在前 (效率高)，IP 规则在后 (no-resolve，防 DNS 解析，仅兜底 IP 流量)。
+# [排序逻辑] 协议优化 & 净化 -> 直连 -> 高频代理 -> 服务平台 -> 国内域名/IP -> IP 补漏 -> 兜底
 
 rules:
-  # —————————— 净化层 ——————————
-  - RULE-SET, Hijacking, 反劫持
-  - RULE-SET, Hijacking_IP, 反劫持, no-resolve
+  # —————————— 1. 协议优化 & 净化层 ——————————
+  # [阻断 QUIC] 拦截所有 UDP 443
+  - AND, ((NETWORK,UDP), (DST-PORT,443)), REJECT
+  
+  # [广告与隐私]
+  - RULE-SET, AdRules, 广告拦截
   - RULE-SET, Privacy, 隐私保护
   - RULE-SET, WinSpy, 隐私保护
   # - RULE-SET, WinExtra, 隐私保护
-  - RULE-SET, Ads, 广告拦截  
+  - RULE-SET, Hijacking, 反劫持
+  - RULE-SET, Hijacking_IP, 反劫持, no-resolve
 
+  # —————————— 2. 直连层 ——————————
+  # [局域网]
+  - RULE-SET, Lan, DIRECT
+  - RULE-SET, Lan_IP, DIRECT, no-resolve
+  # [游戏下载] Steam CN / 暴雪等直连
+  - RULE-SET, GameDownloadCN, DIRECT
+  # [NTP] Windows 时间同步 (UDP 123)
+  - DST-PORT, 123, DIRECT
 
-  # —————————— 智能层 ——————————
+  # —————————— 3. 高频代理应用 (Domain) ——————————
+  # [AI]
   - RULE-SET, OpenAI, AI Rules
   - RULE-SET, Gemini, AI Rules
   - RULE-SET, Claude, AI Rules
   - RULE-SET, Copilot, AI Rules
-
-  # —————————— 娱乐层 ——————————
+  
+  # [流媒体]
   - RULE-SET, YouTube, YouTube
-  - RULE-SET, YouTube_IP, YouTube, no-resolve
   - RULE-SET, Netflix, Netflix
-  - RULE-SET, Netflix_IP, Netflix, no-resolve
   - RULE-SET, TikTok, TikTok
   - RULE-SET, Spotify, Spotify
 
-  # —————————— 社交层 ——————————
+  # [社交]
   - RULE-SET, Telegram, Telegram
-  - RULE-SET, Telegram_IP, Telegram, no-resolve
 
-  # —————————— 服务层 ——————————
+  # —————————— 4. 服务平台 (Domain) ——————————
   - RULE-SET, Google, Google
-  - RULE-SET, Google_IP, Google, no-resolve
-  
   - RULE-SET, AppleID, Apple账户
   - RULE-SET, Apple, Apple账户
   
-  # —————————— 直连层 ——————————
-  - RULE-SET, Lan, DIRECT
-  - RULE-SET, Lan_IP, DIRECT, no-resolve
-  - RULE-SET, China, DIRECT
-  - RULE-SET, ChinaIPs, DIRECT, no-resolve
- 
-  # —————————— 兜底层 ——————————
+  # —————————— 5. 国内域名/IP ——————————
+  # [国内域名 & IP] 放在一起
+  - RULE-SET, GeoSite_CN, DIRECT
+  - RULE-SET, GeoIP_CN, DIRECT, no-resolve
+  
+  # —————————— 6. IP 补漏层 (Proxy IP) ——————————
+  # 加 no-resolve 防止 DNS 解析
+  - RULE-SET, Telegram_IP, Telegram, no-resolve
+  - RULE-SET, Google_IP, Google, no-resolve
+  - RULE-SET, YouTube_IP, YouTube, no-resolve
+  - RULE-SET, Netflix_IP, Netflix, no-resolve
+
+  # —————————— 7. 兜底 ——————————
   - MATCH, 兜底策略

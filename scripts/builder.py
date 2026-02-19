@@ -1,4 +1,5 @@
-# 需在 GitHub Actions 里打开 PR 设置，Settings --> Workfolw permissions --> 勾选Allow GitHub Actions to create and approve pull requests
+# 需在 GitHub Actions 里打开 PR 设置，Settings --> Workfolw permissions --> 勾选 Allow GitHub Actions to create and approve pull requests
+
 import os
 import yaml
 import hashlib
@@ -145,7 +146,7 @@ class HistoryManager:
             if not os.path.exists(f) or os.path.getsize(f) == 0: return False, src_hash
         return True, src_hash
 
-    # === [新增]：检测跌幅是否大于 30% ===
+    # === 检测跌幅是否大于 30% ===
     def check_anomaly(self, name, current_count):
         record = self.history.get(name, {})
         last_count = record.get('rule_count', 0)
@@ -155,7 +156,7 @@ class HistoryManager:
                 return True, drop_ratio, last_count
         return False, 0.0, last_count
 
-    # === [修改]：存入 rule_count (规则条数) ===
+    # === 存入 rule_count (规则条数) ===
     def update_record(self, name, src_hash, rule_count):
         self.history[name] = {
             'src_hash': src_hash,
@@ -312,7 +313,6 @@ def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
     
-    # 🟢 修复 Bug: 使用点号分割日期
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
     time_badge_val = bj_time
     
@@ -321,11 +321,8 @@ def generate_readme(stats):
 
     # ✅ 徽章生成区 (单行、纯色扁平风格 style=flat)
     badges = [
-        # 更新时间：纯色绿色
         f"![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%20{time_badge_val}-2ea44f?style=flat)",
-        # 规则总数：纯色蓝色
         f"![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20{total}-blue?style=flat)",
-        # 独家特性：纯色
         f"![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat)",
         f"![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat)",
         f"![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat)",
@@ -343,7 +340,7 @@ def generate_readme(stats):
     
     config_link = get_yaml_links(RAW_BASE_URL)
 
-    # 📝 终极文档结构
+    # 📝 文档结构
     md = [
         f"<div align=\"center\">",
         f"",
@@ -357,17 +354,17 @@ def generate_readme(stats):
         f"ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则",
         f"",
         f"* **Mihomo (.mrs)** : 二进制编译格式，加载速度快，资源占用极低",
-        f"* **Loon (.lsr)** : 纯文本格式，已针对 Loon 优化混合负载结构",
+        f"* **Loon (.lsr)** : 纯文本格式，已优化混合负载结构",
         f"",
         f"* **GeoSite_CN**：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名",
         f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆内的 IP。Mihomo 建议配合 `no-resolve` 使用",
         f"",
         f"## ⚙️ 逻辑架构",
-        f"### 全量规则转译",
+        f"全量规则转译",
         f"* **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
         f"* **Loon (.lsr) —— 智能排序**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
         f"",
-        f"### 区域深度净化",
+        f"区域深度净化",
         f"* **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP",
         f"* **域名审计**：“六层漏斗”筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤",
         f"* **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期",
@@ -378,7 +375,7 @@ def generate_readme(stats):
         f"<details>",
         f"<summary><strong>💾 配置示例 <sub>(点击展开)</sub></strong></summary>",
         f"",
-        f"### 1. 配置规则集",
+        f" 1. 配置规则集",
         f"```yaml",
         f"rule-providers:",
         f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
@@ -400,7 +397,7 @@ def generate_readme(stats):
         f"    interval: 86400",
         f"```",
         f"",
-        f"### 2. 应用规则",
+        f" 2. 应用规则",
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",
@@ -512,7 +509,7 @@ def main():
     generate_readme(stats)
     logger.info(f"🎉 完成: 更新 {updated_count}, 跳过 {skipped_count}, 清理 {removed_zombies}")
 
-    # === [新增核心]：方案一 (PR 熔断拦截机制) 执行块 ===
+    # === PR 熔断拦截机制 执行块 ===
     if anomalies:
         logger.warning("🚨 触发 >30% 跌幅熔断机制！开始拦截并创建 PR...")
         try:

@@ -11,7 +11,7 @@ from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
 # --- 全局配置 ---
-GENERATOR_VERSION = "v3.4_SINGLE_LINE" 
+GENERATOR_VERSION = "v5.0" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -329,7 +329,7 @@ def generate_readme(stats):
         f"![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat)",
         f"![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat)",
         f"![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat)",
-        f"![Ready](https://img.shields.io/badge/-%E5%BC%80%E7%AE%B1%E5%8D%B3%E7%94%A8-ff69b4?style=flat)"
+        f"![Ready](https://img.shields.io/badge/-PR%20%E7%86%94%E6%96%AD%E6%8B%A6%E6%88%AA-ff69b4?style=flat)"
     ]
 
     badge_line = " ".join(badges)

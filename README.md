@@ -9,25 +9,21 @@
 ## 📖 项目简述
 ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则。
 
+Mihomo (.mrs)二进制编译格式，加载速度快，资源占用极低；Loon (.lsr)纯文本格式，已针对 Loon 优化混合负载结构
+
+GeoSite_CN：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名
+GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆内的 IP。Mihomo 建议配合 `no-resolve` 使用
+
 ## ⚙️ 逻辑架构
-### 1. 全量规则转译：根据目标客户端特性进行了逻辑重构
+### 全量规则转译
 * **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。
 * **Loon (.lsr) —— 智能排序**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险。
 
-### 2. 区域深度净化：对中国大陆地区网站进行深度清洗
-* **IP 减法**：留存物理位置在中国境内且非外国实体的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP
+### 区域深度净化
+* **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP
 * **域名审计**：“六层漏斗”筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤
 * **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期
 * **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效
-
-## 📦 格式说明
-### 1. 规则集
-* **Mihomo (.mrs)**：二进制编译格式，加载速度快，资源占用极低。
-* **Loon (.lsr)**：纯文本格式，已针对 Loon 优化混合负载结构。
-
-### 2. 区域集
-* **GeoSite_CN**：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名。
-* **GeoIP_CN**：剔除 Cloudflare/Google 等境外实体 IP，仅保留物理位置真实的纯 CN IP。Mihomo 建议配合 `no-resolve` 使用。
 
 ## 🤝 致谢
 感谢以下项目提供的数据与工具支持：
@@ -78,7 +74,7 @@ ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时
 | Actalis | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Actalis.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Actalis.lsr) | 6 days ago |
 | AdColony | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdColony.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdColony.lsr) | 6 days ago |
 | AdGuardSDNSFilter | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdGuardSDNSFilter.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdGuardSDNSFilter.lsr) | 6 days ago |
-| AdGuardSDNSFilter_Direct | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdGuardSDNSFilter_Direct.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdGuardSDNSFilter_Direct.lsr) | 5 days ago |
+| AdGuardSDNSFilter_Direct | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AdGuardSDNSFilter_Direct.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AdGuardSDNSFilter_Direct.lsr) | 6 days ago |
 | AddToAny | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AddToAny.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AddToAny.lsr) | 6 days ago |
 | Addthis | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Addthis.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Addthis.lsr) | 6 days ago |
 | Adidas | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Adidas.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Adidas.lsr) | 6 days ago |
@@ -254,7 +250,7 @@ ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时
 | DigitalOcean | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DigitalOcean.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DigitalOcean.lsr) | 6 days ago |
 | DingTalk | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DingTalk.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DingTalk.lsr) | 6 days ago |
 | DingXiangYuan | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DingXiangYuan.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DingXiangYuan.lsr) | 6 days ago |
-| Direct | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Direct.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Direct.lsr) | 5 days ago |
+| Direct | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Direct.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Direct.lsr) | 6 days ago |
 | Discord | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Discord.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Discord.lsr) | 6 days ago |
 | DiscoveryPlus | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/DiscoveryPlus.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/DiscoveryPlus.lsr) | 6 days ago |
 | Disney | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Disney.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Disney.lsr) | 6 days ago |

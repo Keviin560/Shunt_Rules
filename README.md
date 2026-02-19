@@ -26,6 +26,44 @@ ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时
 * **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期
 * **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效
 
+## 📍 Mihomo 配置指引
+> ⚡ 使用方式: 用 `type: http` 远程引用规则集。
+> 🔗 覆写参考: [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
+
+<details>
+<summary><strong>💾 配置示例 <sub>(点击展开)</sub></strong></summary>
+
+### 1. 配置规则集
+```yaml
+rule-providers:
+  # 🟢 案例 1：引用域名规则 (behavior: domain)
+  Google:
+    type: http
+    behavior: domain
+    format: mrs
+    url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs"
+    path: ./rules/Mihomo/Google.mrs
+    interval: 86400
+
+  # 🟢 案例 2：引用 IP 规则 (behavior: ipcidr)
+  Google_IP:
+    type: http
+    behavior: ipcidr
+    format: mrs
+    url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs"
+    path: ./rules/Mihomo/Google_IP.mrs
+    interval: 86400
+```
+
+### 2. 应用规则
+*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露*
+```yaml
+rules:
+  - RULE-SET,Google,MyProxyGroup
+  - RULE-SET,Google_IP,MyProxyGroup,no-resolve
+```
+</details>
+
 ## 🤝 致谢
 感谢以下项目提供的数据与工具支持：
 * 数据来源：[Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat), [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
@@ -726,4 +764,4 @@ ASR（Auto Shunt Rules）是一套全自动化的 CI/CD 流水线，每天定时
 | myTVSUPER | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/myTVSUPER.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/myTVSUPER.lsr) | 6 days ago |
 | zhanqi | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/zhanqi.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/zhanqi.lsr) | 6 days ago |
 
-> **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。
+ **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。

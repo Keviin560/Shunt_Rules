@@ -389,7 +389,7 @@ def generate_readme(stats):
         f"```",
         f"",
         f"### 2. 应用规则",
-        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露*",
+        f"引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露",
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",
@@ -415,7 +415,7 @@ def generate_readme(stats):
         md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
         
     md.append(f"")
-    md.append(f" **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。")
+    md.append(f" **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规")
 
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 

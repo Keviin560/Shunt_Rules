@@ -283,6 +283,17 @@ def detect_config_file():
          if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f): return f, True
     return "Mihomo_ShuntRules.yaml", False
 
+def get_yaml_links(raw_base_url):
+    try:
+        files = [f for f in os.listdir('.') if os.path.isfile(f) and f.endswith(('.yaml', '.yml'))]
+    except Exception:
+        files = []
+    if not files:
+        return "`未检测到配置文件`"
+    files.sort()
+    links = [f"[{f}]({raw_base_url}/{f})" for f in files]
+    return " | ".join(links)
+
 def generate_readme(stats):
     stats.sort(key=lambda x: x[0])
     total = len(stats)
@@ -315,6 +326,8 @@ def generate_readme(stats):
     link_bm = "https://github.com/blackmatrix7/ios_rule_script"
     link_mihomo = "https://github.com/MetaCubeX/mihomo"
     link_v2dat = "https://github.com/urlesistiana/v2dat"
+    
+    config_link = get_yaml_links(RAW_BASE_URL)
 
     # 📝 终极文档结构
     md = [
@@ -346,6 +359,44 @@ def generate_readme(stats):
         f"* **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期",
         f"* **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效",
         f"",
+        f"## 📍 Mihomo 配置指引",
+        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集。",
+        f"> 🔗 覆写参考: {config_link}",
+        f"",
+        f"<details>",
+        f"<summary><strong>💾 配置示例 <sub>(点击展开)</sub></strong></summary>",
+        f"",
+        f"### 1. 配置规则集",
+        f"```yaml",
+        f"rule-providers:",
+        f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
+        f"  Google:",
+        f"    type: http",
+        f"    behavior: domain",
+        f"    format: mrs",
+        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google.mrs\"",
+        f"    path: ./rules/Mihomo/Google.mrs",
+        f"    interval: 86400",
+        f"",
+        f"  # 🟢 案例 2：引用 IP 规则 (behavior: ipcidr)",
+        f"  Google_IP:",
+        f"    type: http",
+        f"    behavior: ipcidr",
+        f"    format: mrs",
+        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google_IP.mrs\"",
+        f"    path: ./rules/Mihomo/Google_IP.mrs",
+        f"    interval: 86400",
+        f"```",
+        f"",
+        f"### 2. 应用规则",
+        f"*⚠️ 关键：引用 IP 规则集时，建议加上 `no-resolve`，防止 DNS 泄露*",
+        f"```yaml",
+        f"rules:",
+        f"  - RULE-SET,Google,MyProxyGroup",
+        f"  - RULE-SET,Google_IP,MyProxyGroup,no-resolve",
+        f"```",
+        f"</details>",
+        f"",
         f"## 🤝 致谢",
         f"感谢以下项目提供的数据与工具支持：",
         f"* 数据来源：[Loyalsoldier/v2ray-rules-dat]({link_ls}), [blackmatrix7/ios_rule_script]({link_bm})",
@@ -364,7 +415,7 @@ def generate_readme(stats):
         md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
         
     md.append(f"")
-    md.append(f"> **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。")
+    md.append(f" **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规。")
 
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 

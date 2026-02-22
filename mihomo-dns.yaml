@@ -204,7 +204,7 @@ rules:
   # —————————— 协议优化 & 净化层 ——————————
   # [阻断 QUIC] 拦截所有 UDP 443 流量。强迫 YouTube/Netflix 等降级为 TCP，避免 UDP 在复杂网络环境下断流/缓冲
   # ⚠️ 注：这里会拦截所有(含国内) UDP 443。如果国内视频卡顿，可考虑将其移至 GeoSite_CN 之后
-  - AND, ((NETWORK,UDP), (DST-PORT,443)), REJECT
+  - AND,(NETWORK,udp),(DST-PORT,443),REJECT
   
   # [广告与隐私] 拦截恶意与跟踪流量
   - RULE-SET, AdRules, 广告拦截  

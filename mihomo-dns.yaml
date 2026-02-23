@@ -58,8 +58,8 @@ dns:
 
   # [默认 DNS] 解析国外域名 + 兜底
   nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
+      - https://1.1.1.1/dns-query#节点选择
+      - https://8.8.8.8/dns-query#节点选择
 
   # [分流策略] Nameserver-Policy. 只有命中这里规则的域名，才会走指定的 DNS，否则全部走上面的默认 DNS (国外)
   nameserver-policy:
@@ -69,9 +69,9 @@ dns:
 
     # 2. 国内域名 -> 走国内 DNS (UDP直连)，仅绑定 GeoSite_CN (域名规则)
     "rule-set:GeoSite_CN":
-      - 223.5.5.5     # 阿里 DNS
-      - 119.29.29.29  # 腾讯 DNSPod
-      - 180.184.1.1   # 火山引擎 (字节跳动)
+      - 223.5.5.5
+      - 119.29.29.29
+      - 180.184.1.1
 
     # 3. 国外大厂 -> 强制走 DoH (双重防污染)
     "rule-set:Google,YouTube,Netflix":

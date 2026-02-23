@@ -12,7 +12,6 @@ import json
 from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
-# --- 全局配置 ---
 GENERATOR_VERSION = "v5.0" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
@@ -156,7 +155,6 @@ class HistoryManager:
                 return True, drop_ratio, last_count
         return False, 0.0, last_count
 
-    # === 存入 rule_count (规则条数) ===
     def update_record(self, name, src_hash, rule_count):
         self.history[name] = {
             'src_hash': src_hash,
@@ -355,17 +353,17 @@ def generate_readme(stats):
         f"* **Mihomo (.mrs)** : 二进制编译格式，加载速度快，资源占用极低",
         f"* **Loon (.lsr)** : 纯文本格式，已优化混合负载结构",
         f"",
-        f"* **GeoSite_CN**：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名",
-        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆内的 IP。建议配合 `no-resolve` 使用",
+        f"* **GeoSite_CN**：剔除死链、伪直连（指纹识别）和境外 CDN 域名",
+        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在内陆的 IP",
         f"",
         f"## ⚙️ 逻辑架构",
         f"全量规则转译",
         f"* **Mihomo (.mrs)**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
-        f"* **Loon (.lsr)**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
+        f"* **Loon (.lsr)**：将带有 `no-resolve` 属性的 IP 规则置顶，减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
         f"",
         f"区域深度净化",
-        f"* **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP",
-        f"* **域名审计**：深层次筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤等",
+        f"* **IP 减法**：留存物理位置在中国内陆的 IP ，移除原版 CN IP 库中 Cloudflare, AWS 等境外 IP",
+        f"* **域名审计**：多层次筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤等",
         f"* **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期",
         f"",
         f"## 📍 Mihomo 配置指引",
@@ -377,7 +375,7 @@ def generate_readme(stats):
         f" 1. 配置规则集",
         f"```yaml",
         f"rule-providers:",
-        f"  # 🟢 案例 1：引用域名规则 (behavior: domain)",
+        f"  # 🟢 引用域名规则 (behavior: domain)",
         f"  Google:",
         f"    type: http",
         f"    behavior: domain",
@@ -386,7 +384,7 @@ def generate_readme(stats):
         f"    path: ./rules/Mihomo/Google.mrs",
         f"    interval: 86400",
         f"",
-        f"  # 🟢 案例 2：引用 IP 规则 (behavior: ipcidr)",
+        f"  # 🟢 引用 IP 规则 (behavior: ipcidr)",
         f"  Google_IP:",
         f"    type: http",
         f"    behavior: ipcidr",

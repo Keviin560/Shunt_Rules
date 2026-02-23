@@ -75,8 +75,8 @@ dns:
 
     # 3. 国外大厂 -> 强制走 DoH (双重防污染)
     "rule-set:Google,YouTube,Netflix":
-      - https://1.1.1.1/dns-query
-      - https://8.8.8.8/dns-query
+      - https://1.1.1.1/dns-query#节点选择
+      - https://8.8.8.8/dns-query#节点选择
 
   # Fake-IP 过滤名单（真实 IP 回应），域名不走 Fake-IP，强制解析真实 IP
   # fake-ip-filter:

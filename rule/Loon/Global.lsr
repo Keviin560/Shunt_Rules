@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-02-22 04:36:51
-# Total = 33116
+# Update = 2026-02-24 04:58:02
+# Total = 33121
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -1783,6 +1783,7 @@ DOMAIN-SUFFIX,akatns.net
 DOMAIN-SUFFIX,akiba-online.com
 DOMAIN-SUFFIX,akiba-souken.com
 DOMAIN-SUFFIX,akiba-web.com
+DOMAIN-SUFFIX,akile.io
 DOMAIN-SUFFIX,akinator.com
 DOMAIN-SUFFIX,akita-bank.co.jp
 DOMAIN-SUFFIX,akow.org
@@ -3026,6 +3027,7 @@ DOMAIN-SUFFIX,assap.ac.uk
 DOMAIN-SUFFIX,assembla.com
 DOMAIN-SUFFIX,assemblesystems.com
 DOMAIN-SUFFIX,assesphoto.com
+DOMAIN-SUFFIX,assets.nxtrace.org
 DOMAIN-SUFFIX,assetsadobe.com
 DOMAIN-SUFFIX,assimp.org
 DOMAIN-SUFFIX,assistirhentai.com
@@ -18812,6 +18814,7 @@ DOMAIN-SUFFIX,medrxiv.org
 DOMAIN-SUFFIX,medschools.ac.uk
 DOMAIN-SUFFIX,medway.ac.uk
 DOMAIN-SUFFIX,medwayacl.ac.uk
+DOMAIN-SUFFIX,meee.com.tw
 DOMAIN-SUFFIX,meendo.com
 DOMAIN-SUFFIX,meet.new
 DOMAIN-SUFFIX,meetandfuck.games
@@ -22036,6 +22039,7 @@ DOMAIN-SUFFIX,openbook.org.tw
 DOMAIN-SUFFIX,opencas.io
 DOMAIN-SUFFIX,opencollective.com
 DOMAIN-SUFFIX,opencreate.org
+DOMAIN-SUFFIX,opencritic.com
 DOMAIN-SUFFIX,opendemocracy.net
 DOMAIN-SUFFIX,opendesktop.org
 DOMAIN-SUFFIX,opendn.xyz
@@ -31552,6 +31556,7 @@ DOMAIN-SUFFIX,www-facebook.com
 DOMAIN-SUFFIX,www-paypal.info
 DOMAIN-SUFFIX,www-paypal.us
 DOMAIN-SUFFIX,www-sms-apple.com
+DOMAIN-SUFFIX,www.clashverge.dev
 DOMAIN-SUFFIX,www.destinationurl.com
 DOMAIN-SUFFIX,www.pxcc.com
 DOMAIN-SUFFIX,www.sb

@@ -26,7 +26,7 @@
 # mixed-port: 7890    # 混合端口
 # allow-lan: true    # 局域网代理
 # log-level: info    #日志
-# ipv6: true    # 打开内核 IPV6 开关
+# ipv6: false    # 内核 IPV6
 # 以下外部控制可根据实际情况是否设置
 # external-controller: 0.0.0.0:9090
 # secret: ''
@@ -47,7 +47,7 @@ dns:
   # 开启了 虚拟网卡 (TUN 模式)，基本上会默认启用 DNS 劫持 any:53
   # enable: true
   # listen: 0.0.0.0:1053
-  # ipv6: true
+  # ipv6: false
   # Fake-IP 模式（（域名映射模式 -> 虚假 IP  -> 回应范围 198.18.0.1/16）），本地 DNS 不进行真实解析解析
   # 原理：客户端发起请求 -> 秒回假 IP (198.18.x.x) -> 建立连接 -> 匹配规则分流
   # enhanced-mode: fake-ip

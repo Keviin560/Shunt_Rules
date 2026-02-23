@@ -319,7 +319,6 @@ def generate_readme(stats):
     # 动态获取 GitHub 仓库路径
     repo_path = os.getenv('GITHUB_REPOSITORY', 'YourName/Repo')
 
-    # ✅ 徽章生成区 (单行、纯色扁平风格 style=flat)
     badges = [
         f"![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%20{time_badge_val}-2ea44f?style=flat)",
         f"![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20{total}-blue?style=flat)",
@@ -357,16 +356,16 @@ def generate_readme(stats):
         f"* **Loon (.lsr)** : 纯文本格式，已优化混合负载结构",
         f"",
         f"* **GeoSite_CN**：剔除死链、剔除伪直连（指纹识别）、剔除境外 CDN 域名",
-        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆内的 IP。Mihomo 建议配合 `no-resolve` 使用",
+        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆内的 IP。建议配合 `no-resolve` 使用",
         f"",
         f"## ⚙️ 逻辑架构",
         f"全量规则转译",
-        f"* **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
-        f"* **Loon (.lsr) —— 智能排序**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
+        f"* **Mihomo (.mrs)**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
+        f"* **Loon (.lsr)**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
         f"",
         f"区域深度净化",
         f"* **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP",
-        f"* **域名审计**：“六层漏斗”筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤",
+        f"* **域名审计**：深层次筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤等",
         f"* **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期",
         f"",
         f"## 📍 Mihomo 配置指引",

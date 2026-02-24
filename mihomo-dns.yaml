@@ -1,6 +1,6 @@
-#    作者：Keviin560
-#    仓库地址：https://github.com/Keviin560/Shunt_Rules
-#    更新日期：2026-02-23 23:53
+# 作者：Keviin560
+# 仓库地址：https://github.com/Keviin560/Shunt_Rules
+# 更新日期：2026-02-24 12:12
 
 # -------------------------------------------------------
 #  [ ⚙️ 核心架构说明 ]
@@ -56,7 +56,7 @@ dns:
   # enhanced-mode: fake-ip
   # IPv4 的虚假 IP 池
   # fake-ip-range: 198.18.0.1/16
-  # 👇 如果需要保留 IPv6 ，就填写 Fake-IPv6 的专属网段
+  # 👇 如果需要保留 IPv6 ，就填写 Fake-IPv6 的专属网段，需打开 IPv6 开关
   # fake-ip-range6: fc00::/18
   # 优先使用 HTTP/3 (QUIC) 查询 DNS
   # 建议开启域名嗅探中的 [ 覆盖连接地址 ] 和 [ QUIC 端口嗅探 (443) ]

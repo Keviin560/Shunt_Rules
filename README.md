@@ -9,19 +9,19 @@
 ## 📖 项目简述
 ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则
 
-* **Mihomo (.mrs)** : 二进制编译格式，加载速度快，资源占用极低。双重生成策略，把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
-* **Loon (.lsr)** : 纯文本格式，已优化混合负载结构。优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
+* **Mihomo (.mrs)** : 二进制格式，加载速度快，占用极低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
+* **Loon (.lsr)** : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
-* **GeoSite_CN**：剔除死链、伪直连（指纹识别）和境外 CDN 域名，同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名稳定和精准
-* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度与可控性
+* **GeoSite_CN**：剔除死链、伪直连（指纹识别）和境外 CDN 域名；同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名的精准
+* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度
 
 ## 📍 Mihomo 配置指引
 > ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考: [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
 
 <details>
-<summary><strong>💾 配置示例 <sub>(点击展开)</sub></strong></summary>
+<summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>
 
- 1. 配置规则集
+<small><strong>1. 配置规则集</strong></small>
 ```yaml
 rule-providers:
   # 🟢 引用域名规则 (behavior: domain)
@@ -43,7 +43,7 @@ rule-providers:
     interval: 86400
 ```
 
- 2. 应用规则
+<small><strong>2. 应用规则</strong></small>
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup

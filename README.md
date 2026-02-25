@@ -2,14 +2,14 @@
 
 # 🤖 Auto Shunt Rules
 
-![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%202026.02.25-2ea44f?style=flat) ![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20691-blue?style=flat) ![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat) ![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat) ![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat) ![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat) ![Ready](https://img.shields.io/badge/-PR%20%E7%86%94%E6%96%AD%E6%8B%A6%E6%88%AA-ff69b4?style=flat)
+![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%202026.02.26-2ea44f?style=flat) ![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20691-blue?style=flat) ![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat) ![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat) ![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat) ![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat) ![Ready](https://img.shields.io/badge/-PR%20%E7%86%94%E6%96%AD%E6%8B%A6%E6%88%AA-ff69b4?style=flat)
 
 </div>
 
 ## 📖 项目简述
 ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则
 
-* **Mihomo (.mrs)** : 二进制格式，加载速度快，占用极低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
+* **Mihomo (.mrs)** : 二进制格式，加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
 * **Loon (.lsr)** : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
 * **GeoSite_CN**：剔除死链、伪直连（指纹识别）和境外 CDN 域名；同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名的精准
@@ -21,7 +21,8 @@ ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从
 <details>
 <summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>
 
-<small><strong>1. 配置规则集</strong></small>
+<br>
+<small>1. 配置规则集</small>
 ```yaml
 rule-providers:
   # 🟢 引用域名规则 (behavior: domain)
@@ -43,7 +44,7 @@ rule-providers:
     interval: 86400
 ```
 
-<small><strong>2. 应用规则</strong></small>
+<small>2. 应用规则<small>
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup

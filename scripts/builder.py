@@ -385,7 +385,7 @@ def generate_readme(stats):
         f"    interval: 86400",
         f"```",
         f"",
-        f"<small>2. 应用规则<small>",
+        f"<small>2. 应用规则</small>",
         f"```yaml",
         f"rules:",
         f"  - RULE-SET,Google,MyProxyGroup",

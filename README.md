@@ -23,6 +23,7 @@ ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从
 
 <br>
 <small>1. 配置规则集</small>
+
 ```yaml
 rule-providers:
   # 🟢 引用域名规则 (behavior: domain)
@@ -45,6 +46,7 @@ rule-providers:
 ```
 
 <small>2. 应用规则</small>
+
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup

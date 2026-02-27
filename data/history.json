@@ -148,7 +148,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1772139033,
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
     "rule_count": 366
   },
@@ -837,10 +837,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaMaxNoMedia": {
-    "src_hash": "3dad80188e7f7456e87a1ff4819bd4ee",
-    "updated_at": 1772052376,
+    "src_hash": "d0a83f77d95f2a219a9927bcc4e76bba",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 128794
+    "rule_count": 129695
   },
   "Yandex": {
     "src_hash": "43cf55853aa3b88ec80b62d66dc2779a",
@@ -872,7 +872,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1772139033,
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
     "rule_count": 1
   },
@@ -987,10 +987,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "PrivateTracker": {
-    "src_hash": "e2b719d0869ef6df9cbd0d98757b7764",
-    "updated_at": 1772052376,
+    "src_hash": "6d2fbc61b5185fa5fb048361fde680f2",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 260
+    "rule_count": 268
   },
   "AFP": {
     "src_hash": "4175b7d863d042339835927f41ca338a",
@@ -1257,16 +1257,16 @@
     "rule_count": 3
   },
   "ChinaIPs": {
-    "src_hash": "e3bd5d799d1a2d4ef7558827a7992791",
-    "updated_at": 1772052376,
+    "src_hash": "4c51ef5a8a2127b440843615e5fc1cdb",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 23253
+    "rule_count": 23257
   },
   "ChinaIPsTest": {
-    "src_hash": "cb5a0fa0d642788775398c28ea9af04b",
-    "updated_at": 1772052376,
+    "src_hash": "1630caebf577e0a10ed13f70fcf8eb05",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 29529
+    "rule_count": 29521
   },
   "Opera": {
     "src_hash": "00198bc19bbac19c4074e7cb0742e68c",
@@ -1498,10 +1498,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Advertising": {
-    "src_hash": "a88f5e60110b50db9448597735c6f9fa",
-    "updated_at": 1772052376,
+    "src_hash": "7311e29aa6c9f1ad5cb12e045cbbad14",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 238754
+    "rule_count": 239163
   },
   "GaoDe": {
     "src_hash": "3a4a0abf674fa07188399b21c6448c96",
@@ -1602,10 +1602,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "Global": {
-    "src_hash": "7fa1ef102a0bd7c0f0d029e507899632",
-    "updated_at": 1772052376,
+    "src_hash": "0595429c3b506934702205aec5c523cf",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 33125
+    "rule_count": 33140
   },
   "GitBook": {
     "src_hash": "0c583c6cde0c41a530b9d437c95cfefc",
@@ -1926,10 +1926,10 @@
     "rule_count": 32
   },
   "ChinaIPsBGP": {
-    "src_hash": "7b3df77dc7779ec6bb99b2823658b613",
-    "updated_at": 1772052376,
+    "src_hash": "f48571608e8226ca0a225216ed95f357",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 3916
+    "rule_count": 3910
   },
   "WeTV": {
     "src_hash": "a6ba4b5218aa4ed5c5f214f3c1cec711",
@@ -2144,8 +2144,8 @@
     "rule_count": 13
   },
   "Apple": {
-    "src_hash": "ffcbbe776980af71d6e003885e36bdd8",
-    "updated_at": 1772052376,
+    "src_hash": "a44b395ca3545e4f285850ae630d6200",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
     "rule_count": 1581
   },
@@ -2241,10 +2241,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaMaxNoIP": {
-    "src_hash": "4da609e21766a193ec184ebcf4b7e925",
-    "updated_at": 1772052376,
+    "src_hash": "8ee8a2e55c4baef707e0264669bca248",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 116251
+    "rule_count": 117159
   },
   "51nod": {
     "src_hash": "cff23c68bb5764a987c294f0b8cb4776",
@@ -3048,10 +3048,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaTest": {
-    "src_hash": "0fe32f1e6361255ff2233d85110c64ca",
-    "updated_at": 1772052376,
+    "src_hash": "c11b1642e058885202d3363c64ce3d47",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 116400
+    "rule_count": 117324
   },
   "Tmdb": {
     "src_hash": "8c7fc6364afabd94844d875aae50f0ae",
@@ -3257,10 +3257,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "ChinaMax": {
-    "src_hash": "84e2662405c89e21d21257187f666bd6",
-    "updated_at": 1772052376,
+    "src_hash": "81e35996f5c08d76cf623890fc53735e",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 129240
+    "rule_count": 130141
   },
   "YunFanJiaSu": {
     "src_hash": "8abe138bb09d22c2955d47ab1ead7da8",
@@ -3617,10 +3617,10 @@
     "gen_ver": "v2.8_VISUAL_UPGRADE"
   },
   "AdvertisingTest": {
-    "src_hash": "b439aab57d7a3416267ee7b5fcc17255",
-    "updated_at": 1772052376,
+    "src_hash": "736f2150ee5401803026b600e3482c97",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 258070
+    "rule_count": 258618
   },
   "XiaoGouKeJi": {
     "src_hash": "d55a76d7e556871d774bc4725cf0dd81",
@@ -3808,15 +3808,15 @@
     "gen_ver": "v3.0_FINAL_COMPLETE"
   },
   "GeoIP_CN": {
-    "src_hash": "710c945931e52cd8991d55e99eb1436c",
-    "updated_at": 1771620212,
+    "src_hash": "f6604ccaea7da53fd75b8c19387650f4",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 8746
+    "rule_count": 8753
   },
   "GeoSite_CN": {
-    "src_hash": "755013f6911bde5a7b481c9a2a7566e5",
-    "updated_at": 1771814062,
+    "src_hash": "3b6b0cea13c4436762101cdd96030df4",
+    "updated_at": 1772224722,
     "gen_ver": "v5.0",
-    "rule_count": 60518
+    "rule_count": 60584
   }
 }

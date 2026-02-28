@@ -39,6 +39,8 @@
 # 自查在用的主订阅规则集是否需要开启“进程匹配”（根据实际设置）
 # 在客户端左侧边栏的 [规则] 搜索 [PROCESS-NAME]，如果搜索出了一堆规则，则可在 内核设置 把查找进程设置为开启（或直接取消该注释强行接管）；如果搜索结果为空，说明你的规则是基于域名和 IP，查找进程可设为自动或关闭
 # find-process-mode: strict
+# 全局 TLS 指纹伪装（uTLS 指纹），将流量伪装为正常的 Chrome 浏览器，降低被墙 DPI 审查阻断的概率
+global-client-fingerprint: chrome
 # 使用 RTT 延迟测试，统一延迟计算，测速时去除 TCP 握手时间，只计算传输层的物理延迟
 # unified-delay: true
 
@@ -84,7 +86,13 @@ dns:
       - 180.184.1.1
 
     # 3. 国外大厂 -> 强制走 DoH (双重防污染)
-    "rule-set:Google,YouTube,Netflix":
+    "rule-set:Google":
+      - https://1.1.1.1/dns-query#节点选择
+      - https://8.8.8.8/dns-query#节点选择
+    "rule-set:YouTube":
+      - https://1.1.1.1/dns-query#节点选择
+      - https://8.8.8.8/dns-query#节点选择
+    "rule-set:Netflix":
       - https://1.1.1.1/dns-query#节点选择
       - https://8.8.8.8/dns-query#节点选择
 
@@ -178,7 +186,7 @@ rule-providers:
   Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",                 path: ./rules/Privacy.mrs }
   WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",                   path: ./rules/WinSpy.txt }
   Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",               path: ./rules/Hijacking.mrs }
-  Hijacking_IP: { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",            path: ./rules/Hijacking_IP.mrs }
+  Hijacking_IP: { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",             path: ./rules/Hijacking_IP.mrs }
 
   # [ Local & Direct ] 局域网 & 游戏下载
   Lan:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",                     path: ./rules/Lan.mrs }
@@ -223,7 +231,7 @@ rules:
   # —————————— 协议优化 & 净化层 ——————————
   # [阻断 QUIC] 拦截所有 UDP 443 流量。强迫 YouTube/Netflix 等降级为 TCP，避免 UDP 在复杂网络环境下断流/缓冲
   # ⚠️ 注：这里会拦截所有(含国内) UDP 443。如果国内视频卡顿，可考虑将其移至 GeoSite_CN 之后
-  - AND,(NETWORK,udp),(DST-PORT,443),REJECT
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
   
   # [广告与隐私] 拦截恶意与跟踪流量
   - RULE-SET, AdRules, 广告拦截  
@@ -237,7 +245,7 @@ rules:
   - RULE-SET, Lan, DIRECT
   - RULE-SET, Lan_IP, DIRECT, no-resolve
   
-  # [游戏下载] Steam CN / 暴雪等国内 CDN 流量直连
+  # [游戏下载] Steam CN /暴雪等国内 CDN 流量直连
   - RULE-SET, GameDownloadCN, DIRECT
   
   # [NTP] Windows 时间同步 (UDP 123)，防止时间错误

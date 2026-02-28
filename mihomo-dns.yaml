@@ -1,6 +1,6 @@
 # 作者：Keviin560
 # 仓库地址：https://github.com/Keviin560/Shunt_Rules
-# 更新日期：2026-02-28 18:05
+# 更新日期：2026-02-28 23:49
 
 # -------------------------------------------------------
 #  [ ⚙️ 核心架构说明 ]
@@ -28,19 +28,19 @@
 
 # mode: rule    # 规则分流模式
 # mixed-port: 7890    # 混合端口
-# allow-lan: true    # 局域网代理
-# log-level: info    #日志
-# ipv6: false    # 内核 IPV6
+# allow-lan: true    # 局域网代理（根据实际设置）
+# log-level: info    #日志（根据实际设置）
+# ipv6: false    # 内核 IPV6（根据实际设置）
 
-# 外部控制以及密码可根据实际情况是否设置
+# 外部控制以及密码可根据实际情况是否设置（根据实际设置）
 # external-controller: 0.0.0.0:9090
 # secret: ''
 
-# 自查在用的主订阅规则集是否需要开启“进程匹配”
+# 自查在用的主订阅规则集是否需要开启“进程匹配”（根据实际设置）
 # 在客户端左侧边栏的 [规则] 搜索 [PROCESS-NAME]，如果搜索出了一堆规则，则可在 内核设置 把查找进程设置为开启（或直接取消该注释强行接管）；如果搜索结果为空，说明你的规则是基于域名和 IP，查找进程可设为自动或关闭
 # find-process-mode: strict
 # 全局 TLS 指纹伪装（uTLS 指纹），将流量伪装为正常的 Chrome 浏览器，降低被墙 DPI 审查阻断的概率
-# global-client-fingerprint: chrome
+global-client-fingerprint: chrome
 # 使用 RTT 延迟测试，统一延迟计算，测速时去除 TCP 握手时间，只计算传输层的物理延迟
 # unified-delay: true
 
@@ -54,7 +54,7 @@ dns:
   # 开启了 虚拟网卡 (TUN 模式)，基本上会默认启用 DNS 劫持 any:53
   # enable: true
   # listen: 0.0.0.0:1053
-  # ipv6: false
+  # ipv6: false（根据实际设置）
   
   # Fake-IP 模式（域名映射模式 -> 虚假 IP  -> 回应范围 198.18.0.1/16），本地 DNS 不进行真实解析解析
   # 原理：客户端发起请求 -> 秒回假 IP (198.18.x.x) -> 建立连接 -> 匹配规则分流

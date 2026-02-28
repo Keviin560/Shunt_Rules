@@ -9,22 +9,11 @@
 ## 📖 项目简述
 ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则
 
-* **Mihomo (.mrs)** : 二进制格式，加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
-* **Loon (.lsr)** : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
+* Mihomo (.mrs) : 二进制格式，加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
+* Loon (.lsr) : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
-* **GeoSite_CN**：剔除死链、伪直连（指纹识别）和境外 CDN 域名；同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名的精准
-* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度
-
-## ⚙️ 逻辑架构
-### 全量规则转译
-* **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。
-* **Loon (.lsr) —— 智能排序**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险
-
-### 区域深度净化
-* **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP
-* **域名审计**：“六层漏斗”筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤
-* **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期
-* **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效
+* GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名；同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名的精准
+* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度
 
 ## 📍 Mihomo 配置指引
 > ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<small>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</small>: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
@@ -765,4 +754,4 @@ rules:
 | myTVSUPER | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/myTVSUPER.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/myTVSUPER.lsr) | 2 days ago |
 | zhanqi | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/zhanqi.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/zhanqi.lsr) | 16 days ago |
 
- **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规
+ 免责声明：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规

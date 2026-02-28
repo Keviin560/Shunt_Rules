@@ -357,25 +357,16 @@ def generate_readme(stats):
         f"## 📖 项目简述",
         f"ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则",
         f"",
-        f"* **Mihomo (.mrs)** : 二进制格式，加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题",
-        f"* **Loon (.lsr)** : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
+        f"* Mihomo (.mrs) : 二进制格式，加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题",
+        f"* Loon (.lsr) : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
         f"",
-        f"* **GeoSite_CN**：剔除死链、伪直连（指纹识别）和境外 CDN 域名；同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名的精准",
-        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度",
-        f"",
-        f"## ⚙️ 逻辑架构",
-        f"### 全量规则转译",
-        f"* **Mihomo (.mrs) —— 双重锚定**：采用双重生成策略把域名裂变为“精确匹配”与“泛域名匹配”，解决子域名匹配遗漏的问题，提升匹配精准度。",
-        f"* **Loon (.lsr) —— 智能排序**：将带有 `no-resolve` 属性的 IP 规则置顶，确保在匹配时减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
-        f"",
-        f"### 区域深度净化",
-        f"* **IP 减法**：留存物理位置在中国境内的 IP ，移除原版 CN IP 库中如 Cloudflare, AWS 等境外 IP",
-        f"* **域名审计**：“六层漏斗”筛选，如 DNS 验活、CNAME 查杀、IP 物理核查过滤",
-        f"* **域名验证**：生命周期管理，所有 CN 域名都经过 DNS 验活，连续 3 次（9天）解析失败的域名会暂时移出规则库，进入180天冷冻期",
-        f"* **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效",
+        f"* GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名；同时经过 DNS 验活、CNAME 查杀、IP 物理核查过滤，确保 CN 域名的精准",
+        f"* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度",
         f"",
         f"## 📍 Mihomo 配置指引",
+        # === 核心修改区：加入 <small> 标签缩小字体 ===
         f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<small>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</small>: {config_link}",
+        # ============================================
         f"",
         f"<details>",
         f"<summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>",
@@ -431,7 +422,7 @@ def generate_readme(stats):
         md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
         
     md.append(f"")
-    md.append(f" **免责声明**：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规")
+    md.append(f" 免责声明：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规")
 
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 
@@ -539,10 +530,10 @@ def main():
             
             # 组装并发送 PR
             pr_title = "[🚨 熔断警报] 检测到上游规则大面积删减，请人工审核"
-            pr_body = "### 🚨 规则熔断警报\n\n检测到以下规则数量骤降超过 **30%**，为防止灾难级误删，系统已自动拦截本次主分支更新：\n\n"
+            pr_body = "### 🚨 规则熔断警报\n\n检测到以下规则数量骤降超过 30%，为防止灾难级误删，系统已自动拦截本次主分支更新：\n\n"
             for n, dr, oc, nc in anomalies:
-                pr_body += f"- **{n}**: 骤降 {dr*100:.1f}% ({oc} 条 -> {nc} 条)\n"
-            pr_body += "\n---\n**💡 您的决策：**\n- **✅ 同意更新**：如果是上游正常调整，请点击 `Merge pull request`\n- **❌ 拒绝更新**：如果是上游被封或误操作，请点击 `Close pull request`，您的主分支规则将毫发无损地保留。"
+                pr_body += f"- {n}: 骤降 {dr*100:.1f}% ({oc} 条 -> {nc} 条)\n"
+            pr_body += "\n---\n💡 您的决策：\n- ✅ 同意更新：如果是上游正常调整，请点击 `Merge pull request`\n- ❌ 拒绝更新：如果是上游被封或误操作，请点击 `Close pull request`，您的主分支规则将毫发无损地保留。"
             
             subprocess.run(["gh", "pr", "create", "--title", pr_title, "--body", pr_body, "--base", current_branch, "--head", branch_name], check=True)
             logger.info("✅ 拦截 PR 创建成功！已向您的 GitHub 发送提醒。")

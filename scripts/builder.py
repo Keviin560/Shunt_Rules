@@ -375,7 +375,7 @@ def generate_readme(stats):
         f"* **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效",
         f"",
         f"## 📍 Mihomo 配置指引",
-        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考: {config_link}",
+        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<small>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</small>: {config_link}",
         f"",
         f"<details>",
         f"<summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>",

@@ -7761,6 +7761,7 @@ full:alibaba.cdn.steampipe.steamcontent.com # Blacklist: steam
 full:amp-api-edge-lb-cn.itunes-apple.com.akadns.net # Blacklist: apple
 full:amp-api-edge-lb.itunes-apple.com.akadns.net # Blacklist: apple
 full:amp-api-edge.apps.apple.com # Blacklist: apple
+full:amp-api-edge.music.apple.com # Blacklist: apple
 full:amp-api-search-edge.apps.apple.com # Blacklist: apple
 full:amp-api-updates.apps.apple.com # Blacklist: apple
 full:amp-api.apps.apple.com # Blacklist: apple
@@ -7947,6 +7948,8 @@ full:mesu.apple.com # Blacklist: apple
 full:misc-assets.itunes.apple.com # Blacklist: apple
 full:ml.cdn-apple.com # Blacklist: apple
 full:music.apple.com # Blacklist: apple
+full:musicstatus.music.apple.com # Blacklist: apple
+full:mvod.itunes.apple.com # Blacklist: apple
 full:myapp.itunes.apple.com # Blacklist: apple
 full:myvs.download.prss.microsoft.com # Blacklist: microsoft
 full:np-edge.itunes.apple.com # Blacklist: apple
@@ -8000,6 +8003,7 @@ full:shazam-insights.cdn-apple.com # Blacklist: apple
 full:smp-device-content.apple.com # Blacklist: apple
 full:software.download.prss.microsoft.com # Blacklist: microsoft
 full:sp.itunes.apple.com # Blacklist: apple
+full:speedysub.music.apple.com # Blacklist: apple
 full:ssl-google-analytics.l.google.com # Blacklist: google
 full:sslredirect.corp.google.com # Blacklist: google
 full:static.gc.apple.com # Blacklist: apple

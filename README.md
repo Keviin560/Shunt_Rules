@@ -27,7 +27,7 @@ ASR（Auto Shunt Rules）是一套自动化的 CI/CD 流水线，每天定时从
 * **前缀剥离**：自动剥离 `+.` 等泛域名通配符，还原为主域名进行物理验活，确保测试结果真实有效
 
 ## 📍 Mihomo 配置指引
-> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
+> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<small>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</small>: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
 
 <details>
 <summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>

@@ -364,9 +364,7 @@ def generate_readme(stats):
         f"* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP，提高纯度",
         f"",
         f"## 📍 Mihomo 配置指引",
-        # === 核心修改区：换用 <sub> 标签强制缩小字体 ===
-        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<sub>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</sub>: {config_link}",
-        # ============================================
+        f"> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<sub>（建议用 js 覆写， utls 动态指纹和自动筛选五大洲的节点分组）</sub>: {config_link}",
         f"",
         f"<details>",
         f"<summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>",

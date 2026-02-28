@@ -201,11 +201,15 @@ function main(config) {
 
 
 
+// =======================================================
+    // 3. DNS 劫持与引擎纯净化 (防泄露核心)
     // =======================================================
-    // 3. DNS 劫持与 Fake-IP 底层生态缝合
-    // =======================================================
+    delete config.dns.fallback;
+    delete config.dns['fallback-filter'];
+    delete config.dns['default-nameserver'];
+
     config.dns = {
-        ...config.dns, // 无损继承原有的虚拟网卡配置
+        ...config.dns, // 继承剩余安全配置
         'prefer-h3': true,
         nameserver: [
             'https://1.1.1.1/dns-query#节点选择',
@@ -220,6 +224,8 @@ function main(config) {
         }
     };
 
+    if (!config.tun) config.tun = {};
+    config.tun['strict-route'] = true;
 
 
     // =======================================================

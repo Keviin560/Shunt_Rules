@@ -35,7 +35,7 @@ function main(config) {
         config.proxies = [];
     }
     
-    // [历史包袱清理] 彻底抹除旧版全局指纹
+    // 移除旧版全局指纹
     delete config['global-client-fingerprint'];
 
     // 【接管 I：基础网络框架】
@@ -49,7 +49,7 @@ function main(config) {
     config['unified-delay'] = true;          // 去除 TCP 握手，计算真实的物理 RTT 延迟
 
     // 接管流量嗅探
-    // 防止在 GUI 面板关闭嗅探功能，强制捕获真实域名，对抗域名前置/伪装逃逸；同时建议开启 [覆盖连接地址]
+    // 防止在 GUI 面板关闭嗅探功能，强制捕获真实域名；建议开启 [覆盖连接地址]
     config.sniffer = {
         enable: true,
         'force-domain': ['+'],               // 对所有流量进行 SNI 嗅探
@@ -206,7 +206,7 @@ function main(config) {
     config.dns['default-nameserver'] = [
         '223.5.5.5',        // 阿里云 DNS
         '119.29.29.29'      // 腾讯云 DNS
-    ]; // 👈 在这里修复了缺失的闭合中括号和分号
+    ]; // 
 
     config.dns = {
         ...config.dns, // 无损继承原有的基础配置
@@ -229,7 +229,7 @@ function main(config) {
             '*.+.market.xiaomi.com',
             '*.local',                      // 豁免 mDNS 局域网多播
             '*.ptlogin2.qq.com',            // 解决国内快捷登录在 Fake-IP 下失效的顽疾
-            '+.pool.ntp.org'                // 豁免时间同步服务器，防止系统时钟失真导致证书验证失败
+            '+.pool.ntp.org'                // 时间同步，防止系统时钟失真导致证书验证失败
         ],
 
         // 兜底与国外大厂域名解析通道 (DoH)

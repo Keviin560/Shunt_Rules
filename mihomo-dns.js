@@ -49,7 +49,7 @@ function main(config) {
     config['unified-delay'] = true;          // 去除 TCP 握手，计算真实的物理 RTT 延迟
 
     // 接管流量嗅探
-    // 防止在 GUI 面板关闭嗅探功能，强制捕获真实域名，对抗域名前置/伪装逃逸
+    // 防止在 GUI 面板关闭嗅探功能，强制捕获真实域名，对抗域名前置/伪装逃逸；同时建议开启 [覆盖连接地址]
     config.sniffer = {
         enable: true,
         'force-domain': ['+'],               // 对所有流量进行 SNI 嗅探

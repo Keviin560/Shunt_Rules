@@ -15,11 +15,11 @@
 * GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名，确保域名的精准
 * GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP
 
-## 📍 Mihomo 配置指引
-><sub>用 `type: http` 远程引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)</sub>
+## 📍 Mihomo 配置
+>用 `type: http` 引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
 
 <details>
-<summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>
+<summary><strong>▶ 示例</strong> </summary>
 
 <br>
 <small>1. 配置规则集</small>
@@ -50,7 +50,7 @@ rule-providers:
 ```yaml
 rules:
   - RULE-SET,Google,MyProxyGroup
-  - RULE-SET,Google_IP,MyProxyGroup,no-resolve
+  - RULE-SET,Google_IP,MyProxyGroup,no-resolve    # 这里可以看情况是否加no-resolve 参数
 ```
 </details>
 

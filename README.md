@@ -9,14 +9,14 @@
 ## 📖 项目简述
 每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则
 
-* Mihomo (.mrs) : 二进制格式，加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
-* Loon (.lsr) : 纯文本格式，优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
+* Mihomo (.mrs) : 加载速度快，占用低；用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决匹配遗漏问题
+* Loon (.lsr) : 优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
 * GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名，确保域名的精准
 * GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP
 
 ## 📍 Mihomo 配置指引
-> ⚡ 使用方式: 用 `type: http` 远程引用规则集，覆写参考<sub>（ js 覆写可以 utls 动态指纹和自动筛选五大洲节点）</sub>: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
+><sub>用 `type: http` 远程引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)</sub>
 
 <details>
 <summary><strong>💾 配置示例</strong> <sub>(点击展开)</sub></summary>
@@ -341,7 +341,7 @@ rules:
 | Geely | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Geely.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Geely.lsr) | 17 days ago |
 | Gemini | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gemini.lsr) | 4 days ago |
 | GeoIP_CN | [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoIP_CN.lsr) | 2 days ago |
-| GeoSite_CN | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoSite_CN.lsr) | Today |
+| GeoSite_CN | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoSite_CN.lsr) | Yesterday |
 | Gettyimages | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gettyimages.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gettyimages.lsr) | 4 days ago |
 | Gigabyte | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gigabyte.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gigabyte.lsr) | 17 days ago |
 | GitBook | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GitBook.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GitBook.lsr) | 17 days ago |

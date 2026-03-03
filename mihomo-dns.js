@@ -5,7 +5,7 @@
  * * * -------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
  * --> 全局接管 GUI 设置：覆盖客户端基础设置 (端口/模式/TUN)，实现底层参数统一
- * --> 物理防漏：开启 TUN strict-route，物理斩断 fallback DNS，去除 ISP (如中国移动/阿里云) 的并发侧漏
+ * --> 物理防漏：开启 TUN strict-route，物理斩断 fallback DNS，去除 ISP (如中国移动/阿里云) 的并发侧漏；建议开启 [覆盖连接地址]
  * --> 动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹，实现 DPI 隐身
  * --> 五大洲节点自动筛选：Unicode 国旗解码；内置 240+ 国家与城市字典
  *
@@ -49,7 +49,7 @@ function main(config) {
     config['unified-delay'] = true;          // 去除 TCP 握手，计算真实的物理 RTT 延迟
 
     // 接管流量嗅探
-    // 防止在 GUI 面板关闭嗅探功能，强制捕获真实域名；建议开启 [覆盖连接地址]
+    // 防止在 GUI 面板关闭嗅探功能，强制捕获真实域名
     config.sniffer = {
         enable: true,
         'force-domain': ['+'],               // 对所有流量进行 SNI 嗅探
@@ -358,7 +358,6 @@ function main(config) {
         'RULE-SET,Apple,Apple账户',
         
         // 5. 国内主兜底 (域名先行)
-        'DOMAIN-SUFFIX,bdshare.org,DIRECT',
         'RULE-SET,GeoSite_CN,DIRECT',
         
         // 6. 异常 IP 补漏层 (防止域名匹配失败时的 IP 兜底)

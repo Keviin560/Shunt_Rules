@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-01 09:33:12
-# Total = 60582
+# Update = 2026-03-04 04:43:40
+# Total = 60583
 
 DOMAIN-SUFFIX,a-liai.com
 DOMAIN-SUFFIX,a-map.co
@@ -33956,6 +33956,7 @@ DOMAIN-SUFFIX,monengu.com
 DOMAIN-SUFFIX,monengugame.com
 DOMAIN-SUFFIX,monfetch.com
 DOMAIN-SUFFIX,mongac.com
+DOMAIN-SUFFIX,monika.love
 DOMAIN-SUFFIX,monkeylsp.com
 DOMAIN-SUFFIX,monknow.com
 DOMAIN-SUFFIX,monph.com

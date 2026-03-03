@@ -1,7 +1,7 @@
 # Name = ChinaMaxNoIP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-02 04:39:11
+# Update = 2026-03-04 04:43:21
 # Total = 117070
 
 DOMAIN,1-fss24-s0.streamhoster.com
@@ -69492,6 +69492,7 @@ DOMAIN-SUFFIX,monfetch.com
 DOMAIN-SUFFIX,mongac.com
 DOMAIN-SUFFIX,monhun.fun
 DOMAIN-SUFFIX,monidata.com
+DOMAIN-SUFFIX,monika.love
 DOMAIN-SUFFIX,monkeylsp.com
 DOMAIN-SUFFIX,monknow.com
 DOMAIN-SUFFIX,mono.work
@@ -102610,7 +102611,6 @@ DOMAIN-SUFFIX,xcstuido.com
 DOMAIN-SUFFIX,xcsyy.com
 DOMAIN-SUFFIX,xctmr.com
 DOMAIN-SUFFIX,xcukezmr.com
-DOMAIN-SUFFIX,xcultur.com
 DOMAIN-SUFFIX,xcurrency.com
 DOMAIN-SUFFIX,xcvec.com
 DOMAIN-SUFFIX,xcvmbyte.com

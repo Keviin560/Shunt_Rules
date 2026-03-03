@@ -358,6 +358,7 @@ function main(config) {
         'RULE-SET,Apple,Apple账户',
         
         // 5. 国内主兜底 (域名先行)
+        'DOMAIN-SUFFIX,bdshare.org,DIRECT',
         'RULE-SET,GeoSite_CN,DIRECT',
         
         // 6. 异常 IP 补漏层 (防止域名匹配失败时的 IP 兜底)

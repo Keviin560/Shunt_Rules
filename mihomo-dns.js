@@ -437,8 +437,8 @@ function main(config) {
             // 🚫 第三层：P2P/BT 流量
             // ===============================================
             // 1.  P2P 默认端口
-            'PORT,6881-6889,DIRECT', 
-            'PORT,51413,DIRECT', // Transmission 默认端口
+            'DST-PORT,6881-6889,DIRECT', 
+            'DST-PORT,51413,DIRECT', // Transmission 默认端口
             // 2.  BT 追踪器与特殊特征域名
             'DOMAIN-KEYWORD,tracker,DIRECT',
             'DOMAIN-KEYWORD,torrent,DIRECT',

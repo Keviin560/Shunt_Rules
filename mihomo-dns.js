@@ -1,31 +1,34 @@
 /**
  * 作者：Keviin560
  * 更新日期：2026-03-05
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
- * ->  全局接管 GUI 设置：覆盖客户端基础设置 (端口/模式/TUN)，实现底层参数统一
- * ->  物理防漏：开启 TUN strict-route，物理斩断 fallback DNS，去除 ISP (如中国移动/阿里云) 的并发侧漏
+ * ->  全局接管 GUI 设置：覆盖客户端基础设置 (端口/嗅探/TUN)，实现底层参数统一
  * ->  动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置 240+ 国家与城市中英双语及高频三字码字典
  * ->  动态自愈 UI ：机场没有对应的分组里的节点，会自动隐藏分组，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 或包含 "IP"的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
- * ->  PASS 策略智能分流：针对 Apple 和 Microsoft 流量引入 PASS 策略，实现动态判定
+ * ->  PASS 策略智能分流：针对 Apple 和 Microsoft 流量引入 PASS 策略，实现动态判定分流
  * ->  探针保活机制：全局注入底层 TCP 保活与 HTTP 探针，防止 NAT 链接僵死
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 小白用户必读设置 】
  * ->  全局仓库锚点：代码最顶部设有两个“锚点网址”，可以自行更改所需的全局规则仓库和 icon 仓库
  * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"。防止浏览器绕过客户端自己去解析 DNS，导致分流失败
  * ->   IPv6 相关设置（二选一）：
- * - 【不用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 false ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6 ，即关闭 Internet 协议版本 6 (TCP/IPv6)
- * - 【用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 ture ，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1]
- * * -------------------------------------------------------------------------------------------------------------------------
+ *   - 【不用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 false ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6 ，即关闭 Internet 协议版本 6 (TCP/IPv6)
+ *   - 【用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 ture ，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1]
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 🛠️ 修改与维护】
  * ->  如果机场新增了冷门国家未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描器) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
  * ->  想新增独立国家/地区分组（例如新增“英国节点”）：
- * - 找特征：在 `regionRegexes` (独立分组节点扫描) 中加一行：`['UK', /英国|伦敦|UK/i],`
- * - 加空盒：在 `sorted` 准备盒子里加一个空数组：`UK: [],`
- * - 上展台：在 `regionsConfig` (候选名单) 里加一行：`{ tag: 'UK', name: '英国节点', icon: iconBase + 'UK.png' },`
- * * -------------------------------------------------------------------------------------------------------------------------
+ *   - 找分组：在 `regionRegexes` (独立分组节点扫描) 中加一行：`['UK', /英国|伦敦|UK/i],`
+ *   - 加空盒：在 `sorted` 准备盒子里加一个空数组：`UK: [],`
+ *   - 上名单：在 `regionsConfig` (候选名单) 里加一行：`{ tag: 'UK', name: '英国节点', icon: iconBase + 'UK.png' },`
+ *
+ * -------------------------------------------------------------------------------------------------------------------------
  */
 
 
@@ -37,8 +40,8 @@ function main(config) {
     delete config['global-client-fingerprint'];
 
     // =======================================================
-    // 🛠️ 全局仓库锚点区 (修改这里，全局生效！)
-    // 如果要换规则集或 icon 图标，修改下面这两行
+    // 🛠️ 全局仓库锚点区 (修改这里，全局生效)
+    // 要换规则集或 icon 图标，修改下面这两行
     // =======================================================
     const iconBase = 'https://raw.githubusercontent.com/Keviin560/resources/main/icon/';
     const ruleBase = 'https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
@@ -100,7 +103,7 @@ function main(config) {
         // 1. 分类扫描与微型国家字典
         // =======================================================
         
-        // 【国旗提取器】：通过识别节点名里的 Emoji 国旗，直接算出代表哪个国家
+        // 【国旗提取器】：识别节点名里的 Emoji 国旗
         const emojiRegex = /[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/;
         const extractISO = (str) => {
             const match = str.match(emojiRegex);
@@ -293,7 +296,7 @@ function main(config) {
             { tag: 'Africa', name: '非洲节点', icon: iconBase + 'Africa.png' }
         ];
 
-        // 🪄 【自动隐藏魔法 + 探针保活注入】
+        // 🪄 【自动隐藏空节点分组 + 探针保活注入】
         for (const r of regionsConfig) {
             if (sorted[r.tag].length > 0) {
                 dynamicGroupsList.push({ 
@@ -324,13 +327,13 @@ function main(config) {
             { name: '兜底策略', type: 'select', proxies: ['节点选择', '香港节点', '新加坡节点', '美国节点', '亚洲节点', '欧洲节点', '美洲节点', '大洋洲节点', '非洲节点'], icon: iconBase + 'Rules.png' }
         ];
 
-        // 🪄 【依赖自愈魔法 + 探针保活注入】
+        // 🪄 【依赖 + 探针保活注入】
         for (const g of appGroups) {
             // 自动扫描剔除不存在的国家节点，防止内核崩溃
             g.proxies = g.proxies.filter(p => activeGroups.has(p));
             if (g.proxies.length === 0) g.proxies = ['节点选择'];
             
-            // 💉 注入探针机制：确保各种流媒体选项卡也能防断流
+            // 注入探针机制：确保各种流媒体选项卡也能防断流
             g.url = 'https://www.gstatic.com/generate_204';
             g.interval = 300;
             g.timeout = 3000;
@@ -343,7 +346,7 @@ function main(config) {
                 type: 'select', 
                 proxies: sorted.All.length > 0 ? sorted.All : ['DIRECT'], 
                 icon: iconBase + 'Locator.png',
-                url: 'https://www.gstatic.com/generate_204', // 💉 兜底总闸也要防断流
+                url: 'https://www.gstatic.com/generate_204', // 兜底防断流探针
                 interval: 300,
                 timeout: 3000
             }
@@ -352,12 +355,12 @@ function main(config) {
 
 
         // =======================================================
-        // 5. 智能规则工厂 (极致省流锚点篇)
+        // 5. 规则区
         // =======================================================
         
-        // ⚡ 【全自动兵工厂】：
-        // 1. 如果填了 customUrl (别人的规则)，就用别人的；没填则自动用顶部锚点拼接！
-        // 2. 只要名字里带 "_IP" 或者包含 "IP" (如 GeoIP_CN)，自动按 IP 拦截！
+        // ⚡ 【全自动判定】：
+        // 1. 如果填了 customUrl (别人的规则)，就用别人的；没填则自动用顶部锚点拼接
+        // 2. 只要名字里带 "_IP" 或者包含 "IP" (如 GeoIP_CN)，自动按 IP 拦截
         const buildRule = (name, customUrl = null) => {
             const isIP = name.endsWith('_IP') || name.includes('IP'); 
             const finalUrl = customUrl || `${ruleBase}${name}.mrs`; // 统一使用 mrs 后缀拼接
@@ -380,7 +383,7 @@ function main(config) {
             AdRules:        buildRule('AdRules', 'https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
             WinSpy:         buildRule('WinSpy',  'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
             
-            // 全局的规则仓库（只需填名字，系统会自动完成）
+            // 全局的规则仓库（填写 锚定规则仓库 中的规则名，系统会自动完成）
             Privacy:        buildRule('Privacy'),
             Hijacking:      buildRule('Hijacking'),
             Hijacking_IP:   buildRule('Hijacking_IP'), 
@@ -412,21 +415,48 @@ function main(config) {
         // 6. 规则集
         // =======================================================
         config.rules = [
-            // 第一层：净化与拦截
+            // ===============================================
+            // 🛡️ 第一层：净化与拦截 (去广告与隐私保护)
+            // ===============================================
             'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', 
             'RULE-SET,AdRules,广告拦截',
             'RULE-SET,Privacy,隐私保护',
             'RULE-SET,WinSpy,隐私保护',
             'RULE-SET,Hijacking,反劫持',
             'RULE-SET,Hijacking_IP,反劫持,no-resolve',   
-            
-            // 第二层：局域网与基础直连
+          
+            // ===============================================
+            // 🏠 第二层：局域网与基础直连
+            // ===============================================
             'RULE-SET,Lan,DIRECT',
             'RULE-SET,Lan_IP,DIRECT,no-resolve',
             'RULE-SET,GameDownloadCN,DIRECT',
             'DST-PORT,123,DIRECT',                      
+
+            // ===============================================
+            // 🚫 第三层：P2P/BT 流量
+            // ===============================================
+            // 1.  P2P 默认端口
+            'PORT,6881-6889,DIRECT', 
+            'PORT,51413,DIRECT', // Transmission 默认端口
+            // 2.  BT 追踪器与特殊特征域名
+            'DOMAIN-KEYWORD,tracker,DIRECT',
+            'DOMAIN-KEYWORD,torrent,DIRECT',
+            'DOMAIN-KEYWORD,announce,DIRECT',
+             // 3. 匹配主流下载器进程直连
+            'PROCESS-NAME,aria2c.exe,DIRECT',
+            'PROCESS-NAME,BitComet.exe,DIRECT',
+            'PROCESS-NAME,qbittorrent.exe,DIRECT',
+            'PROCESS-NAME,transmission-daemon.exe,DIRECT',
+            'PROCESS-NAME,transmission-qt.exe,DIRECT',
+            'PROCESS-NAME,Thunder.exe,DIRECT',           // 迅雷主程序
+            'PROCESS-NAME,DownloadSDKServer.exe,DIRECT', // 迅雷底层下载核心进程
+            'PROCESS-NAME,uTorrent.exe,DIRECT',
+            'PROCESS-NAME,WebTorrent.exe,DIRECT',
             
-            // 第三层：各大应用分流
+            // ===============================================
+            // 🚀 第四层：各大应用智能分流
+            // ===============================================
             'RULE-SET,OpenAI,AI Rules',
             'RULE-SET,Gemini,AI Rules',
             'RULE-SET,Claude,AI Rules',
@@ -438,22 +468,30 @@ function main(config) {
             'RULE-SET,Telegram,Telegram',
             'RULE-SET,Google,Google',
             
-            // 第四层：特殊通行证
+            // ===============================================
+            // 🍏 第五层：特殊通行证 (苹果与微软服务)
+            // ===============================================
             'RULE-SET,AppleID,PASS',
             'RULE-SET,Apple,PASS',
             'RULE-SET,Microsoft,PASS',
             
-            // 第五层：国内直连兜底
+            // ===============================================
+            // 🇨🇳 第六层：国内直连兜底
+            // ===============================================
             'RULE-SET,GeoSite_CN,DIRECT', 
             
-            // 第六层：IP 补漏层
+            // ===============================================
+            // 🕳️ 第七层：IP 补漏层
+            // ===============================================
             'RULE-SET,Telegram_IP,Telegram,no-resolve',
             'RULE-SET,Google_IP,Google,no-resolve',
             'RULE-SET,YouTube_IP,YouTube,no-resolve',
             'RULE-SET,Netflix_IP,Netflix,no-resolve',
             'RULE-SET,GeoIP_CN,DIRECT,no-resolve', 
             
-            // 终极兜底
+            // ===============================================
+            // 🌍 兜底：所有未匹配规则的外国流量
+            // ===============================================
             'MATCH,兜底策略'
         ];
 

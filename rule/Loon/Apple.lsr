@@ -1,8 +1,8 @@
 # Name = Apple
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-04 04:43:04
-# Total = 1581
+# Update = 2026-03-06 04:49:46
+# Total = 1582
 
 IP-CIDR,139.178.128.0/18,no-resolve
 IP-CIDR,144.178.0.0/19,no-resolve
@@ -1037,6 +1037,7 @@ DOMAIN-SUFFIX,icloud-content.com.cn
 DOMAIN-SUFFIX,icloud-isupport.com
 DOMAIN-SUFFIX,icloud-sandbox.com
 DOMAIN-SUFFIX,icloud.ch
+DOMAIN-SUFFIX,icloud.cn
 DOMAIN-SUFFIX,icloud.com
 DOMAIN-SUFFIX,icloud.com.cn
 DOMAIN-SUFFIX,icloud.de

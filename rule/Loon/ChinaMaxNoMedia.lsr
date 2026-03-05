@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-04 04:43:29
-# Total = 129620
+# Update = 2026-03-06 04:50:10
+# Total = 129625
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -9652,6 +9652,7 @@ IP-CIDR,2602:2e0:ff::/48,no-resolve
 IP-CIDR,2602:814:f006::/48,no-resolve
 IP-CIDR,2602:f46d:6::/48,no-resolve
 IP-CIDR,2602:f486:fe::/48,no-resolve
+IP-CIDR,2602:f612::/40,no-resolve
 IP-CIDR,2602:f7ee:ee::/48,no-resolve
 IP-CIDR,2602:f92a:124::/48,no-resolve
 IP-CIDR,2602:f92a:1314::/48,no-resolve
@@ -9774,6 +9775,9 @@ IP-CIDR,2a00:79e1:abc:ab00::/56,no-resolve
 IP-CIDR,2a00:8a05::/44,no-resolve
 IP-CIDR,2a01:b747:f4:11a::/64,no-resolve
 IP-CIDR,2a01:ce9e:8000::/33,no-resolve
+IP-CIDR,2a01:e281:aafa::/47,no-resolve
+IP-CIDR,2a01:e281:aafd::/48,no-resolve
+IP-CIDR,2a01:e281:aafe::/47,no-resolve
 IP-CIDR,2a01:f100:1f8::/48,no-resolve
 IP-CIDR,2a01:fb05:5000::/36,no-resolve
 IP-CIDR,2a02:26f7:c400:4000::/64,no-resolve
@@ -9928,6 +9932,7 @@ IP-CIDR,2a06:a005:260::/43,no-resolve
 IP-CIDR,2a06:a005:280::/43,no-resolve
 IP-CIDR,2a06:a005:2910::/44,no-resolve
 IP-CIDR,2a06:a005:2a0::/44,no-resolve
+IP-CIDR,2a06:a005:4b2::/48,no-resolve
 IP-CIDR,2a06:a005:770::/48,no-resolve
 IP-CIDR,2a06:a005:8d0::/44,no-resolve
 IP-CIDR,2a06:a005:a13::/48,no-resolve
@@ -11202,7 +11207,8 @@ IP-CIDR,2a0f:1cc5:203::/48,no-resolve
 IP-CIDR,2a0f:1cc5:20::/44,no-resolve
 IP-CIDR,2a0f:1cc5:2300::/40,no-resolve
 IP-CIDR,2a0f:1cc5:2600::/44,no-resolve
-IP-CIDR,2a0f:1cc5:2630::/44,no-resolve
+IP-CIDR,2a0f:1cc5:2620::/43,no-resolve
+IP-CIDR,2a0f:1cc5:2640::/44,no-resolve
 IP-CIDR,2a0f:1cc5:2d01::/48,no-resolve
 IP-CIDR,2a0f:1cc5:2d02::/48,no-resolve
 IP-CIDR,2a0f:1cc5:2e01::/48,no-resolve
@@ -11461,10 +11467,7 @@ IP-CIDR,2a14:7583:f70c::/48,no-resolve
 IP-CIDR,2a14:7583:f743::/48,no-resolve
 IP-CIDR,2a14:7583:f744::/48,no-resolve
 IP-CIDR,2a14:7583:f764::/48,no-resolve
-IP-CIDR,2a14:7586:6100::/47,no-resolve
-IP-CIDR,2a14:7586:6103::/48,no-resolve
-IP-CIDR,2a14:7586:6105::/48,no-resolve
-IP-CIDR,2a14:7586:6106::/47,no-resolve
+IP-CIDR,2a14:7586:6100::/45,no-resolve
 IP-CIDR,2a14:7c0:5103::/48,no-resolve
 IP-CIDR,2a14:7dc0:510::/47,no-resolve
 IP-CIDR,2a14:7dc0:515::/48,no-resolve
@@ -15199,6 +15202,7 @@ DOMAIN-SUFFIX,17207.com
 DOMAIN-SUFFIX,17293879b10261.beer
 DOMAIN-SUFFIX,172haoka.vip
 DOMAIN-SUFFIX,172l.com
+DOMAIN-SUFFIX,172mix.com
 DOMAIN-SUFFIX,172tt.com
 DOMAIN-SUFFIX,172xiaoyuan.com
 DOMAIN-SUFFIX,173.com
@@ -71535,6 +71539,7 @@ DOMAIN-SUFFIX,juziseo.com
 DOMAIN-SUFFIX,juziss.com
 DOMAIN-SUFFIX,juzistore.com
 DOMAIN-SUFFIX,juzisy.com
+DOMAIN-SUFFIX,juziwulian.com
 DOMAIN-SUFFIX,juzix.io
 DOMAIN-SUFFIX,juzizhoutou.net
 DOMAIN-SUFFIX,juzone.cc

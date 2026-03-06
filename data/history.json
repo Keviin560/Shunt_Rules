@@ -148,7 +148,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1772822143,
+    "updated_at": 1772822811,
     "gen_ver": "v5.0",
     "rule_count": 366
   },
@@ -873,7 +873,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1772822143,
+    "updated_at": 1772822811,
     "gen_ver": "v5.0",
     "rule_count": 1
   },
@@ -2776,8 +2776,9 @@
   },
   "Anthropic": {
     "src_hash": "d8865a9b426fb4ad3509f12fc6e6b1fa",
-    "updated_at": 1770901896,
-    "gen_ver": "v2.8_VISUAL_UPGRADE"
+    "updated_at": 1772822811,
+    "gen_ver": "v5.0",
+    "rule_count": 3
   },
   "BritboxUK": {
     "src_hash": "0ae0ec099ffb6b00c4e3fe3b4e63a948",

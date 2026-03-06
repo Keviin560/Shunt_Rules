@@ -65,7 +65,7 @@ jobs:
           # 2. 下载数据
           echo "⬇️ Downloading Data Files..."
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
-          wget -q -O geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat
+          wget -q -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat
           
           # 3. 执行解包
           echo "🔓 Unpacking GeoIP..."

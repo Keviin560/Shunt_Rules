@@ -13,7 +13,6 @@ CONCURRENCY = 64
 
 RAW_DIR = "raw_data"
 DATA_DIR = "data"
-# 🔥 注入根路径：这是 builder.py 扫描的起始点
 INJECT_ROOT = "temp_source/rule/Clash"
 
 CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
@@ -112,8 +111,7 @@ class Cleaner:
         return {}
 
     async def resolve(self, session, domain):
-        # 💡 核心修复 1：利用 edns_client_subnet 伪装国内 IP（114.114.114.114）进行查询
-        # 防止 GitHub Actions 的美国 IP 导致国内网站（如 115.com）返回海外 CDN 节点从而被误杀
+        # 💡 核心修复 1：利用 edns_client_subnet 伪装国内 IP 防止海外测拨误杀
         url = f"https://dns.alidns.com/resolve?name={domain}&type=A&edns_client_subnet=114.114.114.114"
         for _ in range(RETRIES + 1):
             try:
@@ -158,7 +156,7 @@ class Cleaner:
 
         data = await self.resolve(session, domain)
         
-        # 💡 核心修复 2：很多纯后缀根域名（如 hdslb.com）没有 A 记录，智能回退测试 www 子域名
+        # 💡 核心修复 2：根域名查不到时，智能回退查询 www. 子域名防死链误判
         if not data or 'Answer' not in data:
             data = await self.resolve(session, f"www.{domain}")
 

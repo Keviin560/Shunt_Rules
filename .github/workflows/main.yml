@@ -70,7 +70,6 @@ jobs:
           mv $(go env GOPATH)/bin/v2dat .
           
           echo "⬇️ Downloading Data Files..."
-          # 🟢 IP 库：保持原样，为了能够提取出 Cloudflare/Google 等黑名单 IP
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
           # 🟢 域名库：换成 Custom 精修版，自带去广告和直连优化
           wget -q -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat
@@ -94,7 +93,10 @@ jobs:
           done
           
           echo "🔓 Unpacking GeoSite..."
-          ./v2dat unpack geosite -o raw_data -f cn geosite.dat
+          # 🔥 提取 geolocation-cn 标签，获取 10 万级全量数据
+          ./v2dat unpack geosite -o raw_data -f geolocation-cn geosite.dat
+          # 重命名以适配 cleaner.py 的读取逻辑
+          mv raw_data/geosite_geolocation-cn.txt raw_data/geosite_cn.txt
 
       - name: 🧹 执行深度清洗 (Cleaner)
         run: python scripts/cleaner.py

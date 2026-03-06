@@ -359,7 +359,7 @@ function main(config) {
         
         // ⚡ 【全自动判定】：
         // 1. 如果填了 customUrl (别人的规则)，就用别人的；没填则自动用顶部锚点拼接
-        // 2. 只要名字里带 "_IP" 自动按 IP 拦截（引用了别人的规则，可以视情况添加 “|| name.includes('IP')”，这里表示包含 "IP" (如 GeoIP)）
+        // 2. 只要名字里带 "_IP" 自动按 IP 拦截（引用了别人的规则，可以视情况添加 “|| name.includes('IP')”，这里表示包含 "IP" ）
         const buildRule = (name, customUrl = null) => {
             const isIP = name.endsWith('_IP'); 
             const finalUrl = customUrl || `${ruleBase}${name}.mrs`; // 统一使用 mrs 后缀拼接
@@ -488,7 +488,7 @@ function main(config) {
             'RULE-SET,Google_IP,Google,no-resolve',
             'RULE-SET,YouTube_IP,YouTube,no-resolve',
             'RULE-SET,Netflix_IP,Netflix,no-resolve',
-            'RULE-SET,GeoIP_CN,DIRECT,no-resolve', 
+            'RULE-SET,GeoIP_CN_IP,DIRECT,no-resolve', 
             
             // ===============================================
             // 🌍 兜底：所有未匹配规则的外国流量

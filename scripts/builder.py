@@ -1,5 +1,3 @@
-# 需在 GitHub Actions 里打开 PR 设置，Settings --> Workfolw permissions --> 勾选 Allow GitHub Actions to create and approve pull requests
-
 import os
 import yaml
 import hashlib
@@ -44,7 +42,7 @@ KEYWORD_RESCUE_MAP = {
     "microsoft": ["microsoft.com", "azure.com"]
 }
 
-# === [新增]：AI 平台的全局拦截关键词库 ===
+# === AI 平台的全局拦截关键词库 ===
 AI_FUSION_KEYWORDS = [
     "openai", "chatgpt", "oaistatic", "oaiusercontent",
     "copilot", "gemini", "antigravity", "anthropic", "claude",
@@ -131,15 +129,6 @@ class HistoryManager:
                     self.history = json.load(f)
                 logger.info(f"📂 Loaded history from {DATA_HISTORY_FILE}")
             except: pass
-        elif os.path.exists(ROOT_HISTORY_FILE):
-            try:
-                with open(ROOT_HISTORY_FILE, 'r') as f: 
-                    self.history = json.load(f)
-                logger.info(f"📂 Loaded history from {ROOT_HISTORY_FILE} (Migration mode)")
-            except: pass
-        else:
-            logger.info("📂 No history found, starting fresh.")
-            
         self.current_time = int(datetime.now().timestamp())
 
     def get_file_hash(self, filepath):
@@ -155,15 +144,6 @@ class HistoryManager:
         for f in expected_files:
             if not os.path.exists(f) or os.path.getsize(f) == 0: return False, src_hash
         return True, src_hash
-
-    def check_anomaly(self, name, current_count):
-        record = self.history.get(name, {})
-        last_count = record.get('rule_count', 0)
-        if last_count > 0 and current_count > 0:
-            drop_ratio = (last_count - current_count) / last_count
-            if drop_ratio > 0.30: # 跌幅 > 30%
-                return True, drop_ratio, last_count
-        return False, 0.0, last_count
 
     def update_record(self, name, src_hash, rule_count):
         self.history[name] = {
@@ -184,9 +164,6 @@ class HistoryManager:
         with open(DATA_HISTORY_FILE, 'w') as f: 
             json.dump(self.history, f, indent=2)
         logger.info(f"💾 Saved history to {DATA_HISTORY_FILE}")
-        if os.path.exists(ROOT_HISTORY_FILE):
-            os.remove(ROOT_HISTORY_FILE)
-            logger.info(f"🧹 Removed legacy {ROOT_HISTORY_FILE}")
 
 def get_smart_filename(rel_path):
     parts = rel_path.split(os.sep)
@@ -208,7 +185,6 @@ def should_skip_file(fname):
         if k in base: return True
     return False
 
-# === [核心修改]：拦截规则集参数下发 ===
 def parse_file(path, ruleset, ai_ruleset=None):
     try:
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:
@@ -222,7 +198,6 @@ def parse_file(path, ruleset, ai_ruleset=None):
                 for l in f: process_entry(l, ruleset, ai_ruleset)
     except: pass
 
-# === [核心修改]：检查 AI 关键字并剥离分配 ===
 def process_entry(line, ruleset, ai_ruleset=None):
     line = line.strip()
     if not line or line.startswith('#'): return
@@ -306,15 +281,6 @@ def get_status_text(days):
     if days == 1: return "Yesterday"
     return f"{days} days ago"
 
-def detect_config_file():
-    try: files = os.listdir('.')
-    except: return "Mihomo_ShuntRules.yaml", False
-    for f in files:
-        if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f: return f, True
-    for f in files:
-         if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f): return f, True
-    return "Mihomo_ShuntRules.yaml", False
-
 def get_yaml_links(raw_base_url):
     try:
         js_files = [f for f in os.listdir('.') if os.path.isfile(f) and f.endswith('.js')]
@@ -340,22 +306,17 @@ def generate_readme(stats):
     bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
     time_badge_val = bj_time
     
-    # 动态获取 GitHub 仓库路径
-    repo_path = os.getenv('GITHUB_REPOSITORY', 'YourName/Repo')
-
     badges = [
         f"![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%20{time_badge_val}-2ea44f?style=flat)",
         f"![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20{total}-blue?style=flat)",
         f"![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat)",
         f"![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat)",
         f"![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat)",
-        f"![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat)",
-        f"![Ready](https://img.shields.io/badge/-PR%20%E7%86%94%E6%96%AD%E6%8B%A6%E6%88%AA-ff69b4?style=flat)"
+        f"![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat)"
     ]
 
     badge_line = " ".join(badges)
 
-    # 🔗 致谢链接
     link_ls = "https://github.com/Loyalsoldier/v2ray-rules-dat"
     link_bm = "https://github.com/blackmatrix7/ios_rule_script"
     link_mihomo = "https://github.com/MetaCubeX/mihomo"
@@ -363,7 +324,6 @@ def generate_readme(stats):
     
     config_link = get_yaml_links(RAW_BASE_URL)
 
-    # 📝 文档结构
     md = [
         f"<div align=\"center\">",
         f"",
@@ -379,7 +339,7 @@ def generate_readme(stats):
         f"* Mihomo (.mrs) : 用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题",
         f"* Loon (.lsr) : 优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
         f"",
-        f"* GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名，确保域名的精准",
+        f"* GeoSite_CN：保留国内优质直连节点，剔除已知海外被墙黑名单，最大化直连带宽",
         f"* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP",
         f"",
         f"## 📍 Mihomo 配置",
@@ -451,7 +411,7 @@ def main():
     logger.info("🔍 扫描源文件...")
     
     rel_path_map = {} 
-    cnt, skip = 0, 0
+    cnt = 0
     
     # 初始化独立的 AI 规则集内存桶
     ai_rs = aggregated["AI_Models"]
@@ -459,7 +419,7 @@ def main():
     for root, _, files in os.walk(SOURCE_DIR):
         rel = os.path.relpath(root, SOURCE_DIR)
         if rel == '.': continue
-        if rel == 'AI_Models': continue # 防止死循环抓取
+        if rel == 'AI_Models': continue
         rs = aggregated[rel]
         for f in files:
             if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip_file(f):
@@ -469,7 +429,6 @@ def main():
                 rel_path_map[rel] = full_path 
                 cnt += 1
                 
-    # 为了让 AI_Models 能够参与后面的正常编译与输出，给它分配一个虚拟来源标记
     if ai_rs.domain_entries or ai_rs.ip_entries:
         rel_path_map["AI_Models"] = "virtual_ai_interceptor"
         
@@ -478,7 +437,6 @@ def main():
     valid_outputs = set()
     updated_count = 0
     skipped_count = 0
-    anomalies = []
     
     sorted_rels = sorted(aggregated.keys(), key=lambda x: (x.count(os.sep), x))
     for rel in sorted_rels:
@@ -488,11 +446,6 @@ def main():
         if not source_path: continue
         
         current_count = len(rs.domain_entries) + len(rs.ip_entries)
-        is_anomaly, drop_ratio, old_count = history.check_anomaly(name, current_count)
-        if is_anomaly:
-            logger.warning(f"🚨 警告: {name} 规则条数骤降 {drop_ratio*100:.1f}% ({old_count} -> {current_count})")
-            anomalies.append((name, drop_ratio, old_count, current_count))
-
         expect_d = bool(rs.domain_entries)
         expect_i = bool(rs.ip_entries)
         expect_l = expect_d or expect_i
@@ -532,46 +485,6 @@ def main():
     history.save()
     generate_readme(stats)
     logger.info(f"🎉 完成: 更新 {updated_count}, 跳过 {skipped_count}, 清理 {removed_zombies}")
-
-    # === PR 熔断拦截机制 执行块 ===
-    if anomalies:
-        logger.warning("🚨 触发 >30% 跌幅熔断机制！开始拦截并创建 PR...")
-        try:
-            current_branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True, text=True).stdout.strip()
-            if current_branch == "HEAD" or not current_branch:
-                current_branch = "main"
-                
-            branch_name = f"alert/rules-dropped-{int(datetime.now().timestamp())}"
-            
-            subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"], check=False)
-            subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
-            
-            subprocess.run(["git", "checkout", "-b", branch_name], check=True)
-            
-            # 🔥 核心修复：安全限定提交范围，杜绝污染 PR
-            subprocess.run(["git", "add", "rule/", "data/", "README.md", "history.json"], check=False)
-            
-            subprocess.run(["git", "commit", "-m", "🚨 熔断警报: 规则数量骤降，触发 PR 拦截机制"], check=True)
-            subprocess.run(["git", "push", "-u", "origin", branch_name], check=True)
-            
-            pr_title = "[🚨 熔断警报] 检测到上游规则大面积删减，请人工审核"
-            pr_body = "### 🚨 规则熔断警报\n\n检测到以下规则数量骤降超过 30%，为防止灾难级误删，系统已自动拦截本次主分支更新：\n\n"
-            for n, dr, oc, nc in anomalies:
-                pr_body += f"- {n}: 骤降 {dr*100:.1f}% ({oc} 条 -> {nc} 条)\n"
-            pr_body += "\n---\n💡 您的决策：\n- ✅ 同意更新：如果是上游正常调整，请点击 `Merge pull request`\n- ❌ 拒绝更新：如果是上游被封或误操作，请点击 `Close pull request`，您的主分支规则将毫发无损地保留。"
-            
-            subprocess.run(["gh", "pr", "create", "--title", pr_title, "--body", pr_body, "--base", current_branch, "--head", branch_name], check=True)
-            logger.info("✅ 拦截 PR 创建成功！已向您的 GitHub 发送提醒。")
-            
-            subprocess.run(["git", "checkout", current_branch], check=True)
-            subprocess.run(["git", "reset", "--hard", "HEAD"], check=True)
-            subprocess.run(["git", "clean", "-fd"], check=False)
-            logger.info("🛡️ 已强制重置本地工作区，主分支受到完美保护！")
-            
-        except Exception as e:
-            logger.error(f"❌ 自动创建 PR 失败: {e}")
-            subprocess.run(["git", "reset", "--hard", "HEAD"], check=False)
-            subprocess.run(["git", "clean", "-fd"], check=False)
 
 if __name__ == "__main__":
     main()

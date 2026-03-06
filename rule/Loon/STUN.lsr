@@ -1,7 +1,7 @@
 # Name = STUN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-07 02:47:05
+# Update = 2026-03-07 03:07:56
 # Total = 366
 
 IP-CIDR,2001:4060:1:1005::10:32,no-resolve

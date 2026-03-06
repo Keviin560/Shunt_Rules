@@ -1,0 +1,91 @@
+DOMAIN-SUFFIX,172mix.com # Foreign IP
+DOMAIN-SUFFIX,40407.com # Blacklisted IP: 172.67.183.207
+DOMAIN-SUFFIX,5566ua.com # Blacklisted IP: 172.67.198.99
+DOMAIN-SUFFIX,a2z.org.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aloys233.top # Foreign IP
+DOMAIN-SUFFIX,amazonaws.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonaws.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonwebservices.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonworkdocs.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonworkdocs.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amzndns-cn.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,anitabi.cn # Blacklisted IP: 172.67.148.20
+DOMAIN-SUFFIX,ao-x.ac.cn # Blacklisted IP: 172.67.210.139
+DOMAIN-SUFFIX,asfiovnxocqpcry.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aws-border.cn # Blacklist: aws
+DOMAIN-SUFFIX,aws-icp-domain-manager.cn # Blacklist: aws
+DOMAIN-SUFFIX,awsapps.cn # Blacklist: aws
+DOMAIN-SUFFIX,awsapps.com.cn # Blacklist: aws
+DOMAIN-SUFFIX,awsstatic.cn # Blacklist: aws
+DOMAIN-SUFFIX,b3log.org # Blacklisted IP: 172.67.185.146
+DOMAIN-SUFFIX,bblmw.com # Blacklisted IP: 172.64.144.14
+DOMAIN-SUFFIX,bsbsb.top # Foreign IP
+DOMAIN-SUFFIX,burningvocabulary.com # Blacklisted IP: 123.108.75.71
+DOMAIN-SUFFIX,chongbuluo.com # Blacklisted IP: 172.67.208.241
+DOMAIN-SUFFIX,chuansongme.com # Blacklisted IP: 23.145.248.126
+DOMAIN-SUFFIX,clk1.top # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,cloudflarechina.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,cloudflarestaging.com # Blacklisted IP: 104.18.28.121
+DOMAIN-SUFFIX,cloudfront-test.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,cn.pool.ntp.org # Blacklisted IP: 162.159.200.1
+DOMAIN-SUFFIX,ctsbw.com # Blacklisted IP: 172.67.155.107
+DOMAIN-SUFFIX,dajieimg.com # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,deepinos.org # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,dxpmedia.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,fanmingming.com # Blacklisted IP: 172.67.220.212
+DOMAIN-SUFFIX,fofa.so # Blacklisted IP: 172.66.148.169
+DOMAIN-SUFFIX,gameloop.com # Blacklisted IP: 172.66.174.89
+DOMAIN-SUFFIX,gmw.com # Blacklisted IP: 141.193.213.10
+DOMAIN-SUFFIX,golinkcn.com # Blacklisted IP: 104.21.80.1
+DOMAIN-SUFFIX,goproxy.io # Blacklisted IP: 172.67.69.138
+DOMAIN-SUFFIX,gxb.io # Blacklisted IP: 172.67.154.87
+DOMAIN-SUFFIX,hacpai.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,haote.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,houdao.com # Blacklisted IP: 104.26.0.241
+DOMAIN-SUFFIX,huangyuhui.net # Blacklisted IP: 172.67.192.152
+DOMAIN-SUFFIX,hugecore.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,ipshu.com # Blacklisted IP: 104.26.3.98
+DOMAIN-SUFFIX,jchat.io # Blacklisted IP: 172.67.210.74
+DOMAIN-SUFFIX,jhwan.com.cn # Blacklisted IP: 104.21.4.43
+DOMAIN-SUFFIX,jianzhi8.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,jiathis.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,jinglingbiaozhu.com # Blacklisted IP: 154.207.79.197
+DOMAIN-SUFFIX,juhuiwan.com.cn # Blacklisted IP: 172.67.187.177
+DOMAIN-SUFFIX,lancdn.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,leanote.com # Blacklisted IP: 172.67.200.101
+DOMAIN-SUFFIX,lkkbrand.com # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,luogu.com.cn # Blacklisted IP: 172.67.164.231
+DOMAIN-SUFFIX,mojidict.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,moonshot.ai # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,morefreegame.com # Blacklisted IP: 1.1.1.29
+DOMAIN-SUFFIX,natfrp.com # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,nwcdcloud.cn # CDN: aws
+DOMAIN-SUFFIX,nwcdcloud.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,nwcddns.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,nwcdinfosec.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,rmbgame.net # Blacklisted IP: 172.67.165.59
+DOMAIN-SUFFIX,route53.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,rqnoj.cn # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,ruby-china.org # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,rubyconfchina.org # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,ruseer.com # Blacklisted IP: 172.65.190.172
+DOMAIN-SUFFIX,rwkv.com # Blacklisted IP: 172.67.167.248
+DOMAIN-SUFFIX,sagemaker.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,shareintelli.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,shelterdome.net # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,sifou.com # Blacklisted IP: 104.21.87.229
+DOMAIN-SUFFIX,starbaby.com # Blacklisted IP: 199.16.156.7
+DOMAIN-SUFFIX,staticfile.org # Blocked CDN: cdn77
+DOMAIN-SUFFIX,t00ls.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,tgprocs.net # Blacklisted IP: 104.26.13.245
+DOMAIN-SUFFIX,tuiwen.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,ucgslb.top # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ugslb.top # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,vijos.org # Blacklisted IP: 35.241.97.55
+DOMAIN-SUFFIX,whlovehome.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,yamibo.com # Blacklisted IP: 172.67.133.64
+DOMAIN-SUFFIX,yfcache.com # Blacklisted IP: 104.21.57.56
+DOMAIN-SUFFIX,yunpan.aliyun.com # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,zhipucn.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,zhuanyewanjia.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,zoom3g.com # Blacklisted IP: 188.114.96.3

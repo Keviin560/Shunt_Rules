@@ -10,7 +10,6 @@
  * ->  动态自愈 UI ：机场没有对应的分组里的节点，会自动隐藏分组，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 或包含 "IP"的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
  * ->  PASS 策略智能分流：针对 Apple 和 Microsoft 流量引入 PASS 策略，实现动态判定分流
- * ->  探针保活机制：全局注入底层 TCP 保活与 HTTP 探针，防止 NAT 链接僵死
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 小白用户必读设置 】
@@ -420,6 +419,8 @@ function main(config) {
             // ===============================================
             'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', 
             'RULE-SET,AdRules,广告拦截',
+            // 屏蔽隐私收集/遥测收集/行为埋点/性能监控/网页性标/诊断数据上传
+            'DOMAIN-REGEX,^(crash|metrics|track|report|api|stat|collect|telemetry|apm|sdk|event|events|trace|beacon|analytics|probe|upload|diag)\\.log\\.,REJECT',
             'RULE-SET,Privacy,隐私保护',
             'RULE-SET,WinSpy,隐私保护',
             'RULE-SET,Hijacking,反劫持',

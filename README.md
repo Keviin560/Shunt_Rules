@@ -12,11 +12,11 @@
 * Mihomo (.mrs) : 用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
 * Loon (.lsr) : 优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
-* GeoSite_CN：保留国内优质直连节点，剔除已知海外被墙黑名单，最大化直连带宽
+* GeoSite_CN：国内直连，剔除海外域名直连，但避免 Steam 游戏下载走代理，最大化直连带宽
 * GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP
 
 ## 📍 Mihomo 配置
->用 `type: http` 引用规则集，覆写参考<sub>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</sub>: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
+>用 `type: http` 引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
 
 <details>
 <summary><strong>示例</strong> </summary>

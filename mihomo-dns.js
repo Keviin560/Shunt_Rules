@@ -1,27 +1,27 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-03-05
+ * 更新日期：2026-03-07
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
- * ->  全局接管 GUI 设置：覆盖客户端基础设置 (端口/嗅探/TUN)，实现底层参数统一
+ * ->  全局接管 GUI 设置：覆盖客户端的设置 (如端口/嗅探/TUN)，实现底层参数统一
  * ->  动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置 240+ 国家与城市中英双语及高频三字码字典
- * ->  动态自愈 UI ：机场没有对应的分组里的节点，会自动隐藏分组，并自动修复依赖
- * ->  智能规则：自动识别名字带 "_IP" 或包含 "IP"的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
+ * ->  自动隐藏无节点分组 ：没有节点的分组会自动隐藏分组，并自动修复依赖
+ * ->  智能规则：自动识别名字带 "_IP" 的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
  * ->  PASS 策略智能分流：针对 Apple 和 Microsoft 流量引入 PASS 策略，实现动态判定分流
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 小白用户必读设置 】
- * ->  全局仓库锚点：代码最顶部设有两个“锚点网址”，可以自行更改所需的全局规则仓库和 icon 仓库
+ * ->  全局仓库锚点：可以自行更改所需的全局规则仓库和 icon 仓库
  * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"。防止浏览器绕过客户端自己去解析 DNS，导致分流失败
  * ->   IPv6 相关设置（二选一）：
- *   - 【不用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 false ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6 ，即关闭 Internet 协议版本 6 (TCP/IPv6)
+ *   - 【不用 IPv6，默认】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 false ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6 ，即关闭 Internet 协议版本 6 (TCP/IPv6)
  *   - 【用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 ture ，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1]
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 🛠️ 修改与维护】
- * ->  如果机场新增了冷门国家未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描器) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
+ * ->  如果冷门国家节点未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
  * ->  想新增独立国家/地区分组（例如新增“英国节点”）：
  *   - 找分组：在 `regionRegexes` (独立分组节点扫描) 中加一行：`['UK', /英国|伦敦|UK/i],`
  *   - 加空盒：在 `sorted` 准备盒子里加一个空数组：`UK: [],`
@@ -119,16 +119,16 @@ function main(config) {
             ['ZA','Africa'], ['EG','Africa'], ['NG','Africa'], ['MA','Africa'], ['DZ','Africa'], ['TN','Africa'], ['LY','Africa'], ['SD','Africa'], ['ET','Africa'], ['KE','Africa'], ['TZ','Africa'], ['UG','Africa'], ['AO','Africa'], ['MZ','Africa'], ['MG','Africa'], ['CM','Africa'], ['CI','Africa'], ['GH','Africa'], ['SN','Africa'], ['ML','Africa'], ['BF','Africa'], ['NE','Africa'], ['TD','Africa'], ['MR','Africa'], ['GN','Africa'], ['SL','Africa'], ['LR','Africa'], ['TG','Africa'], ['BJ','Africa'], ['CF','Africa'], ['CG','Africa'], ['CD','Africa'], ['GA','Africa'], ['GQ','Africa'], ['ST','Africa'], ['RW','Africa'], ['BI','Africa'], ['SO','Africa'], ['DJ','Africa'], ['ER','Africa'], ['ZM','Africa'], ['ZW','Africa'], ['MW','Africa'], ['BW','Africa'], ['NA','Africa'], ['LS','Africa'], ['SZ','Africa'], ['KM','Africa'], ['MU','Africa'], ['SC','Africa'], ['CV','Africa']
         ]);
 
-        // 【独立分组名单】：这些国家的节点单独成立一个策略组
+        // 【独立分组名单】：这些国家（港澳台日韩新美）的节点单独成立一个策略组
         const specialISOs = new Set(['HK', 'MO', 'TW', 'JP', 'KR', 'SG', 'US']);
         
         // 【高级隐身名单】：以下协议加上高随机度的防封锁指纹
         const tlsProtocols = new Set(['vmess', 'vless', 'trojan', 'tuic', 'hysteria2']);
 
-        // 【净化】：遇到“剩余流量”、“到期”这些机场广告，直接过滤掉
+        // 【净化】：过滤掉“剩余流量”、“到期”等信息
         const ignoreRegex = /剩余|到期|过期|官网|流量|联系|套餐|重置|更新|交流群|TG群|QQ群|电报群|群组|邀请|返回|网址|贩卖|倒卖|Expire|Traffic/i;
         
-        // 【独立分组节点扫描】：包含中英文和三字码，一旦匹配上，立刻放到对应的盒子里
+        // 【独立分组扫描】：包含中英文和三字码，一旦匹配上，立刻放到对应的盒子里
         const regionRegexes = [
             ['HK', /香港|HK|Hong Kong|深港|广港/i], 
             ['MO', /澳门|Macau|MO|Macao/i],
@@ -161,7 +161,7 @@ function main(config) {
         for (const proxy of config.proxies) {
             const pName = proxy.name;
             
-            // 如果节点没名字，或者是垃圾广告节点，直接无视
+            // 无视没有名字的节点或广告信息
             if (!pName || ignoreRegex.test(pName)) continue; 
 
             // 【隐身模式】：给高级节点挂上动态指纹
@@ -359,9 +359,9 @@ function main(config) {
         
         // ⚡ 【全自动判定】：
         // 1. 如果填了 customUrl (别人的规则)，就用别人的；没填则自动用顶部锚点拼接
-        // 2. 只要名字里带 "_IP" 或者包含 "IP" (如 GeoIP_CN)，自动按 IP 拦截
+        // 2. 只要名字里带 "_IP" 自动按 IP 拦截（引用了别人的规则，可以视情况添加 “|| name.includes('IP')”，这里表示包含 "IP" (如 GeoIP)）
         const buildRule = (name, customUrl = null) => {
-            const isIP = name.endsWith('_IP') || name.includes('IP'); 
+            const isIP = name.endsWith('_IP'); 
             const finalUrl = customUrl || `${ruleBase}${name}.mrs`; // 统一使用 mrs 后缀拼接
             const isText = finalUrl.endsWith('.txt'); // 自动判断是不是文本格式
 
@@ -390,7 +390,7 @@ function main(config) {
             Lan_IP:         buildRule('Lan_IP'),
             GameDownloadCN: buildRule('GameDownloadCN'),
             GeoSite_CN:     buildRule('GeoSite_CN'), 
-            GeoIP_CN:       buildRule('GeoIP_CN'), 
+            GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             OpenAI:         buildRule('OpenAI'),
             Gemini:         buildRule('Gemini'),
             Claude:         buildRule('Claude'),

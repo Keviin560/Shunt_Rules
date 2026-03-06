@@ -1,262 +1,577 @@
-import asyncio
-import aiohttp
-import ipaddress
-import bisect
-import json
+# 需在 GitHub Actions 里打开 PR 设置，Settings --> Workfolw permissions --> 勾选 Allow GitHub Actions to create and approve pull requests
+
 import os
-import time
+import yaml
+import hashlib
+import subprocess
+import logging
+import shutil
+import re
+import ipaddress
+import json
+from datetime import datetime, timedelta, timezone
+from collections import defaultdict
 
-# --- 核心配置 ---
-TIMEOUT_SEC = 5
-RETRIES = 2
-CONCURRENCY = 64
+GENERATOR_VERSION = "v5.0" 
+SOURCE_DIR = "temp_source/rule/Clash"
+TARGET_DIR_MIHOMO = "rule/Mihomo"
+TARGET_DIR_LOON = "rule/Loon"
+DATA_HISTORY_FILE = "data/history.json"
+ROOT_HISTORY_FILE = "history.json"
 
-RAW_DIR = "raw_data"
-DATA_DIR = "data"
-INJECT_ROOT = "temp_source/rule/Clash"
+README_FILE = "README.md"
+MIHOMO_BIN = "./mihomo"
+IGNORE_KEYWORDS = ["Classical", "Domain", "For_Clash", "No_Resolve", "Clash"]
 
-CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
-LOG_UNRESOLVED = os.path.join(DATA_DIR, "dns_unresolved.txt")   
-LOG_ABANDONED = os.path.join(DATA_DIR, "dns_abandoned.txt")     
-LOG_NON_CN = os.path.join(DATA_DIR, "resolved_non_cn.txt")      
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("DigitalArchitect")
 
-BLACKLIST_KEYWORDS = [
-    "google", "youtube", "facebook", "twitter", "instagram", "telegram",
-    "github", "apple", "microsoft", "amazon", "aws", "azure",
-    "adobe", "steam", "netflix", "tesla", "nvidia", "pornhub",
-    "epicgames", "ubisoft", "discord", "dropbox"
+filename_registry = {}
+KEYWORD_RESCUE_MAP = {
+    "googlevideo": ["googlevideo.com"],
+    "youtube": ["youtube.com", "ytimg.com"],
+    "google": ["google.com", "googleapis.com"],
+    "github": ["github.com", "githubusercontent.com"],
+    "twitter": ["twitter.com", "t.co", "twimg.com"],
+    "telegram": ["telegram.org", "t.me"],
+    "netflix": ["netflix.com", "nflxvideo.net"],
+    "facebook": ["facebook.com", "fbcdn.net"],
+    "instagram": ["instagram.com", "cdninstagram.com"],
+    "openai": ["openai.com"],
+    "chatgpt": ["chatgpt.com", "oaistatic.com", "oaiusercontent.com"],
+    "steam": ["steampowered.com", "steamcommunity.com"],
+    "xbox": ["xbox.com", "xboxlive.com"],
+    "microsoft": ["microsoft.com", "azure.com"]
+}
+
+# === [新增]：AI 平台的全局拦截关键词库 ===
+AI_FUSION_KEYWORDS = [
+    "openai", "chatgpt", "oaistatic", "oaiusercontent",
+    "copilot", "gemini", "antigravity", "anthropic", "claude",
+    "jetbrains.ai", "meta.ai", "llama-api", "perplexity",
+    "mistral", "grok", "x.ai", "trae.ai", "openrouter",
+    "tokenflux", "groq", "together.ai", "fireworks.ai",
+    "hyperbolic", "jina.ai", "gpustack", "voyageai", "vertexai",
+    "poe.com", "cerebras", "vercel.ai", "huggingface", "hf.co", "nvidia"
 ]
-FOREIGN_CDN_FINGERPRINTS = [
-    "akamai", "edgekey", "akadns", "cloudfront", "aws", "azureedge", 
-    "fastly", "cloudflare", "edgecast", "zenlayer", "google", "gvt1.com", 
-    "apigee", "facebook", "cdn77"
-]
 
-class GeoIPEngine:
-    def __init__(self, cn_path, black_paths):
-        print("🛡️ [GeoIP] 初始化清洗引擎...")
-        self.cn_intervals = self._load(cn_path)
-        self.black_intervals = []
-        for p in black_paths: self.black_intervals.extend(self._load(p))
-        self.black_intervals.sort()
-        print(f"   - 原始 CN 段: {len(self.cn_intervals)}")
-        print(f"   - 黑名单 IP 段: {len(self.black_intervals)}")
+def get_metadata():
+    repo_full = os.getenv('GITHUB_REPOSITORY')
+    if repo_full and "/" in repo_full:
+        author = repo_full.split("/")[0]
+        raw_base = f"https://raw.githubusercontent.com/{repo_full}/main"
+        repo_url = f"https://github.com/{repo_full}"
+    else:
+        author = "Unknown"
+        raw_base = "https://raw.githubusercontent.com/Unknown/Test/main"
+        repo_url = "https://github.com/Unknown/Test"
+        repo_full = "YourName/RepoName"
+    return author, raw_base, repo_url, repo_full
 
-    def _load(self, path):
-        intervals = []
-        if not os.path.exists(path): return intervals
-        with open(path, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if not line or not line[0].isdigit(): continue
-                try:
-                    net = ipaddress.ip_network(line, strict=False)
-                    intervals.append((int(net.network_address), int(net.broadcast_address)))
-                except: pass
-        intervals.sort()
-        return intervals
+AUTHOR_NAME, RAW_BASE_URL, REPO_URL, REPO_NAME_DISPLAY = get_metadata()
 
-    def _contains(self, intervals, ip_int):
-        keys = [x[0] for x in intervals]
-        idx = bisect.bisect_right(keys, ip_int) - 1
-        if idx < 0: return False
-        return intervals[idx][0] <= ip_int <= intervals[idx][1]
-
-    def is_pure_cn(self, ip_str):
+class KernelIntrospector:
+    def __init__(self, bin_path):
+        self.bin_path = bin_path
+        if not os.path.exists(bin_path): raise FileNotFoundError(f"内核缺失: {bin_path}")
+        self.needs_format_arg = self._detect()
+    def _detect(self):
         try:
-            ip_int = int(ipaddress.ip_address(ip_str))
-            return self._contains(self.cn_intervals, ip_int) and \
-                   not self._contains(self.black_intervals, ip_int)
+            res = subprocess.run([self.bin_path, "convert-ruleset"], capture_output=True, text=True, timeout=5)
+            out = res.stderr + res.stdout
+            return "<format>" in out or " [format] " in out
         except: return False
+    def get_cmd(self, behavior, src, dst):
+        cmd = [self.bin_path, "convert-ruleset", behavior]
+        if self.needs_format_arg: cmd.append("yaml")
+        cmd.append(src)
+        cmd.append(dst)
+        return cmd
 
-    def export_clean_list(self, raw_cn_path):
-        output_path = os.path.join(INJECT_ROOT, "GeoIP_CN", "list.txt")
-        print(f"🧹 [GeoIP] 导出到: {output_path}")
-        
-        clean_lines = []
-        if os.path.exists(raw_cn_path):
-            with open(raw_cn_path, 'r', encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if not line: continue
-                    try:
-                        net = ipaddress.ip_network(line, strict=False)
-                        ip_int = int(net.network_address)
-                        if not self._contains(self.black_intervals, ip_int):
-                            clean_lines.append(line)
-                    except: pass
-        
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("# NAME: GeoIP:CN\n") 
-            f.write("\n".join(clean_lines))
-        print(f"✅ 生成 IP 规则 (保留: {len(clean_lines)} 条)")
-
-class Cleaner:
-    def __init__(self, geoip_engine):
-        self.geoip = geoip_engine
-        self.sem = asyncio.Semaphore(CONCURRENCY)
-        self.cache = self._load_cache()
-        self.valid_domains = set()
-        self.unresolved = []    
-        self.abandoned = []     
-        self.non_cn = []        
-
-    def _load_cache(self):
-        if os.path.exists(CACHE_FILE):
+class RuleSet:
+    def __init__(self):
+        self.domain_entries = set()
+        self.ip_entries = defaultdict(bool)
+    def add_domain(self, line):
+        line = line.strip().strip("'").strip('"')
+        if not line or line.startswith('#'): return
+        rule_type = "DOMAIN-SUFFIX"
+        value = line
+        if ',' in line:
+            parts = line.split(',')
+            if len(parts) >= 2:
+                t, v = parts[0].upper().strip(), parts[1].strip()
+                if 'DOMAIN' in t: rule_type, value = t, v
+        if len(value) > 2: self.domain_entries.add((rule_type, value))
+    def add_ip(self, line):
+        if not line: return
+        clean = line.replace("'", "").replace('"', "").strip()
+        parts = re.split(r'[,\s]+', clean)
+        target = None
+        no_res = False
+        for p in parts:
+            p = p.strip()
+            if not p or 'IP-' in p.upper(): continue
+            if p.lower() == 'no-resolve': 
+                no_res = True
+                continue
             try:
-                with open(CACHE_FILE, 'r', encoding='utf-8') as f: return json.load(f)
+                ipaddress.ip_network(p, strict=False)
+                target = p
+            except ValueError: continue
+        if target:
+            if not self.ip_entries[target]: self.ip_entries[target] = no_res
+
+class HistoryManager:
+    def __init__(self):
+        self.history = {}
+        if os.path.exists(DATA_HISTORY_FILE):
+            try:
+                with open(DATA_HISTORY_FILE, 'r') as f: 
+                    self.history = json.load(f)
+                logger.info(f"📂 Loaded history from {DATA_HISTORY_FILE}")
             except: pass
-        return {}
-
-    async def resolve(self, session, domain):
-        # 💡 核心修复 1：利用 edns_client_subnet 伪装国内 IP 防止海外测拨误杀
-        url = f"https://dns.alidns.com/resolve?name={domain}&type=A&edns_client_subnet=114.114.114.114"
-        for _ in range(RETRIES + 1):
+        elif os.path.exists(ROOT_HISTORY_FILE):
             try:
-                async with self.sem:
-                    async with session.get(url, timeout=TIMEOUT_SEC) as resp:
-                        if resp.status == 200: return await resp.json()
-            except: await asyncio.sleep(1)
-        return None
-
-    async def inspect(self, session, raw_domain):
-        domain = raw_domain.lower().strip().replace("+.", "").replace("*.", "")
-        if not domain: return
-
-        cached = self.cache.get(domain)
-        if cached:
-            ts = cached['ts']
-            status = cached['status']
-            fail_count = cached.get('failures', 0)
-            age_days = (time.time() - ts) / 86400
-            
-            ttl = 0
-            if status == 'valid': ttl = 180         
-            elif status == 'non_cn': ttl = 365      
-            elif status == 'dead': ttl = 3          
-            elif status == 'abandoned': ttl = 180   
-
-            if age_days < ttl:
-                if status == 'valid': self.valid_domains.add(domain)
-                elif status == 'dead': self.unresolved.append(domain)
-                elif status == 'abandoned': self.abandoned.append(domain)
-                else: self.non_cn.append(f"{domain} # {cached['reason']}")
-                return
-            
-            if status != 'dead': fail_count = 0
+                with open(ROOT_HISTORY_FILE, 'r') as f: 
+                    self.history = json.load(f)
+                logger.info(f"📂 Loaded history from {ROOT_HISTORY_FILE} (Migration mode)")
+            except: pass
         else:
-            fail_count = 0
+            logger.info("📂 No history found, starting fresh.")
+            
+        self.current_time = int(datetime.now().timestamp())
 
-        for kw in BLACKLIST_KEYWORDS:
-            if kw in domain:
-                self._record(domain, 'non_cn', f"Blacklist: {kw}")
-                return
-
-        data = await self.resolve(session, domain)
+    def get_file_hash(self, filepath):
+        if not filepath or not os.path.exists(filepath): return ""
+        with open(filepath, 'rb') as f: return hashlib.md5(f.read()).hexdigest()
         
-        # 💡 核心修复 2：根域名查不到时，智能回退查询 www. 子域名防死链误判
-        if not data or 'Answer' not in data:
-            data = await self.resolve(session, f"www.{domain}")
+    def should_skip(self, name, source_path, expected_files):
+        src_hash = self.get_file_hash(source_path)
+        if not src_hash: return False, ""
+        record = self.history.get(name, {})
+        last_hash = record.get('src_hash', "")
+        if src_hash != last_hash: return False, src_hash
+        for f in expected_files:
+            if not os.path.exists(f) or os.path.getsize(f) == 0: return False, src_hash
+        return True, src_hash
 
-        if not data or 'Answer' not in data:
-            new_fail_count = fail_count + 1
-            if new_fail_count >= 3:
-                self._record(domain, 'abandoned', 'Three Strikes', failures=new_fail_count)
-            else:
-                self._record(domain, 'dead', 'NXDOMAIN/Timeout', failures=new_fail_count)
-            return
+    def check_anomaly(self, name, current_count):
+        record = self.history.get(name, {})
+        last_count = record.get('rule_count', 0)
+        if last_count > 0 and current_count > 0:
+            drop_ratio = (last_count - current_count) / last_count
+            if drop_ratio > 0.30: # 跌幅 > 30%
+                return True, drop_ratio, last_count
+        return False, 0.0, last_count
 
-        has_cn_ip = False
-        reject = None
-        for rec in data['Answer']:
-            if rec['type'] == 5: 
-                t = rec['data'].lower()
-                for fp in FOREIGN_CDN_FINGERPRINTS:
-                    if fp in t: reject = f"CDN: {fp}"; break
-            if rec['type'] == 1: 
-                if self.geoip.is_pure_cn(rec['data']): has_cn_ip = True
-            if reject: break
-
-        if reject: 
-            self._record(domain, 'non_cn', reject)
-        elif has_cn_ip: 
-            self._record(domain, 'valid', 'Verified', failures=0)
-        else: 
-            self._record(domain, 'non_cn', 'Foreign IP')
-
-    def _record(self, domain, status, reason, failures=0):
-        self.cache[domain] = {
-            "status": status, 
-            "ts": int(time.time()), 
-            "reason": reason,
-            "failures": failures
+    def update_record(self, name, src_hash, rule_count):
+        self.history[name] = {
+            'src_hash': src_hash,
+            'updated_at': self.current_time,
+            'gen_ver': GENERATOR_VERSION,
+            'rule_count': rule_count
         }
-        if status == 'valid': self.valid_domains.add(domain)
-        elif status == 'dead': self.unresolved.append(domain)
-        elif status == 'abandoned': self.abandoned.append(domain)
-        else: self.non_cn.append(f"{domain} # {reason}")
-
-    def optimize_subdomains(self):
-        print("✂️ [GeoSite] 泛域名塌陷优化...")
-        sorted_d = sorted(list(self.valid_domains), key=lambda x: (len(x), x))
-        final = []
-        if not sorted_d: return []
-        final_set = set()
-        for domain in sorted_d:
-            parts = domain.split('.')
-            is_redundant = False
-            for i in range(len(parts) - 1):
-                parent = ".".join(parts[i+1:])
-                if parent in final_set:
-                    is_redundant = True
-                    break
-            if not is_redundant:
-                final.append(domain)
-                final_set.add(domain)
-        return sorted(final)
+        
+    def get_days_ago(self, name):
+        record = self.history.get(name, {})
+        last_ts = record.get('updated_at', self.current_time)
+        diff = datetime.fromtimestamp(self.current_time) - datetime.fromtimestamp(last_ts)
+        return diff.days
 
     def save(self):
-        os.makedirs(DATA_DIR, exist_ok=True)
-        with open(CACHE_FILE, 'w', encoding='utf-8') as f: json.dump(self.cache, f)
-        with open(LOG_UNRESOLVED, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.unresolved)))
-        with open(LOG_ABANDONED, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.abandoned)))
-        with open(LOG_NON_CN, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.non_cn)))
-        
-        output_path = os.path.join(INJECT_ROOT, "GeoSite_CN", "list.txt")
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        final_domains = self.optimize_subdomains()
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("# NAME: GeoSite:CN\n")
-            f.write("\n".join(final_domains))
-        print(f"✅ 生成域名规则: {output_path} (数量: {len(final_domains)})")
+        os.makedirs(os.path.dirname(DATA_HISTORY_FILE), exist_ok=True)
+        with open(DATA_HISTORY_FILE, 'w') as f: 
+            json.dump(self.history, f, indent=2)
+        logger.info(f"💾 Saved history to {DATA_HISTORY_FILE}")
+        if os.path.exists(ROOT_HISTORY_FILE):
+            os.remove(ROOT_HISTORY_FILE)
+            logger.info(f"🧹 Removed legacy {ROOT_HISTORY_FILE}")
 
-async def main():
-    raw_cn_ip = os.path.join(RAW_DIR, "geoip_cn.txt")
-    raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt")
-    
-    engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
-    engine.export_clean_list(raw_cn_ip) 
+def get_smart_filename(rel_path):
+    parts = rel_path.split(os.sep)
+    base = os.path.splitext(parts[-1])[0]
+    cand = base
+    stack = parts[:-1]
+    while cand in filename_registry:
+        if filename_registry[cand] == rel_path: return cand
+        if not stack:
+            cand = f"{cand}_{hashlib.md5(rel_path.encode()).hexdigest()[:4]}"
+            break
+        cand = f"{stack.pop()}_{cand}"
+    filename_registry[cand] = rel_path
+    return cand
 
-    cleaner = Cleaner(engine)
-    domains = set()
-    if os.path.exists(os.path.join(RAW_DIR, "geosite_cn.txt")):
-        with open(os.path.join(RAW_DIR, "geosite_cn.txt"), 'r', encoding='utf-8') as f:
-            for l in f: domains.add(l.strip())
+def should_skip_file(fname):
+    base = os.path.splitext(fname)[0]
+    for k in IGNORE_KEYWORDS:
+        if k in base: return True
+    return False
+
+# === [核心修改]：拦截规则集参数下发 ===
+def parse_file(path, ruleset, ai_ruleset=None):
+    try:
+        with open(path, 'r', encoding='utf-8', errors='ignore') as f:
+            if path.endswith(('.yaml', '.yml')):
+                try:
+                    data = yaml.safe_load(f)
+                    if data and 'payload' in data:
+                        for l in data['payload']: process_entry(str(l), ruleset, ai_ruleset)
+                except: pass
+            else:
+                for l in f: process_entry(l, ruleset, ai_ruleset)
+    except: pass
+
+# === [核心修改]：检查 AI 关键字并剥离分配 ===
+def process_entry(line, ruleset, ai_ruleset=None):
+    line = line.strip()
+    if not line or line.startswith('#'): return
+    if line.startswith("['"): line = line.replace('[','').replace(']','').replace("'", "")
     
-    print(f"🚀 开始清洗 {len(domains)} 个域名...")
-    async with aiohttp.ClientSession() as session:
-        tasks = [cleaner.inspect(session, d) for d in domains if d]
-        done = 0
-        for f in asyncio.as_completed(tasks):
-            await f
-            done += 1
-            if done % 500 == 0: print(f"   进度: {done}/{len(tasks)}...", end='\r')
+    target_ruleset = ruleset
+    if ai_ruleset is not None:
+        lower_line = line.lower()
+        if any(kw in lower_line for kw in AI_FUSION_KEYWORDS):
+            target_ruleset = ai_ruleset
+
+    upper = line.upper()
+    if 'DOMAIN' in upper or (not 'IP-' in upper and '.' in line and not line[0].isdigit()):
+        target_ruleset.add_domain(line)
+    else:
+        target_ruleset.add_ip(line)
+
+def build_mihomo(kernel, name, ruleset):
+    h_d, h_i = False, False
+    if ruleset.domain_entries:
+        final_domains = set()
+        raw_candidates = set()
+        for t, v in ruleset.domain_entries:
+            if 'KEYWORD' in t.upper():
+                for kw, domains in KEYWORD_RESCUE_MAP.items():
+                    if kw in v.lower():
+                        for d in domains: raw_candidates.add(d)
+                continue 
+            if 'REGEX' in t.upper(): continue
+            raw_candidates.add(v)
+        for d in raw_candidates:
+            if d.startswith('.'):
+                clean_d = d[1:] 
+                final_domains.add(clean_d)
+                final_domains.add(d) 
+            else:
+                final_domains.add(d)
+                final_domains.add(f".{d}")
+        clean = sorted(list(final_domains))
+        if clean and _compile_mihomo(kernel, name, clean, 'domain'): h_d = True
             
-    cleaner.save()
-    print("\n🎉 清洗流程结束")
+    if ruleset.ip_entries:
+        clean = sorted(ruleset.ip_entries.keys())
+        if _compile_mihomo(kernel, f"{name}_IP", clean, 'ipcidr'): h_i = True
+    return h_d, h_i
+
+def _compile_mihomo(kernel, name, rules, behavior):
+    tmp = f"temp_{name}.yaml"
+    dst = os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs")
+    try:
+        with open(tmp, 'w', encoding='utf-8') as f: yaml.dump({'payload': rules}, f)
+        res = subprocess.run(kernel.get_cmd(behavior, tmp, dst), capture_output=True, text=True, timeout=20)
+        if res.returncode != 0 or os.path.getsize(dst) == 0:
+            if os.path.exists(dst): os.remove(dst)
+            return False
+        return True
+    except: return False
+    finally:
+        if os.path.exists(tmp): os.remove(tmp)
+
+def build_loon(name, ruleset):
+    count = len(ruleset.domain_entries) + len(ruleset.ip_entries)
+    if count == 0: return False
+    dst = os.path.join(TARGET_DIR_LOON, f"{name}.lsr")
+    lines = []
+    for ip, no_res in ruleset.ip_entries.items():
+        lines.append(f"IP-CIDR,{ip}{',no-resolve' if no_res else ''}")
+    for t, v in ruleset.domain_entries: lines.append(f"{t},{v}")
+    lines.sort()
+    lines.sort(key=lambda x: 0 if "no-resolve" in x else (1 if "DOMAIN" in x else 2))
+    bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S')
+    try:
+        with open(dst, 'w', encoding='utf-8') as f:
+            f.write(f"# Name = {name}\n# Author = {AUTHOR_NAME}\n# REPO = {REPO_URL}\n# Update = {bj_time}\n# Total = {count}\n\n")
+            f.write("\n".join(lines))
+        return True
+    except: return False
+
+def get_status_text(days):
+    if days == 0: return "Today"
+    if days == 1: return "Yesterday"
+    return f"{days} days ago"
+
+def detect_config_file():
+    try: files = os.listdir('.')
+    except: return "Mihomo_ShuntRules.yaml", False
+    for f in files:
+        if f.endswith(('.yaml', '.yml')) and "Mihomo" in f and "Shunt" in f: return f, True
+    for f in files:
+         if f.endswith(('.yaml', '.yml')) and ("Mihomo" in f or "Config" in f): return f, True
+    return "Mihomo_ShuntRules.yaml", False
+
+def get_yaml_links(raw_base_url):
+    try:
+        js_files = [f for f in os.listdir('.') if os.path.isfile(f) and f.endswith('.js')]
+        yaml_files = [f for f in os.listdir('.') if os.path.isfile(f) and f.endswith(('.yaml', '.yml'))]
+    except Exception:
+        js_files = []
+        yaml_files = []
+    
+    js_files.sort()
+    yaml_files.sort()
+    files = js_files + yaml_files
+    
+    if not files:
+        return "`未检测到配置文件`"
+        
+    links = [f"[{f}]({raw_base_url}/{f})" for f in files]
+    return " | ".join(links)
+
+def generate_readme(stats):
+    stats.sort(key=lambda x: x[0])
+    total = len(stats)
+    
+    bj_time = (datetime.now(timezone.utc) + timedelta(hours=8)).strftime('%Y.%m.%d') 
+    time_badge_val = bj_time
+    
+    # 动态获取 GitHub 仓库路径
+    repo_path = os.getenv('GITHUB_REPOSITORY', 'YourName/Repo')
+
+    badges = [
+        f"![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%20{time_badge_val}-2ea44f?style=flat)",
+        f"![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20{total}-blue?style=flat)",
+        f"![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat)",
+        f"![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat)",
+        f"![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat)",
+        f"![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat)",
+        f"![Ready](https://img.shields.io/badge/-PR%20%E7%86%94%E6%96%AD%E6%8B%A6%E6%88%AA-ff69b4?style=flat)"
+    ]
+
+    badge_line = " ".join(badges)
+
+    # 🔗 致谢链接
+    link_ls = "https://github.com/Loyalsoldier/v2ray-rules-dat"
+    link_bm = "https://github.com/blackmatrix7/ios_rule_script"
+    link_mihomo = "https://github.com/MetaCubeX/mihomo"
+    link_v2dat = "https://github.com/urlesistiana/v2dat"
+    
+    config_link = get_yaml_links(RAW_BASE_URL)
+
+    # 📝 文档结构
+    md = [
+        f"<div align=\"center\">",
+        f"",
+        f"# 🤖 Auto Shunt Rules", 
+        f"",
+        f"{badge_line}",
+        f"",
+        f"</div>",
+        f"",
+        f"## 📖 项目简述",
+        f"每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则",
+        f"",
+        f"* Mihomo (.mrs) : 用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题",
+        f"* Loon (.lsr) : 优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险",
+        f"",
+        f"* GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名，确保域名的精准",
+        f"* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP",
+        f"",
+        f"## 📍 Mihomo 配置",
+        f">用 `type: http` 引用规则集，覆写参考<sub>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</sub>: {config_link}",
+        f"",
+        f"<details>",
+        f"<summary><strong>示例</strong> </summary>",
+        f"",
+        f"<br>",
+        f"<small>1. 配置规则集</small>",
+        f"",
+        f"```yaml",
+        f"rule-providers:",
+        f"  # 🟢 引用域名规则 (behavior: domain)",
+        f"  Google:",
+        f"    type: http",
+        f"    behavior: domain",
+        f"    format: mrs",
+        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google.mrs\"",
+        f"    path: ./rules/Mihomo/Google.mrs",
+        f"    interval: 86400",
+        f"",
+        f"  # 🟢 引用 IP 规则 (behavior: ipcidr)",
+        f"  Google_IP:",
+        f"    type: http",
+        f"    behavior: ipcidr",
+        f"    format: mrs",
+        f"    url: \"{RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/Google_IP.mrs\"",
+        f"    path: ./rules/Mihomo/Google_IP.mrs",
+        f"    interval: 86400",
+        f"```",
+        f"",
+        f"<small>2. 应用规则</small>",
+        f"",
+        f"```yaml",
+        f"rules:",
+        f"  - RULE-SET,Google,MyProxyGroup",
+        f"  - RULE-SET,Google_IP,MyProxyGroup,no-resolve    # 按需添加 no-resolve 参数",
+        f"```",
+        f"</details>",
+        f"",
+        f"## 🤝 致谢",
+        f"感谢以下项目提供的数据与工具支持：",
+        f"* 数据来源：[Loyalsoldier/v2ray-rules-dat]({link_ls}), [blackmatrix7/ios_rule_script]({link_bm})",
+        f"* 构建工具：[MetaCubeX/mihomo]({link_mihomo}), [urlesistiana/v2dat]({link_v2dat})",
+        f"",
+        f"## 📊 规则索引",
+        f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",
+        f"| :---: | :---: | :---: | :---: |"
+    ]
+    for name, status, has_d, has_i, has_l in stats:
+        mihomo_links = []
+        if has_d: mihomo_links.append(f"[`DOMAIN`]({RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/{name}.mrs)")
+        if has_i: mihomo_links.append(f"[`IP-CIDR`]({RAW_BASE_URL}/{TARGET_DIR_MIHOMO}/{name}_IP.mrs)")
+        m_cell = " \\| ".join(mihomo_links) if mihomo_links else "-"
+        l_cell = f"[`RAW Link`]({RAW_BASE_URL}/{TARGET_DIR_LOON}/{name}.lsr)" if has_l else "-"
+        md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
+        
+    md.append(f"")
+    md.append(f" 免责声明：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规")
+
+    with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
+
+def main():
+    for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
+        os.makedirs(d, exist_ok=True)
+    if not os.path.exists(SOURCE_DIR): return
+    kernel, history, aggregated = KernelIntrospector(MIHOMO_BIN), HistoryManager(), defaultdict(RuleSet)
+    logger.info("🔍 扫描源文件...")
+    
+    rel_path_map = {} 
+    cnt, skip = 0, 0
+    
+    # 初始化独立的 AI 规则集内存桶
+    ai_rs = aggregated["AI_Models"]
+    
+    for root, _, files in os.walk(SOURCE_DIR):
+        rel = os.path.relpath(root, SOURCE_DIR)
+        if rel == '.': continue
+        if rel == 'AI_Models': continue # 防止死循环抓取
+        rs = aggregated[rel]
+        for f in files:
+            if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip_file(f):
+                full_path = os.path.join(root, f)
+                # 传入 ai_rs 进行拦截器接管
+                parse_file(full_path, rs, ai_rs)
+                rel_path_map[rel] = full_path 
+                cnt += 1
+                
+    # 为了让 AI_Models 能够参与后面的正常编译与输出，给它分配一个虚拟来源标记
+    if ai_rs.domain_entries or ai_rs.ip_entries:
+        rel_path_map["AI_Models"] = "virtual_ai_interceptor"
+        
+    logger.info(f"✅ 解析完成。规则组: {len(aggregated)}")
+    stats = []
+    valid_outputs = set()
+    updated_count = 0
+    skipped_count = 0
+    anomalies = []
+    
+    sorted_rels = sorted(aggregated.keys(), key=lambda x: (x.count(os.sep), x))
+    for rel in sorted_rels:
+        rs = aggregated[rel]
+        name = get_smart_filename(rel)
+        source_path = rel_path_map.get(rel)
+        if not source_path: continue
+        
+        current_count = len(rs.domain_entries) + len(rs.ip_entries)
+        is_anomaly, drop_ratio, old_count = history.check_anomaly(name, current_count)
+        if is_anomaly:
+            logger.warning(f"🚨 警告: {name} 规则条数骤降 {drop_ratio*100:.1f}% ({old_count} -> {current_count})")
+            anomalies.append((name, drop_ratio, old_count, current_count))
+
+        expect_d = bool(rs.domain_entries)
+        expect_i = bool(rs.ip_entries)
+        expect_l = expect_d or expect_i
+        expected_files = []
+        if expect_d: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
+        if expect_i: expected_files.append(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
+        if expect_l: expected_files.append(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
+        
+        should_skip_build, src_hash = history.should_skip(name, source_path, expected_files)
+        h_d, h_i, h_l = expect_d, expect_i, expect_l
+        if should_skip_build:
+            skipped_count += 1
+            days = history.get_days_ago(name)
+        else:
+            updated_count += 1
+            h_d, h_i = build_mihomo(kernel, name, rs)
+            h_l = build_loon(name, rs)
+            history.update_record(name, src_hash, current_count)
+            days = 0
+            
+        if h_d: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}.mrs"))
+        if h_i: valid_outputs.add(os.path.join(TARGET_DIR_MIHOMO, f"{name}_IP.mrs"))
+        if h_l: valid_outputs.add(os.path.join(TARGET_DIR_LOON, f"{name}.lsr"))
+        if h_d or h_i or h_l:
+            stats.append((name, get_status_text(days), h_d, h_i, h_l))
+            
+    logger.info("🧹 执行清理...")
+    removed_zombies = 0
+    for d in [TARGET_DIR_MIHOMO, TARGET_DIR_LOON]:
+        if not os.path.exists(d): continue
+        for f in os.listdir(d):
+            full_p = os.path.join(d, f)
+            if full_p not in valid_outputs:
+                os.remove(full_p)
+                removed_zombies += 1
+                
+    history.save()
+    generate_readme(stats)
+    logger.info(f"🎉 完成: 更新 {updated_count}, 跳过 {skipped_count}, 清理 {removed_zombies}")
+
+    # === PR 熔断拦截机制 执行块 ===
+    if anomalies:
+        logger.warning("🚨 触发 >30% 跌幅熔断机制！开始拦截并创建 PR...")
+        try:
+            current_branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], capture_output=True, text=True).stdout.strip()
+            if current_branch == "HEAD" or not current_branch:
+                current_branch = "main"
+                
+            branch_name = f"alert/rules-dropped-{int(datetime.now().timestamp())}"
+            
+            subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"], check=False)
+            subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
+            
+            subprocess.run(["git", "checkout", "-b", branch_name], check=True)
+            
+            # 🔥 核心修复：安全限定提交范围，杜绝污染 PR
+            subprocess.run(["git", "add", "rule/", "data/", "README.md", "history.json"], check=False)
+            
+            subprocess.run(["git", "commit", "-m", "🚨 熔断警报: 规则数量骤降，触发 PR 拦截机制"], check=True)
+            subprocess.run(["git", "push", "-u", "origin", branch_name], check=True)
+            
+            pr_title = "[🚨 熔断警报] 检测到上游规则大面积删减，请人工审核"
+            pr_body = "### 🚨 规则熔断警报\n\n检测到以下规则数量骤降超过 30%，为防止灾难级误删，系统已自动拦截本次主分支更新：\n\n"
+            for n, dr, oc, nc in anomalies:
+                pr_body += f"- {n}: 骤降 {dr*100:.1f}% ({oc} 条 -> {nc} 条)\n"
+            pr_body += "\n---\n💡 您的决策：\n- ✅ 同意更新：如果是上游正常调整，请点击 `Merge pull request`\n- ❌ 拒绝更新：如果是上游被封或误操作，请点击 `Close pull request`，您的主分支规则将毫发无损地保留。"
+            
+            subprocess.run(["gh", "pr", "create", "--title", pr_title, "--body", pr_body, "--base", current_branch, "--head", branch_name], check=True)
+            logger.info("✅ 拦截 PR 创建成功！已向您的 GitHub 发送提醒。")
+            
+            subprocess.run(["git", "checkout", current_branch], check=True)
+            subprocess.run(["git", "reset", "--hard", "HEAD"], check=True)
+            subprocess.run(["git", "clean", "-fd"], check=False)
+            logger.info("🛡️ 已强制重置本地工作区，主分支受到完美保护！")
+            
+        except Exception as e:
+            logger.error(f"❌ 自动创建 PR 失败: {e}")
+            subprocess.run(["git", "reset", "--hard", "HEAD"], check=False)
+            subprocess.run(["git", "clean", "-fd"], check=False)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

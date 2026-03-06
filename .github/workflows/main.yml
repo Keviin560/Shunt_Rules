@@ -10,13 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write    # 👈 [注入点 1] 赋予机器人自动创建 PR 的权限
+      pull-requests: write
 
     steps:
       - name: 📥 检出代码仓库
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: 🚑 强制抹除幽灵子模块 (自愈机制)
+        run: |
+          git rm --cached temp_source || true
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "fix: 彻底抹除幽灵子模块 temp_source" || true
+          git push || true
 
       - name: 💾 恢复域名缓存
         uses: actions/cache@v3
@@ -53,25 +61,23 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      - name: 🧩 准备基础数据 (源码编译 v2dat)
+      - name: 🧩 准备基础数据 (源码编译 v2dat & 数据源替换)
         run: |
           mkdir -p raw_data
           
-          # 1. 现场编译 v2dat
           echo "🛠️ Installing v2dat from source..."
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
-          # 2. 下载数据
           echo "⬇️ Downloading Data Files..."
+          # 🟢 IP 库：保持原样，为了能够提取出 Cloudflare/Google 等黑名单 IP
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
+          # 🟢 域名库：换成 Custom 精修版，自带去广告和直连优化
           wget -q -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat
           
-          # 3. 执行解包
           echo "🔓 Unpacking GeoIP..."
           ./v2dat unpack geoip -o raw_data -f cn geoip.dat
           
-          # 检查解包结果
           if [ ! -f "raw_data/geoip_cn.txt" ]; then
             echo "❌ GeoIP CN extraction failed!"
             exit 1
@@ -97,11 +103,10 @@ jobs:
         run: python scripts/builder.py
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}    # 👈 [注入点 2] 将 Token 环境变量传递给 Python 脚本以执行 gh pr create
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 📤 提交构建产物
         run: |
-          # 清理临时文件
           rm -rf temp_source mihomo raw_data v2dat geoip.dat geosite.dat
           
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -112,12 +117,10 @@ jobs:
              exit 0
           fi
           
-          # 移除根目录历史文件 (如果存在)
           if [ -f "history.json" ] || git ls-files --error-unmatch history.json > /dev/null 2>&1; then
             git rm -f history.json --ignore-unmatch
           fi
           
-          # 提交所有变更
           git add rule/Mihomo/ rule/Loon/ data/ README.md
           
           if git diff --staged --quiet; then

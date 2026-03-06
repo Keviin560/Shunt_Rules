@@ -148,7 +148,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1772818768,
+    "updated_at": 1772822143,
     "gen_ver": "v5.0",
     "rule_count": 366
   },
@@ -873,7 +873,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1772818768,
+    "updated_at": 1772822143,
     "gen_ver": "v5.0",
     "rule_count": 1
   },
@@ -3816,9 +3816,15 @@
     "rule_count": 8712
   },
   "GeoSite_CN": {
-    "src_hash": "be2abbd726739ec561d718aad4c501b0",
-    "updated_at": 1772818768,
+    "src_hash": "231bc21d63984f319a6ecadbe8dd69e0",
+    "updated_at": 1772822143,
     "gen_ver": "v5.0",
-    "rule_count": 1817
+    "rule_count": 4029
+  },
+  "AI_Models": {
+    "src_hash": "",
+    "updated_at": 1772822143,
+    "gen_ver": "v5.0",
+    "rule_count": 251
   }
 }

@@ -2,7 +2,7 @@
 
 # 🤖 Auto Shunt Rules
 
-![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%202026.03.07-2ea44f?style=flat) ![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20691-blue?style=flat) ![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat) ![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat) ![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat) ![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat) ![Ready](https://img.shields.io/badge/-PR%20%E7%86%94%E6%96%AD%E6%8B%A6%E6%88%AA-ff69b4?style=flat)
+![Update](https://img.shields.io/badge/-%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%202026.03.07-2ea44f?style=flat) ![Total](https://img.shields.io/badge/-%E8%A7%84%E5%88%99%E6%80%BB%E6%95%B0%20691-blue?style=flat) ![Anchor](https://img.shields.io/badge/-%E5%8F%8C%E9%87%8D%E9%94%9A%E5%AE%9A-8e44ad?style=flat) ![Sort](https://img.shields.io/badge/-%E6%99%BA%E8%83%BD%E6%8E%92%E5%BA%8F-009688?style=flat) ![Audit](https://img.shields.io/badge/-DNS%20%E5%AE%A1%E8%AE%A1-f44336?style=flat) ![Pure](https://img.shields.io/badge/-%E7%BA%AF%E5%87%80%E6%A0%87%E5%B0%BA-007bff?style=flat)
 
 </div>
 
@@ -12,11 +12,11 @@
 * Mihomo (.mrs) : 用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
 * Loon (.lsr) : 优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
 
-* GeoSite_CN：剔除死链、伪直连（指纹识别）和境外 CDN 域名，确保域名的精准
+* GeoSite_CN：保留国内优质直连节点，剔除已知海外被墙黑名单，最大化直连带宽
 * GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP
 
 ## 📍 Mihomo 配置
->用 `type: http` 引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
+>用 `type: http` 引用规则集，覆写参考<sub>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</sub>: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
 
 <details>
 <summary><strong>示例</strong> </summary>
@@ -88,6 +88,7 @@ rules:
 | 9to5 | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/9to5.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/9to5.lsr) | 8 days ago |
 | ABC | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ABC.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ABC.lsr) | 8 days ago |
 | AFP | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AFP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AFP.lsr) | 22 days ago |
+| AI_Models | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AI_Models.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AI_Models.lsr) | Today |
 | ALJazeera | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ALJazeera.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ALJazeera.lsr) | 22 days ago |
 | AMD | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AMD.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AMD.lsr) | 8 days ago |
 | AMP | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AMP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/AMP.lsr) | 8 days ago |
@@ -139,7 +140,6 @@ rules:
 | Anime | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Anime.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Anime.lsr) | 22 days ago |
 | Anjuke | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Anjuke.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Anjuke.lsr) | 22 days ago |
 | Anonv | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Anonv.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Anonv.lsr) | 8 days ago |
-| Anthropic | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Anthropic.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Anthropic.lsr) | 22 days ago |
 | Antutu | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Antutu.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Antutu.lsr) | 22 days ago |
 | Apifox | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apifox.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Apifox.lsr) | 22 days ago |
 | Apkpure | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apkpure.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Apkpure.lsr) | 8 days ago |

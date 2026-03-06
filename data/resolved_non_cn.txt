@@ -1,1204 +1,545 @@
-05sun.com # Foreign IP
-172mix.com # Foreign IP
-178.com # Foreign IP
-17cdn.com # Foreign IP
-1nongjing.com # Foreign IP
-2265.com # Foreign IP
-258.com # CDN: google
-2cto.com # Foreign IP
-3000.com # Foreign IP
-32r.com # Foreign IP
-360aiyi.com # Foreign IP
-360chou.com # Foreign IP
-360jq.com # Foreign IP
-360kan.com # Foreign IP
-360totalsecurity.com # Foreign IP
-365azw.com # Foreign IP
-37.com # Foreign IP
-3h3.com # Foreign IP
-40407.com # Foreign IP
-423down.com # Foreign IP
-4399api.com # Foreign IP
-4399api.net # Foreign IP
-4399youpai.com # Foreign IP
-4thworkshop.com # Foreign IP
-500.com # Foreign IP
-51dzt.com # Foreign IP
-51sole.com # Foreign IP
-51yes.com # Foreign IP
-5566ua.com # Foreign IP
-5858.com # Foreign IP
-5bite.com # Foreign IP
-6655.com # Foreign IP
-900.la # Foreign IP
-900cha.com # Foreign IP
-917.com # Foreign IP
-95516.com # Foreign IP
-a9vg.com # Foreign IP
-aboutamazon.cn # Blacklist: amazon
-acadn.com # Foreign IP
-acplay.net # Foreign IP
-adcommerce.cn # Foreign IP
-adidas.cn # Foreign IP
-adidas.com.cn # CDN: edgekey
-adidasspecialtysports.cn # Foreign IP
-adobedc.cn # Blacklist: adobe
-aerogard.com.cn # Foreign IP
-afdian.com # Foreign IP
-agora.io # Foreign IP
-airwick.com.cn # Foreign IP
-aiskycn.com # Foreign IP
-aizhan.com # Foreign IP
-akamai.com # Foreign IP
-alexafund.cn # Foreign IP
-alexafund.com.cn # Foreign IP
-aloys233.top # Foreign IP
-alphabet.com.cn # Foreign IP
-alphabet.net.cn # Foreign IP
-alphassl.com # Foreign IP
-amazon.cn # Blacklist: amazon
-amazonaws.cn # Blacklist: amazon
-amazonaws.com.cn # Blacklist: amazon
-amazonbusiness.cn # Blacklist: amazon
-amazonbusiness.com.cn # Blacklist: amazon
-amazonchoice.cn # Blacklist: amazon
-amazonchoice.com.cn # Blacklist: amazon
-amazonchoices.cn # Blacklist: amazon
-amazonchoices.com.cn # Blacklist: amazon
-amazoninspire.cn # Blacklist: amazon
-amazoninspire.com.cn # Blacklist: amazon
-amazonlaunchpad.cn # Blacklist: amazon
-amazonlaunchpad.com.cn # Blacklist: amazon
-amazonlending.com.cn # Blacklist: amazon
-amazonnow.cn # Blacklist: amazon
-amazonnow.com.cn # Blacklist: amazon
-amazonprimevideo.cn # Blacklist: amazon
-amazonprimevideo.com.cn # Blacklist: amazon
-amazonwebservices.com.cn # Blacklist: amazon
-amazonworkdocs.cn # Blacklist: amazon
-amazonworkdocs.com.cn # Blacklist: amazon
-analog.com # Foreign IP
-anfutong.cn # Foreign IP
-anfutong.com.cn # Foreign IP
-aotrip.net # Foreign IP
-apple-appstore.cn # Blacklist: apple
-apple-dns.cn # Blacklist: apple
-apple-dns.com.cn # Blacklist: apple
-apple-ibooks.cn # Blacklist: apple
-apple-icloud.cn # Blacklist: apple
-apple-itunes.cn # Blacklist: apple
-apple-maps.cn # Blacklist: apple
-apple-store.cn # Blacklist: apple
-apple.cn # Blacklist: apple
-apple.com.cn # Blacklist: apple
-appleappstore.cn # Blacklist: apple
-applecenter.cn # Blacklist: apple
-applecenter.com.cn # Blacklist: apple
-applecomputer.cn # Blacklist: apple
-applecomputer.com.cn # Blacklist: apple
-appledns.cn # Blacklist: apple
-appledns.com.cn # Blacklist: apple
-appleicloud.cn # Blacklist: apple
-applepaycash.cn # Blacklist: apple
-applepaycash.com.cn # Blacklist: apple
-applepaysupplies.cn # Blacklist: apple
-applepaysupplies.com.cn # Blacklist: apple
-applesiri.cn # Blacklist: apple
-applestore.cn # Blacklist: apple
-applestore.com.cn # Blacklist: apple
-appletv4.cn # Blacklist: apple
-appletv4.com.cn # Blacklist: apple
-appstoreapple.cn # Blacklist: apple
-assoc-amazon.cn # Blacklist: amazon
-autohome.tel # Foreign IP
-aws-border.cn # Blacklist: aws
-aws-icp-domain-manager.cn # Blacklist: aws
-awsapps.cn # Blacklist: aws
-awsapps.com.cn # Blacklist: aws
-awsstatic.cn # Blacklist: aws
-azure-api.cn # Blacklist: azure
-azure-apihub.cn # Blacklist: azure
-azure-automation.cn # Blacklist: azure
-azure-connectedvehicles-stage.cn # Blacklist: azure
-azure-connectedvehicles.cn # Blacklist: azure
-azure-devices-provisioning.cn # Blacklist: azure
-azure-devices.cn # Blacklist: azure
-azure-dns-1.cn # Blacklist: azure
-azure-dns-10.cn # Blacklist: azure
-azure-dns-2.cn # Blacklist: azure
-azure-dns-3.cn # Blacklist: azure
-azure-dns-4.cn # Blacklist: azure
-azure-dns-5.cn # Blacklist: azure
-azure-dns-6.cn # Blacklist: azure
-azure-dns-7.cn # Blacklist: azure
-azure-dns-8.cn # Blacklist: azure
-azure-dns-9.cn # Blacklist: azure
-azure-dns.cn # Blacklist: azure
-azure.cn # Blacklist: azure
-azurecr-test.cn # Blacklist: azure
-azurecr.cn # Blacklist: azure
-azurehdinsight.cn # Blacklist: azure
-azureiotsuite.cn # Blacklist: azure
-azuremresolver.cn # Blacklist: azure
-azureprivatedns.cn # Blacklist: azure
-azurerms.cn # Blacklist: azure
-azuresandbox.cn # Blacklist: azure
-b3log.org # Foreign IP
-baijiayun.com # Foreign IP
-bambulab.com # Foreign IP
-banmaaike.com # Foreign IP
-bbbcdns.com # Foreign IP
-bblmw.com # Foreign IP
-bdmyandex.com # Foreign IP
-beatsbydre.com # Foreign IP
-beatsbydre.com.cn # Foreign IP
-beibao.cn # Foreign IP
-beibao.com.cn # Foreign IP
-beihaidc.com # Foreign IP
-best-inc.com # Foreign IP
-bestbuy.cn # Foreign IP
-bestbuy.com.cn # Foreign IP
-bestvcdn.net # Foreign IP
-bitauto.com # Foreign IP
-bootcdn.net # Foreign IP
-bootcss.com # Foreign IP
-bridgestone.cn # Foreign IP
-bsbsb.top # Foreign IP
-buke999.com # Foreign IP
-burningvocabulary.com # Foreign IP
-cabbagebox.com # Foreign IP
-caiyun.com # Foreign IP
-caiyunapp.com # Foreign IP
-calgon.cn # Foreign IP
-camcard.com # Foreign IP
-camscanner.com # Foreign IP
-cang.com # Foreign IP
-cardbaobao.com # Foreign IP
-cbjq.com # Foreign IP
-cczq.net # Foreign IP
-ceblease.com # Foreign IP
-chainnode.com # Foreign IP
-changdunovel.com # Foreign IP
-chazhengla.com # Foreign IP
-chaziyu.com # Foreign IP
-chinadsl.net # Foreign IP
-chinanews.com # Foreign IP
-chinapp.net # Foreign IP
-chinaunix.net # Foreign IP
-chinazns.com # Foreign IP
-chiphell.com # Foreign IP
-chongbuluo.com # Foreign IP
-chuansong.me # Foreign IP
-chuansongme.com # Foreign IP
-chugou360.com # Foreign IP
-chujingapp.com # Foreign IP
-chuyu.me # Foreign IP
-ciccwm.com # Foreign IP
-cisco.cn # Foreign IP
-cisco.com.cn # Foreign IP
-ckd.im # Foreign IP
-clearasil.cn # Foreign IP
-clearasil.com.cn # Foreign IP
-cloudflarestaging.com # Foreign IP
-cloudxns.com # Foreign IP
-cn-cdn1.skymansion.net # Foreign IP
-cn.bing.com # Foreign IP
-cnanzhi.com # Foreign IP
-cnb.cool # Foreign IP
-cnepub.com # Foreign IP
-cnfol.com # Foreign IP
-codechina.net # Foreign IP
-coding.me # Foreign IP
-connectcommerce.com.cn # Foreign IP
-cookicut.com # Foreign IP
-coolapk.com # Foreign IP
-coolapkmarket.com # Foreign IP
-coolbuy.com # Foreign IP
-cowlevel.net # Foreign IP
-csbew.com # Foreign IP
-csdn.com # Foreign IP
-ctiforum.com # Foreign IP
-ctsbw.com # Foreign IP
-cwxzx.com # Foreign IP
-cyagen.com # Foreign IP
-cyber-bay.cn # Foreign IP
-dadajiasu.com # Foreign IP
-dajieimg.com # CDN: cloudflare
-dandanplay.com # Foreign IP
-danji6.com # Foreign IP
-danjuanfunds.com # Foreign IP
-dataeye.com # Foreign IP
-dazijia.com # Foreign IP
-dcdapp.com # Foreign IP
-dcg.microsoft.com # Blacklist: microsoft
-dd373.com # Foreign IP
-ddooo.com # Foreign IP
-dearedu.com # Foreign IP
-deepinos.org # Foreign IP
-deepseek.com # Foreign IP
-dengguobi.com # Foreign IP
-develenv.com # Foreign IP
-dgphospital.com # Foreign IP
-dianchacha.com # Foreign IP
-dianwannan.com # Foreign IP
-dida365.com # CDN: aws
-dishwashingexpert.com.cn # Foreign IP
-dji.com # Foreign IP
-dji.net # Foreign IP
-djicdn.com # Foreign IP
-djigate.com # Foreign IP
-dl.delivery.mp.microsoft.com # Blacklist: microsoft
-dl.steam.clngaa.com # Blacklist: steam
-dlgslb.net # Foreign IP
-dockone.io # Foreign IP
-dogedoge.com # Foreign IP
-dongchedi.com # Foreign IP
-dongchediapp.com # Foreign IP
-doubao.com # Foreign IP
-doudou.com # Foreign IP
-douxie.com # Foreign IP
-douyinfe.com # Foreign IP
-douyu.com # Foreign IP
-download.windowsupdate.com # CDN: fastly
-downxia.com # Foreign IP
-duote.com # Foreign IP
-durexchina.com.cn # Foreign IP
-dwion.com # Foreign IP
-dxpmedia.com # Foreign IP
-dxy.com # Foreign IP
-dzdvip.com # Foreign IP
-dzw3.com # Foreign IP
-dzwww.com # Foreign IP
-easiu.com # Foreign IP
-eastsoo.com # Foreign IP
-ebay.com.cn # Foreign IP
-ebay.net.cn # Foreign IP
-ebay.org.cn # Foreign IP
-ebay.yn.cn # Foreign IP
-ebay.zj.cn # Foreign IP
-ebayadvertising.cn # Foreign IP
-ebayclassifieds.cn # Foreign IP
-ebayclassifieds.com.cn # Foreign IP
-ebaydesc.cn # Foreign IP
-ebaydesc.com.cn # Foreign IP
-ebaydns.cn # Foreign IP
-ebayenterprise.cn # Foreign IP
-ebayenterprise.com.cn # Foreign IP
-ebaymotors.cn # Foreign IP
-ebaymotors.com.cn # Foreign IP
-ebaypedia.cn # Foreign IP
-ebaypedia.com.cn # Foreign IP
-ebayshopping.cn # Foreign IP
-ebayshopping.com.cn # Foreign IP
-ebaystores.cn # Foreign IP
-ebchinaintl.com # Foreign IP
-ebfortune.com # Foreign IP
-ebico.com # Foreign IP
-ecjobhome.com # Foreign IP
-emumax.com # Foreign IP
-enfinitas.com.cn # Foreign IP
-esp8266.com # Foreign IP
-espressif.com # Foreign IP
-expreview.com # Foreign IP
-fanmingming.com # Foreign IP
-fanqienovel.com # Foreign IP
-farfetch.cn # Foreign IP
-farfetch.com.cn # Foreign IP
-fastapi.net # Foreign IP
-feimaoyun.com # Foreign IP
-feiniaomy.com # Foreign IP
-ffbuddy.com # Foreign IP
-flxdns.com # Foreign IP
-fm3838.com # Foreign IP
-fnos.net # Foreign IP
-fofa.info # CDN: cloudflare
-fofa.so # Foreign IP
-forevernine.com # Foreign IP
-fqjob.net # Foreign IP
-frontrow.com.cn # Foreign IP
-full:activation-v2.kaspersky.com # Foreign IP
-full:adcdownload.apple.com # Blacklist: apple
-full:adcdownload.apple.com.akadns.net # Blacklist: apple
-full:adservice.google.com # Blacklist: google
-full:alibaba.cdn.steampipe.steamcontent.com # Blacklist: steam
-full:amp-api-edge-lb-cn.itunes-apple.com.akadns.net # Blacklist: apple
-full:amp-api-edge-lb.itunes-apple.com.akadns.net # Blacklist: apple
-full:amp-api-edge.apps.apple.com # Blacklist: apple
-full:amp-api-edge.music.apple.com # Blacklist: apple
-full:amp-api-search-edge.apps.apple.com # Blacklist: apple
-full:amp-api-updates.apps.apple.com # Blacklist: apple
-full:amp-api.apps.apple.com # Blacklist: apple
-full:amp-api.media.apple.com # Blacklist: apple
-full:amp-api.music.apple.com # Blacklist: apple
-full:aod-ssl.itunes.apple.com # Blacklist: apple
-full:aod.itunes.apple.com # Blacklist: apple
-full:api-edge.apps.apple.com # Blacklist: apple
-full:app-site-association.cdn-apple.com # Blacklist: apple
-full:appldnld.apple.com # Blacklist: apple
-full:appleid.cdn-apple.com # Blacklist: apple
-full:apptrailers.itunes.apple.com # Blacklist: apple
-full:auth.music.apple.com # Blacklist: apple
-full:avail.googleflights.net # Blacklist: google
-full:bag-cdn.itunes-apple.com.akadns.net # Blacklist: apple
-full:bag.itunes.apple.com # Blacklist: apple
-full:bg.v4.a.dl.ws.microsoft.com # Blacklist: microsoft
-full:bg4.v4.a.dl.ws.microsoft.com # Blacklist: microsoft
-full:bj1.api.bing.com # Foreign IP
-full:bookkeeper.itunes.apple.com # Blacklist: apple
-full:build.microsoft.com # Blacklist: microsoft
-full:c.android.clients.google.com # Blacklist: google
-full:c.pki.goog # CDN: google
-full:cache-management-prod.google.com # Blacklist: google
-full:cache.pack.google.com # Blacklist: google
-full:cdn-cn.apple-mapkit.com # Blacklist: apple
-full:cdn-cn1.apple-mapkit.com # Blacklist: apple
-full:cdn-cn2.apple-mapkit.com # Blacklist: apple
-full:cdn-cn3.apple-mapkit.com # Blacklist: apple
-full:cdn-cn4.apple-mapkit.com # Blacklist: apple
-full:cdn.ampproject.org # Foreign IP
-full:cdn.apple-mapkit.com # Blacklist: apple
-full:cdn1.apple-mapkit.com # Blacklist: apple
-full:cdn2.apple-mapkit.com # Blacklist: apple
-full:cdn3.apple-mapkit.com # Blacklist: apple
-full:cdn4.apple-mapkit.com # Blacklist: apple
-full:cds.apple.com # Blacklist: apple
-full:cds.apple.com.akadns.net # Blacklist: apple
-full:cdsassets.apple.com # Blacklist: apple
-full:certs-lb.apple.com.akadns.net # Blacklist: apple
-full:certs.apple.com # Blacklist: apple
-full:cl1-cdn.origin-apple.com.akadns.net # Blacklist: apple
-full:cl1.apple.com # Blacklist: apple
-full:cl2-cdn.origin-apple.com.akadns.net # Blacklist: apple
-full:cl2-cn.apple.com # Blacklist: apple
-full:cl2.apple.com # Blacklist: apple
-full:cl3-cdn.origin-apple.com.akadns.net # Blacklist: apple
-full:cl3.apple.com # Blacklist: apple
-full:cl4-cdn.origin-apple.com.akadns.net # Blacklist: apple
-full:cl4-cn.apple.com # Blacklist: apple
-full:cl4.apple.com # Blacklist: apple
-full:cl5-cdn.origin-apple.com.akadns.net # Blacklist: apple
-full:cl5.apple.com # Blacklist: apple
-full:clickserver.googleads.com # Blacklist: google
-full:client-api.itunes.apple.com # Blacklist: apple
-full:clientflow.apple.com # Blacklist: apple
-full:clientflow.apple.com.akadns.net # Blacklist: apple
-full:clientservices.googleapis.com # Blacklist: google
-full:cma.itunes.apple.com # Blacklist: apple
-full:cn-smp-paymentservices.apple.com # Blacklist: apple
-full:cn.download.nvidia.com # Blacklist: nvidia
-full:cn.windowssearch.com # Foreign IP
-full:cnappinstall.googleadapis.com # Blacklist: google
-full:communities.apple.com # Blacklist: apple
-full:configuration.apple.com # Blacklist: apple
-full:configuration.apple.com.akadns.net # Blacklist: apple
-full:content.googleadapis.com # Blacklist: google
-full:crashlyticsreports-pa.googleapis.com # Blacklist: google
-full:crl-lb.apple.com.akadns.net # Blacklist: apple
-full:crl.apple.com # Blacklist: apple
-full:crl.kaspersky.com # Foreign IP
-full:crl.pki.goog # CDN: google
-full:crls.pki.goog # CDN: google
-full:cstat.apple.com # Blacklist: apple
-full:cstat.cdn-apple.com # Blacklist: apple
-full:dd-cdn.origin-apple.com.akadns.net # Blacklist: apple
-full:dejavu.apple.com # Blacklist: apple
-full:devblogs.microsoft.com # Blacklist: microsoft
-full:developer.microsoft.com # Blacklist: microsoft
-full:devimages-cdn.apple.com # Blacklist: apple
-full:devstreaming-cdn.apple.com # Blacklist: apple
-full:dg-meta.video.google.com # Blacklist: google
-full:discussionschinese.apple.com # Blacklist: apple
-full:dl.google.com # Blacklist: google
-full:dl.l.google.com # Blacklist: google
-full:docs.microsoft.com # Blacklist: microsoft
-full:download.developer.apple.com # Blacklist: apple
-full:download.microsoft.com # Blacklist: microsoft
-full:download.mlcc.google.com # Blacklist: google
-full:download.tensorflow.google.com # Blacklist: google
-full:download.visualstudio.microsoft.com # Blacklist: microsoft
-full:downloaddispatch.itunes.apple.com # Blacklist: apple
-full:emmapplecodevice.googleapis.com # Blacklist: google
-full:emoi-cncdn.bing.com # Foreign IP
-full:experiments.apple.com # Blacklist: apple
-full:fides-pol.apple.com # Blacklist: apple
-full:fontfiles.googleapis.com # Blacklist: google
-full:fonts.googleapis.com # Blacklist: google
-full:fs.microsoft.com # Blacklist: microsoft
-full:geetest.datasink.sensorsdata.cn # Foreign IP
-full:go.corp.google.com # Blacklist: google
-full:google-analytics-cn.com # Blacklist: google
-full:google-analytics.com # Blacklist: google
-full:googleadservices-cn.com # Blacklist: google
-full:googleadservices.com # Blacklist: google
-full:googleanalytics.com # Blacklist: google
-full:googleapis-cn.com # Blacklist: google
-full:googleapps-cn.com # Blacklist: google
-full:googleflights-cn.net # Blacklist: google
-full:googleoptimize-cn.com # Blacklist: google
-full:googleoptimize.com # Blacklist: google
-full:googlesyndication-cn.com # Blacklist: google
-full:googlesyndication.com # Blacklist: google
-full:googletagmanager-cn.com # Blacklist: google
-full:googletagmanager.com # Blacklist: google
-full:googletagservices-cn.com # Blacklist: google
-full:googletagservices.com # Blacklist: google
-full:googletraveladservices-cn.com # Blacklist: google
-full:googletraveladservices.com # Blacklist: google
-full:googlevads-cn.com # Blacklist: google
-full:gs-loc-cn.apple.com # Blacklist: apple
-full:gs-loc.apple.com # Blacklist: apple
-full:gsp10-ssl-cn.ls.apple.com # Blacklist: apple
-full:gsp12-cn.ls.apple.com # Blacklist: apple
-full:gsp13-cn.ls.apple.com # Blacklist: apple
-full:gsp4-cn.ls.apple.com # Blacklist: apple
-full:gsp4-cn.ls.apple.com.edgekey.net.globalredir.akadns.net # Blacklist: apple
-full:gsp5-cn.ls.apple.com # Blacklist: apple
-full:gsp85-cn-ssl.ls.apple.com # Blacklist: apple
-full:gspe11-2-cn-ssl.ls.apple.com # Blacklist: apple
-full:gspe12-cn-ssl.ls.apple.com # Blacklist: apple
-full:gspe19-2-cn-ssl.ls-apple.com.akadns.net # Blacklist: apple
-full:gspe19-2-cn-ssl.ls.apple.com # Blacklist: apple
-full:gspe19-cn-ssl.ls.apple.com # Blacklist: apple
-full:gspe19-cn.ls-apple.com.akadns.net # Blacklist: apple
-full:gspe19-cn.ls.apple.com # Blacklist: apple
-full:gspe21-ssl.ls.apple.com # Blacklist: apple
-full:gspe35-ssl.ls.apple.com # Blacklist: apple
-full:gspe79-cn-ssl.ls.apple.com # Blacklist: apple
-full:gspe85-cn-ssl.ls.apple.com # Blacklist: apple
-full:gstaticadssl.l.google.com # Blacklist: google
-full:guzzoni-apple-com.v.aaplimg.com # Blacklist: apple
-full:guzzoni.apple.com # Blacklist: apple
-full:guzzoni.smoot.apple.com # Blacklist: apple
-full:i.pki.goog # CDN: google
-full:icloud.cdn-apple.com # Blacklist: apple
-full:images-cn-8.ssl-images-amazon.com # Blacklist: amazon
-full:images-cn.ssl-images-amazon.com # Blacklist: amazon
-full:images.apple.com.edgekey.net.globalredir.akadns.net # Blacklist: apple
-full:imasdk.googleapis.com # Blacklist: google
-full:inappcheck-cn.itunes-apple.com.akadns.net # Blacklist: apple
-full:inappcheck-lb.itunes-apple.com.akadns.net # Blacklist: apple
-full:inappcheck.itunes.apple.com # Blacklist: apple
-full:init-kt.apple.com # Blacklist: apple
-full:init-p01md-lb.push-apple.com.akadns.net # Blacklist: apple
-full:init-p01md.apple.com # Blacklist: apple
-full:init-p01st-lb.push-apple.com.akadns.net # Blacklist: apple
-full:init-p01st.push.apple.com # Blacklist: apple
-full:init-s01st-lb.push-apple.com.akadns.net # Blacklist: apple
-full:init-s01st.push.apple.com # Blacklist: apple
-full:init.ess.apple.com # Blacklist: apple
-full:init.gc-lb.apple.com.akadns.net # Blacklist: apple
-full:init.gc.apple.com # Blacklist: apple
-full:init.itunes.apple.com # Blacklist: apple
-full:iosapps.itunes.apple.com # Blacklist: apple
-full:ipcdn.apple.com # Blacklist: apple
-full:iphone-ld.apple.com # Blacklist: apple
-full:iphone-ld.origin-apple.com.akadns.net # Blacklist: apple
-full:is-ssl.mzstatic.com-cn-lb.itunes-apple.com.akadns.net # Blacklist: apple
-full:itunes-apple.com.akadns.net # Blacklist: apple
-full:itunes.apple.com # Blacklist: apple
-full:itunesconnect.apple.com # Blacklist: apple
-full:js-cdn.music.apple.com # Blacklist: apple
-full:km.support.apple.com # Blacklist: apple
-full:l2-uberproxy.corp.google.com # Blacklist: google
-full:learn.microsoft.com # Blacklist: microsoft
-full:logger-dev.corp.google.com # Blacklist: google
-full:logger.corp.google.com # Blacklist: google
-full:login.corp.google.com # Blacklist: google
-full:maps.apple.com # Blacklist: apple
-full:mesu-cdn.apple.com.akadns.net # Blacklist: apple
-full:mesu-china.apple.com.akadns.net # Blacklist: apple
-full:mesu.apple.com # Blacklist: apple
-full:misc-assets.itunes.apple.com # Blacklist: apple
-full:ml.cdn-apple.com # Blacklist: apple
-full:music.apple.com # Blacklist: apple
-full:musicstatus.music.apple.com # Blacklist: apple
-full:mvod.itunes.apple.com # Blacklist: apple
-full:myapp.itunes.apple.com # Blacklist: apple
-full:myvs.download.prss.microsoft.com # Blacklist: microsoft
-full:np-edge.itunes.apple.com # Blacklist: apple
-full:o.pki.goog # CDN: google
-full:ocsp-lb.apple.com.akadns.net # Blacklist: apple
-full:ocsp.apple.com # Blacklist: apple
-full:ocsp.pki.goog # CDN: google
-full:ocsp2-lb.apple.com.akadns.net # Blacklist: apple
-full:ocsp2.apple.com # Blacklist: apple
-full:oemsoc.download.prss.microsoft.com # Blacklist: microsoft
-full:officecdn.microsoft.com # Blacklist: microsoft
-full:oscdn.apple.com # Blacklist: apple
-full:oscdn.origin-apple.com.akadns.net # Blacklist: apple
-full:osxapps.itunes.apple.com # Blacklist: apple
-full:pagead-googlehosted.l.google.com # Blacklist: google
-full:pancake.apple.com # Blacklist: apple
-full:pancake.cdn-apple.com.akadns.net # Blacklist: apple
-full:pba0.apple.com # Blacklist: apple
-full:pd-nk.itunes.apple.com # Blacklist: apple
-full:pd.itunes.apple.com # Blacklist: apple
-full:performanceparameters.googleapis.com # Blacklist: google
-full:pki-goog.l.google.com # Blacklist: google
-full:play.itunes.apple.com # Blacklist: apple
-full:play.music.apple.com # Blacklist: apple
-full:probe.siri.apple.com # Blacklist: apple
-full:prod-support.apple-support.akadns.net # Blacklist: apple
-full:proxyconfig.corp.google.com # Blacklist: google
-full:publicassets.cdn-apple.com # Blacklist: apple
-full:qpx.googleflights.net # Blacklist: google
-full:r.cert.corp.google.com # Blacklist: google
-full:rapture-prod.corp.google.com # Blacklist: google
-full:redirector.c.chat.google.com # Blacklist: google
-full:redirector.c.mail.google.com # Blacklist: google
-full:redirector.c.pack.google.com # Blacklist: google
-full:redirector.c.play.google.com # Blacklist: google
-full:redirector.c.youtubeeducation.com # Blacklist: youtube
-full:reserve-prime.apple.com # Blacklist: apple
-full:safebrowsing-cache.google.com # Blacklist: google
-full:safebrowsing.googleapis.com # Blacklist: google
-full:sdx.microsoft.com # Blacklist: microsoft
-full:se-edge.itunes.apple.com # Blacklist: apple
-full:se2.itunes.apple.com # Blacklist: apple
-full:search.itunes.apple.com # Blacklist: apple
-full:seed-sequoia.siri.apple.com # Blacklist: apple
-full:seed-swallow.siri.apple.com # Blacklist: apple
-full:seed.siri.apple.com # Blacklist: apple
-full:sequoia.apple.com # Blacklist: apple
-full:sf-api-token-service.itunes.apple.com # Blacklist: apple
-full:sh-pod2-smp-device.apple.com # Blacklist: apple
-full:shazam-insights.cdn-apple.com # Blacklist: apple
-full:smp-device-content.apple.com # Blacklist: apple
-full:software.download.prss.microsoft.com # Blacklist: microsoft
-full:sp.itunes.apple.com # Blacklist: apple
-full:speedysub.music.apple.com # Blacklist: apple
-full:ssl-google-analytics.l.google.com # Blacklist: google
-full:sslredirect.corp.google.com # Blacklist: google
-full:static.gc.apple.com # Blacklist: apple
-full:stocks-sparkline-lb.apple.com.akadns.net # Blacklist: apple
-full:stocks-sparkline.apple.com # Blacklist: apple
-full:store.apple.com # Blacklist: apple
-full:store.apple.com.edgekey.net # Blacklist: apple
-full:store.apple.com.edgekey.net.globalredir.akadns.net # Blacklist: apple
-full:store.storeimages.apple.com.akadns.net # Blacklist: apple
-full:store.storeimages.cdn-apple.com # Blacklist: apple
-full:storeedgefd.dsx.mp.microsoft.com # Blacklist: microsoft
-full:streaming-uberproxy-rotation.corp.google.com # Blacklist: google
-full:streaming-uberproxy.corp.google.com # Blacklist: google
-full:streamingaudio.itunes.apple.com # Blacklist: apple
-full:su.itunes.apple.com # Blacklist: apple
-full:sup-ssh-relay.corp.google.com # Blacklist: google
-full:sup-ssh-relay2.corp.google.com # Blacklist: google
-full:sup.corp.google.com # Blacklist: google
-full:sup.l.google.com # Blacklist: google
-full:support-china.apple-support.akadns.net # Blacklist: apple
-full:support.apple.com # Blacklist: apple
-full:surface.downloads.prss.microsoft.com # Blacklist: microsoft
-full:swallow-apple-com.v.aaplimg.com # Blacklist: apple
-full:swallow.apple.com # Blacklist: apple
-full:swcatalog-cdn.apple.com.akadns.net # Blacklist: apple
-full:swcatalog.apple.com # Blacklist: apple
-full:swcdn.apple.com # Blacklist: apple
-full:swdist.apple.com # Blacklist: apple
-full:swdist.apple.com.akadns.net # Blacklist: apple
-full:swscan-cdn.apple.com.akadns.net # Blacklist: apple
-full:swscan.apple.com # Blacklist: apple
-full:sylvan.apple.com # Blacklist: apple
-full:sync.itunes.apple.com # Blacklist: apple
-full:tac.googleapis.com # Blacklist: google
-full:tesla-cdn.thron.cn # Blacklist: tesla
-full:tf-feedback.itunes.apple.com # Blacklist: apple
-full:time.amazonaws.cn # Blacklist: amazon
-full:tj-pod1-smp-device.apple.com # Blacklist: apple
-full:tools.google.com # Blacklist: google
-full:tools.l.google.com # Blacklist: google
-full:uberproxy-debug4.corp.google.com # Blacklist: google
-full:uberproxy.corp.google.com # Blacklist: google
-full:uberproxy6.corp.google.com # Blacklist: google
-full:update.googleapis.com # Blacklist: google
-full:updates-http.cdn-apple.com # Blacklist: apple
-full:updates-http.cdn-apple.com.akadns.net # Blacklist: apple
-full:updates.cdn-apple.com # Blacklist: apple
-full:uplaypc-s-ubisoft.cdn.ubi.com # Blacklist: ubisoft
-full:upp.itunes.apple.com # Blacklist: apple
-full:valid.apple.com # Blacklist: apple
-full:valid.origin-apple.com.akadns.net # Blacklist: apple
-full:vscode.download.prss.microsoft.com # Blacklist: microsoft
-full:vz.download.prss.microsoft.com # Blacklist: microsoft
-full:wear.googleapis.com # Blacklist: google
-full:weather-data.apple.com # Blacklist: apple
-full:weather-data.apple.com.akadns.net # Blacklist: apple
-full:weather-map.apple.com # Blacklist: apple
-full:weather-map2.apple.com # Blacklist: apple
-full:weatherkit.apple.com # Blacklist: apple
-full:wscont1.apps.microsoft.com # Blacklist: microsoft
-full:wscont2.apps.microsoft.com # Blacklist: microsoft
-full:www-google-analytics.l.google.com # Blacklist: google
-full:www-googletagmanager.l.google.com # Blacklist: google
-full:www.apple.com # Blacklist: apple
-full:www.apple.com.edgekey.net.globalredir.akadns.net # Blacklist: apple
-full:www.microsoft.com # Blacklist: microsoft
-full:www.support.apple.com # Blacklist: apple
-full:xp.apple.com # Blacklist: apple
-funcdn.com # Foreign IP
-futunn.com # Foreign IP
-gameloop.com # Foreign IP
-gcloudcs.com # Foreign IP
-gcloudcstestonly.com # Foreign IP
-gclouddolphin.com # Foreign IP
-gcloudsdk.com # Foreign IP
-gdtimg.com # Foreign IP
-geetest.com # Foreign IP
-geforce.cn # Foreign IP
-globalsign.com # Foreign IP
-gmw.com # Foreign IP
-gneec7.com # Foreign IP
-golinkcn.com # Foreign IP
-google.cn # Blacklist: google
-googlecnapps.cn # Blacklist: google
-goproxy.io # Foreign IP
-gotolink.net # Foreign IP
-gputechconf.cn # CDN: aws
-greenxiazai.com # Foreign IP
-guabu.com # Foreign IP
-gucheng.com # Foreign IP
-guoxinmac.com # Foreign IP
-gushiwen.org # Foreign IP
-guzhangting.com # Foreign IP
-gvt1-cn.com # Foreign IP
-gvt2-cn.com # Foreign IP
-gxb.io # Foreign IP
-gzwanju.com # Foreign IP
-h5uc.com # Foreign IP
-hackhome.com # Foreign IP
-hacpai.com # Foreign IP
-hainanairlines.com # Foreign IP
-half.com.cn # Foreign IP
-haodf.com # Foreign IP
-haote.com # Foreign IP
-happyhlddz.com # Foreign IP
-hellobike.com # Foreign IP
-heptio.cn # Foreign IP
-heroesports.com # Foreign IP
-herogame.com # Foreign IP
-heweather.net # Foreign IP
-hihonor.com # Foreign IP
-hkgcloudcs.com # Foreign IP
-hm.com.cn # Foreign IP
-hnacargo.com # Foreign IP
-hnyuyuhui.com # Foreign IP
-homekoo.com # Foreign IP
-hongsanban.com # Foreign IP
-hongshu.com # Foreign IP
-honor.com # Foreign IP
-houdao.com # Foreign IP
-houyuantuan.com # Foreign IP
-howbuy.com # Foreign IP
-hpstore.cn # Foreign IP
-huaban.com # Foreign IP
-huashengdaili.com # Foreign IP
-huatu.com # Foreign IP
-hugecore.net # Foreign IP
-huijiwiki.com # CDN: cloudflare
-hujia.org # Foreign IP
-huochepiao.com # Foreign IP
-huocheso.com # Foreign IP
-hxfy888.com # Foreign IP
-ibobscs.com # Foreign IP
-icaidao.com # Foreign IP
-icloud-apple.cn # Blacklist: apple
-icloudapple.cn # Blacklist: apple
-icplishi.com # Foreign IP
-ifanr.in # Foreign IP
-ifanrusercontent.com # Foreign IP
-ifdian.net # Foreign IP
-ifengweekly.com # Foreign IP
-iflyrec.com # Foreign IP
-iflysec.com # Foreign IP
-im2maker.com # Foreign IP
-imooc.com # Foreign IP
-infoq.com # Foreign IP
-insta360.com # Foreign IP
-intel.cn # Foreign IP
-iotronic.tech # Foreign IP
-ip-cdn.com # Foreign IP
-ip138.com # Foreign IP
-ipanda.com # Foreign IP
-ipanda.net # Foreign IP
-ipchaxun.com # Foreign IP
-iplaysoft.com # Foreign IP
-ipod.com.cn # Foreign IP
-ipshu.com # Foreign IP
-it168.com # Foreign IP
-it610.com # Foreign IP
-itunes-apple.cn # Blacklist: apple
-itunesapple.cn # Blacklist: apple
-itunesradio.cn # Foreign IP
-itunesradio.com.cn # Foreign IP
-jandan.net # Foreign IP
-janrainservices.com # Foreign IP
-jb51.com # Foreign IP
-jb51.net # Foreign IP
-jbcz.tv # Foreign IP
-jchat.io # Foreign IP
-jet-logistics.com # Foreign IP
-jfdaily.com # Foreign IP
-jiameng.com # Foreign IP
-jianguoyun.com # Foreign IP
-jianshu.com # Foreign IP
-jianyuweb.com # Foreign IP
-jianzhi8.com # Foreign IP
-jiaodong.net # Foreign IP
-jiasuhui.com # Foreign IP
-jiasule.com # Foreign IP
-jiathis.com # Foreign IP
-jiemeng8.com # Foreign IP
-jikecdn.com # Foreign IP
-jinglingbiaozhu.com # Foreign IP
-jinshujucdn.com # CDN: aws
-jisuanke.com # Foreign IP
-jisuxia.com # Foreign IP
-jj20.com # Foreign IP
-jlccnc.com # CDN: akamai
-jlcdfm.com # CDN: akamai
-jpmorganchina.com # Foreign IP
-juejin.im # Foreign IP
-julive.com # Foreign IP
-just-do-it.cn # Foreign IP
-jxksw.net # Foreign IP
-jztvnews.com # Foreign IP
-kaifubiao.com # Foreign IP
-kameng98.com # Foreign IP
-kaspersky.com.cn # Foreign IP
-keboyunxiao.com # Foreign IP
-kesong.co # Foreign IP
-kijijidns.cn # Foreign IP
-kindleoasis.cn # Foreign IP
-kindleoasis.com.cn # Foreign IP
-klpbbs.com # Foreign IP
-koolearn.com # Foreign IP
-kouclo.com # Foreign IP
-kq7.com # Foreign IP
-ksmobile.com # Foreign IP
-ktv.com # Foreign IP
-kuaishouzt.com # Foreign IP
-kwaizt.com # Foreign IP
-lancdn.com # Foreign IP
-landian.vip # Foreign IP
-landiannews.com # Foreign IP
-lanzou.com # Foreign IP
-lanzous.com # Foreign IP
-lanzouv.com # Foreign IP
-laomaotao.org # Foreign IP
-lazycat.cloud # Foreign IP
-ld246.com # Foreign IP
-leagueoflegends.cn # Foreign IP
-leanote.com # Foreign IP
-lecloudapi.com # Foreign IP
-legendofzelda.cn # Foreign IP
-legendofzelda.com.cn # Foreign IP
-lenovo.com # Foreign IP
-lianmishu.com # Foreign IP
-lianzhuli.com # Foreign IP
-liaoxuefeng.com # Foreign IP
-lightonus.com # Foreign IP
-linkvans.com # Foreign IP
-liuxiaoer.com # Foreign IP
-liuxing.com # Foreign IP
-liweijia.com # Foreign IP
-llsserver.com # CDN: aws
-longzhu.com # Foreign IP
-louisvuitton.cn # Foreign IP
-lovesexdurex.cn # Foreign IP
-luyouqi.com # Foreign IP
-lvcampaign.com # Foreign IP
-lvsexitong.com # Foreign IP
-lysol.cn # Foreign IP
-lysol.com.cn # Foreign IP
-macbookair.com.cn # Foreign IP
-magnoliaav.com.cn # Foreign IP
-management-azure-devices-provisioning.cn # Blacklist: azure
-management-azure-devices.cn # Blacklist: azure
-maoxiangai.com # Foreign IP
-maoyun.com # CDN: cloudfront
-mariokart.cn # Foreign IP
-mariokart.com.cn # Foreign IP
-mastercard.cn # Foreign IP
-mastercard.com.cn # Foreign IP
-matpool.net # Foreign IP
-mcdemo.show # Foreign IP
-mdpda.com # Foreign IP
-mechina.org # Foreign IP
-mechrevo.com # Foreign IP
-mediastory.cc # Foreign IP
-meishij.net # Foreign IP
-meituan.com # Foreign IP
-metalrevolution.com # Foreign IP
-mfcteda.com # Foreign IP
-mgmt-azure-api.cn # Blacklist: azure
-microsoft-smb.cn # Blacklist: microsoft
-microsoftazurestatus.cn # Blacklist: microsoft
-microsoftmetrics.cn # Blacklist: microsoft
-microsoftnews.cn # Blacklist: microsoft
-microsoftonline-i.cn # Blacklist: microsoft
-microsoftonline-m-i.cn # Blacklist: microsoft
-microsoftonline-m.cn # Blacklist: microsoft
-microsoftonline-p-i.cn # Blacklist: microsoft
-microsoftonline-p-i.net.cn # Blacklist: microsoft
-microsoftonline-p.cn # Blacklist: microsoft
-microsoftonline-p.net.cn # Blacklist: microsoft
-microsoftonline.cn # Blacklist: microsoft
-microsoftreactor.cn # Blacklist: microsoft
-microsoftreactor.com.cn # Blacklist: microsoft
-microsoftstore.com.cn # Blacklist: microsoft
-microsofttranslator-int.cn # Blacklist: microsoft
-midasbuy.com # Foreign IP
-midea.com # Foreign IP
-mihayou.com # Foreign IP
-miitomo.com.cn # Foreign IP
-mijisou.com # Foreign IP
-minapp.com # Foreign IP
-minisohome.cn # Foreign IP
-mncmsidlab1.cn # Foreign IP
-mndqlib.net # Foreign IP
-mobileinternational.com.cn # Foreign IP
-moegirl.org # Foreign IP
-mofazhu.com # Foreign IP
-mojidict.com # Foreign IP
-mokahr.com # Foreign IP
-moleecel.com # Foreign IP
-moonshot.ai # CDN: cloudflare
-moonvy.com # Foreign IP
-morefreegame.com # Foreign IP
-mortein.cn # Foreign IP
-motie.com # Foreign IP
-movefree.cn # Foreign IP
-msanjia.com # Foreign IP
-msn.cn # Foreign IP
-mtyun.com # Foreign IP
-muomou.com # Foreign IP
-muyewx.com # Foreign IP
-muzhiwan.com # Foreign IP
-myqnapcloud.cn # Foreign IP
-nagcloudcs.com # Foreign IP
-nanhaicorp.com # Foreign IP
-natfrp.com # CDN: cloudflare
-netbian.com # Foreign IP
-network-auth.cn # Foreign IP
-nextworkshop.net # Foreign IP
-nffund.com # Foreign IP
-ngabbs.com # Foreign IP
-ngacn.cc # Foreign IP
-nike-shox.cn # Foreign IP
-nike.cn # Foreign IP
-nikebetterworld.cn # Foreign IP
-nikebetterworld.com.cn # Foreign IP
-nikechina.cn # Foreign IP
-nikegolf.cn # Foreign IP
-nikeid.cn # Foreign IP
-nikeid.com.cn # Foreign IP
-nikeinc.com.cn # Foreign IP
-nikelab.cn # Foreign IP
-nikelab.com.cn # Foreign IP
-nikeliuxiang.cn # Foreign IP
-nikeliuxiang.com.cn # Foreign IP
-nikemall.cn # Foreign IP
-nikemall.com.cn # Foreign IP
-nikerunclub.cn # Foreign IP
-nikerunclub.com.cn # Foreign IP
-nikerunning.com.cn # Foreign IP
-nikestore.cn # Foreign IP
-nintendolabo.cn # Foreign IP
-nokiantyres.cn # Foreign IP
-novelfm.com # Foreign IP
-nruan.com # Foreign IP
-nubia.com # Foreign IP
-nurofen.cn # Foreign IP
-nurofen.com.cn # Foreign IP
-nvidia.cn # Blacklist: nvidia
-nwcdcloud.cn # CDN: aws
-oemssl.cn.cdn.cloudflare.net # Foreign IP
-oklink.com # Foreign IP
-onlinesjtu.com # Foreign IP
-openlearning.com # Foreign IP
-oreilly.com.cn # Foreign IP
-ourl.co # Foreign IP
-p5w.net # Foreign IP
-paypal.com.cn # Foreign IP
-paypal.net.cn # Foreign IP
-paypal.org.cn # Foreign IP
-paypalcommunity.cn # Foreign IP
-paypalhere.cn # Foreign IP
-paypalhere.com.cn # Foreign IP
-pcpop.com # Foreign IP
-pgyer.com # Foreign IP
-pharmacodia.com # Foreign IP
-pinduoduo.com # Foreign IP
-pingcap.com # Foreign IP
-pingcode.com # Foreign IP
-powerapps.cn # Foreign IP
-practicalmoneyskills.cn # Foreign IP
-practicalmoneyskills.com.cn # Foreign IP
-priceless.com.cn # Foreign IP
-pricelessbeijing.cn # Foreign IP
-pricelessbeijing.com.cn # Foreign IP
-primeday.cn # Foreign IP
-primeday.com.cn # Foreign IP
-prostores.cn # Foreign IP
-prostores.com.cn # Foreign IP
-pubghelper.com # Foreign IP
-pubgtool.com # Foreign IP
-qc188.com # Foreign IP
-qiangbus.com # Foreign IP
-qianyierp.com # Foreign IP
-qingdaonews.com # Foreign IP
-qingping.co # Foreign IP
-qishui.com # Foreign IP
-qiuwen.wiki # Foreign IP
-qizuang.com # Foreign IP
-qlinkto.cn # Foreign IP
-qnap.com.cn # Foreign IP
-qq.design # Foreign IP
-qqshuoshuo.com # Foreign IP
-qualcomm.cn # Foreign IP
-qualcomm.cn.cdn.cloudflare.net # Foreign IP
-quehu.com # Foreign IP
-quyaoya.com # Foreign IP
-qweather.com # Foreign IP
-qwen.ai # Foreign IP
-qwenlm.ai # Foreign IP
-r.bing.com # CDN: edgekey
-razerapi.com # Foreign IP
-razerzone.com # Foreign IP
-rdnsdb.com # Foreign IP
-reabble.cn # Foreign IP
-reactorms.com.cn # Foreign IP
-realcybertron.com # Foreign IP
-reckittbenckiser.com.cn # Foreign IP
-redmagic.com # Foreign IP
-regexp:.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$ # Blacklist: aws
-regexp:.+\.awsdns-cn-[0-9][a-e0-9]\.cn$ # Blacklist: aws
-regexp:^cdn\d-epicgames-\d+\.file\.myqcloud\.com$ # Blacklist: epicgames
-regexp:^epicgames-download\d-\d+\.file\.myqcloud\.com$ # Blacklist: epicgames
-regexp:^r+[0-9]+(---|\.)sn-(2x3|ni5|j5o)\w{5}\.googlevideo\.com$ # Blacklist: google
-renren-inc.com # Foreign IP
-rmbgame.net # Foreign IP
-ruby-china.org # Foreign IP
-rubyconfchina.org # Foreign IP
-runsheng.com # Foreign IP
-ruseer.com # Foreign IP
-rwkv.com # Foreign IP
-rzrc114.com # Foreign IP
-saibo.com # Foreign IP
-sandisk.cn # Foreign IP
-sczsxx.com # Foreign IP
-seasungames.com # CDN: akamai
-sec-wiki.com # Foreign IP
-sectigochina.com.cdn.cloudflare.net # Foreign IP
-sf-saas.com # Foreign IP
-shangc.net # Foreign IP
-shangyexinzhi.com # Foreign IP
-shangzhibo.tv # Foreign IP
-shareintelli.com # Foreign IP
-sharejs.com # Foreign IP
-shelter-china.com # Foreign IP
-shelterdome.net # Foreign IP
-sheui.com # Foreign IP
-shhxzq.com # Foreign IP
-shidianbaike.com # Foreign IP
-shopss.com # Foreign IP
-shuhai.com # Foreign IP
-sifou.com # Foreign IP
-simei8.com # Foreign IP
-sipeed.com # Foreign IP
-sjwyx.com # Foreign IP
-skypixel.com # Foreign IP
-snowballsecurities.com # Foreign IP
-socpk.com # Foreign IP
-sofun.com # Foreign IP
-sogo.com # Foreign IP
-sogou.com # Foreign IP
-sogou.net # Foreign IP
-sojson.com # Foreign IP
-soso.com # Foreign IP
-sslcom.cn # Foreign IP
-st.dl.pinyuncloud.com # Foreign IP
-starbaby.com # Foreign IP
-staticfile.net # Foreign IP
-staticfile.org # CDN: cdn77
-steam302.xyz # Blacklist: steam
-steamchina.com # Blacklist: steam
-steampowered.com.8686c.com # Blacklist: steam
-steampp.net # Blacklist: steam
-steamstatic.com.8686c.com # Blacklist: steam
-stmicroelectronics.com.cn # Foreign IP
-strepsils.cn # Foreign IP
-strepsils.com.cn # Foreign IP
-sunrtb.com # Foreign IP
-supermap.com # Foreign IP
-supermariobros.com.cn # Foreign IP
-supersmashbros.cn # Foreign IP
-supersmashbros.com.cn # Foreign IP
-szfw.org # Foreign IP
-t00ls.cc # Foreign IP
-t00ls.net # Foreign IP
-t1y5.com # Foreign IP
-tacool.com # Foreign IP
-takungpao.com # Foreign IP
-tcl.com # Foreign IP
-tcltech.com # Foreign IP
-teamviewer.cn # Foreign IP
-tencent-cloud.com # Foreign IP
-tencentcloud.com # Foreign IP
-tencentstart.com # Foreign IP
-terapeak.cn # Foreign IP
-tesla.cn # Blacklist: tesla
-tesla.com.cn # Blacklist: tesla
-teslamotors.cn # Blacklist: tesla
-teslamotors.com.cn # Blacklist: tesla
-tgbus.com # Foreign IP
-tgprocs.net # Foreign IP
-th.bing.com # CDN: edgekey
-tianpeng.com # Foreign IP
-tianqi.com # Foreign IP
-tidb.ai # Foreign IP
-tidbcloud.com # Foreign IP
-tiexue.net # Foreign IP
-tikv.org # Foreign IP
-tlgslb.com # Foreign IP
-tom.com # Foreign IP
-touqikan.com # Foreign IP
-tower.im # Foreign IP
-trafficmanager.cn # Foreign IP
-tuiwen.net # Foreign IP
-tutuapp.com # Foreign IP
-tuwan.com # Foreign IP
-tuwanjun.com # Foreign IP
-tvmao.com # Foreign IP
-u.tools # Foreign IP
-ubnt.com # Foreign IP
-ucbug.com # Foreign IP
-ucloud365.com # Foreign IP
-ucloudoss.com # Foreign IP
-ucloudufile.com # Foreign IP
-ucnaming.net # Foreign IP
-unionpaysecure.com # Foreign IP
-upfos.com # Foreign IP
-uslk.net # Foreign IP
-uuu9.com # Foreign IP
-uwn.com # Foreign IP
-uzzf.com # Foreign IP
-v5875.com # Foreign IP
-vamaker.com # Foreign IP
-vanclimg.com # Foreign IP
-vanish.cn # Foreign IP
-vaptcha.com # Foreign IP
-vaptcha.net # Foreign IP
-vfsco.com.cn # Foreign IP
-vijos.org # Foreign IP
-visa.com.cn # Foreign IP
-visainfinite.cn # Foreign IP
-visapay.cn # Foreign IP
-visaplatinum.cn # Foreign IP
-visaplatinum.com.cn # Foreign IP
-volvo.cn # Foreign IP
-volvo.com.cn # Foreign IP
-volvogroup.cn # Foreign IP
-volvogroup.com.cn # Foreign IP
-volvotrucks.com.cn # Foreign IP
-vrzwk.com # Foreign IP
-wallstreetcn.com # Foreign IP
-wamawama.com # Foreign IP
-wangyangyang.vip # Foreign IP
-wannianli8.com # Foreign IP
-wegamedeveloper.com # Foreign IP
-wegameplus.com # Foreign IP
-weicaifu.com # CDN: cloudflare
-weidian.com # Foreign IP
-welltrend-edu.com # Foreign IP
-wenmingban.com # Foreign IP
-weui.io # Foreign IP
-whlovehome.com # Foreign IP
-windows10zj.com # Foreign IP
-windows7en.com # Foreign IP
-windowsazure.cn # Blacklist: azure
-windowsazurestatus.cn # Blacklist: azure
-windowszj.com # Foreign IP
-winos.me # Foreign IP
-winwin7.com # Foreign IP
-wishdown.com # Foreign IP
-wmsjsteam.com # Blacklist: steam
-wonnder.com # Foreign IP
-woolite.cn # Foreign IP
-woolite.com.cn # Foreign IP
-worktile.com # Foreign IP
-woyaogexing.com # Foreign IP
-woyoo.com # Foreign IP
-wps.com # Foreign IP
-wuximediaglobal.com # Foreign IP
-xianfae.com # Foreign IP
-xiaobaixitong.com # Foreign IP
-xiaoluyouxuan.com # Foreign IP
-xiaomiflash.com # Foreign IP
-xiaoyuzhoufm.com # Foreign IP
-xiayx.com # Foreign IP
-xingtan001.com # Foreign IP
-xinhuanet.com # Foreign IP
-xinshipu.com # Foreign IP
-xitu.io # Foreign IP
-xiumi.us # Foreign IP
-xiziwang.net # Foreign IP
-xn--7hvy28f.cn # Foreign IP
-xn--bnq297cix3a.cn # Foreign IP
-xn--czrs0t4phtr3a.cn # Foreign IP
-xn--fiqs8sxootzz.cn # Foreign IP
-xn--mts47c3w9b1qr.cn # Foreign IP
-xn--ohq11k7pl25iyo8a.cn # Foreign IP
-xoom.net.cn # Foreign IP
-xpgod.com # Foreign IP
-xsa239.com # Foreign IP
-xuanchuanyi.com # Foreign IP
-xue51.com # Foreign IP
-xueersi.com # Foreign IP
-xueqiu.com # Foreign IP
-xuexicha.com # Foreign IP
-xunfeixxj.com # Foreign IP
-xunyou.mobi # Foreign IP
-xzking.com # Foreign IP
-yahoo.cn # Foreign IP
-yahoo.com.cn # Foreign IP
-yahui.cc # Foreign IP
-yamaxun.cn # Foreign IP
-yamibo.com # Foreign IP
-yaolan.com # Foreign IP
-ybccode.com # Foreign IP
-yfcache.com # Foreign IP
-yfcalc.com # Foreign IP
-yfcloud.com # Foreign IP
-yfdts.net # Foreign IP
-yfp2p.net # Foreign IP
-yfscdn.net # Foreign IP
-yh31.com # Foreign IP
-yikaochacha.com # Foreign IP
-yinhang123.net # Foreign IP
-youboy.com # Foreign IP
-youzanyun.com # Foreign IP
-ypppt.com # Foreign IP
-yunaq.com # Foreign IP
-yunba.io # Foreign IP
-yunfancdn.com # Foreign IP
-yunqishi.net # Foreign IP
-yunzhijia.com # Foreign IP
-yuzua.com # Foreign IP
-yxhhdl.com # Foreign IP
-z.ai # Foreign IP
-zczj.com # Foreign IP
-zhanbuba.com # Foreign IP
-zhangyoubao.com # Foreign IP
-zhaopin.com # Foreign IP
-zhifang.com # Foreign IP
-zhihu.com # Foreign IP
-zhipucn.com # Foreign IP
-zhuangjiba.com # Foreign IP
-zhuanyewanjia.com # Foreign IP
-zimuzu.io # Foreign IP
-zixuntop.com # Foreign IP
-zoom3g.com # Foreign IP
-zrblog.net # Foreign IP
-ztedevices.com # Foreign IP
-zuidaima.com # Foreign IP
+DOMAIN,adservice.google.com # Blacklist keyword: google
+DOMAIN,avail.googleflights.net # Blacklist keyword: google
+DOMAIN,beacons.gcp.gvt2.com # Blacklisted IP: 142.250.117.94
+DOMAIN,beacons.gvt2.com # Blacklisted IP: 142.250.117.94
+DOMAIN,c.android.clients.google.com # Blacklist keyword: google
+DOMAIN,cache-management-prod.google.com # Blacklist keyword: google
+DOMAIN,cache.pack.google.com # Blacklist keyword: google
+DOMAIN,clickserver.googleads.com # Blacklist keyword: google
+DOMAIN,clientservices.googleapis.com # Blacklist keyword: google
+DOMAIN,cnappinstall.googleadapis.com # Blacklist keyword: google
+DOMAIN,content.googleadapis.com # Blacklist keyword: google
+DOMAIN,crashlyticsreports-pa.googleapis.com # Blacklist keyword: google
+DOMAIN,crl.globalsign.net # Blocked CDN: fastly
+DOMAIN,dg-meta.video.google.com # Blacklist keyword: google
+DOMAIN,dl.google.com # Blacklist keyword: google
+DOMAIN,dl.l.google.com # Blacklist keyword: google
+DOMAIN,doubleclick.net # Blacklisted IP: 142.251.33.206
+DOMAIN,download.mlcc.google.com # Blacklist keyword: google
+DOMAIN,download.tensorflow.google.com # Blacklist keyword: google
+DOMAIN,emmapplecodevice.googleapis.com # Blacklist keyword: google
+DOMAIN,fontfiles.googleapis.com # Blacklist keyword: google
+DOMAIN,fonts.googleapis.com # Blacklist keyword: google
+DOMAIN,go.corp.google.com # Blacklist keyword: google
+DOMAIN,gog-cdn-fastly.gog.com # Blocked CDN: fastly
+DOMAIN,gogalaxy.gog-statics.com # Blocked CDN: fastly
+DOMAIN,google-analytics-cn.com # Blacklist keyword: google
+DOMAIN,google-analytics.com # Blacklist keyword: google
+DOMAIN,googleadservices-cn.com # Blacklist keyword: google
+DOMAIN,googleadservices.com # Blacklist keyword: google
+DOMAIN,googleanalytics.com # Blacklist keyword: google
+DOMAIN,googleapis-cn.com # Blacklist keyword: google
+DOMAIN,googleapps-cn.com # Blacklist keyword: google
+DOMAIN,googleflights-cn.net # Blacklist keyword: google
+DOMAIN,googleoptimize-cn.com # Blacklist keyword: google
+DOMAIN,googleoptimize.com # Blacklist keyword: google
+DOMAIN,googlesyndication-cn.com # Blacklist keyword: google
+DOMAIN,googlesyndication.com # Blacklist keyword: google
+DOMAIN,googletagmanager-cn.com # Blacklist keyword: google
+DOMAIN,googletagmanager.com # Blacklist keyword: google
+DOMAIN,googletagservices-cn.com # Blacklist keyword: google
+DOMAIN,googletagservices.com # Blacklist keyword: google
+DOMAIN,googletraveladservices-cn.com # Blacklist keyword: google
+DOMAIN,googletraveladservices.com # Blacklist keyword: google
+DOMAIN,googlevads-cn.com # Blacklist keyword: google
+DOMAIN,gstaticadssl.l.google.com # Blacklist keyword: google
+DOMAIN,imasdk.googleapis.com # Blacklist keyword: google
+DOMAIN,l2-uberproxy.corp.google.com # Blacklist keyword: google
+DOMAIN,logger-dev.corp.google.com # Blacklist keyword: google
+DOMAIN,logger.corp.google.com # Blacklist keyword: google
+DOMAIN,login.corp.google.com # Blacklist keyword: google
+DOMAIN,menu-static.gog-statics.com # Blocked CDN: fastly
+DOMAIN,pagead-googlehosted.l.google.com # Blacklist keyword: google
+DOMAIN,performanceparameters.googleapis.com # Blacklist keyword: google
+DOMAIN,pki-goog.l.google.com # Blacklist keyword: google
+DOMAIN,prod-controlbe.floonet.goog # Blacklisted IP: 172.217.74.94
+DOMAIN,prod-databe.floonet.goog # Blacklisted IP: 142.250.129.94
+DOMAIN,prod.databe.floonet.goog # Blacklisted IP: 172.253.145.94
+DOMAIN,productcard.gog-statics.com # Blocked CDN: fastly
+DOMAIN,proxyconfig.corp.google.com # Blacklist keyword: google
+DOMAIN,qiao-cn.com # Blacklisted IP: 35.229.246.134
+DOMAIN,qpx.googleflights.net # Blacklist keyword: google
+DOMAIN,r.cert.corp.google.com # Blacklist keyword: google
+DOMAIN,rapture-prod.corp.google.com # Blacklist keyword: google
+DOMAIN,redirector.c.chat.google.com # Blacklist keyword: google
+DOMAIN,redirector.c.mail.google.com # Blacklist keyword: google
+DOMAIN,redirector.c.pack.google.com # Blacklist keyword: google
+DOMAIN,redirector.c.play.google.com # Blacklist keyword: google
+DOMAIN,redirector.c.youtubeeducation.com # Blacklist keyword: youtube
+DOMAIN,safebrowsing-cache.google.com # Blacklist keyword: google
+DOMAIN,safebrowsing.googleapis.com # Blacklist keyword: google
+DOMAIN,si.cdn.dell.com # CDN: akadns
+DOMAIN,speedysub.music.apple.com # Blocked CDN: fastly
+DOMAIN,ssl-google-analytics.l.google.com # Blacklist keyword: google
+DOMAIN,sslredirect.corp.google.com # Blacklist keyword: google
+DOMAIN,staging-controlbe.floonet.goog # Blacklisted IP: 142.250.140.94
+DOMAIN,staging-databe.floonet.goog # Blacklisted IP: 142.250.129.94
+DOMAIN,staging.databe.floonet.goog # Blacklisted IP: 142.250.117.94
+DOMAIN,static-login.gog-statics.com # Blocked CDN: fastly
+DOMAIN,streaming-uberproxy-rotation.corp.google.com # Blacklist keyword: google
+DOMAIN,streaming-uberproxy.corp.google.com # Blacklist keyword: google
+DOMAIN,sup-ssh-relay.corp.google.com # Blacklist keyword: google
+DOMAIN,sup-ssh-relay2.corp.google.com # Blacklist keyword: google
+DOMAIN,sup.corp.google.com # Blacklist keyword: google
+DOMAIN,sup.l.google.com # Blacklist keyword: google
+DOMAIN,tac.googleapis.com # Blacklist keyword: google
+DOMAIN,test.gbugs-qa.chromium.org # Blacklisted IP: 74.125.20.129
+DOMAIN,tools.google.com # Blacklist keyword: google
+DOMAIN,tools.l.google.com # Blacklist keyword: google
+DOMAIN,uberproxy-debug4.corp.google.com # Blacklist keyword: google
+DOMAIN,uberproxy.corp.google.com # Blacklist keyword: google
+DOMAIN,uberproxy6.corp.google.com # Blacklist keyword: google
+DOMAIN,update.googleapis.com # Blacklist keyword: google
+DOMAIN,wear.googleapis.com # Blacklist keyword: google
+DOMAIN,www-google-analytics.l.google.com # Blacklist keyword: google
+DOMAIN,www-googletagmanager.l.google.com # Blacklist keyword: google
+DOMAIN,www.entrust.cn # Blocked CDN: cloudflare
+DOMAIN,www4-static.gog-statics.com # Blocked CDN: fastly
+DOMAIN-SUFFIX,172mix.com # Foreign IP
+DOMAIN-SUFFIX,40407.com # Blacklisted IP: 172.67.183.207
+DOMAIN-SUFFIX,5566ua.com # Blacklisted IP: 172.67.198.99
+DOMAIN-SUFFIX,a2z.org.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aadrm.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aboutamazon.cn # Blacklist: amazon
+DOMAIN-SUFFIX,accdn.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,adcommerce.cn # Foreign IP
+DOMAIN-SUFFIX,adidas.cn # Foreign IP
+DOMAIN-SUFFIX,adidas.com.cn # CDN: edgekey
+DOMAIN-SUFFIX,adidasspecialtysports.cn # Foreign IP
+DOMAIN-SUFFIX,adobedc.cn # Blacklist: adobe
+DOMAIN-SUFFIX,aerogard.com.cn # Foreign IP
+DOMAIN-SUFFIX,airwick.com.cn # Foreign IP
+DOMAIN-SUFFIX,akcdn.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,alexafund.cn # Foreign IP
+DOMAIN-SUFFIX,alexafund.com.cn # Foreign IP
+DOMAIN-SUFFIX,aloys233.top # Foreign IP
+DOMAIN-SUFFIX,alphabet.com.cn # Foreign IP
+DOMAIN-SUFFIX,alphabet.net.cn # Foreign IP
+DOMAIN-SUFFIX,amazon.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonaws.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonaws.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonbusiness.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonbusiness.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonchoice.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonchoice.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonchoices.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonchoices.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazoninspire.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazoninspire.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonlaunchpad.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonlaunchpad.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonlending.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonnow.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonnow.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonprimevideo.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonprimevideo.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonwebservices.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonworkdocs.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amazonworkdocs.com.cn # Blacklist: amazon
+DOMAIN-SUFFIX,amzndns-cn.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,anfutong.cn # Foreign IP
+DOMAIN-SUFFIX,anfutong.com.cn # Foreign IP
+DOMAIN-SUFFIX,aoruszone.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,apihub-internal.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,apple-appstore.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-dns.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-dns.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-ibooks.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-icloud.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-itunes.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-maps.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple-store.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple.cn # Blacklist: apple
+DOMAIN-SUFFIX,apple.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,appleappstore.cn # Blacklist: apple
+DOMAIN-SUFFIX,applecenter.cn # Blacklist: apple
+DOMAIN-SUFFIX,applecenter.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,applecomputer.cn # Blacklist: apple
+DOMAIN-SUFFIX,applecomputer.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,appledns.cn # Blacklist: apple
+DOMAIN-SUFFIX,appledns.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,appleicloud.cn # Blacklist: apple
+DOMAIN-SUFFIX,applepaycash.cn # Blacklist: apple
+DOMAIN-SUFFIX,applepaycash.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,applepaysupplies.cn # Blacklist: apple
+DOMAIN-SUFFIX,applepaysupplies.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,applesiri.cn # Blacklist: apple
+DOMAIN-SUFFIX,applestore.cn # Blacklist: apple
+DOMAIN-SUFFIX,applestore.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,appletv4.cn # Blacklist: apple
+DOMAIN-SUFFIX,appletv4.com.cn # Blacklist: apple
+DOMAIN-SUFFIX,appserviceenvironment.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,appstoreapple.cn # Blacklist: apple
+DOMAIN-SUFFIX,asfiovnxocqpcry.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,assoc-amazon.cn # Blacklist: amazon
+DOMAIN-SUFFIX,att.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,attcorp.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aws-border.cn # Blacklist: aws
+DOMAIN-SUFFIX,aws-icp-domain-manager.cn # Blacklist: aws
+DOMAIN-SUFFIX,awsapps.cn # Blacklist: aws
+DOMAIN-SUFFIX,awsapps.com.cn # Blacklist: aws
+DOMAIN-SUFFIX,awsstatic.cn # Blacklist: aws
+DOMAIN-SUFFIX,azcrmc-test.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,azcrmc.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,azk8s.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aznbcontent.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,aztask.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,azure-api.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-apihub.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-automation.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-connectedvehicles-stage.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-connectedvehicles.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-devices-provisioning.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-devices.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-1.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-10.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-2.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-3.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-4.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-5.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-6.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-7.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-8.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns-9.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure-dns.cn # Blacklist: azure
+DOMAIN-SUFFIX,azure.cn # Blacklist: azure
+DOMAIN-SUFFIX,azurecr-test.cn # Blacklist: azure
+DOMAIN-SUFFIX,azurecr.cn # Blacklist: azure
+DOMAIN-SUFFIX,azurehdinsight.cn # Blacklist: azure
+DOMAIN-SUFFIX,azureiotsuite.cn # Blacklist: azure
+DOMAIN-SUFFIX,azuremresolver.cn # Blacklist: azure
+DOMAIN-SUFFIX,azureprivatedns.cn # Blacklist: azure
+DOMAIN-SUFFIX,azurerms.cn # Blacklist: azure
+DOMAIN-SUFFIX,azuresandbox.cn # Blacklist: azure
+DOMAIN-SUFFIX,b3itech.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,b3log.org # Blacklisted IP: 172.67.185.146
+DOMAIN-SUFFIX,bblmw.com # Blacklisted IP: 172.64.144.14
+DOMAIN-SUFFIX,beats1.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,beats1.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,beats2.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,beats4.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,beatsbydre.com.cn # Foreign IP
+DOMAIN-SUFFIX,beatsep.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,beibao.cn # Foreign IP
+DOMAIN-SUFFIX,beibao.com.cn # Foreign IP
+DOMAIN-SUFFIX,bestbuy.cn # Foreign IP
+DOMAIN-SUFFIX,bestbuy.com.cn # Foreign IP
+DOMAIN-SUFFIX,bridgestone.cn # Foreign IP
+DOMAIN-SUFFIX,bsbsb.top # Foreign IP
+DOMAIN-SUFFIX,burningvocabulary.com # Blacklisted IP: 123.108.75.71
+DOMAIN-SUFFIX,calgon.cn # Foreign IP
+DOMAIN-SUFFIX,cegid-cloud.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,chinacloud-mobile.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,chinacloudapi.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,chinacloudapp.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,chinacloudsites.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,chongbuluo.com # Blacklisted IP: 172.67.208.241
+DOMAIN-SUFFIX,chuansongme.com # Blacklisted IP: 23.145.248.126
+DOMAIN-SUFFIX,cisco.cn # Foreign IP
+DOMAIN-SUFFIX,cisco.com.cn # Foreign IP
+DOMAIN-SUFFIX,clearasil.cn # Foreign IP
+DOMAIN-SUFFIX,clearasil.com.cn # Foreign IP
+DOMAIN-SUFFIX,clk1.top # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,cloudflarechina.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,cloudflarestaging.com # Blacklisted IP: 104.18.28.121
+DOMAIN-SUFFIX,cloudfront-test.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,cn.pool.ntp.org # Blacklisted IP: 162.159.200.1
+DOMAIN-SUFFIX,connectcommerce.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,connectcommerce.com.cn # Foreign IP
+DOMAIN-SUFFIX,connectedcommerce.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,csgo.wmsj.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ctsbw.com # Blacklisted IP: 172.67.155.107
+DOMAIN-SUFFIX,cyber-bay.cn # Foreign IP
+DOMAIN-SUFFIX,cyber-bay.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,dajieimg.com # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,dcocsp.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,deepinos.org # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,dellemc.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,dellmobile.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,delltechnologies.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,digicert.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,dishwashingexpert.com.cn # Foreign IP
+DOMAIN-SUFFIX,dl.steam.clngaa.com # Blacklist: steam
+DOMAIN-SUFFIX,dota2.wmsj.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,durexchina.com.cn # Foreign IP
+DOMAIN-SUFFIX,dxpmedia.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,dynamics.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ebay.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebay.net.cn # Foreign IP
+DOMAIN-SUFFIX,ebay.org.cn # Foreign IP
+DOMAIN-SUFFIX,ebay.yn.cn # Foreign IP
+DOMAIN-SUFFIX,ebay.zj.cn # Foreign IP
+DOMAIN-SUFFIX,ebayadvertising.cn # Foreign IP
+DOMAIN-SUFFIX,ebayclassifieds.cn # Foreign IP
+DOMAIN-SUFFIX,ebayclassifieds.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebaydesc.cn # Foreign IP
+DOMAIN-SUFFIX,ebaydesc.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebaydns.cn # Foreign IP
+DOMAIN-SUFFIX,ebayenterprise.cn # Foreign IP
+DOMAIN-SUFFIX,ebayenterprise.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebaymotors.cn # Foreign IP
+DOMAIN-SUFFIX,ebaymotors.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebaypedia.cn # Foreign IP
+DOMAIN-SUFFIX,ebaypedia.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebayshopping.cn # Foreign IP
+DOMAIN-SUFFIX,ebayshopping.com.cn # Foreign IP
+DOMAIN-SUFFIX,ebaystatic.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ebaystores.cn # Foreign IP
+DOMAIN-SUFFIX,ecgapp.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,enfinitas.com.cn # Foreign IP
+DOMAIN-SUFFIX,etnet.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,faceshift.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,fanmingming.com # Blacklisted IP: 172.67.220.212
+DOMAIN-SUFFIX,farfetch.cn # Foreign IP
+DOMAIN-SUFFIX,farfetch.com.cn # Foreign IP
+DOMAIN-SUFFIX,farfetch.net.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,financialsoccer.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,fofa.so # Blacklisted IP: 172.66.148.169
+DOMAIN-SUFFIX,frontrow.com.cn # Foreign IP
+DOMAIN-SUFFIX,gameloop.com # Blacklisted IP: 172.66.174.89
+DOMAIN-SUFFIX,geforce.cn # Foreign IP
+DOMAIN-SUFFIX,ggpht.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,gmw.com # Blacklisted IP: 141.193.213.10
+DOMAIN-SUFFIX,golinkcn.com # Blacklisted IP: 104.21.80.1
+DOMAIN-SUFFIX,google.cn # Blacklist keyword: google
+DOMAIN-SUFFIX,googlecnapps.cn # Blacklist keyword: google
+DOMAIN-SUFFIX,goproxy.io # Blacklisted IP: 172.67.69.138
+DOMAIN-SUFFIX,gputechconf.cn # CDN: aws
+DOMAIN-SUFFIX,gxb.io # Blacklisted IP: 172.67.154.87
+DOMAIN-SUFFIX,hacpai.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,half.com.cn # Foreign IP
+DOMAIN-SUFFIX,haote.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,hdinsightservices.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,heptio.cn # Foreign IP
+DOMAIN-SUFFIX,hm.com.cn # Foreign IP
+DOMAIN-SUFFIX,homepod.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,houdao.com # Blacklisted IP: 104.26.0.241
+DOMAIN-SUFFIX,hpstore.cn # Foreign IP
+DOMAIN-SUFFIX,huangyuhui.net # Blacklisted IP: 172.67.192.152
+DOMAIN-SUFFIX,hugecore.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,icloud-apple.cn # Blacklist: apple
+DOMAIN-SUFFIX,icloud.net.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,icloudapple.cn # Blacklist: apple
+DOMAIN-SUFFIX,ingka-dt.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ingka-internal.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ingka-system.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,insidear.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,intel.cn # Foreign IP
+DOMAIN-SUFFIX,iphone-8.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ipod.com.cn # Foreign IP
+DOMAIN-SUFFIX,ipshu.com # Blacklisted IP: 104.26.3.98
+DOMAIN-SUFFIX,itunes-apple.cn # Blacklist: apple
+DOMAIN-SUFFIX,itunesapple.cn # Blacklist: apple
+DOMAIN-SUFFIX,itunesradio.cn # Foreign IP
+DOMAIN-SUFFIX,itunesradio.com.cn # Foreign IP
+DOMAIN-SUFFIX,jchat.io # Blacklisted IP: 172.67.210.74
+DOMAIN-SUFFIX,jianzhi8.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,jiathis.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,jinglingbiaozhu.com # Blacklisted IP: 154.207.79.197
+DOMAIN-SUFFIX,just-do-it.cn # Foreign IP
+DOMAIN-SUFFIX,kaspersky.com.cn # Foreign IP
+DOMAIN-SUFFIX,kijijidns.cn # Foreign IP
+DOMAIN-SUFFIX,kijijidns.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,kindleoasis.cn # Foreign IP
+DOMAIN-SUFFIX,kindleoasis.com.cn # Foreign IP
+DOMAIN-SUFFIX,lancdn.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,leagueoflegends.cn # Foreign IP
+DOMAIN-SUFFIX,leanote.com # Blacklisted IP: 172.67.200.101
+DOMAIN-SUFFIX,legendofzelda.cn # Foreign IP
+DOMAIN-SUFFIX,legendofzelda.com.cn # Foreign IP
+DOMAIN-SUFFIX,licdn.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,livephotos.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,livephotos.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,lkkbrand.com # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,louisvuitton.cn # Foreign IP
+DOMAIN-SUFFIX,lovesexdurex.cn # Foreign IP
+DOMAIN-SUFFIX,lpl.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,lysol.cn # Foreign IP
+DOMAIN-SUFFIX,lysol.com.cn # Foreign IP
+DOMAIN-SUFFIX,macbookair.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,macbookair.com.cn # Foreign IP
+DOMAIN-SUFFIX,magnoliaav.com.cn # Foreign IP
+DOMAIN-SUFFIX,management-azure-devices-provisioning.cn # Blacklist: azure
+DOMAIN-SUFFIX,management-azure-devices.cn # Blacklist: azure
+DOMAIN-SUFFIX,mapbox.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,mariokart.cn # Foreign IP
+DOMAIN-SUFFIX,mariokart.com.cn # Foreign IP
+DOMAIN-SUFFIX,mastercard.cn # Foreign IP
+DOMAIN-SUFFIX,mastercard.com.cn # Foreign IP
+DOMAIN-SUFFIX,mgmt-azure-api.cn # Blacklist: azure
+DOMAIN-SUFFIX,microsoft-smb.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftazurestatus.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftmetrics.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftnews.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-i.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-m-i.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-m.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-p-i.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-p-i.net.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-p.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline-p.net.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftonline.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftreactor.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftreactor.com.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsoftstore.com.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,microsofttranslator-int.cn # Blacklist: microsoft
+DOMAIN-SUFFIX,miitomo.com.cn # Foreign IP
+DOMAIN-SUFFIX,minisohome.cn # Foreign IP
+DOMAIN-SUFFIX,minsio.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,mncmsidlab1.cn # Foreign IP
+DOMAIN-SUFFIX,mobileinternational.com.cn # Foreign IP
+DOMAIN-SUFFIX,mojidict.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,moonshot.ai # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,morefreegame.com # Blacklisted IP: 1.1.1.29
+DOMAIN-SUFFIX,mortein.cn # Foreign IP
+DOMAIN-SUFFIX,movefree.cn # Foreign IP
+DOMAIN-SUFFIX,msauth.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msauthimages.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msftauth.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msftauthimages.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msftcloudes.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msidentity.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msidlabpbmc.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,msn.cn # Foreign IP
+DOMAIN-SUFFIX,myqnapcloud.cn # Foreign IP
+DOMAIN-SUFFIX,natfrp.com # Blocked CDN: cloudflare
+DOMAIN-SUFFIX,network-auth.cn # Foreign IP
+DOMAIN-SUFFIX,nike-shox.cn # Foreign IP
+DOMAIN-SUFFIX,nike.cn # Foreign IP
+DOMAIN-SUFFIX,nikebetterworld.cn # Foreign IP
+DOMAIN-SUFFIX,nikebetterworld.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikechina.cn # Foreign IP
+DOMAIN-SUFFIX,nikegolf.cn # Foreign IP
+DOMAIN-SUFFIX,nikeid.cn # Foreign IP
+DOMAIN-SUFFIX,nikeid.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikeinc.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikelab.cn # Foreign IP
+DOMAIN-SUFFIX,nikelab.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikeliuxiang.cn # Foreign IP
+DOMAIN-SUFFIX,nikeliuxiang.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikemall.cn # Foreign IP
+DOMAIN-SUFFIX,nikemall.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikerunclub.cn # Foreign IP
+DOMAIN-SUFFIX,nikerunclub.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikerunning.com.cn # Foreign IP
+DOMAIN-SUFFIX,nikestore.cn # Foreign IP
+DOMAIN-SUFFIX,nintendolabo.cn # Foreign IP
+DOMAIN-SUFFIX,nokiantyres.cn # Foreign IP
+DOMAIN-SUFFIX,nurofen.cn # Foreign IP
+DOMAIN-SUFFIX,nurofen.com.cn # Foreign IP
+DOMAIN-SUFFIX,nvidia.cn # Blacklist: nvidia
+DOMAIN-SUFFIX,nwcdcloud.cn # CDN: aws
+DOMAIN-SUFFIX,nwcdcloud.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,nwcddns.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,nwcdinfosec.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,o365files.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,oemssl.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,office365-net.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,office365.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,onmschina.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,oreilly.com.cn # Foreign IP
+DOMAIN-SUFFIX,outlook.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,paypal.com.cn # Foreign IP
+DOMAIN-SUFFIX,paypal.net.cn # Foreign IP
+DOMAIN-SUFFIX,paypal.org.cn # Foreign IP
+DOMAIN-SUFFIX,paypalcommunity.cn # Foreign IP
+DOMAIN-SUFFIX,paypalhere.cn # Foreign IP
+DOMAIN-SUFFIX,paypalhere.com.cn # Foreign IP
+DOMAIN-SUFFIX,pbiwebcontent.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,powerapps.cn # Foreign IP
+DOMAIN-SUFFIX,powerappsportals.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,powerbi.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,practicalmoneyskills.cn # Foreign IP
+DOMAIN-SUFFIX,practicalmoneyskills.com.cn # Foreign IP
+DOMAIN-SUFFIX,priceless.com.cn # Foreign IP
+DOMAIN-SUFFIX,pricelessbeijing.cn # Foreign IP
+DOMAIN-SUFFIX,pricelessbeijing.com.cn # Foreign IP
+DOMAIN-SUFFIX,primeday.cn # Foreign IP
+DOMAIN-SUFFIX,primeday.com.cn # Foreign IP
+DOMAIN-SUFFIX,prostores.cn # Foreign IP
+DOMAIN-SUFFIX,prostores.com.cn # Foreign IP
+DOMAIN-SUFFIX,qlinkto.cn # Foreign IP
+DOMAIN-SUFFIX,qnap.com.cn # Foreign IP
+DOMAIN-SUFFIX,qualcomm.cn # Foreign IP
+DOMAIN-SUFFIX,reabble.cn # Foreign IP
+DOMAIN-SUFFIX,reactorms.com.cn # Foreign IP
+DOMAIN-SUFFIX,reckittbenckiser.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,reckittbenckiser.com.cn # Foreign IP
+DOMAIN-SUFFIX,researchkit.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,researchkit.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,rmbgame.net # Blacklisted IP: 172.67.165.59
+DOMAIN-SUFFIX,route53.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ruby-china.org # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,rubyconfchina.org # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,ruseer.com # Blacklisted IP: 172.65.190.172
+DOMAIN-SUFFIX,rwkv.com # Blacklisted IP: 172.67.167.248
+DOMAIN-SUFFIX,sagemaker.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,sandisk.cn # Foreign IP
+DOMAIN-SUFFIX,shareintelli.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,shelterdome.net # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,sifou.com # Blacklisted IP: 104.21.87.229
+DOMAIN-SUFFIX,skycdn.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,sslcom.cn # Foreign IP
+DOMAIN-SUFFIX,st.dl.bscstorage.net # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,starbaby.com # Blacklisted IP: 199.16.156.7
+DOMAIN-SUFFIX,staticfile.org # Blocked CDN: cdn77
+DOMAIN-SUFFIX,steampowered.com.8686c.com # Blacklist: steam
+DOMAIN-SUFFIX,steamstatic.com.8686c.com # Blacklist: steam
+DOMAIN-SUFFIX,stmicroelectronics.com.cn # Foreign IP
+DOMAIN-SUFFIX,strepsils.cn # Foreign IP
+DOMAIN-SUFFIX,strepsils.com.cn # Foreign IP
+DOMAIN-SUFFIX,supermariobros.com.cn # Foreign IP
+DOMAIN-SUFFIX,supersmashbros.cn # Foreign IP
+DOMAIN-SUFFIX,supersmashbros.com.cn # Foreign IP
+DOMAIN-SUFFIX,swiftui.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,swiftui.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,t00ls.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,teamviewer.cn # Foreign IP
+DOMAIN-SUFFIX,terapeak.cn # Foreign IP
+DOMAIN-SUFFIX,tesla.cn # Blacklist: tesla
+DOMAIN-SUFFIX,tesla.com.cn # Blacklist: tesla
+DOMAIN-SUFFIX,teslamotors.cn # Blacklist: tesla
+DOMAIN-SUFFIX,teslamotors.com.cn # Blacklist: tesla
+DOMAIN-SUFFIX,tgprocs.net # Blacklisted IP: 104.26.13.245
+DOMAIN-SUFFIX,trafficmanager.cn # Foreign IP
+DOMAIN-SUFFIX,trust-provider.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,tuiwen.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,ucgslb.top # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,ugslb.top # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,vanish.cn # Foreign IP
+DOMAIN-SUFFIX,veet.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,vfsco.com.cn # Foreign IP
+DOMAIN-SUFFIX,vijos.org # Blacklisted IP: 35.241.97.55
+DOMAIN-SUFFIX,visa.com.cn # Foreign IP
+DOMAIN-SUFFIX,visainfinite.cn # Foreign IP
+DOMAIN-SUFFIX,visapay.cn # Foreign IP
+DOMAIN-SUFFIX,visaplatinum.cn # Foreign IP
+DOMAIN-SUFFIX,visaplatinum.com.cn # Foreign IP
+DOMAIN-SUFFIX,volvo.cn # Foreign IP
+DOMAIN-SUFFIX,volvo.com.cn # Foreign IP
+DOMAIN-SUFFIX,volvogroup.cn # Foreign IP
+DOMAIN-SUFFIX,volvogroup.com.cn # Foreign IP
+DOMAIN-SUFFIX,volvotrucks.com.cn # Foreign IP
+DOMAIN-SUFFIX,webex.com.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,whlovehome.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,windowsazure.cn # Blacklist: azure
+DOMAIN-SUFFIX,windowsazurestatus.cn # Blacklist: azure
+DOMAIN-SUFFIX,woolite.cn # Foreign IP
+DOMAIN-SUFFIX,woolite.com.cn # Foreign IP
+DOMAIN-SUFFIX,xboxlive.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,xn--7hvy28f.cn # Foreign IP
+DOMAIN-SUFFIX,xn--bnq297cix3a.cn # Foreign IP
+DOMAIN-SUFFIX,xn--czrs0t4phtr3a.cn # Foreign IP
+DOMAIN-SUFFIX,xn--fiqs8sxootzz.cn # Foreign IP
+DOMAIN-SUFFIX,xn--mts47c3w9b1qr.cn # Foreign IP
+DOMAIN-SUFFIX,xn--ohq11k7pl25iyo8a.cn # Foreign IP
+DOMAIN-SUFFIX,xoom.net.cn # Foreign IP
+DOMAIN-SUFFIX,yahoo.cn # Foreign IP
+DOMAIN-SUFFIX,yahoo.com.cn # Foreign IP
+DOMAIN-SUFFIX,yamaxun.cn # Foreign IP
+DOMAIN-SUFFIX,yamibo.com # Blacklisted IP: 172.67.133.64
+DOMAIN-SUFFIX,yfcache.com # Blacklisted IP: 104.21.57.56
+DOMAIN-SUFFIX,yunpan.aliyun.com # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,zhipucn.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,zhuanyewanjia.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,zoom3g.com # Blacklisted IP: 188.114.96.3

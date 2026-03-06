@@ -1,3 +1,5 @@
+# 需在 GitHub Actions 里打开 PR 设置，Settings --> Workfolw permissions --> 勾选 Allow GitHub Actions to create and approve pull requests
+
 import os
 import yaml
 import hashlib
@@ -41,17 +43,6 @@ KEYWORD_RESCUE_MAP = {
     "xbox": ["xbox.com", "xboxlive.com"],
     "microsoft": ["microsoft.com", "azure.com"]
 }
-
-# === AI 平台的全局拦截关键词库 ===
-AI_FUSION_KEYWORDS = [
-    "openai", "chatgpt", "oaistatic", "oaiusercontent",
-    "copilot", "gemini", "antigravity", "anthropic", "claude",
-    "jetbrains.ai", "meta.ai", "llama-api", "perplexity",
-    "mistral", "grok", "x.ai", "trae.ai", "openrouter",
-    "tokenflux", "groq", "together.ai", "fireworks.ai",
-    "hyperbolic", "jina.ai", "gpustack", "voyageai", "vertexai",
-    "poe.com", "cerebras", "vercel.ai", "huggingface", "hf.co", "nvidia"
-]
 
 def get_metadata():
     repo_full = os.getenv('GITHUB_REPOSITORY')
@@ -185,35 +176,28 @@ def should_skip_file(fname):
         if k in base: return True
     return False
 
-def parse_file(path, ruleset, ai_ruleset=None):
+def parse_file(path, ruleset):
     try:
         with open(path, 'r', encoding='utf-8', errors='ignore') as f:
             if path.endswith(('.yaml', '.yml')):
                 try:
                     data = yaml.safe_load(f)
                     if data and 'payload' in data:
-                        for l in data['payload']: process_entry(str(l), ruleset, ai_ruleset)
+                        for l in data['payload']: process_entry(str(l), ruleset)
                 except: pass
             else:
-                for l in f: process_entry(l, ruleset, ai_ruleset)
+                for l in f: process_entry(l, ruleset)
     except: pass
 
-def process_entry(line, ruleset, ai_ruleset=None):
+def process_entry(line, ruleset):
     line = line.strip()
     if not line or line.startswith('#'): return
     if line.startswith("['"): line = line.replace('[','').replace(']','').replace("'", "")
-    
-    target_ruleset = ruleset
-    if ai_ruleset is not None:
-        lower_line = line.lower()
-        if any(kw in lower_line for kw in AI_FUSION_KEYWORDS):
-            target_ruleset = ai_ruleset
-
     upper = line.upper()
     if 'DOMAIN' in upper or (not 'IP-' in upper and '.' in line and not line[0].isdigit()):
-        target_ruleset.add_domain(line)
+        ruleset.add_domain(line)
     else:
-        target_ruleset.add_ip(line)
+        ruleset.add_ip(line)
 
 def build_mihomo(kernel, name, ruleset):
     h_d, h_i = False, False
@@ -343,7 +327,7 @@ def generate_readme(stats):
         f"* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国内陆的 IP",
         f"",
         f"## 📍 Mihomo 配置",
-        f">用 `type: http` 引用规则集，覆写参考<sub>（建议用 js 覆写配置，动态客户端 utls 指纹和自动筛选五大洲的节点分组）</sub>: {config_link}",
+        f">用 `type: http` 引用规则集，覆写参考: {config_link}",
         f"",
         f"<details>",
         f"<summary><strong>示例</strong> </summary>",
@@ -413,25 +397,17 @@ def main():
     rel_path_map = {} 
     cnt = 0
     
-    # 初始化独立的 AI 规则集内存桶
-    ai_rs = aggregated["AI_Models"]
-    
     for root, _, files in os.walk(SOURCE_DIR):
         rel = os.path.relpath(root, SOURCE_DIR)
         if rel == '.': continue
-        if rel == 'AI_Models': continue
         rs = aggregated[rel]
         for f in files:
             if f.lower().endswith(('.yaml','.yml','.list','.txt')) and not should_skip_file(f):
                 full_path = os.path.join(root, f)
-                # 传入 ai_rs 进行拦截器接管
-                parse_file(full_path, rs, ai_rs)
+                parse_file(full_path, rs)
                 rel_path_map[rel] = full_path 
                 cnt += 1
                 
-    if ai_rs.domain_entries or ai_rs.ip_entries:
-        rel_path_map["AI_Models"] = "virtual_ai_interceptor"
-        
     logger.info(f"✅ 解析完成。规则组: {len(aggregated)}")
     stats = []
     valid_outputs = set()

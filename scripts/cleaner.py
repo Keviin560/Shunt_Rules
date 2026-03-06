@@ -71,7 +71,6 @@ class GeoIPEngine:
         except: return False
 
     def export_clean_list(self, raw_cn_path):
-        # 🔥 修正 A：建立 GeoIP_CN 文件夹，让 builder 生成 GeoIP_CN.mrs/.lsr
         output_path = os.path.join(INJECT_ROOT, "GeoIP_CN", "list.txt")
         print(f"🧹 [GeoIP] 导出到: {output_path}")
         
@@ -88,11 +87,9 @@ class GeoIPEngine:
                             clean_lines.append(line)
                     except: pass
         
-        # 确保目录存在
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         
         with open(output_path, 'w', encoding='utf-8') as f:
-            # 注释名仅作参考，实际以文件夹名为准
             f.write("# NAME: GeoIP:CN\n") 
             f.write("\n".join(clean_lines))
         print(f"✅ 生成 IP 规则 (保留: {len(clean_lines)} 条)")
@@ -115,7 +112,9 @@ class Cleaner:
         return {}
 
     async def resolve(self, session, domain):
-        url = f"https://dns.alidns.com/resolve?name={domain}&type=A"
+        # 💡 核心修复 1：利用 edns_client_subnet 伪装国内 IP（114.114.114.114）进行查询
+        # 防止 GitHub Actions 的美国 IP 导致国内网站（如 115.com）返回海外 CDN 节点从而被误杀
+        url = f"https://dns.alidns.com/resolve?name={domain}&type=A&edns_client_subnet=114.114.114.114"
         for _ in range(RETRIES + 1):
             try:
                 async with self.sem:
@@ -159,6 +158,10 @@ class Cleaner:
 
         data = await self.resolve(session, domain)
         
+        # 💡 核心修复 2：很多纯后缀根域名（如 hdslb.com）没有 A 记录，智能回退测试 www 子域名
+        if not data or 'Answer' not in data:
+            data = await self.resolve(session, f"www.{domain}")
+
         if not data or 'Answer' not in data:
             new_fail_count = fail_count + 1
             if new_fail_count >= 3:
@@ -223,7 +226,6 @@ class Cleaner:
         with open(LOG_ABANDONED, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.abandoned)))
         with open(LOG_NON_CN, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.non_cn)))
         
-        # 🔥 修正 B：建立 GeoSite_CN 文件夹，让 builder 生成 GeoSite_CN.mrs/.lsr
         output_path = os.path.join(INJECT_ROOT, "GeoSite_CN", "list.txt")
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         
@@ -238,7 +240,7 @@ async def main():
     raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt")
     
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
-    engine.export_clean_list(raw_cn_ip) # 目录由内部自动创建
+    engine.export_clean_list(raw_cn_ip) 
 
     cleaner = Cleaner(engine)
     domains = set()

@@ -333,7 +333,7 @@ function main(config) {
             if (g.proxies.length === 0) g.proxies = ['节点选择'];
             
             // 注入探针机制：确保各种流媒体选项卡也能防断流
-            g.url = 'https://www.gstatic.com/generate_204';
+            g.url = 'https://www.apple.com/library/test/success.html';
             g.interval = 300;
             g.timeout = 3000;
         }
@@ -345,7 +345,7 @@ function main(config) {
                 type: 'select', 
                 proxies: sorted.All.length > 0 ? sorted.All : ['DIRECT'], 
                 icon: iconBase + 'Locator.png',
-                url: 'https://www.gstatic.com/generate_204', // 兜底防断流探针
+                url: 'https://www.apple.com/library/test/success.html', // 兜底防断流探针
                 interval: 300,
                 timeout: 3000
             }

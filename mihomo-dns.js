@@ -303,8 +303,8 @@ function main(config) {
                     type: 'select', 
                     proxies: sorted[r.tag], 
                     icon: r.icon,
-                    url: 'https://www.gstatic.com/generate_204', // 注入保活探针网址
-                    interval: 300,                               // 每 5 分钟在后台悄悄发一次请求，一天几百 KB
+                    url: 'https://www.apple.com/library/test/success.html', // 注入保活探针网址
+                    interval: 300,                               // 每 5 分钟在后台悄悄发一次请求
                     timeout: 3000
                 });
                 activeGroups.add(r.name); // 把它加入“存活白名单”

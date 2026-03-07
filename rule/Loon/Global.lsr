@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-07 03:07:49
-# Total = 33153
+# Update = 2026-03-08 04:37:41
+# Total = 33165
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -237,6 +237,7 @@ DOMAIN,wrds-www.wharton.upenn.edu
 DOMAIN,www-cdn.icloud.com.akadns.net
 DOMAIN,yandex-pogoda.static-storage.net
 DOMAIN,yangzhi.app
+DOMAIN,youla-web-static.mrgcdn.ru
 DOMAIN,ztedevices.com
 DOMAIN-KEYWORD,1drv
 DOMAIN-KEYWORD,1e100
@@ -9030,6 +9031,7 @@ DOMAIN-SUFFIX,dowjones.com
 DOMAIN-SUFFIX,dowjones.io
 DOMAIN-SUFFIX,dowjoneson.com
 DOMAIN-SUFFIX,download.com
+DOMAIN-SUFFIX,download.dappcdn.com
 DOMAIN-SUFFIX,download.qatp1.net
 DOMAIN-SUFFIX,download.qcpp1.net
 DOMAIN-SUFFIX,download.qpdp1.net
@@ -20062,6 +20064,7 @@ DOMAIN-SUFFIX,muslimvideo.com
 DOMAIN-SUFFIX,mut.ch
 DOMAIN-SUFFIX,muthead.com
 DOMAIN-SUFFIX,muther.ac.uk
+DOMAIN-SUFFIX,muvluv-girls-garden.com
 DOMAIN-SUFFIX,muycerdas.xxx
 DOMAIN-SUFFIX,muyzorras.com
 DOMAIN-SUFFIX,muzi.com
@@ -22012,6 +22015,7 @@ DOMAIN-SUFFIX,only3x.com
 DOMAIN-SUFFIX,onlyams.com
 DOMAIN-SUFFIX,onlycartoonsex.com
 DOMAIN-SUFFIX,onlydudes.com
+DOMAIN-SUFFIX,onlyfans.com
 DOMAIN-SUFFIX,onlyfanspw.com
 DOMAIN-SUFFIX,onlyfreelatinaporn.com
 DOMAIN-SUFFIX,onlygayvideo.com
@@ -23121,6 +23125,10 @@ DOMAIN-SUFFIX,pleasefuck.org
 DOMAIN-SUFFIX,pleasurebabe.com
 DOMAIN-SUFFIX,pleasuregirl.net
 DOMAIN-SUFFIX,pleasuremore.com
+DOMAIN-SUFFIX,plex.com
+DOMAIN-SUFFIX,plex.services
+DOMAIN-SUFFIX,plex.tv
+DOMAIN-SUFFIX,plexapp.com
 DOMAIN-SUFFIX,plexvpn.pro
 DOMAIN-SUFFIX,plixi.com
 DOMAIN-SUFFIX,plm.org.hk
@@ -25564,6 +25572,7 @@ DOMAIN-SUFFIX,sena.co.kr
 DOMAIN-SUFFIX,senatehouselibrary.ac.uk
 DOMAIN-SUFFIX,sendsmtp.com
 DOMAIN-SUFFIX,sendspace.com
+DOMAIN-SUFFIX,sendvid.com
 DOMAIN-SUFFIX,seneporno.com
 DOMAIN-SUFFIX,seniortgp.com
 DOMAIN-SUFFIX,senpaiheat.com
@@ -29694,6 +29703,7 @@ DOMAIN-SUFFIX,usvimosquito.com
 DOMAIN-SUFFIX,usvimosquitoproject.com
 DOMAIN-SUFFIX,usw.ac.uk
 DOMAIN-SUFFIX,utcreading.ac.uk
+DOMAIN-SUFFIX,utdstc.com
 DOMAIN-SUFFIX,utopianpal.com
 DOMAIN-SUFFIX,uu-gg.com
 DOMAIN-SUFFIX,uug22.com
@@ -32560,6 +32570,8 @@ DOMAIN-SUFFIX,youflix.is
 DOMAIN-SUFFIX,youjism.com
 DOMAIN-SUFFIX,youjizz.com
 DOMAIN-SUFFIX,youjizz.sex
+DOMAIN-SUFFIX,youla.io
+DOMAIN-SUFFIX,youla.ru
 DOMAIN-SUFFIX,youlucky.com
 DOMAIN-SUFFIX,youmaker.com
 DOMAIN-SUFFIX,youmind.ai

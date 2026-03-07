@@ -1,8 +1,8 @@
 # Name = PrivateTracker
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-07 03:07:55
-# Total = 253
+# Update = 2026-03-08 04:37:41
+# Total = 249
 
 IP-CIDR,207.241.226.111/32,no-resolve
 IP-CIDR,207.241.231.226/32,no-resolve
@@ -20,7 +20,6 @@ DOMAIN,cny.fan
 DOMAIN,d40969.acod.regrucolo.ru
 DOMAIN,evan.im
 DOMAIN,exodus.desync.com
-DOMAIN,explodie.org
 DOMAIN,extracker.dahrkael.net
 DOMAIN,ibksturm.synology.me
 DOMAIN,ipv4.rer.lol
@@ -29,10 +28,8 @@ DOMAIN,ipv6.rer.lol
 DOMAIN,leet-tracker.moe
 DOMAIN,lucke.fenesisu.moe
 DOMAIN,martin-gebhardt.eu
-DOMAIN,node01.madtia.cc
 DOMAIN,node01.torrentonline.cc
 DOMAIN,node01.trackerstatus.live
-DOMAIN,node02.madtia.cc
 DOMAIN,ns575949.ip-51-222-82.net
 DOMAIN,nyaa.tracker.wf
 DOMAIN,open.acgtracker.com
@@ -40,7 +37,6 @@ DOMAIN,open.demonii.com
 DOMAIN,open.demonoid.ch
 DOMAIN,open.dstud.io
 DOMAIN,open.stealth.si
-DOMAIN,opentracker.io
 DOMAIN,p4p.arenabg.com
 DOMAIN,rekcart.duckdns.org
 DOMAIN,retracker.hotplug.ru
@@ -110,18 +106,18 @@ DOMAIN,tracker.t-1.org
 DOMAIN,tracker.theoks.net
 DOMAIN,tracker.therarbg.to
 DOMAIN,tracker.torrent.eu.org
+DOMAIN,tracker.torrust-demo.com
 DOMAIN,tracker.tritan.gg
 DOMAIN,tracker.tryhackx.org
 DOMAIN,tracker.tvunderground.org.ru
 DOMAIN,tracker.waaa.moe
 DOMAIN,tracker.wepzone.net
 DOMAIN,tracker.xn--djrq4gl4hvoi.top
+DOMAIN,tracker.yggleak.top
 DOMAIN,tracker.yume-hatsuyuki.moe
 DOMAIN,tracker.zhuqiy.com
 DOMAIN,tracker1.520.jp
-DOMAIN,tracker1.myporn.club
 DOMAIN,tracker2.dler.org
-DOMAIN,tracker2.itzmx.com
 DOMAIN,tracker3.itzmx.com
 DOMAIN,tracker4.itzmx.com
 DOMAIN,uabits.today

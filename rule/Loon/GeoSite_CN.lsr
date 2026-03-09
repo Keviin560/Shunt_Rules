@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-07 03:07:47
-# Total = 4194
+# Update = 2026-03-10 04:46:27
+# Total = 4202
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,cueme-api.quark.cn
@@ -118,6 +118,7 @@ DOMAIN-SUFFIX,1905.com
 DOMAIN-SUFFIX,19yxw.com
 DOMAIN-SUFFIX,1hai.cn
 DOMAIN-SUFFIX,1nongjing.com
+DOMAIN-SUFFIX,1ppt.com
 DOMAIN-SUFFIX,1ting.com
 DOMAIN-SUFFIX,1tyy.cn
 DOMAIN-SUFFIX,1xhh.cn
@@ -270,6 +271,7 @@ DOMAIN-SUFFIX,52hxw.com
 DOMAIN-SUFFIX,52miji.com
 DOMAIN-SUFFIX,52pk.com
 DOMAIN-SUFFIX,52pojie.cn
+DOMAIN-SUFFIX,52ppt.com
 DOMAIN-SUFFIX,52z.com
 DOMAIN-SUFFIX,53kf.com
 DOMAIN-SUFFIX,55.com
@@ -509,6 +511,7 @@ DOMAIN-SUFFIX,awemeugwave.com
 DOMAIN-SUFFIX,b3logfile.com
 DOMAIN-SUFFIX,babytree.com
 DOMAIN-SUFFIX,babytreeimg.com
+DOMAIN-SUFFIX,badou.com
 DOMAIN-SUFFIX,baichuan-ai.com
 DOMAIN-SUFFIX,baicizhan.com
 DOMAIN-SUFFIX,baicizhan.org
@@ -664,6 +667,7 @@ DOMAIN-SUFFIX,bohejiasuqi.com
 DOMAIN-SUFFIX,bojianger.com
 DOMAIN-SUFFIX,bokecc.com
 DOMAIN-SUFFIX,boohee.com
+DOMAIN-SUFFIX,book118.com
 DOMAIN-SUFFIX,boosj.com
 DOMAIN-SUFFIX,bootcdn.cn
 DOMAIN-SUFFIX,bootcdn.net
@@ -1687,6 +1691,7 @@ DOMAIN-SUFFIX,hao123img.com
 DOMAIN-SUFFIX,hao222.com
 DOMAIN-SUFFIX,haodf.com
 DOMAIN-SUFFIX,haofenshu.com
+DOMAIN-SUFFIX,haohaodoc.com
 DOMAIN-SUFFIX,haohaowan.net
 DOMAIN-SUFFIX,haokan.com
 DOMAIN-SUFFIX,haolietou.com
@@ -2343,6 +2348,7 @@ DOMAIN-SUFFIX,latepost.com
 DOMAIN-SUFFIX,lawxp.com
 DOMAIN-SUFFIX,lawyee.org
 DOMAIN-SUFFIX,lazycat.cloud
+DOMAIN-SUFFIX,lazyer.net
 DOMAIN-SUFFIX,lbtp.com
 DOMAIN-SUFFIX,lceda.cn
 DOMAIN-SUFFIX,lckfb.com
@@ -3012,6 +3018,7 @@ DOMAIN-SUFFIX,realcybertron.com
 DOMAIN-SUFFIX,redmagic.com
 DOMAIN-SUFFIX,renren-inc.com
 DOMAIN-SUFFIX,renren.com
+DOMAIN-SUFFIX,renrendoc.com
 DOMAIN-SUFFIX,resset.com
 DOMAIN-SUFFIX,right.com.cn
 DOMAIN-SUFFIX,rmwxgame.com
@@ -3638,6 +3645,7 @@ DOMAIN-SUFFIX,weiyangx.com
 DOMAIN-SUFFIX,weiyun.com
 DOMAIN-SUFFIX,welltrend-edu.com
 DOMAIN-SUFFIX,wenjuan.com
+DOMAIN-SUFFIX,wenkeju.com
 DOMAIN-SUFFIX,wenmingban.com
 DOMAIN-SUFFIX,wenshushu.cn
 DOMAIN-SUFFIX,wenshushu.com

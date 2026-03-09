@@ -389,6 +389,7 @@ function main(config) {
             Lan:            buildRule('Lan'),
             Lan_IP:         buildRule('Lan_IP'),
             GameDownloadCN: buildRule('GameDownloadCN'),
+            WeChat:         buildRule('WeChat'),
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             OpenAI:         buildRule('OpenAI'),
@@ -432,6 +433,7 @@ function main(config) {
             'RULE-SET,Lan,DIRECT',
             'RULE-SET,Lan_IP,DIRECT,no-resolve',
             'RULE-SET,GameDownloadCN,DIRECT',
+            'RULE-SET,WeChat,DIRECT',
             'DST-PORT,123,DIRECT',                      
 
             // ===============================================

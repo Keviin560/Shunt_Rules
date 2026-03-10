@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-10 04:46:27
-# Total = 4202
+# Update = 2026-03-11 04:44:23
+# Total = 4208
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,cueme-api.quark.cn
@@ -709,6 +709,7 @@ DOMAIN-SUFFIX,caixin.com
 DOMAIN-SUFFIX,caiyun.com
 DOMAIN-SUFFIX,caiyunai.com
 DOMAIN-SUFFIX,caiyunapp.com
+DOMAIN-SUFFIX,calorietech.com
 DOMAIN-SUFFIX,camcard.com
 DOMAIN-SUFFIX,camscanner.com
 DOMAIN-SUFFIX,cang.com
@@ -1191,6 +1192,7 @@ DOMAIN-SUFFIX,douyinact.net
 DOMAIN-SUFFIX,douyincdn.com
 DOMAIN-SUFFIX,douyinfe.com
 DOMAIN-SUFFIX,douyinliving.com
+DOMAIN-SUFFIX,douyinpay.com
 DOMAIN-SUFFIX,douyinpic.com
 DOMAIN-SUFFIX,douyinstatic.com
 DOMAIN-SUFFIX,douyinvod.com
@@ -1717,6 +1719,7 @@ DOMAIN-SUFFIX,heisha.net
 DOMAIN-SUFFIX,heiyan.com
 DOMAIN-SUFFIX,heiyanimg.com
 DOMAIN-SUFFIX,heiyu.space
+DOMAIN-SUFFIX,helipay.com
 DOMAIN-SUFFIX,hello-inc.com
 DOMAIN-SUFFIX,hellobike.com
 DOMAIN-SUFFIX,hellofont.cn
@@ -2209,6 +2212,8 @@ DOMAIN-SUFFIX,kdslife.com
 DOMAIN-SUFFIX,ke.com
 DOMAIN-SUFFIX,keboyunxiao.com
 DOMAIN-SUFFIX,kechuang.org
+DOMAIN-SUFFIX,keep.com
+DOMAIN-SUFFIX,keep.com.cn
 DOMAIN-SUFFIX,keepcdn.com
 DOMAIN-SUFFIX,kejet.net
 DOMAIN-SUFFIX,kekeniu.com
@@ -3125,6 +3130,7 @@ DOMAIN-SUFFIX,shengyi.ai
 DOMAIN-SUFFIX,shengyizhuanjia.com
 DOMAIN-SUFFIX,shenmayouxi.com
 DOMAIN-SUFFIX,sheui.com
+DOMAIN-SUFFIX,shfft.com
 DOMAIN-SUFFIX,shgsec.com
 DOMAIN-SUFFIX,shhxzq.com
 DOMAIN-SUFFIX,shidianbaike.com

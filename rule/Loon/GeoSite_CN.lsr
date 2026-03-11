@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-11 04:44:23
-# Total = 4208
+# Update = 2026-03-12 04:44:13
+# Total = 4209
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,cueme-api.quark.cn
@@ -99,6 +99,7 @@ DOMAIN-SUFFIX,16888.com
 DOMAIN-SUFFIX,16q.cn
 DOMAIN-SUFFIX,16rd.com
 DOMAIN-SUFFIX,17173.com
+DOMAIN-SUFFIX,172mix.com
 DOMAIN-SUFFIX,178.com
 DOMAIN-SUFFIX,178linux.com
 DOMAIN-SUFFIX,17989.com

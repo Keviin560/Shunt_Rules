@@ -26,10 +26,10 @@ jobs:
           git commit -m "fix: 彻底抹除幽灵子模块 temp_source" || true
           git push || true
 
-      - name: 💾 恢复域名缓存
+      - name: 💾 恢复持久化数据 (缓存整个 data 目录)
         uses: actions/cache@v3
         with:
-          path: data/domain_cache.json
+          path: data/
           key: ${{ runner.os }}-domain-cache-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-domain-cache-
@@ -63,7 +63,7 @@ jobs:
 
       - name: 🧩 准备基础数据 (源码编译 v2dat & 数据源替换)
         run: |
-          mkdir -p raw_data
+          mkdir -p raw_data data
           
           echo "🛠️ Installing v2dat from source..."
           go install github.com/urlesistiana/v2dat@latest
@@ -71,7 +71,6 @@ jobs:
           
           echo "⬇️ Downloading Data Files..."
           wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
-          # 🟢 域名库：换成 Custom 精修版，自带去广告和直连优化
           wget -q -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat
           
           echo "🔓 Unpacking GeoIP..."
@@ -92,10 +91,19 @@ jobs:
             fi
           done
           
-          echo "🔓 Unpacking GeoSite (Multi-Track)..."
+          echo "🕳️ Unpacking Poison Blackhole (增量比对库)..."
+          for tag in 'category-ads-all' 'geolocation-!cn' 'category-porn'; do
+            ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
+            if [ -f "raw_data/geosite_$tag.txt" ]; then
+              cat "raw_data/geosite_$tag.txt" >> data/blackhole.txt
+            fi
+          done
+          # 去重并保存黑洞库，实现增量持久化更新
+          sort -u data/blackhole.txt -o data/blackhole.txt || true
           
-          # 1. 提取国内主干道：基础图纸 + 纯血大厂合并
-          for tag in geolocation-cn alibaba tencent baidu bilibili xiaomi netease jd pinduoduo meituan bytedance kuaishou xiaohongshu zhihu douyu huya; do
+          echo "🔓 Unpacking GeoSite (Domestic Multi-Track)..."
+          # 提取国内主干道：基础图纸 + 国内企业大满贯
+          for tag in geolocation-cn 115 17zuoye 36kr 4399 51job 58tongcheng aamgame aiqicha aisiku aixcoder alibaba alibabacloud aliyun aliyun-drive baidu baishancloud beisen bilibili bytedance cainiao chaoxing chinabroadnet chinamobile chinanews chinapower chinaso chinatelecom chinatower chinaunicom ciweimao cnblogs csdn ctyun dingdatech dingtalk douban douyin duowan eleme feishu fengxing ifanr iflytek ihuman iqiyi jinshuju kuaidi100 kuaikan kuaishou kuaiyikeji lagou landian lanzou lark lianjia meituan netease pingan qcloud qingcloud qingtingfm qiniu qixin tencent tencent-dev tencent-games taikang taomee taptap tianyancha ucloud weiphone wenshushu xiaomi xiaomi-ai xiaomi-iot ximalaya xueersi xueqiu yunfanjiasu yunlaopo yundaex youzan yuanbei yuanfudao yuewen yuketang zhubajie ziroom zto-express jd pinduoduo unionpay ccb icbc huawei huawei-dev huaweicloud lenovo tcl vivo oppo sto-express yto-express; do
             ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
             if [ -f "raw_data/geosite_$tag.txt" ]; then
               cat "raw_data/geosite_$tag.txt" >> raw_data/geosite_cn_merged.txt
@@ -103,14 +111,15 @@ jobs:
           done
           mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
 
-          # 2. 提取免检通道 1：AI 聚合库 (Chat + 常规 AI)
-          ./v2dat unpack geosite -o raw_data -f "category-ai-chat-!cn" geosite.dat || true
-          ./v2dat unpack geosite -o raw_data -f "category-ai-!cn" geosite.dat || true
+          echo "🔓 Unpacking VIP Channels (AI & Games)..."
+          # 提取免检通道 1：AI 聚合库
+          ./v2dat unpack geosite -o raw_data -f 'category-ai-chat-!cn' geosite.dat || true
+          ./v2dat unpack geosite -o raw_data -f 'category-ai-!cn' geosite.dat || true
           cat raw_data/geosite_category-ai*.txt 2>/dev/null > raw_data/ai_rules.txt || true
 
-          # 3. 提取免检通道 2：国内与国外游戏库
-          ./v2dat unpack geosite -o raw_data -f "category-games-!cn" geosite.dat || true
-          ./v2dat unpack geosite -o raw_data -f "category-games-cn" geosite.dat || true
+          # 提取免检通道 2：国内与国外游戏库
+          ./v2dat unpack geosite -o raw_data -f 'category-games-!cn' geosite.dat || true
+          ./v2dat unpack geosite -o raw_data -f 'category-games-cn' geosite.dat || true
 
       - name: 🧹 执行深度清洗 (Cleaner)
         run: python scripts/cleaner.py

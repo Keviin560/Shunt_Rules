@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-03-10
+ * 更新日期：2026-03-12
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -392,10 +392,7 @@ function main(config) {
             WeChat:         buildRule('WeChat'),
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
-            OpenAI:         buildRule('OpenAI'),
-            Gemini:         buildRule('Gemini'),
-            Claude:         buildRule('Claude'),
-            Copilot:        buildRule('Copilot'),
+            AI_Rules:         buildRule('AI_Rules'),
             YouTube:        buildRule('YouTube'),
             YouTube_IP:     buildRule('YouTube_IP'),
             Netflix:        buildRule('Netflix'),
@@ -460,10 +457,7 @@ function main(config) {
             // ===============================================
             // 🚀 第四层：各大应用智能分流
             // ===============================================
-            'RULE-SET,OpenAI,AI Rules',
-            'RULE-SET,Gemini,AI Rules',
-            'RULE-SET,Claude,AI Rules',
-            'RULE-SET,Copilot,AI Rules',
+            'RULE-SET,AI_Rules,AI Rules',
             'RULE-SET,YouTube,YouTube',
             'RULE-SET,Netflix,Netflix',
             'RULE-SET,TikTok,TikTok',

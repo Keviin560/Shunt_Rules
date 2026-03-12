@@ -1590,10 +1590,10 @@
     "rule_count": 8713
   },
   "GeoSite_CN": {
-    "src_hash": "9696c951b1f98aaed6aae2aeb485d81a",
-    "updated_at": 1773284920,
+    "src_hash": "d737356a8a472b282b4132f59ffe47d0",
+    "updated_at": 1773286781,
     "gen_ver": "v5.0",
-    "rule_count": 6185
+    "rule_count": 6350
   },
   "Gettyimages": {
     "src_hash": "3d313acba1377bfb4b91badb68fc536c",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1773284920,
+    "updated_at": 1773286781,
     "gen_ver": "v5.0",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1773284920,
+    "updated_at": 1773286781,
     "gen_ver": "v5.0",
     "rule_count": 1
   },

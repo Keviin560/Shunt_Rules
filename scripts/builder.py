@@ -325,7 +325,7 @@ def generate_readme(stats):
         f"* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP 段，仅保留物理位置在中国大陆的纯正 IP",
         f"",
         f"* AI_Rules：聚合主流对话式 AI（ChatGPT, Claude, Gemini 等）和 AI 开发者平台",
-        f"  <br><sub>目前已包含：OpenAI (ChatGPT / Sora)、Anthropic (Claude)、Google (Gemini / 谷歌 AI 家族)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft / GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici / Coze、Manus</sub>",
+        f"  <br><sub>`目前已包含：OpenAI (ChatGPT / Sora)、Anthropic (Claude)、Google (Gemini / 谷歌 AI 家族)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft / GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici / Coze、Manus`</sub>",
         f"* Game_Proxy：纯海外游戏平台（如 Steam 社区、任天堂、EA、Epic 核心服务等）",
         f"",
         f"## 📍 Mihomo 配置",

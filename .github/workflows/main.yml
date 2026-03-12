@@ -92,11 +92,25 @@ jobs:
             fi
           done
           
-          echo "🔓 Unpacking GeoSite..."
-          # 🔥 提取 geolocation-cn 标签，获取 10 万级全量数据
-          ./v2dat unpack geosite -o raw_data -f geolocation-cn geosite.dat
-          # 重命名以适配 cleaner.py 的读取逻辑
-          mv raw_data/geosite_geolocation-cn.txt raw_data/geosite_cn.txt
+          echo "🔓 Unpacking GeoSite (Multi-Track)..."
+          
+          # 1. 提取国内主干道：基础图纸 + 纯血大厂合并
+          for tag in geolocation-cn alibaba tencent baidu bilibili xiaomi netease jd pinduoduo meituan bytedance kuaishou xiaohongshu zhihu douyu huya; do
+            ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
+            if [ -f "raw_data/geosite_$tag.txt" ]; then
+              cat "raw_data/geosite_$tag.txt" >> raw_data/geosite_cn_merged.txt
+            fi
+          done
+          mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
+
+          # 2. 提取免检通道 1：AI 聚合库 (Chat + 常规 AI)
+          ./v2dat unpack geosite -o raw_data -f "category-ai-chat-!cn" geosite.dat || true
+          ./v2dat unpack geosite -o raw_data -f "category-ai-!cn" geosite.dat || true
+          cat raw_data/geosite_category-ai*.txt 2>/dev/null > raw_data/ai_rules.txt || true
+
+          # 3. 提取免检通道 2：国内与国外游戏库
+          ./v2dat unpack geosite -o raw_data -f "category-games-!cn" geosite.dat || true
+          ./v2dat unpack geosite -o raw_data -f "category-games-cn" geosite.dat || true
 
       - name: 🧹 执行深度清洗 (Cleaner)
         run: python scripts/cleaner.py

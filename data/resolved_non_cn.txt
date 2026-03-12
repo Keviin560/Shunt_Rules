@@ -30,6 +30,8 @@ DOMAIN-SUFFIX,cn.pool.ntp.org # Blacklisted IP: 162.159.200.1
 DOMAIN-SUFFIX,ctsbw.com # Blacklisted IP: 172.67.155.107
 DOMAIN-SUFFIX,dajieimg.com # Blocked CDN: cloudflare
 DOMAIN-SUFFIX,deepinos.org # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,dnsv1.com # Blacklisted IP: 1.1.1.1
+DOMAIN-SUFFIX,dnsv1.com.cn # Blacklisted IP: 1.1.1.1
 DOMAIN-SUFFIX,dxpmedia.com # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,fanmingming.com # Blacklisted IP: 172.67.220.212
 DOMAIN-SUFFIX,fofa.so # Blacklisted IP: 172.66.148.169
@@ -43,7 +45,9 @@ DOMAIN-SUFFIX,haote.com # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,houdao.com # Blacklisted IP: 104.26.0.241
 DOMAIN-SUFFIX,huangyuhui.net # Blacklisted IP: 172.67.192.152
 DOMAIN-SUFFIX,hugecore.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,im9.com # Blacklisted IP: 104.26.10.84
 DOMAIN-SUFFIX,ipshu.com # Blacklisted IP: 104.26.3.98
+DOMAIN-SUFFIX,ivweb.io # Blacklisted IP: 172.67.188.83
 DOMAIN-SUFFIX,jchat.io # Blacklisted IP: 172.67.210.74
 DOMAIN-SUFFIX,jhwan.com.cn # Blacklisted IP: 104.21.4.43
 DOMAIN-SUFFIX,jianzhi8.com # Blacklisted IP: 188.114.97.3
@@ -62,6 +66,8 @@ DOMAIN-SUFFIX,nwcdcloud.cn # CDN: aws
 DOMAIN-SUFFIX,nwcdcloud.com.cn # NXDOMAIN/Timeout
 DOMAIN-SUFFIX,nwcddns.cn # NXDOMAIN/Timeout
 DOMAIN-SUFFIX,nwcdinfosec.cn # NXDOMAIN/Timeout
+DOMAIN-SUFFIX,openapp.run # Blacklisted IP: 1.1.1.1
+DOMAIN-SUFFIX,rednote.com.my # Blacklisted IP: 104.21.60.228
 DOMAIN-SUFFIX,rmbgame.net # Blacklisted IP: 172.67.165.59
 DOMAIN-SUFFIX,route53.cn # NXDOMAIN/Timeout
 DOMAIN-SUFFIX,rqnoj.cn # Blacklisted IP: 188.114.97.3
@@ -76,6 +82,7 @@ DOMAIN-SUFFIX,sifou.com # Blacklisted IP: 104.21.87.229
 DOMAIN-SUFFIX,starbaby.com # Blacklisted IP: 199.16.156.7
 DOMAIN-SUFFIX,staticfile.org # Blocked CDN: cdn77
 DOMAIN-SUFFIX,t00ls.net # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,tcdlive.com # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,tgprocs.net # Blacklisted IP: 104.26.13.245
 DOMAIN-SUFFIX,tuiwen.net # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,ucgslb.top # NXDOMAIN/Timeout

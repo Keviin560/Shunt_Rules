@@ -62,7 +62,7 @@ jobs:
           ./mihomo-bin -v
           mv mihomo-bin mihomo
 
-      - name: 🧩 准备基础数据 (源码编译 v2dat & 数据源替换)
+      - name: 🧩 准备基础数据 (源码编译 v2dat & 高可用容灾下载)
         run: |
           mkdir -p raw_data data
           
@@ -70,9 +70,24 @@ jobs:
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
-          echo "⬇️ Downloading Data Files..."
-          wget -q -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat
-          wget -q -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat
+          echo "⬇️ Downloading Data Files (High Availability Mode)..."
+          
+          # 🟢 GeoIP 下载 (官方库三重容灾)
+          wget -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat || \
+          wget -O geoip.dat https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat || \
+          wget -O geoip.dat https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat
+          
+          # 🟢 GeoSite 下载 (domain-list-custom 精修版三重容灾！坚决不换源！)
+          echo "📥 Downloading domain-list-custom..."
+          wget -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat || \
+          wget -O geosite.dat https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/geosite.dat || \
+          wget -O geosite.dat https://fastly.jsdelivr.net/gh/Loyalsoldier/domain-list-custom@release/geosite.dat
+          
+          # 🛡️ 终极安全校验：如果所有节点都挂了，才终止并报错
+          if [ ! -f "geosite.dat" ] || [ ! -f "geoip.dat" ]; then
+            echo "❌ 致命错误：基础数据文件下载失败！所有备用节点均无法访问。"
+            exit 1
+          fi
           
           echo "🔓 Unpacking GeoIP..."
           ./v2dat unpack geoip -o raw_data -f cn geoip.dat

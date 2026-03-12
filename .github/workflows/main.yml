@@ -163,7 +163,7 @@ jobs:
       - name: 🧹 执行深度清洗 (Cleaner)
         run: python scripts/cleaner.py
 
-      - name: 🔔 检测 AI 新平台并自动通知
+      - name: 🤖 检测 AI 新平台并自动通知
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -190,12 +190,55 @@ jobs:
             echo "" >> issue_body.md
             echo "*系统已自动将上述新平台的域名解析并无缝融合至您的 \`AI_Rules\` 库中。如遇错漏，请检查规则适用性。*" >> issue_body.md
             
-            gh issue create --title "🔔 [新平台预警] 发现新增 AI 平台 $(date +'%Y-%m-%d')" --body-file issue_body.md || true
+            gh issue create --title "🤖 [AI 雷达预警] 发现新增 AI 平台 $(date +'%Y-%m-%d')" --body-file issue_body.md || true
             mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
           else
             echo "💤 今日无全新 AI 平台收录，更新快照底库。"
             mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
           fi
+
+      # 👇 --- 新增的游戏平台雷达监控网 --- 👇
+      - name: 🎮 检测 游戏 新平台并自动通知
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          touch data/game_platforms_snapshot.txt
+          
+          # 抓取海外游戏和国内游戏分类中的 include 平台名
+          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-games-!cn' | grep "^include:" | cut -d ':' -f2 > temp_game_platforms.txt
+          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-games-cn' | grep "^include:" | cut -d ':' -f2 >> temp_game_platforms.txt
+          
+          # 对平台名称进行去重排序
+          sort -u temp_game_platforms.txt > temp_new_game_platforms.txt
+          sort data/game_platforms_snapshot.txt > temp_old_game_platforms.txt
+          
+          # 对比找出新增项
+          NEW_GAME_PLATFORMS=$(comm -13 temp_old_game_platforms.txt temp_new_game_platforms.txt)
+          
+          if [ -n "$NEW_GAME_PLATFORMS" ]; then
+            echo "🎉 捕获到全新 游戏 平台！"
+            
+            # 使用安全的 echo 逐行写入 Markdown
+            echo "### 🎮 发现全新的 游戏 服务被收录！" > issue_game_body.md
+            echo "" >> issue_game_body.md
+            echo "底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **游戏厂商/联机服务模块**：" >> issue_game_body.md
+            echo "" >> issue_game_body.md
+            echo "\`\`\`text" >> issue_game_body.md
+            echo "$NEW_GAME_PLATFORMS" >> issue_game_body.md
+            echo "\`\`\`" >> issue_game_body.md
+            echo "" >> issue_game_body.md
+            echo "*系统已自动将上述新模块的域名解析并无缝融合至您的 \`Game_Proxy\` 和 \`Game_CN\` 库中。*" >> issue_game_body.md
+            
+            # 提交 Issue
+            gh issue create --title "🎮 [游戏雷达预警] 发现新增 游戏 平台 $(date +'%Y-%m-%d')" --body-file issue_game_body.md || true
+            
+            # 更新游戏快照
+            mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
+          else
+            echo "💤 今日无全新 游戏 平台收录，更新游戏快照底库。"
+            mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
+          fi
+      # 👆 --- 新增模块结束 --- 👆
 
       - name: 🚀 执行编译与文档生成 (Builder)
         run: python scripts/builder.py

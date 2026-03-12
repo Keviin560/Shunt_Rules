@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: write
 
     steps:
       - name: 📥 检出代码仓库
@@ -102,7 +103,7 @@ jobs:
           sort -u data/blackhole.txt -o data/blackhole.txt || true
           
           echo "🔓 Unpacking GeoSite (Domestic Multi-Track)..."
-          # 提取国内主干道：基础图纸 + 国内企业大满贯 (已滤除 kucoin, inoreader, lark-global)
+          # 提取国内主干道：基础图纸 + 国内企业大满贯 (已滤除海外业务标签)
           for tag in geolocation-cn 115 17zuoye 36kr 4399 51job 58tongcheng aamgame aiqicha aisiku aixcoder alibaba alibabacloud aliyun aliyun-drive baidu baishancloud beisen bilibili bytedance cainiao chaoxing chinabroadnet chinamobile chinanews chinapower chinaso chinatelecom chinatower chinaunicom ciweimao cnblogs csdn ctyun dingdatech dingtalk douban douyin duowan eleme feishu fengxing ifanr iflytek ihuman iqiyi jinshuju kuaidi100 kuaikan kuaishou kuaiyikeji lagou landian lanzou lark lianjia meituan netease pingan qcloud qingcloud qingtingfm qiniu qixin tencent tencent-dev tencent-games taikang taomee taptap tianyancha ucloud weiphone wenshushu xiaomi xiaomi-ai xiaomi-iot ximalaya xueersi xueqiu yunfanjiasu yunlaopo yundaex youzan yuanbei yuanfudao yuewen yuketang zhubajie ziroom zto-express jd pinduoduo unionpay ccb icbc huawei huawei-dev huaweicloud lenovo tcl vivo oppo sto-express yto-express; do
             ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
             if [ -f "raw_data/geosite_$tag.txt" ]; then
@@ -112,7 +113,7 @@ jobs:
           mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
 
           echo "🔓 Unpacking VIP Channels (AI & Games)..."
-          # 提取免检通道 1：AI 聚合库 (已移除散装标签，保持库的纯粹性)
+          # 提取免检通道 1：AI 聚合库
           cat /dev/null > raw_data/ai_rules.txt
           for tag in 'category-ai-chat-!cn' 'category-ai-!cn'; do
             ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
@@ -127,6 +128,49 @@ jobs:
 
       - name: 🧹 执行深度清洗 (Cleaner)
         run: python scripts/cleaner.py
+
+      - name: 🔔 检测 AI 新平台并自动通知
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 1. 确保平台快照文件存在
+          touch data/ai_platforms_snapshot.txt
+          
+          # 2. 直捣黄龙：直接从 v2fly 源码库拉取分类索引，精准抓取 include 的平台名
+          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn' | grep "^include:" | cut -d ':' -f2 > temp_platforms.txt
+          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-chat-!cn' | grep "^include:" | cut -d ':' -f2 >> temp_platforms.txt
+          
+          # 对平台名称进行纯净去重排序
+          sort -u temp_platforms.txt > temp_new_platforms.txt
+          sort data/ai_platforms_snapshot.txt > temp_old_platforms.txt
+          
+          # 3. 使用 comm 抓取完全新增的平台名称
+          NEW_PLATFORMS=$(comm -13 temp_old_platforms.txt temp_new_platforms.txt)
+          
+          # 4. 判断并发送 GitHub Issue 报警
+          if [ -n "$NEW_PLATFORMS" ]; then
+            echo "🎉 捕获到全新 AI 平台！"
+            
+            cat <<EOF > issue_body.md
+            ### 🤖 发现全新的 AI 平台被收录！
+            
+            底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **AI 平台/服务模块**：
+            
+            \`\`\`text
+            $NEW_PLATFORMS
+            \`\`\`
+            
+            *系统已自动将上述新平台的域名解析并无缝融合至您的 \`AI_Rules\` 库中。如遇错漏，请检查规则适用性。*
+            EOF
+            
+            gh issue create --title "🔔 [新平台预警] 发现新增 AI 平台 $(date +'%Y-%m-%d')" --body-file issue_body.md || true
+            
+            # 更新平台快照
+            mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
+          else
+            echo "💤 今日无全新 AI 平台收录，更新快照底库。"
+            mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
+          fi
 
       - name: 🚀 执行编译与文档生成 (Builder)
         run: python scripts/builder.py

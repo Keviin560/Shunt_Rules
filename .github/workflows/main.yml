@@ -1,219 +1,34 @@
-name: Auto Convert Rules
-
-on:
-  schedule:
-    - cron: '0 20 * * *'
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
-
-    steps:
-      - name: 📥 检出代码仓库
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: 🚑 强制抹除幽灵子模块 (自愈机制)
-        run: |
-          git rm --cached temp_source || true
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -m "fix: 彻底抹除幽灵子模块 temp_source" || true
-          git push || true
-
-      - name: 💾 恢复持久化数据 (缓存整个 data 目录)
-        uses: actions/cache@v3
-        with:
-          path: data/
-          key: ${{ runner.os }}-domain-cache-${{ github.run_id }}
-          restore-keys: |
-            ${{ runner.os }}-domain-cache-
-
-      - name: 🐍 配置 Python 环境
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: 📦 安装依赖库
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-          pip install PyYAML requests aiohttp
-
-      - name: 📡 克隆上游规则库 (Blackmatrix7)
-        run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
-
-      - name: 🛠️ 部署 Mihomo 编译内核
+- name: 🔔 检测 AI 新平台并自动通知
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
-          DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
-          wget -q -O mihomo.gz "$DOWNLOAD_URL"
-          gunzip mihomo.gz
-          mv mihomo mihomo-bin
-          chmod +x mihomo-bin
-          ./mihomo-bin -v
-          mv mihomo-bin mihomo
-
-      - name: 🧩 准备基础数据 (源码编译 v2dat & 高可用容灾下载)
-        run: |
-          mkdir -p raw_data data
-          
-          echo "🛠️ Installing v2dat from source..."
-          go install github.com/urlesistiana/v2dat@latest
-          mv $(go env GOPATH)/bin/v2dat .
-          
-          echo "⬇️ Downloading Data Files (High Availability Mode)..."
-          
-          # 🟢 GeoIP 下载 (官方库三重容灾)
-          wget -O geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat || \
-          wget -O geoip.dat https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat || \
-          wget -O geoip.dat https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat
-          
-          # 🟢 GeoSite 下载 (domain-list-custom 精修版三重容灾！坚决不换源！)
-          echo "📥 Downloading domain-list-custom..."
-          wget -O geosite.dat https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat || \
-          wget -O geosite.dat https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/geosite.dat || \
-          wget -O geosite.dat https://fastly.jsdelivr.net/gh/Loyalsoldier/domain-list-custom@release/geosite.dat
-          
-          # 🛡️ 终极安全校验：如果所有节点都挂了，才终止并报错
-          if [ ! -f "geosite.dat" ] || [ ! -f "geoip.dat" ]; then
-            echo "❌ 致命错误：基础数据文件下载失败！所有备用节点均无法访问。"
-            exit 1
-          fi
-          
-          echo "🔓 Unpacking GeoIP..."
-          ./v2dat unpack geoip -o raw_data -f cn geoip.dat
-          
-          if [ ! -f "raw_data/geoip_cn.txt" ]; then
-            echo "❌ GeoIP CN extraction failed!"
-            exit 1
-          fi
-          
-          echo "🔓 Unpacking Blacklist IPs..."
-          cat /dev/null > raw_data/geoip_black.txt
-          for tag in google cloudflare telegram twitter facebook netflix; do
-            ./v2dat unpack geoip -o raw_data -f $tag geoip.dat
-            if [ -f "raw_data/geoip_$tag.txt" ]; then
-              cat "raw_data/geoip_$tag.txt" >> raw_data/geoip_black.txt
-              rm "raw_data/geoip_$tag.txt"
-            fi
-          done
-          
-          echo "🕳️ Unpacking Poison Blackhole (增量比对库)..."
-          for tag in 'category-ads-all' 'geolocation-!cn' 'category-porn'; do
-            ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
-            if [ -f "raw_data/geosite_$tag.txt" ]; then
-              cat "raw_data/geosite_$tag.txt" >> data/blackhole.txt
-            fi
-          done
-          # 去重并保存黑洞库，实现增量持久化更新
-          sort -u data/blackhole.txt -o data/blackhole.txt || true
-          
-          echo "🔓 Unpacking GeoSite (Domestic Multi-Track)..."
-          # 提取国内主干道：基础图纸 + 国内企业大满贯 (已滤除海外业务标签)
-          for tag in geolocation-cn 115 17zuoye 36kr 4399 51job 58tongcheng aamgame aiqicha aisiku aixcoder alibaba alibabacloud aliyun aliyun-drive baidu baishancloud beisen bilibili bytedance cainiao chaoxing chinabroadnet chinamobile chinanews chinapower chinaso chinatelecom chinatower chinaunicom ciweimao cnblogs csdn ctyun dingdatech dingtalk douban douyin duowan eleme feishu fengxing ifanr iflytek ihuman iqiyi jinshuju kuaidi100 kuaikan kuaishou kuaiyikeji lagou landian lanzou lark lianjia meituan netease pingan qcloud qingcloud qingtingfm qiniu qixin tencent tencent-dev tencent-games taikang taomee taptap tianyancha ucloud weiphone wenshushu xiaomi xiaomi-ai xiaomi-iot ximalaya xueersi xueqiu yunfanjiasu yunlaopo yundaex youzan yuanbei yuanfudao yuewen yuketang zhubajie ziroom zto-express jd pinduoduo unionpay ccb icbc huawei huawei-dev huaweicloud lenovo tcl vivo oppo sto-express yto-express; do
-            ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
-            if [ -f "raw_data/geosite_$tag.txt" ]; then
-              cat "raw_data/geosite_$tag.txt" >> raw_data/geosite_cn_merged.txt
-            fi
-          done
-          mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
-
-          echo "🔓 Unpacking VIP Channels (AI & Games)..."
-          # 提取免检通道 1：AI 聚合库
-          cat /dev/null > raw_data/ai_rules.txt
-          for tag in 'category-ai-chat-!cn' 'category-ai-!cn'; do
-            ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
-            if [ -f "raw_data/geosite_$tag.txt" ]; then
-              cat "raw_data/geosite_$tag.txt" >> raw_data/ai_rules.txt
-            fi
-          done
-
-          # 提取免检通道 2：国内与国外游戏库
-          ./v2dat unpack geosite -o raw_data -f 'category-games-!cn' geosite.dat || true
-          ./v2dat unpack geosite -o raw_data -f 'category-games-cn' geosite.dat || true
-
-      - name: 🧹 执行深度清洗 (Cleaner)
-        run: python scripts/cleaner.py
-
-      - name: 🔔 检测 AI 新平台并自动通知
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # 1. 确保平台快照文件存在
           touch data/ai_platforms_snapshot.txt
           
-          # 2. 直捣黄龙：直接从 v2fly 源码库拉取分类索引，精准抓取 include 的平台名
           curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn' | grep "^include:" | cut -d ':' -f2 > temp_platforms.txt
           curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-chat-!cn' | grep "^include:" | cut -d ':' -f2 >> temp_platforms.txt
           
-          # 对平台名称进行纯净去重排序
           sort -u temp_platforms.txt > temp_new_platforms.txt
           sort data/ai_platforms_snapshot.txt > temp_old_platforms.txt
           
-          # 3. 使用 comm 抓取完全新增的平台名称
           NEW_PLATFORMS=$(comm -13 temp_old_platforms.txt temp_new_platforms.txt)
           
-          # 4. 判断并发送 GitHub Issue 报警
           if [ -n "$NEW_PLATFORMS" ]; then
             echo "🎉 捕获到全新 AI 平台！"
             
-            cat <<EOF > issue_body.md
-            ### 🤖 发现全新的 AI 平台被收录！
-            
-            底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **AI 平台/服务模块**：
-            
-            \`\`\`text
-            $NEW_PLATFORMS
-            \`\`\`
-            
-            *系统已自动将上述新平台的域名解析并无缝融合至您的 \`AI_Rules\` 库中。如遇错漏，请检查规则适用性。*
-            EOF
+            # 采用逐行 echo 写入，彻底根除 EOF 缩进语法错误！
+            echo "### 🤖 发现全新的 AI 平台被收录！" > issue_body.md
+            echo "" >> issue_body.md
+            echo "底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **AI 平台/服务模块**：" >> issue_body.md
+            echo "" >> issue_body.md
+            echo "\`\`\`text" >> issue_body.md
+            echo "$NEW_PLATFORMS" >> issue_body.md
+            echo "\`\`\`" >> issue_body.md
+            echo "" >> issue_body.md
+            echo "*系统已自动将上述新平台的域名解析并无缝融合至您的 \`AI_Rules\` 库中。如遇错漏，请检查规则适用性。*" >> issue_body.md
             
             gh issue create --title "🔔 [新平台预警] 发现新增 AI 平台 $(date +'%Y-%m-%d')" --body-file issue_body.md || true
-            
-            # 更新平台快照
             mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
           else
             echo "💤 今日无全新 AI 平台收录，更新快照底库。"
             mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
-          fi
-
-      - name: 🚀 执行编译与文档生成 (Builder)
-        run: python scripts/builder.py
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 📤 提交构建产物
-        run: |
-          rm -rf temp_source mihomo raw_data v2dat geoip.dat geosite.dat
-          
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          
-          if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
-             echo "⚠️ No rules generated, skipping git ops."
-             exit 0
-          fi
-          
-          if [ -f "history.json" ] || git ls-files --error-unmatch history.json > /dev/null 2>&1; then
-            git rm -f history.json --ignore-unmatch
-          fi
-          
-          git add rule/Mihomo/ rule/Loon/ data/ README.md
-          
-          if git diff --staged --quiet; then
-            echo "zk: No changes detected."
-          else
-            git commit -m "chore: auto-sync & clean rules [$(date +'%Y-%m-%d %H:%M')]"
-            git push
           fi

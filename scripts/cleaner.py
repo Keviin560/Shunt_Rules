@@ -27,6 +27,38 @@ FOREIGN_CDN_FINGERPRINTS = [
     "cloudflare", "fastly", "cdn77", "gvt1.com", "fbcdn"
 ]
 
+# --- 💡 VIP 免检直通车函数 (处理 AI 与 游戏) ---
+def process_vip_channel(input_file, output_dir, rule_name):
+    if not os.path.exists(input_file): return
+    valid_rules = set()
+    with open(input_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#'): continue
+            if '@ads' in line: continue  # 剔除广告
+            
+            line = line.split(' @')[0].strip() # 剥离附加属性
+            
+            rule_type = "DOMAIN-SUFFIX"
+            val = line
+            if line.startswith("full:"):
+                rule_type, val = "DOMAIN", line[5:]
+            elif line.startswith("domain:"):
+                rule_type, val = "DOMAIN-SUFFIX", line[7:]
+            elif line.startswith("keyword:"):
+                rule_type, val = "DOMAIN-KEYWORD", line[8:]
+            elif line.startswith("regexp:"):
+                rule_type, val = "DOMAIN-REGEX", line[7:]
+            
+            valid_rules.add(f"{rule_type},{val}")
+    
+    output_path = os.path.join(output_dir, "list.txt")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    with open(output_path, 'w', encoding='utf-8') as f:
+        f.write(f"# NAME: {rule_name}\n")
+        f.write("\n".join(sorted(list(valid_rules))))
+    print(f"✅ 生成免检规则: {output_path} (数量: {len(valid_rules)})")
+
 class GeoIPEngine:
     def __init__(self, cn_path, black_paths):
         print("🛡️ [GeoIP] 初始化防穿透引擎...")
@@ -111,6 +143,12 @@ class Cleaner:
     async def inspect(self, session, raw_line):
         line = raw_line.strip()
         if not line or line.startswith('#'): return
+
+        # 💡 核心拦截：丢弃广告与国内大厂的海外业务
+        if '@ads' in line or '@!cn' in line: return
+        
+        # 剥离剩余属性标记 (如 @cn)，只保留纯域名
+        line = line.split(' @')[0].strip()
 
         # 💡 核心修复：精准解析 V2Ray 语法前缀
         rule_type = "DOMAIN-SUFFIX"
@@ -212,13 +250,20 @@ async def main():
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
     engine.export_clean_list(raw_cn_ip) 
 
+    # --- 💡 触发免检 VIP 通道 ---
+    print("🚀 开始处理 VIP 免检通道 (AI与游戏)...")
+    process_vip_channel(os.path.join(RAW_DIR, "ai_rules.txt"), os.path.join(INJECT_ROOT, "AI_Rules"), "AI_Rules")
+    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-!cn.txt"), os.path.join(INJECT_ROOT, "Game_Proxy"), "Game_Proxy")
+    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-cn.txt"), os.path.join(INJECT_ROOT, "Game_CN"), "Game_CN")
+    print("-" * 40)
+
     cleaner = Cleaner(engine)
     lines = set()
     if os.path.exists(os.path.join(RAW_DIR, "geosite_cn.txt")):
         with open(os.path.join(RAW_DIR, "geosite_cn.txt"), 'r', encoding='utf-8') as f:
             for l in f: lines.add(l.strip())
     
-    print(f"🚀 开始转换与验活 {len(lines)} 条上游规则...")
+    print(f"🚀 开始转换与验活 {len(lines)} 条上游主干道规则...")
     async with aiohttp.ClientSession() as session:
         tasks = [cleaner.inspect(session, l) for l in lines if l]
         done = 0

@@ -112,9 +112,9 @@ jobs:
           mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
 
           echo "🔓 Unpacking VIP Channels (AI & Games)..."
-          # 提取免检通道 1：AI 聚合库 (包含被上游漏掉的 jetbrains-ai, vercel, nvidia)
+          # 提取免检通道 1：AI 聚合库 (已移除散装标签，保持库的纯粹性)
           cat /dev/null > raw_data/ai_rules.txt
-          for tag in 'category-ai-chat-!cn' 'category-ai-!cn' 'jetbrains-ai' 'vercel' 'nvidia'; do
+          for tag in 'category-ai-chat-!cn' 'category-ai-!cn'; do
             ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
             if [ -f "raw_data/geosite_$tag.txt" ]; then
               cat "raw_data/geosite_$tag.txt" >> raw_data/ai_rules.txt

@@ -7,13 +7,17 @@
 </div>
 
 ## 📖 项目简述
-每天定时从上游拉取最新数据，通过转译和深度清洗，输出贴合内核运行逻辑的纯净规则
+每天定时从上游拉取最新数据，通过DNS深度清洗和语法转译，输出贴合内核运行逻辑的纯净分流规则
 
-* Mihomo (.mrs) : 用双重生成策略把域名裂变为 `精确匹配` 与 `泛域名匹配` ，解决子域名匹配遗漏问题
-* Loon (.lsr) : 优先匹配带有 `no-resolve` 属性的规则，减少不必要的 DNS 解析行为，降低 DNS 泄露风险
+* Mihomo (.mrs) : 用双重生成策略，把域名裂变为 `精确匹配 (DOMAIN)` 与 `泛域名匹配 (DOMAIN-SUFFIX)` ，解决子域名匹配遗漏问题
+* Loon (.lsr) : 前置命中带有 `no-resolve` 属性的 IP 规则，减少不必要的 DNS 解析行为，降低 DNS 泄露与污染
 
-* GeoSite_CN：剔除海外域名直连，纯粹的大陆本土域名
-* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP，仅保留物理位置在中国大陆的 IP
+* GeoSite_CN：剥离国内大厂海外业务与海外直连域名，纯粹的大陆本土域名
+* GeoIP_CN：剔除 Cloudflare/Google 等境外 IP 段，仅保留物理位置在中国大陆的纯正 IP
+
+* AI_Rules：聚合主流对话式 AI（ChatGPT, Claude, Gemini 等）和 AI 开发者平台
+  <br><sub>目前已包含：OpenAI (ChatGPT / Sora)、Anthropic (Claude)、Google (Gemini / 谷歌 AI 家族)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft / GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici / Coze、Manus</sub>
+* Game_Proxy：纯海外游戏平台（如 Steam 社区、任天堂、EA、Epic 核心服务等）
 
 ## 📍 Mihomo 配置
 >用 `type: http` 引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)

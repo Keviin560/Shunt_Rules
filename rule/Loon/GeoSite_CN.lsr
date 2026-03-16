@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-14 04:32:17
-# Total = 6376
+# Update = 2026-03-17 04:36:36
+# Total = 6382
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -895,6 +895,7 @@ DOMAIN-SUFFIX,beisen.com
 DOMAIN-SUFFIX,beisenapp.com
 DOMAIN-SUFFIX,beisencloud.com
 DOMAIN-SUFFIX,beisenpaas.com
+DOMAIN-SUFFIX,bemanicn.com
 DOMAIN-SUFFIX,bendibao.com
 DOMAIN-SUFFIX,benfuip.com
 DOMAIN-SUFFIX,bengbeng.com
@@ -1214,6 +1215,7 @@ DOMAIN-SUFFIX,cctvpro.com.cn
 DOMAIN-SUFFIX,cczq.com
 DOMAIN-SUFFIX,cczq.net
 DOMAIN-SUFFIX,cd120.com
+DOMAIN-SUFFIX,cdkeynogap.com
 DOMAIN-SUFFIX,cdn-go.cn
 DOMAIN-SUFFIX,cdn20.com
 DOMAIN-SUFFIX,cdn30.org
@@ -5443,6 +5445,7 @@ DOMAIN-SUFFIX,unionpay.net
 DOMAIN-SUFFIX,unionpayintl.cn
 DOMAIN-SUFFIX,unionpayintl.com
 DOMAIN-SUFFIX,unionpaysecure.com
+DOMAIN-SUFFIX,unipus.cn
 DOMAIN-SUFFIX,unity.cn
 DOMAIN-SUFFIX,unitychina.cn
 DOMAIN-SUFFIX,uoj.ac
@@ -5825,6 +5828,7 @@ DOMAIN-SUFFIX,xbiao.com
 DOMAIN-SUFFIX,xcc.cn
 DOMAIN-SUFFIX,xcsc.com
 DOMAIN-SUFFIX,xdqtech.com
+DOMAIN-SUFFIX,xdrtc.com
 DOMAIN-SUFFIX,xdtool.com
 DOMAIN-SUFFIX,xdwan.com
 DOMAIN-SUFFIX,xedge.cc
@@ -6223,6 +6227,7 @@ DOMAIN-SUFFIX,zdzq.com.cn
 DOMAIN-SUFFIX,zealer.com
 DOMAIN-SUFFIX,zebracdn.com
 DOMAIN-SUFFIX,zeekrlife.com
+DOMAIN-SUFFIX,zgbk.com
 DOMAIN-SUFFIX,zgcbank.com
 DOMAIN-SUFFIX,zggbdszt.cn
 DOMAIN-SUFFIX,zggbdszt.com.cn
@@ -6319,6 +6324,7 @@ DOMAIN-SUFFIX,zjbyte.net
 DOMAIN-SUFFIX,zjcdn.com
 DOMAIN-SUFFIX,zjfcdn.com
 DOMAIN-SUFFIX,zjgslb.com
+DOMAIN-SUFFIX,zjlib.cn
 DOMAIN-SUFFIX,zjstv.com
 DOMAIN-SUFFIX,zjytxd.cn
 DOMAIN-SUFFIX,zjytxp.cn

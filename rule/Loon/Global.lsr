@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-14 04:32:19
-# Total = 33182
+# Update = 2026-03-18 04:39:49
+# Total = 33186
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -7847,6 +7847,7 @@ DOMAIN-SUFFIX,curvyerotic.com
 DOMAIN-SUFFIX,cusp.ac.uk
 DOMAIN-SUFFIX,cusp.hk
 DOMAIN-SUFFIX,cusplondon.ac.uk
+DOMAIN-SUFFIX,custhelp.com
 DOMAIN-SUFFIX,custom-iphonecase.com
 DOMAIN-SUFFIX,custombeatsbydrebuy.com
 DOMAIN-SUFFIX,custombeatsdeals.com
@@ -21303,6 +21304,7 @@ DOMAIN-SUFFIX,noc.ac.uk
 DOMAIN-SUFFIX,nochubank.or.jp
 DOMAIN-SUFFIX,nocn.ac.uk
 DOMAIN-SUFFIX,nocs.ac.uk
+DOMAIN-SUFFIX,nodeget.com
 DOMAIN-SUFFIX,nodeimage.com
 DOMAIN-SUFFIX,nodejs.org
 DOMAIN-SUFFIX,nodequality.com
@@ -26839,6 +26841,7 @@ DOMAIN-SUFFIX,spiceworks.com
 DOMAIN-SUFFIX,spiceworksstatic.com
 DOMAIN-SUFFIX,spicybigtits.com
 DOMAIN-SUFFIX,spicystory.net
+DOMAIN-SUFFIX,spicywriter.com
 DOMAIN-SUFFIX,spider.ac.uk
 DOMAIN-SUFFIX,spideroak.com
 DOMAIN-SUFFIX,spiderpool.com
@@ -31474,6 +31477,7 @@ DOMAIN-SUFFIX,woopie.tv
 DOMAIN-SUFFIX,worc.ac.uk
 DOMAIN-SUFFIX,worcester.ac.uk
 DOMAIN-SUFFIX,wordpress.com
+DOMAIN-SUFFIX,wordpress.net
 DOMAIN-SUFFIX,wordpress.org
 DOMAIN-SUFFIX,wordpress.tv
 DOMAIN-SUFFIX,work2icu.org

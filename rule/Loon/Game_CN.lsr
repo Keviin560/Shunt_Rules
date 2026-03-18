@@ -1,8 +1,8 @@
 # Name = Game_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-18 14:01:51
-# Total = 217
+# Update = 2026-03-18 14:23:29
+# Total = 216
 
 DOMAIN-REGEX,^.+-mihayo\.akamaized\.net$
 DOMAIN-SUFFIX,17roco.com
@@ -114,7 +114,6 @@ DOMAIN-SUFFIX,kurogames.com
 DOMAIN-SUFFIX,labycore.cn
 DOMAIN-SUFFIX,langrenclub.com
 DOMAIN-SUFFIX,ledu.com
-DOMAIN-SUFFIX,log-upload.mihoyo.com
 DOMAIN-SUFFIX,longtugame.com
 DOMAIN-SUFFIX,ludosuperstar.cn
 DOMAIN-SUFFIX,ludoworld.net

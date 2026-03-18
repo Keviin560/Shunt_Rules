@@ -309,7 +309,7 @@ def generate_readme(stats):
     md = [
         f"<div align=\"center\">",
         f"",
-        f"#分流配置库", 
+        f"# 分流配置库", 
         f"",
         f"{badge_line}",
         f"",

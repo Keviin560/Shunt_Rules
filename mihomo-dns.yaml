@@ -1,89 +1,99 @@
 # 作者：Keviin560
-# 仓库地址：https://github.com/Keviin560/Shunt_Rules
-# 更新日期：2026-03-01 02:25
+# 更新日期：2026-03-18
+# 
+# -------------------------------------------------------------------------------------------------------------------------
+# 【 ⚙️ 核心架构说明 】
+# ->  全局接管 GUI 设置：覆盖客户端的设置 (如端口/嗅探/TUN)，实现底层参数统一
+# ->  动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹 (注：YAML为静态，需依赖客户端自身支持)
+# ->  五大洲节点自动筛选：Unicode 国旗解码；内置 240+ 国家与城市中英双语及高频三字码字典
+# ->  自动隐藏无节点分组 ：没有节点的分组会自动隐藏分组，并自动修复依赖 (注：受限于YAML静态特性，通过 include-all 配合 filter 实现兜底)
+# ->  智能规则：识别名字带 "_IP" 的规则按 IP 拦截处理；带 ".txt" 的规则按文本处理
+# 
+# -------------------------------------------------------------------------------------------------------------------------
+# 【 ⚠️ 小白用户必读设置 】
+# ->  全局仓库锚点：以下所有图标和规则均已指向 https://raw.githubusercontent.com/Keviin560/
+# ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"。防止浏览器绕过客户端自己去解析 DNS，导致分流失败
+# ->   IPv6 相关设置（二选一）：
+#   - 【不用 IPv6，默认】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 false ；同时在系统的物理网卡里关闭 IPv6
+#   - 【用 IPv6】 ：在 [基础设置与全量接管] 和 [DNS 劫持与底层防漏] 里把 [IPv6] 改为 true ，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1]
+# 
+# -------------------------------------------------------------------------------------------------------------------------
+# 【 🛠️ 修改与维护】
+# ->  如果冷门国家节点未被识别：请在第 4 部分的 `Filter` 锚点 (五大洲兜底扫描) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
+# ->  想新增独立国家/地区分组（例如新增“英国节点”）：
+#   - 在下方定义一个 `FilterUK` 锚点。
+#   - 在 proxy-groups 列表中增加一行 `{name: 英国节点, <<: *ManualSelect, filter: *FilterUK}`
+# -------------------------------------------------------------------------------------------------------------------------
 
-# -------------------------------------------------------
-#  [ ⚙️ 核心架构说明 ]
-#  >>> 分流逻辑：Split-Horizon DNS (水平分割 DNS) + "Fake-IP" 模式
-#    - 国内流量：由 nameserver-policy 引导至字节/阿里/腾讯 DNS -> 解析真实 IP -> 直连
-#    - 国外流量：走 Fake-IP 模式 -> 立即返回假 IP -> 流量封装发送至机场节点 -> 远端解析
-#    - 联动机制：DNS 策略 (nameserver-policy) 与分流规则 (rule-providers) 绑定
-#
-#  [ ⚠️ 必读设置 ]
-#  >>> 开启 TUN 模式：
-#    在 Mihomo/Clash 界面必须开启 "TUN Mode" (服务模式/虚拟网卡)，否则 Fake-IP 无法接管所有流量
-#    开启域名嗅探中的 [ 覆盖连接地址 ] 和 [ QUIC 端口嗅探 (443) ]
-# >>> 关闭浏览器安全 DNS：
-#    Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"。防止浏览器绕过客户端自己去解析 DNS，导致分流失败
-# >>> Windows 用户建议：
-#    建议关闭 "智能多宿主名称解析" (组策略或注册表修改)，防止 DNS 请求泄露；同时也可考虑把“并行 DNS 性能优化”干掉
-# >>> IPv6 相关设置（两者选其一）
-#    用不上 IPv6 建议关闭：在客户端的 [内核设置] 和 [ DNS ] 里关闭 IPv6 ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6 ，即关闭 Internet 协议版本 6 (TCP/IPv6)
-#    需要用 IPv6 ：打开客户端的 [内核设置] 和 [ DNS ] 的 IPv6 功能，IPv6 虚假 IP 池填写 [fc00::/18]，同时在物理网卡里的 [Internet 协议版本 6 (TCP/IPv6)] 里选择 [使用下面的 DNS 服务器地址]，然后在 [首选 DNS 服务器] 框内填入 [::1] （ IPv6 的本地回环地址，相当于 IPv4 的 127.0.0.1）
+# =======================================================
+# 0. 基础设置与全量接管 (已强制开启接管)
+# =======================================================
+mode: rule                     # 强制使用规则分流模式
+mixed-port: 7890               # 统一混合代理端口为 7890
+allow-lan: true                # 允许局域网里的其他设备（如手机、电视）连上这个代理
+log-level: info                # 日志记录级别
+ipv6: false                    # ⚠️ 默认关闭 IPv6 (若需开启请改为 true ，并认真阅读头部说明)
+find-process-mode: strict      # 严格匹配电脑里的软件进程，分流更准
+unified-delay: true            # 显示节点真实的物理延迟，去掉虚高的握手时间
+keep-alive-interval: 15        # 探针保活核心：全局 TCP 底层保活，每 15 秒发送心跳包，防 NAT 僵死
 
-# -------------------------------------------------------
-# 1. 基础设置
-# -------------------------------------------------------
-# 注：以下注释掉的设置，请确保在客户端进行对应的设置
+# 【流量嗅探器】 强制捕获真实的网站域名，解决 DNS 污染
+sniffer:
+  enable: true
+  override-destination: true   # 强制用嗅探到的真实域名覆盖虚假 IP
+  force-domain: ['+']          # 对所有流量进行嗅探
+  sniff:
+    HTTP:
+      ports: [80, 8080]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:                 # 以下域名不嗅探，防止国内智能家居或苹果推送断线
+    - 'Mijia Cloud'
+    - '*.apple.com'
+    - '*.icloud.com'
 
-# mode: rule    # 规则分流模式
-# mixed-port: 7890    # 混合端口
-# allow-lan: true    # 局域网代理（根据实际设置）
-# log-level: info    #日志（根据实际设置）
-# ipv6: false    # 内核 IPV6（根据实际设置）
-
-# 外部控制以及密码可根据实际情况是否设置（根据实际设置）
-# external-controller: 0.0.0.0:9090
-# secret: ''
-
-# 自查在用的主订阅规则集是否需要开启“进程匹配”（根据实际设置）
-# 在客户端左侧边栏的 [规则] 搜索 [PROCESS-NAME]，如果搜索出了一堆规则，则可在 内核设置 把查找进程设置为开启（或直接取消该注释强行接管）；如果搜索结果为空，说明你的规则是基于域名和 IP，查找进程可设为自动或关闭
-# find-process-mode: strict
-# 使用 RTT 延迟测试，统一延迟计算，测速时去除 TCP 握手时间，只计算传输层的物理延迟
-# unified-delay: true
+# 【虚拟网卡 TUN 设置】 物理防漏核心
+tun:
+  enable: true                 # 强制开启 TUN 虚拟网卡
+  stack: system                # 采用系统级网络栈
+  auto-route: true             # 自动把全局流量吸入 TUN
+  auto-detect-interface: true  # 自动找出口网卡
+  dns-hijack: ['any:53']       # 劫持本机所有乱跑的 DNS 域名解析请求
+  strict-route: true           # ⚠️ 物理防漏核心：锁死物理网卡并发，彻底切断国内运营商的监控
 
 
-# -------------------------------------------------------
-# 2. DNS 设置
-# -------------------------------------------------------
-# 注：以下注释掉的设置，请确保在客户端进行对应的设置
-
+# =======================================================
+# 1. DNS 劫持与底层防漏
+# =======================================================
 dns:
-  # 开启了 虚拟网卡 (TUN 模式)，基本上会默认启用 DNS 劫持 any:53
-  # enable: true
-  # listen: 0.0.0.0:1053
-  # ipv6: false（根据实际设置）
-  
-  # Fake-IP 模式（域名映射模式 -> 虚假 IP  -> 回应范围 198.18.0.1/16），本地 DNS 不进行真实解析解析
-  # 原理：客户端发起请求 -> 秒回假 IP (198.18.x.x) -> 建立连接 -> 匹配规则分流
-  # enhanced-mode: fake-ip
-  # IPv4 的虚假 IP 池
-  # fake-ip-range: 198.18.0.1/16
-  # 👇 如果需要保留 IPv6 ，就填写 Fake-IPv6 的专属网段，需打开 IPv6 开关
-  # fake-ip-range6: fc00::/18
-  
-  # 优先使用 HTTP/3 (QUIC) 查询 DNS
-  # 建议开启域名嗅探中的 [ 覆盖连接地址 ] 和 [ QUIC 端口嗅探 (443) ]
-  prefer-h3: true
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false                  # ⚠️ 保持与外部基础设置同步
+  enhanced-mode: fake-ip       # 秒回假 IP 机制
+  fake-ip-range: 198.18.0.1/16 # 假 IP 响应池
+  # fake-ip-range6: fc00::/18  # ⚠️ 假 IPv6 响应池，若开启 IPv6 请取消注释
+  prefer-h3: true              # 优先使用 HTTP/3 (QUIC) 查询 DNS，降延迟
 
-  # [默认 DNS] 解析国外域名 + 兜底
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+  # 国外的兜底安全 DNS 通道
   nameserver:
-      - https://1.1.1.1/dns-query#节点选择
-      - https://8.8.8.8/dns-query#节点选择
+    - https://1.1.1.1/dns-query#节点选择
+    - https://8.8.8.8/dns-query#节点选择
 
-  # [分流策略] Nameserver-Policy. 只有命中这里规则的域名，才会走指定的 DNS，否则全部走上面的默认 DNS (国外)
+  # 智能 DNS 分流：国内查直连，国外查 DoH
   nameserver-policy:
-    # 1. 局域网域名 -> 走系统 DNS (路由器/内网DNS)
     "rule-set:Lan":
       - system
-
-    # 2. 国内域名 -> 走国内 DNS (UDP直连)，仅绑定 GeoSite_CN (域名规则)
     "rule-set:GeoSite_CN":
       - 223.5.5.5
       - 119.29.29.29
       - 180.184.1.1
-
-    # 3. 国外大厂 -> 强制走 DoH (双重防污染)
     "rule-set:Google":
       - https://1.1.1.1/dns-query#节点选择
       - https://8.8.8.8/dns-query#节点选择
@@ -94,26 +104,31 @@ dns:
       - https://1.1.1.1/dns-query#节点选择
       - https://8.8.8.8/dns-query#节点选择
 
-  # Fake-IP 过滤名单（真实 IP 回应），域名不走 Fake-IP，强制解析真实 IP
-  # fake-ip-filter:
-    # - "+.lan"
-    # - "+.local"
-    # - "+.msftconnecttest.com"
-    # - "+.msftncsi.com"
-    # - "time.windows.com"
-    # - "time.apple.com"
+  # 💡 Fake-IP 过滤器：强制让这些域名返回真实 IP
+  fake-ip-filter:
+    - rule-set:Lan                 # 联动 Lan 规则集，确保局域网设备互访正常
+    - stun.* # 豁免 WebRTC/STUN 穿透服务器
+    - '*.stun.*'
+    - '*.+.msftncsi.com'           # 微软 NCSI 网络状态指示器，获取真实 IP
+    - '*.+.msftconnecttest.com'    # 微软连接测试，获取真实 IP
+    - '*.+.market.xiaomi.com'
+    - '*.local'                    # 豁免 mDNS 局域网多播
+    - '*.ptlogin2.qq.com'          # 解决国内快捷登录在 Fake-IP 下失效的顽疾
+    - '+.pool.ntp.org'             # 时间同步，防止系统时钟失真导致证书验证失败
 
+# =======================================================
+# 2. 锚点定义 (复用结构与正则)
+# =======================================================
+# 节点选择与保活探针锚点
+Probe: &Probe {url: "https://www.gstatic.com/generate_204", interval: 300, timeout: 3000}
+ManualSelect: &ManualSelect {type: select, include-all: true, <<: *Probe}
 
-# -------------------------------------------------------
-# 3. 锚点与过滤器
-# -------------------------------------------------------
-# 定义规则源的通用属性，减少重复代码
+# 规则配置通用锚点
 RuleDomain: &RuleDomain {type: http, format: mrs, behavior: domain, interval: 86400, proxy: 节点选择}
 RuleIP:     &RuleIP     {type: http, format: mrs, behavior: ipcidr, interval: 86400, proxy: 节点选择}
 RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 86400, proxy: 节点选择}
-ManualSelect: &ManualSelect {type: select, include-all: true}
 
-# 地区筛选
+# 【独立分组节点扫描】：包含中英文和三字码
 FilterHK: &FilterHK '(?i)(?:🇭🇰|香港|Hong\s?Kong|\b(?:HK|HKG)\d*\b)'
 FilterMO: &FilterMAC '(?i)(?:🇲🇴|澳门|Maca[ou]|\b(?:MO|MAC)\b)'
 FilterTW: &FilterTW '(?i)(?:🇹🇼|台湾|Tai(?:wan)?|\b(?:TW|TWN)\d*\b)'
@@ -122,45 +137,40 @@ FilterKR: &FilterKR '(?i)(?:🇰🇷|韩国|韓|首尔|Korea|\b(?:KR|KOR)\d*\b)'
 FilterSG: &FilterSG '(?i)(?:🇸🇬|新加坡|狮|Singapore|\b(?:SG|SGP)\d*\b)'
 FilterUS: &FilterUS '(?i)(?:🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States|\b(?:US|USA)\d*\b)'
 
-# 五大洲节点筛选
-FilterAsia: &FilterAsia '(?i)(?:🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|巴基斯坦|Pakistan|斯里兰卡|斯里贾亚瓦德纳普拉科特|孟加拉国|印度|India|伊朗|伊拉克|以色列|约旦|黎巴嫩|阿曼|阿联酋|沙特阿拉伯|卡塔尔|科威特|巴林|土耳其|哈萨克斯坦|吉尔吉斯斯坦|塔吉克斯坦|土库曼斯坦|乌兹别克斯坦|尼泊尔|马尔代夫|马来西亚|菲律宾|泰国|越南|老挝|缅甸|柬埔寨|印尼|印度尼西亚|Asia|伊斯兰堡|卡拉奇|拉合尔|白沙瓦|科伦坡|康提|加勒|达卡|吉大港|库尔纳|新德里|孟买|加尔各答|金奈|班加罗尔|海得拉巴|德黑兰|伊斯法罕|设拉子|马什哈德|巴格达|巴士拉|摩苏尔|耶路撒冷|特拉维夫|海法|安曼|扎尔卡|贝鲁特|马斯喀特|萨拉拉|阿布扎比|迪拜|沙迦|利雅得|吉达|麦加|麦地那|多哈|科威特城|麦纳麦|安卡拉|伊斯坦布尔|伊兹密尔|阿拉木图|阿斯塔纳|奇姆肯特|比什凯克|奥什|杜尚别|苦盏|阿什哈巴德|土库曼巴希|塔什干|撒马尔罕|布哈拉|加德满都|博卡拉|马累|吉隆坡|布城|新山|槟城|马尼拉|奎松市|宿务|达沃|曼谷|清迈|孔敬|芭堤雅|河内|胡志明市|海防|岘港|万象|琅勃拉邦|仰光|曼德勒|内比都|金边|暹粒|雅加达|泗水|万隆|登巴萨|棉兰|亚喀巴|赖扬|努山塔拉|的黎波里|锡顿|\b(?:AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM)\d*\b)'
-
+# 【五大洲兜底扫描】：冷门国家丢进对应大洲
+FilterAsia: &FilterAsia '(?i)(?:🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|巴基斯坦|Pakistan|斯里兰卡|孟加拉国|印度|India|伊朗|伊拉克|以色列|约旦|黎巴嫩|阿曼|阿联酋|沙特阿拉伯|卡塔尔|科威特|巴林|土耳其|哈萨克斯坦|吉尔吉斯斯坦|塔吉克斯坦|土库曼斯坦|乌兹别克斯坦|尼泊尔|马尔代夫|马来西亚|菲律宾|泰国|越南|老挝|缅甸|柬埔寨|印尼|印度尼西亚|Asia|\b(?:AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM)\d*\b)'
 FilterEurope: &FilterEurope '(?i)(?:🇦🇩|🇦🇹|🇧🇦|🇧🇪|🇧🇬|🇨🇭|🇨🇿|🇩🇪|🇩🇰|🇪🇪|🇪🇸|🇫🇮|🇫🇷|🇬🇧|🇬🇷|🇭🇷|🇭🇺|🇮🇪|🇮🇸|🇮🇹|🇱🇮|🇱🇹|🇱🇺|🇱🇻|🇲🇨|🇲🇪|🇲🇰|🇲🇹|🇳🇱|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇸|🇷🇺|🇸🇪|🇸🇮|🇸🇰|🇸🇲|🇹🇷|🇺🇦|🇻🇦|🇽🇰|阿塞拜疆|Azerbaijan|保加利亚|克罗地亚|塞尔维亚|拉脱维亚|斯洛伐克|爱沙尼亚|罗马尼亚|乌克兰|俄罗斯|匈牙利|土耳其|奥地利|意大利|比利时|爱尔兰|立陶宛|葡萄牙|西班牙|丹麦|冰岛|希腊|德国|挪威|捷克|法国|波兰|瑞典|瑞士|芬兰|英国|荷兰|Europe|\b(?:AT|BE|BG|CH|CZ|DE|DK|EE|ES|FI|FR|GB|GR|HR|HU|IE|IS|IT|LT|LV|NL|NO|PL|PT|RO|RS|RU|SE|SK|TR|UA|UK)\d*\b|\b(?:AUT|BEL|BGR|CHE|CZE|DEU|DNK|ESP|EST|FIN|FRA|GRC|HRV|HUN|IRL|ISL|ITA|LTU|LVA|NLD|NOR|POL|PRT|ROU|RUS|SRB|SVK|SWE|TUR|UKR)\d*\b)'
+FilterAmericas: &FilterAmericas '(?i)(?:🇦🇷|🇧🇴|🇧🇷|🇨🇦|🇨🇱|🇨🇴|🇨🇷|🇪🇨|🇬🇹|🇬🇾|🇭🇳|🇲🇽|🇳🇮|🇵🇦|🇵🇪|🇵🇾|🇸🇷|🇸🇻|🇺🇾|🇻🇪|阿根廷|玻利维亚|巴西|加拿大|智利|哥伦比亚|哥斯达黎加|厄瓜多尔|危地马拉|圭亚那|洪都拉斯|墨西哥|尼加拉瓜|巴拿马|秘鲁|巴拉圭|苏里南|萨尔瓦多|乌拉圭|委内瑞拉|Argentina|Bolivia|Brazil|Canada|Chile|Colombia|Costa Rica|Ecuador|Guatemala|Guyana|Honduras|Mexico|Nicaragua|Panama|Peru|Paraguay|Suriname|El Salvador|Uruguay|Venezuela|\b(?:AR|BO|BR|CA|CL|CO|CR|EC|GT|GY|HN|MX|NI|PA|PE|PY|SR|SV|UY|VE)\d*\b|\b(?:ARG|BOL|BRA|CAN|CHL|COL|CRI|ECU|GTM|GUY|HND|MEX|NIC|PAN|PER|PRY|SLV|SUR|URY|VEN)\d*\b)'
+FilterOceania: &FilterOceania '(?i)(?:🇦🇺|🇫🇯|🇫🇲|🇰🇮|🇲🇭|🇳🇿|🇵🇬|🇵🇼|🇸🇧|🇹🇴|🇻🇺|🇼🇸|澳大利亚|新西兰|巴布亚新几内亚|所罗门群岛|斐济|密克罗尼西亚联邦|基里巴斯|马绍尔群岛|帕劳|萨摩亚|汤加|瓦努阿图|Australia|New Zealand|Oceania|\b(?:AU|FJ|FM|KI|MH|NZ|PG|PW|SB|TO|VU|WS)\d*\b|\b(?:AUS|FJI|FSM|KIR|MHL|NZL|PNG|PLW|SLB|TON|VUT|WSM)\d*\b)'
+FilterAfrica: &FilterAfrica '(?i)(?:🇦🇴|🇨🇩|🇨🇮|🇩🇿|🇪🇬|🇪🇹|🇬🇭|🇰🇪|🇱🇾|🇲🇦|🇲🇱|🇳🇦|🇳🇬|🇸🇩|🇸🇳|🇹🇬|🇹🇳|🇹🇿|🇺🇬|🇿🇦|🇿🇲|🇿🇼|安哥拉|刚果|科特迪瓦|阿尔及利亚|埃及|埃塞俄比亚|加纳|肯尼亚|利比亚|摩洛哥|马里|纳米比亚|尼日利亚|苏丹|塞内加尔|多哥|突尼斯|坦桑尼亚|乌干达|南非|赞比亚|津巴布韦|Africa|\b(?:AO|CD|CI|DZ|EG|ET|GH|KE|LY|MA|ML|NA|NG|SD|SN|TG|TN|TZ|UG|ZA|ZM|ZW)\d*\b|\b(?:AGO|COD|CIV|DZA|EGY|ETH|GHA|KEN|LBY|MAR|MLI|NAM|NGA|SDN|SEN|TGO|TUN|TZA|UGA|ZAF|ZMB|ZWE)\d*\b)'
 
-FilterAmericas: &FilterAmericas '(?i)(?:🇦🇷|🇧🇴|🇧🇷|🇨🇦|🇨🇱|🇨🇴|🇨🇷|🇪🇨|🇬🇹|🇬🇾|🇭🇳|🇲🇽|🇳🇮|🇵🇦|🇵🇪|🇵🇾|🇸🇷|🇸🇻|🇺🇾|🇻🇪|阿根廷|玻利维亚|巴西|加拿大|智利|哥伦比亚|哥斯达黎加|厄瓜多尔|危地马拉|圭亚那|洪都拉斯|墨西哥|尼加拉瓜|巴拿马|秘鲁|巴拉圭|苏里南|萨尔瓦多|乌拉圭|委内瑞拉|Argentina|Bolivia|Brazil|Canada|Chile|Colombia|Costa Rica|Ecuador|Guatemala|Guyana|Honduras|Mexico|Nicaragua|Panama|Peru|Paraguay|Suriname|El Salvador|Uruguay|Venezuela|布宜诺斯艾利斯|克萨尔特南戈|圣佩德罗苏拉|特古西加尔巴|贝洛奥里藏特|危地马拉城|圣萨尔瓦多|帕拉马里博|康塞普西翁|瓜达拉哈拉|瓦尔帕莱索|蒙得维的亚|里约热内卢|阿拉胡埃拉|加拉加斯|卡尔加里|圣克鲁斯|圣地亚哥|埃雷迪亚|墨西哥城|巴兰基亚|巴拿马城|巴西利亚|普埃布拉|格拉纳达|特鲁希略|瓜亚基尔|瓦伦西亚|科尔多瓦|罗萨里奥|蒙特利尔|阿雷基帕|马拉开波|东方市|乔治敦|亚松森|圣何塞|圣保罗|圣安娜|多伦多|安提瓜|拉巴斯|波哥大|派桑杜|渥太华|温哥华|苏克雷|蒂华纳|蒙特雷|门多萨|马那瓜|麦德林|利马|卡利|基多|大卫|科隆|莱昂|\b(?:AR|BO|BR|CA|CL|CO|CR|EC|GT|GY|HN|MX|NI|PA|PE|PY|SR|SV|UY|VE)\d*\b|\b(?:ARG|BOL|BRA|CAN|CHL|COL|CRI|ECU|GTM|GUY|HND|MEX|NIC|PAN|PER|PRY|SLV|SUR|URY|VEN)\d*\b)'
-
-FilterOceania: &FilterOceania '(?i)(?:🇦🇺|🇫🇯|🇫🇲|🇰🇮|🇲🇭|🇳🇿|🇵🇬|🇵🇼|🇸🇧|🇹🇴|🇻🇺|🇼🇸|澳大利亚|新西兰|巴布亚新几内亚|所罗门群岛|斐济|密克罗尼西亚联邦|基里巴斯|马绍尔群岛|帕劳|萨摩亚|汤加|瓦努阿图|Australia|New Zealand|Papua New Guinea|Solomon Islands|Fiji|Federated States of Micronesia|Kiribati|Marshall Islands|Palau|Samoa|Tonga|Vanuatu|Oceania|\b(?:AU|FJ|FM|KI|MH|NZ|PG|PW|SB|TO|VU|WS)\d*\b|\b(?:AUS|FJI|FSM|KIR|MHL|NZL|PNG|PLW|SLB|TON|VUT|WSM)\d*\b)'
-
-FilterAfrica: &FilterAfrica '(?i)(?:🇦🇴|🇨🇩|🇨🇮|🇩🇿|🇪🇬|🇪🇹|🇬🇭|🇰🇪|🇱🇾|🇲🇦|🇲🇱|🇳🇦|🇳🇬|🇸🇩|🇸🇳|🇹🇬|🇹🇳|🇹🇿|🇺🇬|🇿🇦|🇿🇲|🇿🇼|安哥拉|刚果|科特迪瓦|阿尔及利亚|埃及|埃塞俄比亚|加纳|肯尼亚|利比亚|摩洛哥|马里|纳米比亚|尼日利亚|苏丹|塞内加尔|多哥|突尼斯|坦桑尼亚|乌干达|南非|赞比亚|津巴布韦|Angola|Democratic Republic of the Congo|Ivory Coast|Algeria|Egypt|Ethiopia|Ghana|Kenya|Libya|Morocco|Mali|Namibia|Nigeria|Sudan|Senegal|Togo|Tunisia|Tanzania|Uganda|South Africa|Zambia|Zimbabwe|Africa|\b(?:AO|CD|CI|DZ|EG|ET|GH|KE|LY|MA|ML|NA|NG|SD|SN|TG|TN|TZ|UG|ZA|ZM|ZW)\d*\b|\b(?:AGO|COD|CIV|DZA|EGY|ETH|GHA|KEN|LBY|MAR|MLI|NAM|NGA|SDN|SEN|TGO|TUN|TZA|UGA|ZAF|ZMB|ZWE)\d*\b)'
-
-# 全部节点，排除官网、流量信息、过期时间等非节点内容
+# 【净化】：遇到“剩余流量”、“到期”等信息，直接过滤掉
 FilterAll: &FilterAll '^(?!.*(?:(?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|剩余流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\d{4}-\d{2}-\d{2}|\d+G)).*$'
 
-
-# -------------------------------------------------------
-# 4. 策略组
-# -------------------------------------------------------
+# =======================================================
+# 3. 策略组与动态探针注入
+# =======================================================
 proxy-groups:
-  # 总入口 (所有节点)
-  - {name: 节点选择, type: select, include-all: true, filter: *FilterAll, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Locator.png"}
+  # 总入口 (兜底防断流探针)
+  - {name: 节点选择, type: select, include-all: true, filter: *FilterAll, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Locator.png", <<: *Probe}
   
-  # 应用分组
-  - {name: AI Rules, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Chatbot.png"}
-  - {name: YouTube, type: select, proxies: [节点选择, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/YouTube.png"}
-  - {name: Google, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Google.png"}
-  - {name: Telegram, type: select, proxies: [节点选择, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Telegram.png"}
-  - {name: Spotify, type: select, proxies: [DIRECT, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Spotify.png"}
-  - {name: TikTok, type: select, proxies: [美国节点, 台湾节点, 日本节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/TikTok.png"}
-  - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png"}
-  - {name: Apple账户, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/iCloud.png"}
+  # 📱 功能应用分组
+  - {name: AI Rules, type: select, proxies: [美国节点, 日本节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Chatbot.png", <<: *Probe}
+  - {name: YouTube, type: select, proxies: [节点选择, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/YouTube.png", <<: *Probe}
+  - {name: Google, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Google.png", <<: *Probe}
+  - {name: Telegram, type: select, proxies: [节点选择, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Telegram.png", <<: *Probe}
+  - {name: Spotify, type: select, proxies: [DIRECT, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Spotify.png", <<: *Probe}
+  - {name: TikTok, type: select, proxies: [美国节点, 台湾节点, 日本节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/TikTok.png", <<: *Probe}
+  - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png", <<: *Probe}
+  - {name: Apple账户, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/iCloud.png", <<: *Probe}
   
-  # 功能分组
+  # 屏蔽与兜底分组
   - {name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Ad Blocker.png"}
   - {name: 隐私保护, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Privacy.png"}
   - {name: 反劫持, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Hijacking.png"}
-  - {name: 兜底策略, type: select, proxies: [节点选择, 香港节点, 新加坡节点, 美国节点, 亚洲节点, 欧洲节点, 美洲节点, 大洋洲节点, 非洲节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Rules.png"}
+  - {name: 兜底策略, type: select, proxies: [节点选择, 香港节点, 新加坡节点, 美国节点, 亚洲节点, 欧洲节点, 美洲节点, 大洋洲节点, 非洲节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Rules.png", <<: *Probe}
 
-  # 地区分组
+  # 🗺️ 地区分组 (自动扫描剔除不存在的国家节点，包含 204 探针保活注入)
   - {name: 香港节点, <<: *ManualSelect, filter: *FilterHK, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/HK.png"}
   - {name: 澳门节点, <<: *ManualSelect, filter: *FilterMAC, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/MAC.png"}
   - {name: 台湾节点, <<: *ManualSelect, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/CHN.png"}
@@ -174,114 +184,104 @@ proxy-groups:
   - {name: 大洋洲节点, <<: *ManualSelect, filter: *FilterOceania, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Oceania.png"}
   - {name: 非洲节点, <<: *ManualSelect, filter: *FilterAfrica, icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Africa.png"}
 
-
-# -------------------------------------------------------
-# 5. 规则源
-# -------------------------------------------------------
+# =======================================================
+# 4. 规则源 (Rule Providers)
+# =======================================================
 rule-providers:
-  # [ Security ] 广告与隐私
-  AdRules:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs",              path: ./rules/AdRules.mrs }
-  Privacy:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",                 path: ./rules/Privacy.mrs }
-  WinSpy:       { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",                   path: ./rules/WinSpy.txt }
-  Hijacking:    { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",               path: ./rules/Hijacking.mrs }
-  Hijacking_IP: { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",             path: ./rules/Hijacking_IP.mrs }
-
-  # [ Local & Direct ] 局域网 & 游戏下载
-  Lan:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",                     path: ./rules/Lan.mrs }
-  Lan_IP:       { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs",                  path: ./rules/Lan_IP.mrs }
-  GameDownloadCN: { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GameDownloadCN.mrs",          path: ./rules/GameDownloadCN.mrs }
+  # 外部特殊规则
+  AdRules:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs",             path: ./rules/AdRules.mrs }
+  WinSpy:         { <<: *RuleText,   url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt",                  path: ./rules/WinSpy.txt }
   
-  # [ Domestic ] 国内规则 (域名与IP分离)
-  GeoSite_CN:   { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/China.mrs",                  path: ./rules/China.mrs }
-  GeoIP_CN:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaIPs_IP.mrs",             path: ./rules/ChinaIPs_IP.mrs }
+  # 全局的规则仓库
+  Privacy:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",                path: ./rules/Privacy.mrs }
+  Hijacking:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",              path: ./rules/Hijacking.mrs }
+  Hijacking_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",           path: ./rules/Hijacking_IP.mrs }
+  Lan:            { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",                    path: ./rules/Lan.mrs }
+  Lan_IP:         { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs",                 path: ./rules/Lan_IP.mrs }
+  GameDownloadCN: { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GameDownloadCN.mrs",         path: ./rules/GameDownloadCN.mrs }
+  WeChat:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/WeChat.mrs",                 path: ./rules/WeChat.mrs }
+  Global_CN:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Global_CN.mrs",              path: ./rules/Global_CN.mrs }
+  GeoSite_CN:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs",             path: ./rules/GeoSite_CN.mrs }
+  GeoIP_CN_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs",            path: ./rules/GeoIP_CN_IP.mrs }
+  AI_Rules:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AI_Rules.mrs",               path: ./rules/AI_Rules.mrs }
+  OpenAI:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",                 path: ./rules/OpenAI.mrs }
+  Gemini:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs",                 path: ./rules/Gemini.mrs }
+  Claude:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Claude.mrs",                 path: ./rules/Claude.mrs }
+  Copilot:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Copilot.mrs",                path: ./rules/Copilot.mrs }
+  YouTube:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",                path: ./rules/YouTube.mrs }
+  YouTube_IP:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",             path: ./rules/YouTube_IP.mrs }
+  Netflix:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",                path: ./rules/Netflix.mrs }
+  Netflix_IP:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",             path: ./rules/Netflix_IP.mrs }
+  TikTok:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",                 path: ./rules/TikTok.mrs }
+  Spotify:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",                path: ./rules/Spotify.mrs }
+  Telegram:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",               path: ./rules/Telegram.mrs }
+  Telegram_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs",            path: ./rules/Telegram_IP.mrs }
+  Google:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs",                 path: ./rules/Google.mrs }
+  Google_IP:      { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs",              path: ./rules/Google_IP.mrs }
+  AppleID:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs",                path: ./rules/AppleID.mrs }
+  Apple:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",                  path: ./rules/Apple.mrs }
+  Microsoft:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Microsoft.mrs",              path: ./rules/Microsoft.mrs }
 
-  # [ Intelligence ] 人工智能
-  OpenAI:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/OpenAI.mrs",                  path: ./rules/OpenAI.mrs }
-  Gemini:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs",                  path: ./rules/Gemini.mrs }
-  Claude:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Claude.mrs",                  path: ./rules/Claude.mrs }
-  Copilot:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Copilot.mrs",                 path: ./rules/Copilot.mrs }
-
-  # [ Streaming ] 流媒体
-  YouTube:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",                 path: ./rules/YouTube.mrs }
-  YouTube_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",              path: ./rules/YouTube_IP.mrs }
-  Netflix:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",                 path: ./rules/Netflix.mrs }
-  Netflix_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",              path: ./rules/Netflix_IP.mrs }
-  TikTok:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",                  path: ./rules/TikTok.mrs }
-  Spotify:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",                 path: ./rules/Spotify.mrs }
-
-  # [ Social ] 社交媒体
-  Telegram:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",                path: ./rules/Telegram.mrs }
-  Telegram_IP:  { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs",             path: ./rules/Telegram_IP.mrs }
-
-  # [ Services ] 常用服务
-  Google:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs",                  path: ./rules/Google.mrs }
-  Google_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs",               path: ./rules/Google_IP.mrs }
-  AppleID:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs",                 path: ./rules/AppleID.mrs }
-  Apple:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",                   path: ./rules/Apple.mrs }
-
-
-# -------------------------------------------------------
-# 6. 分流规则
-# -------------------------------------------------------
-# [排序逻辑] 协议优化 & 净化 -> 直连 -> 高频代理 -> 服务平台 -> 国内域名/IP -> IP 补漏 -> 兜底
-
+# =======================================================
+# 5. 分流规则 (七层漏斗模型)
+# =======================================================
 rules:
-  # —————————— 协议优化 & 净化层 ——————————
-  # [阻断 QUIC] 拦截所有 UDP 443 流量。强迫 YouTube/Netflix 等降级为 TCP，避免 UDP 在复杂网络环境下断流/缓冲
-  # ⚠️ 注：这里会拦截所有(含国内) UDP 443。如果国内视频卡顿，可考虑将其移至 GeoSite_CN 之后
+  # —————————— 🛡️ 第一层：净化与拦截 ——————————
   - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
-  
-  # [广告与隐私] 拦截恶意与跟踪流量
-  - RULE-SET, AdRules, 广告拦截  
-  - RULE-SET, Privacy, 隐私保护
-  - RULE-SET, WinSpy, 隐私保护
-  - RULE-SET, Hijacking, 反劫持
-  - RULE-SET, Hijacking_IP, 反劫持, no-resolve
+  - RULE-SET,AdRules,广告拦截
+  - DOMAIN-REGEX,^(crash|metrics|track|report|api|stat|collect|telemetry|apm|sdk|event|events|trace|beacon|analytics|probe|upload|diag)\.log\.,REJECT
+  - RULE-SET,Privacy,隐私保护
+  - RULE-SET,WinSpy,隐私保护
+  - RULE-SET,Hijacking,反劫持
+  - RULE-SET,Hijacking_IP,反劫持,no-resolve
 
-  # —————————— 直连层 ——————————
-  # [局域网] 防止内网互访走代理
-  - RULE-SET, Lan, DIRECT
-  - RULE-SET, Lan_IP, DIRECT, no-resolve
-  
-  # [游戏下载] Steam CN /暴雪等国内 CDN 流量直连
-  - RULE-SET, GameDownloadCN, DIRECT
-  
-  # [NTP] Windows 时间同步 (UDP 123)，防止时间错误
-  - DST-PORT, 123, DIRECT
+  # —————————— 🏠 第二层：局域网与基础直连 ——————————
+  - RULE-SET,WeChat,DIRECT
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,Lan_IP,DIRECT,no-resolve
+  - RULE-SET,GameDownloadCN,DIRECT
+  - DST-PORT,123,DIRECT
 
-  # —————————— 高频代理应用 ——————————
-  # [AI 服务] 
-  - RULE-SET, OpenAI, AI Rules
-  - RULE-SET, Gemini, AI Rules
-  - RULE-SET, Claude, AI Rules
-  - RULE-SET, Copilot, AI Rules
+  # —————————— 🚫 第三层：P2P/BT 流量护城河 ——————————
+  - DST-PORT,6881-6889,DIRECT
+  - DST-PORT,51413,DIRECT
+  - DOMAIN-KEYWORD,tracker,DIRECT
+  - DOMAIN-KEYWORD,torrent,DIRECT
+  - DOMAIN-KEYWORD,announce,DIRECT
+  - PROCESS-NAME,aria2c.exe,DIRECT
+  - PROCESS-NAME,BitComet.exe,DIRECT
+  - PROCESS-NAME,qbittorrent.exe,DIRECT
+  - PROCESS-NAME,transmission-daemon.exe,DIRECT
+  - PROCESS-NAME,transmission-qt.exe,DIRECT
+  - PROCESS-NAME,Thunder.exe,DIRECT
+  - PROCESS-NAME,DownloadSDKServer.exe,DIRECT
+  - PROCESS-NAME,uTorrent.exe,DIRECT
+  - PROCESS-NAME,WebTorrent.exe,DIRECT
 
-  # [流媒体]
-  - RULE-SET, YouTube, YouTube
-  - RULE-SET, Netflix, Netflix
-  - RULE-SET, TikTok, TikTok
-  - RULE-SET, Spotify, Spotify
+  # —————————— 🚀 第四层：各大应用智能分流 ——————————
+  - RULE-SET,AI_Rules,AI Rules
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,TikTok,TikTok
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,Google,Google
 
-  # [社交]
-  - RULE-SET, Telegram, Telegram
+  # —————————— 🍏 第五层：跨国企业部分直连的域名和特殊通道 ——————————
+  - RULE-SET,Global_CN,DIRECT
+  - RULE-SET,AppleID,美国节点
+  - RULE-SET,Apple,美国节点
+  - RULE-SET,Microsoft,美国节点
 
-  # —————————— 服务平台 ——————————
-  - RULE-SET, Google, Google
-  - RULE-SET, AppleID, Apple账户
-  - RULE-SET, Apple, Apple账户
-  
-  # —————————— 国内域名/IP ——————————
-  - RULE-SET, GeoSite_CN, DIRECT
-  
-  # —————————— IP 补漏层 ——————————
-  # [no-resolve] 防止发起不必要的 DNS 解析
-  - RULE-SET, Telegram_IP, Telegram, no-resolve
-  - RULE-SET, Google_IP, Google, no-resolve
-  - RULE-SET, YouTube_IP, YouTube, no-resolve
-  - RULE-SET, Netflix_IP, Netflix, no-resolve
-  
-  # [GeoIP_CN] 国内 IP 兜底
-  - RULE-SET, GeoIP_CN, DIRECT, no-resolve
+  # —————————— 🇨🇳 第六层：国内直连兜底 ——————————
+  - RULE-SET,GeoSite_CN,DIRECT
 
-  # —————————— 兜底 ——————————
-  - MATCH, 兜底策略
+  # —————————— 🕳️ 第七层：IP 补漏层 ——————————
+  - RULE-SET,Telegram_IP,Telegram,no-resolve
+  - RULE-SET,Google_IP,Google,no-resolve
+  - RULE-SET,YouTube_IP,YouTube,no-resolve
+  - RULE-SET,Netflix_IP,Netflix,no-resolve
+  - RULE-SET,GeoIP_CN_IP,DIRECT,no-resolve
+
+  # —————————— 🌍 兜底：所有未匹配规则的外国流量 ——————————
+  - MATCH,兜底策略

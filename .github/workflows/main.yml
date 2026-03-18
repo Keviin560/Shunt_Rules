@@ -146,6 +146,16 @@ jobs:
           done
           mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
 
+          echo "🔓 Unpacking Global CN (Multinational Direct)..."
+          cat /dev/null > raw_data/global_cn_raw.txt
+          # 严格划定范围：底层IT/云/硬件(无Google)、生产力/开发工具、消费电子/生活商旅(无支付)
+          for tag in aws azure oracle ibm salesforce digitalocean hetzner vultr cloudflare akamai fastly cisco intel amd nvidia qualcomm broadcom ubuntu debian archlinux fedora python golang ruby rust docker kubernetes symantec kaspersky eset drweb adobe autodesk figma canva blender sketchfab github gitlab jetbrains atlassian stackexchange microsoft slack zoom webex trello notion evernote apple samsung sony asus acer hp dell panasonic starbucks mcdonalds nike adidas walmart costco ikea gucci louisvuitton tesla bmw volvo airbnb booking; do
+            ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
+            if [ -f "raw_data/geosite_$tag.txt" ]; then
+              cat "raw_data/geosite_$tag.txt" >> raw_data/global_cn_raw.txt
+            fi
+          done
+
           echo "🔓 Unpacking VIP Channels (AI & Games)..."
           # 提取免检通道 1：AI 聚合库
           cat /dev/null > raw_data/ai_rules.txt
@@ -197,7 +207,6 @@ jobs:
             mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
           fi
 
-      # 👇 --- 新增的游戏平台雷达监控网 --- 👇
       - name: 🎮 检测 游戏 新平台并自动通知
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -238,7 +247,6 @@ jobs:
             echo "💤 今日无全新 游戏 平台收录，更新游戏快照底库。"
             mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
           fi
-      # 👆 --- 新增模块结束 --- 👆
 
       - name: 🚀 执行编译与文档生成 (Builder)
         run: python scripts/builder.py

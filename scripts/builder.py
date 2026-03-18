@@ -10,7 +10,7 @@ import json
 from datetime import datetime, timedelta, timezone
 from collections import defaultdict
 
-GENERATOR_VERSION = "v6.2" 
+GENERATOR_VERSION = "v6.3" 
 SOURCE_DIR = "temp_source/rule/Clash"
 TARGET_DIR_MIHOMO = "rule/Mihomo"
 TARGET_DIR_LOON = "rule/Loon"
@@ -315,8 +315,8 @@ def generate_readme(stats):
         f"",
         f"</div>",
         f"",
-        f"## 📖 项目简述",
-        f"每天定时从上游拉取最新数据，通过 DNS 深度清洗和语法转译，输出贴合内核运行逻辑的纯净分流规则",
+        f"## 📖 分流配置库",
+        f"一个简单的规则列表，还是一套智能的 Mihomo 覆写配置：一键实现节点自动排序、TLS 防封锁伪装和国内外流量分流",
         f"",
         f"* **Mihomo (.mrs)** : 双重生成策略，把域名裂变为 `精确匹配 (DOMAIN)` 与 `泛域名匹配 (DOMAIN-SUFFIX)` ，解决子域名匹配遗漏问题",
         f"* **Loon (.lsr)** : 前置带有 `no-resolve` 属性的 IP 规则，减少不必要的 DNS 解析行为，降低 DNS 泄露与污染风险",
@@ -324,10 +324,10 @@ def generate_readme(stats):
         f"* **GeoSite_CN**：去除国内大厂海外业务和海外直连域名，保留的是纯粹的大陆本土域名",
         f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP 段，只保留物理位置在中国大陆的纯正 IP",
         f"",
-        f"* **AI_Rules**：聚合了主流的 AI 平台（ChatGPT, Claude, Gemini 等）和 AI 开发者平台",
-        f"  <br><sub>OpenAI (ChatGPT/Sora)、Anthropic (Claude)、Google (Gemini/谷歌 AI 全家桶)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft/GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici/Coze、Manus </sub>等",
-        f"* **Game_Proxy**：纯国外游戏平台分流，涵盖了主流的 PC 游戏、主机平台、手游大厂和垂直的游戏社区",
-        f"  <br><sub>Steam (Valve)、Epic Games、GOG (CD Projekt)、EA (Electronic Arts/Origin)、Ubisoft (Uplay/Ubisoft Connect)、Rockstar Games (Social Club)、Nintendo (任天堂)、Xbox (Microsoft Gaming)、PlayStation (Sony)、Riot Games (拳头游戏)、Blizzard (战网/暴雪)、PUBG (绝地求生)、osu!、Escape from Tarkov (逃离塔科夫)、HoYoverse (米哈游国际服)、Supercell、Yostar (悠星)、Cygames、Garena、Minecraft (我的世界)、Roblox (罗布乐思)、itch.io </sub>等",
+        f"* **AI_Rules**：聚合了主流 AI 平台（ChatGPT, Claude, Gemini 等）和 AI 开发者平台",
+        f"  <br><sub>OpenAI (ChatGPT/Sora)、Anthropic (Claude)、Google (Gemini/谷歌 AI 全家桶)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft/GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici/Coze、Manus 等</sub>",
+        f"* **Game_Proxy**：纯国外游戏平台，涵盖了主流的 PC 游戏、主机平台、手游大厂和垂直的游戏社区",
+        f"  <br><sub>Steam (Valve)、Epic Games、GOG (CD Projekt)、EA (Electronic Arts/Origin)、Ubisoft (Uplay/Ubisoft Connect)、Rockstar Games (Social Club)、Nintendo (任天堂)、Xbox (Microsoft Gaming)、PlayStation (Sony)、Riot Games (拳头游戏)、Blizzard (战网/暴雪)、PUBG (绝地求生)、osu!、Escape from Tarkov (逃离塔科夫)、HoYoverse (米哈游国际服)、Supercell、Yostar (悠星)、Cygames、Garena、Minecraft (我的世界)、Roblox (罗布乐思)、itch.io 等</sub>",
         f"",
         f"## 📍 Mihomo 配置",
         f">用 `type: http` 引用规则集，覆写参考: {config_link}",

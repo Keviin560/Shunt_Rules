@@ -8,11 +8,12 @@
 
 一个简单的规则列表，还是一套智能的 Mihomo 覆写配置：一键实现节点自动排序、TLS 防封锁伪装和国内外流量分流
 
-* **Mihomo (.mrs)** : 双重生成策略，把域名裂变为 `精确匹配 (DOMAIN)` 与 `泛域名匹配 (DOMAIN-SUFFIX)` ，解决子域名匹配遗漏问题
-* **Loon (.lsr)** : 前置带有 `no-resolve` 属性的 IP 规则，减少不必要的 DNS 解析行为，降低 DNS 泄露与污染风险
+* **Mihomo (.mrs)** : 双重生成策略，把域名裂变为 精确匹配 与 泛域名匹配 ，解决子域名匹配遗漏问题
+* **Loon (.lsr)** : 前置 `no-resolve` 属性的 IP 规则，减少不必要的 DNS 解析行为
 
-* **GeoSite_CN**：去除国内大厂海外业务和海外直连域名，保留的是纯粹的大陆本土域名
-* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP 段，只保留物理位置在中国大陆的纯正 IP
+* **Global_CN**：国外可直连的域名，可设置走 DIRECT，已剔除广告杂质
+* **GeoSite_CN**：去除国内大厂海外业务和国外直连域名，保留纯粹的大陆本土域名
+* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP 段，仅保留物理位置在大陆的 IP
 
 * **AI_Rules**：聚合了主流 AI 平台（ChatGPT, Claude, Gemini 等）和 AI 开发者平台
   <br><sub>OpenAI (ChatGPT/Sora)、Anthropic (Claude)、Google (Gemini/谷歌 AI 全家桶)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft/GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici/Coze、Manus 等</sub>
@@ -57,11 +58,6 @@ rules:
   - RULE-SET,Google_IP,MyProxyGroup,no-resolve    # 按需添加 no-resolve 参数
 ```
 </details>
-
-## 🤝 致谢
-感谢以下项目提供的数据与工具支持：
-* 数据来源：[Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat), [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
-* 构建工具：[MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo), [urlesistiana/v2dat](https://github.com/urlesistiana/v2dat)
 
 ## 📊 规则索引
 | 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |
@@ -762,4 +758,7 @@ rules:
 | myTVSUPER | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/myTVSUPER.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/myTVSUPER.lsr) | 11 days ago |
 | zhanqi | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/zhanqi.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/zhanqi.lsr) | 11 days ago |
 
- 免责声明：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规
+## 🤝 致谢
+感谢以下项目提供的数据与工具支持：
+* 数据来源：[Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat), [blackmatrix7/ios_rule_script](https://github.com/blackmatrix7/ios_rule_script)
+* 构建工具：[MetaCubeX/mihomo](https://github.com/MetaCubeX/mihomo), [urlesistiana/v2dat](https://github.com/urlesistiana/v2dat)

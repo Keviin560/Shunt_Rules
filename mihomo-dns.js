@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-03-12
+ * 更新日期：2026-03-18
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -9,7 +9,6 @@
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置 240+ 国家与城市中英双语及高频三字码字典
  * ->  自动隐藏无节点分组 ：没有节点的分组会自动隐藏分组，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
- * ->  PASS 策略智能分流：针对 Apple 和 Microsoft 流量引入 PASS 策略，实现动态判定分流
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 小白用户必读设置 】
@@ -390,6 +389,7 @@ function main(config) {
             Lan_IP:         buildRule('Lan_IP'),
             GameDownloadCN: buildRule('GameDownloadCN'),
             WeChat:         buildRule('WeChat'),
+            Global_CN:         buildRule('Global_CN'),
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             AI_Rules:         buildRule('AI_Rules'),
@@ -466,11 +466,12 @@ function main(config) {
             'RULE-SET,Google,Google',
             
             // ===============================================
-            // 🍏 第五层：特殊通行证
+            // 🍏 第五层：跨国企业部分直连的域名和特殊通道
             // ===============================================
-            'RULE-SET,AppleID,PASS',
-            'RULE-SET,Apple,PASS',
-            'RULE-SET,Microsoft,PASS',
+            'RULE-SET,Global_CN,DIRECT', 
+            'RULE-SET,AppleID,美国节点',
+            'RULE-SET,Apple,美国节点',
+            'RULE-SET,Microsoft,美国节点',
             
             // ===============================================
             // 🇨🇳 第六层：国内直连兜底

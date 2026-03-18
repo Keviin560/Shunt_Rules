@@ -28,14 +28,14 @@ FOREIGN_CDN_FINGERPRINTS = [
 ]
 
 # --- 💡 VIP 免检直通车函数 (处理 AI 与 游戏) ---
-def process_vip_channel(input_file, output_dir, rule_name, blackhole_set):
+def process_vip_channel(input_file, output_dir, rule_name):
     if not os.path.exists(input_file): return
     valid_rules = set()
     with open(input_file, 'r', encoding='utf-8') as f:
         for line in f:
             line = line.strip()
             if not line or line.startswith('#'): continue
-            if '@ads' in line: continue  # 剔除显式广告
+            if '@ads' in line: continue  # 剔除广告
             
             line = line.split(' @')[0].strip() # 剥离附加属性
             
@@ -50,10 +50,6 @@ def process_vip_channel(input_file, output_dir, rule_name, blackhole_set):
             elif line.startswith("regexp:"):
                 rule_type, val = "DOMAIN-REGEX", line[7:]
             
-            # 🛡️ 剧毒黑洞双向比对
-            if val.lower() in blackhole_set:
-                continue
-            
             valid_rules.add(f"{rule_type},{val}")
     
     output_path = os.path.join(output_dir, "list.txt")
@@ -62,43 +58,6 @@ def process_vip_channel(input_file, output_dir, rule_name, blackhole_set):
         f.write(f"# NAME: {rule_name}\n")
         f.write("\n".join(sorted(list(valid_rules))))
     print(f"✅ 生成免检规则: {output_path} (数量: {len(valid_rules)})")
-
-# --- 💡 跨国大厂专属直连函数 (提取 @cn 并过黑洞) ---
-def process_cn_specific_channel(input_file, output_dir, rule_name, blackhole_set):
-    if not os.path.exists(input_file): return
-    valid_rules = set()
-    with open(input_file, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'): continue
-            if '@ads' in line: continue  
-            if '@cn' not in line: continue # 🟢 核心防御：只有 @cn 的落地节点才放行
-            
-            line = line.split(' @')[0].strip()
-            
-            rule_type = "DOMAIN-SUFFIX"
-            val = line
-            if line.startswith("full:"):
-                rule_type, val = "DOMAIN", line[5:]
-            elif line.startswith("domain:"):
-                rule_type, val = "DOMAIN-SUFFIX", line[7:]
-            elif line.startswith("keyword:"):
-                rule_type, val = "DOMAIN-KEYWORD", line[8:]
-            elif line.startswith("regexp:"):
-                rule_type, val = "DOMAIN-REGEX", line[7:]
-            
-            # 🛡️ 剧毒黑洞双向比对
-            if val.lower() in blackhole_set:
-                continue
-            
-            valid_rules.add(f"{rule_type},{val}")
-    
-    output_path = os.path.join(output_dir, "list.txt")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(f"# NAME: {rule_name}\n")
-        f.write("\n".join(sorted(list(valid_rules))))
-    print(f"✅ 生成跨国直连规则: {output_path} (数量: {len(valid_rules)})")
 
 class GeoIPEngine:
     def __init__(self, cn_path, black_paths):
@@ -312,19 +271,14 @@ async def main():
     engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
     engine.export_clean_list(raw_cn_ip) 
 
-    # 💡 核心改动：提前初始化 Cleaner，提前挂载剧毒黑洞库！
-    cleaner = Cleaner(engine)
-
-    # --- 💡 触发免检 VIP 通道与跨国直连 ---
-    print("🚀 开始处理 VIP 免检与跨国直连通道...")
-    process_vip_channel(os.path.join(RAW_DIR, "ai_rules.txt"), os.path.join(INJECT_ROOT, "AI_Rules"), "AI_Rules", cleaner.blackhole)
-    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-!cn.txt"), os.path.join(INJECT_ROOT, "Game_Proxy"), "Game_Proxy", cleaner.blackhole)
-    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-cn.txt"), os.path.join(INJECT_ROOT, "Game_CN"), "Game_CN", cleaner.blackhole)
-    
-    # 👇 新增：处理跨国直连白名单 (@cn 专供)
-    process_cn_specific_channel(os.path.join(RAW_DIR, "global_cn_raw.txt"), os.path.join(INJECT_ROOT, "Global_CN"), "Global_CN", cleaner.blackhole)
+    # --- 💡 触发免检 VIP 通道 ---
+    print("🚀 开始处理 VIP 免检通道 (AI与游戏)...")
+    process_vip_channel(os.path.join(RAW_DIR, "ai_rules.txt"), os.path.join(INJECT_ROOT, "AI_Rules"), "AI_Rules")
+    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-!cn.txt"), os.path.join(INJECT_ROOT, "Game_Proxy"), "Game_Proxy")
+    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-cn.txt"), os.path.join(INJECT_ROOT, "Game_CN"), "Game_CN")
     print("-" * 40)
 
+    cleaner = Cleaner(engine)
     lines = set()
     if os.path.exists(os.path.join(RAW_DIR, "geosite_cn.txt")):
         with open(os.path.join(RAW_DIR, "geosite_cn.txt"), 'r', encoding='utf-8') as f:

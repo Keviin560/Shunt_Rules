@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-18 14:23:29
-# Total = 719
+# Update = 2026-03-18 16:50:19
+# Total = 722
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -98,6 +98,7 @@ DOMAIN,dd-cdn.origin-apple.com.akadns.net
 DOMAIN,dds.dell.com
 DOMAIN,dejavu.apple.com
 DOMAIN,devblogs.microsoft.com
+DOMAIN,developer.microsoft.com
 DOMAIN,devimages-cdn.apple.com
 DOMAIN,devstreaming-cdn.apple.com
 DOMAIN,discussionschinese.apple.com
@@ -125,6 +126,7 @@ DOMAIN,dnl-19.geo.kaspersky.com
 DOMAIN,docs.microsoft.com
 DOMAIN,download.developer.apple.com
 DOMAIN,download.microsoft.com
+DOMAIN,download.visualstudio.microsoft.com
 DOMAIN,downloaddispatch.itunes.apple.com
 DOMAIN,ea2cn-dev-outlet.dell.com
 DOMAIN,ea2cn-prod-outlet.dell.com
@@ -242,6 +244,7 @@ DOMAIN,mvod.itunes.apple.com
 DOMAIN,myapp.itunes.apple.com
 DOMAIN,myvs.download.prss.microsoft.com
 DOMAIN,nexus.dell.com
+DOMAIN,np-edge.itunes.apple.com
 DOMAIN,ocsp-lb.apple.com.akadns.net
 DOMAIN,ocsp.apple.com
 DOMAIN,ocsp2-lb.apple.com.akadns.net

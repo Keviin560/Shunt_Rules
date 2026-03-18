@@ -317,11 +317,12 @@ def generate_readme(stats):
         f"",
         f"一个简单的规则列表，还是一套智能的 Mihomo 覆写配置：一键实现节点自动排序、TLS 防封锁伪装和国内外流量分流",
         f"",
-        f"* **Mihomo (.mrs)** : 双重生成策略，把域名裂变为 `精确匹配 (DOMAIN)` 与 `泛域名匹配 (DOMAIN-SUFFIX)` ，解决子域名匹配遗漏问题",
-        f"* **Loon (.lsr)** : 前置带有 `no-resolve` 属性的 IP 规则，减少不必要的 DNS 解析行为，降低 DNS 泄露与污染风险",
+        f"* **Mihomo (.mrs)** : 双重生成策略，把域名裂变为 精确匹配 与 泛域名匹配 ，解决子域名匹配遗漏问题",
+        f"* **Loon (.lsr)** : 前置 `no-resolve` 属性的 IP 规则，减少不必要的 DNS 解析行为",
         f"",
-        f"* **GeoSite_CN**：去除国内大厂海外业务和海外直连域名，保留的是纯粹的大陆本土域名",
-        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP 段，只保留物理位置在中国大陆的纯正 IP",
+        f"* **Global_CN**：国外可直连的域名，可设置走 DIRECT，已剔除广告杂质",
+        f"* **GeoSite_CN**：去除国内大厂海外业务和国外直连域名，保留纯粹的大陆本土域名",
+        f"* **GeoIP_CN**：剔除 Cloudflare/Google 等境外 IP 段，仅保留物理位置在大陆的 IP",
         f"",
         f"* **AI_Rules**：聚合了主流 AI 平台（ChatGPT, Claude, Gemini 等）和 AI 开发者平台",
         f"  <br><sub>OpenAI (ChatGPT/Sora)、Anthropic (Claude)、Google (Gemini/谷歌 AI 全家桶)、xAI (Grok)、Meta AI、Mistral AI、Cursor、Microsoft/GitHub Copilot、Codeium & Windsurf、Devin、Trae & MarsCode、CodeRabbit、Perplexity、Poe、OpenRouter、ElevenLabs、ComfyUI、OpenArt & Clipdrop、Hugging Face、Groq、Cerebras、Dify、Cloudflare AI、LiveKit、Cici/Coze、Manus 等</sub>",
@@ -367,11 +368,6 @@ def generate_readme(stats):
         f"```",
         f"</details>",
         f"",
-        f"## 🤝 致谢",
-        f"感谢以下项目提供的数据与工具支持：",
-        f"* 数据来源：[Loyalsoldier/v2ray-rules-dat]({link_ls}), [blackmatrix7/ios_rule_script]({link_bm})",
-        f"* 构建工具：[MetaCubeX/mihomo]({link_mihomo}), [urlesistiana/v2dat]({link_v2dat})",
-        f"",
         f"## 📊 规则索引",
         f"| 规则名称 | Mihomo (.mrs) | Loon (.lsr) | 更新状态 |",
         f"| :---: | :---: | :---: | :---: |"
@@ -385,7 +381,10 @@ def generate_readme(stats):
         md.append(f"| {name} | {m_cell} | {l_cell} | {status} |")
         
     md.append(f"")
-    md.append(f" 免责声明：本项目生成的规则仅供技术研究与网络优化使用，请遵守当地法律法规")
+    md.append(f"## 🤝 致谢")
+    md.append(f"感谢以下项目提供的数据与工具支持：")
+    md.append(f"* 数据来源：[Loyalsoldier/v2ray-rules-dat]({link_ls}), [blackmatrix7/ios_rule_script]({link_bm})")
+    md.append(f"* 构建工具：[MetaCubeX/mihomo]({link_mihomo}), [urlesistiana/v2dat]({link_v2dat})")
 
     with open(README_FILE, 'w', encoding='utf-8') as f: f.write("\n".join(md))
 

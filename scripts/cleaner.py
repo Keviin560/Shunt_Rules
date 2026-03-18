@@ -1,349 +1,86 @@
-import asyncio
-import aiohttp
-import ipaddress
-import bisect
-import json
-import os
-import time
-
-# --- 核心配置 ---
-TIMEOUT_SEC = 5
-RETRIES = 2
-CONCURRENCY = 128  # 并发数拉高，以应对庞大合并数据
+import asyncio, aiohttp, os
 
 RAW_DIR = "raw_data"
 DATA_DIR = "data"
 INJECT_ROOT = "temp_source/rule/Clash"
 
-CACHE_FILE = os.path.join(DATA_DIR, "domain_cache.json")
-LOG_NON_CN = os.path.join(DATA_DIR, "resolved_non_cn.txt")      
-
-# 极简黑名单：只拦截绝对不可能在国内有合规节点的应用
-BLACKLIST_KEYWORDS = [
-    "youtube", "facebook", "twitter", "instagram", "telegram",
-    "pornhub", "netflix", "xvideos", "phncdn", "google"
-]
-FOREIGN_CDN_FINGERPRINTS = [
-    "cloudflare", "fastly", "cdn77", "gvt1.com", "fbcdn"
-]
-
-# --- 💡 VIP 免检直通车函数 (处理 AI 与 游戏) ---
-def process_vip_channel(input_file, output_dir, rule_name, blackhole_set):
-    if not os.path.exists(input_file): return
-    valid_rules = set()
-    with open(input_file, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'): continue
-            if '@ads' in line: continue  # 剔除显式广告
-            
-            line = line.split(' @')[0].strip() # 剥离附加属性
-            
-            rule_type = "DOMAIN-SUFFIX"
-            val = line
-            if line.startswith("full:"):
-                rule_type, val = "DOMAIN", line[5:]
-            elif line.startswith("domain:"):
-                rule_type, val = "DOMAIN-SUFFIX", line[7:]
-            elif line.startswith("keyword:"):
-                rule_type, val = "DOMAIN-KEYWORD", line[8:]
-            elif line.startswith("regexp:"):
-                rule_type, val = "DOMAIN-REGEX", line[7:]
-            
-            # 🛡️ 剧毒黑洞双向比对
-            if val.lower() in blackhole_set:
-                continue
-            
-            valid_rules.add(f"{rule_type},{val}")
-    
-    output_path = os.path.join(output_dir, "list.txt")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(f"# NAME: {rule_name}\n")
-        f.write("\n".join(sorted(list(valid_rules))))
-    print(f"✅ 生成免检规则: {output_path} (数量: {len(valid_rules)})")
-
-# --- 💡 跨国大厂专属直连函数 (已由底层精确提取 @cn，仅过黑洞防线) ---
-def process_cn_specific_channel(input_file, output_dir, rule_name, blackhole_set):
-    if not os.path.exists(input_file): return
-    valid_rules = set()
-    with open(input_file, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('#'): continue
-            if '@ads' in line: continue  
-            
-            line = line.split(' @')[0].strip()
-            
-            rule_type = "DOMAIN-SUFFIX"
-            val = line
-            if line.startswith("full:"):
-                rule_type, val = "DOMAIN", line[5:]
-            elif line.startswith("domain:"):
-                rule_type, val = "DOMAIN-SUFFIX", line[7:]
-            elif line.startswith("keyword:"):
-                rule_type, val = "DOMAIN-KEYWORD", line[8:]
-            elif line.startswith("regexp:"):
-                rule_type, val = "DOMAIN-REGEX", line[7:]
-            
-            # 🛡️ 剧毒黑洞双向比对：防线不减！
-            if val.lower() in blackhole_set:
-                continue
-            
-            valid_rules.add(f"{rule_type},{val}")
-    
-    if len(valid_rules) == 0:
-        print(f"⚠️ {rule_name} 提取为空，跳过生成。")
-        return
-
-    output_path = os.path.join(output_dir, "list.txt")
-    os.makedirs(os.path.dirname(output_path), exist_ok=True)
-    with open(output_path, 'w', encoding='utf-8') as f:
-        f.write(f"# NAME: {rule_name}\n")
-        f.write("\n".join(sorted(list(valid_rules))))
-    print(f"✅ 生成跨国直连规则: {output_path} (数量: {len(valid_rules)})")
-
-
-class GeoIPEngine:
-    def __init__(self, cn_path, black_paths):
-        print("🛡️ [GeoIP] 初始化防穿透引擎...")
-        self.cn_intervals = self._load(cn_path)
-        self.black_intervals = []
-        for p in black_paths: self.black_intervals.extend(self._load(p))
-        self.black_intervals.sort()
-        print(f"   - 黑名单 IP 段: {len(self.black_intervals)}")
-
-    def _load(self, path):
-        intervals = []
-        if not os.path.exists(path): return intervals
+def load_blackhole(filename):
+    s = set()
+    path = os.path.join(DATA_DIR, filename)
+    if os.path.exists(path):
         with open(path, 'r', encoding='utf-8') as f:
             for line in f:
-                line = line.strip()
-                if not line or not line[0].isdigit(): continue
-                try:
-                    net = ipaddress.ip_network(line, strict=False)
-                    intervals.append((int(net.network_address), int(net.broadcast_address)))
-                except: pass
-        intervals.sort()
-        return intervals
+                val = line.strip().split(' @')[0].split(':')[-1].lower()
+                if val: s.add(val)
+    return s
 
-    def _contains(self, intervals, ip_int):
-        keys = [x[0] for x in intervals]
-        idx = bisect.bisect_right(keys, ip_int) - 1
-        if idx < 0: return False
-        return intervals[idx][0] <= ip_int <= intervals[idx][1]
+def process_vip_channel(input_file, output_dir, rule_name, ads_bh):
+    """
+    🚨 核心逻辑：AI、游戏、Global_CN 专用
+    只过滤广告，保留所有规则，确保不误杀海外/大厂域名。
+    """
+    if not os.path.exists(input_file): return
+    valid_rules = set()
+    with open(input_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            raw = line.strip().split(' @')[0]
+            if not raw or raw.startswith('#'): continue
+            
+            domain = raw.split(':')[-1].lower()
+            if domain in ads_bh: continue # 仅拦截广告
+            
+            # 统一输出格式为 DOMAIN-SUFFIX 或 DOMAIN
+            if raw.startswith("full:"):
+                valid_rules.add(f"DOMAIN,{raw[5:]}")
+            else:
+                d = raw[7:] if raw.startswith("domain:") else domain
+                valid_rules.add(f"DOMAIN-SUFFIX,{d}")
 
-    def is_blacklisted(self, ip_str):
-        try:
-            ip_int = int(ipaddress.ip_address(ip_str))
-            return self._contains(self.black_intervals, ip_int)
-        except: return False
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "list.txt"), 'w', encoding='utf-8') as f:
+        f.write(f"# NAME: {rule_name}\n# Total: {len(valid_rules)}\n")
+        f.write("\n".join(sorted(list(valid_rules))))
+    print(f"✅ {rule_name} 修复完成，共 {len(valid_rules)} 条规则。")
 
-    def export_clean_list(self, raw_cn_path):
-        output_path = os.path.join(INJECT_ROOT, "GeoIP_CN", "list.txt")
-        clean_lines = []
-        if os.path.exists(raw_cn_path):
-            with open(raw_cn_path, 'r', encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if not line: continue
-                    try:
-                        net = ipaddress.ip_network(line, strict=False)
-                        ip_int = int(net.network_address)
-                        if not self._contains(self.black_intervals, ip_int):
-                            clean_lines.append(line)
-                    except: pass
-        
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("# NAME: GeoIP:CN\n") 
-            f.write("\n".join(clean_lines))
-        print(f"✅ 生成 IP 规则 (保留: {len(clean_lines)} 条)")
+async def clean_domestic_track(ads_bh, foreign_bh):
+    """
+    🚨 核心逻辑：GeoSite_CN 专用
+    必须经过双重过滤：广告黑洞 + 海外隔离库。
+    """
+    input_path = os.path.join(RAW_DIR, "geosite_cn.txt")
+    if not os.path.exists(input_path): return
+    
+    clean_rules = set()
+    with open(input_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            val = line.strip().split(' @')[0].split(':')[-1].lower()
+            if not val or val in ads_bh or val in foreign_bh: continue
+            clean_rules.add(f"DOMAIN-SUFFIX,{val}")
 
-class Cleaner:
-    def __init__(self, geoip_engine):
-        self.geoip = geoip_engine
-        self.sem = asyncio.Semaphore(CONCURRENCY)
-        self.cache = self._load_cache()
-        self.blackhole = self._load_blackhole()
-        self.valid_rules = set()
-        self.non_cn = []        
-
-    def _load_cache(self):
-        if os.path.exists(CACHE_FILE):
-            try:
-                with open(CACHE_FILE, 'r', encoding='utf-8') as f: return json.load(f)
-            except: pass
-        return {}
-
-    def _load_blackhole(self):
-        bh = set()
-        bh_file = os.path.join(DATA_DIR, "blackhole.txt")
-        if os.path.exists(bh_file):
-            with open(bh_file, 'r', encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if not line or line.startswith('#'): continue
-                    line = line.split(' @')[0].strip()
-                    val = line
-                    if line.startswith("full:"): val = line[5:]
-                    elif line.startswith("domain:"): val = line[7:]
-                    elif line.startswith("keyword:"): val = line[8:]
-                    elif line.startswith("regexp:"): val = line[7:]
-                    bh.add(val.lower())
-        print(f"🕳️ [Blackhole] 已加载增量剧毒黑洞规则: {len(bh)} 条")
-        return bh
-
-    async def resolve(self, session, domain):
-        url = f"https://dns.alidns.com/resolve?name={domain}&type=A&edns_client_subnet=114.114.114.114"
-        for _ in range(RETRIES):
-            try:
-                async with self.sem:
-                    async with session.get(url, timeout=TIMEOUT_SEC) as resp:
-                        if resp.status == 200: return await resp.json()
-            except: await asyncio.sleep(1)
-        return None
-
-    async def inspect(self, session, raw_line):
-        line = raw_line.strip()
-        if not line or line.startswith('#'): return
-
-        # 💡 初级拦截：丢弃带有广告与海外业务显式标记的规则
-        if '@ads' in line or '@!cn' in line: return
-        
-        # 剥离剩余属性标记 (如 @cn)，只保留纯域名
-        line = line.split(' @')[0].strip()
-
-        # 精准解析 V2Ray 语法前缀
-        rule_type = "DOMAIN-SUFFIX"
-        val = line
-        if line.startswith("full:"):
-            rule_type = "DOMAIN"
-            val = line[5:]
-        elif line.startswith("domain:"):
-            rule_type = "DOMAIN-SUFFIX"
-            val = line[7:]
-        elif line.startswith("keyword:"):
-            rule_type = "DOMAIN-KEYWORD"
-            val = line[8:]
-        elif line.startswith("regexp:"):
-            rule_type = "DOMAIN-REGEX"
-            val = line[7:]
-        
-        val_lower = val.lower()
-        formatted_rule = f"{rule_type},{val}"
-
-        # 💡 高级拦截 (双向对比)：若纯域名潜伏在剧毒黑洞库中，当场击杀
-        if val_lower in self.blackhole:
-            self.non_cn.append(f"{formatted_rule} # 命中 Blackhole 剧毒库")
-            return
-
-        # 遇到正则和关键字，跳过验活，直接放行
-        if rule_type in ["DOMAIN-REGEX", "DOMAIN-KEYWORD"]:
-            self.valid_rules.add(formatted_rule)
-            return
-
-        # 物理关键字黑名单拦截
-        for kw in BLACKLIST_KEYWORDS:
-            if kw in val_lower:
-                self.non_cn.append(f"{formatted_rule} # Blacklist keyword: {kw}")
-                return
-
-        # 缓存检查
-        cached = self.cache.get(val_lower)
-        if cached:
-            age_days = (time.time() - cached['ts']) / 86400
-            if age_days < 7:  # 缓存 7 天有效
-                if cached['status'] == 'valid':
-                    self.valid_rules.add(formatted_rule)
-                else:
-                    self.non_cn.append(f"{formatted_rule} # {cached['reason']}")
-                return
-
-        # DNS 无罪推定验活
-        data = await self.resolve(session, val_lower)
-        if not data or 'Answer' not in data:
-            self._record(val_lower, 'valid', 'Unresolvable/Innocent', formatted_rule)
-            return
-
-        reject_reason = None
-        for rec in data['Answer']:
-            if rec['type'] == 5: 
-                t = rec['data'].lower()
-                for fp in FOREIGN_CDN_FINGERPRINTS:
-                    if fp in t: 
-                        reject_reason = f"Blocked CDN: {fp}"
-                        break
-            elif rec['type'] == 1: 
-                if self.geoip.is_blacklisted(rec['data']): 
-                    reject_reason = f"Blacklisted IP: {rec['data']}"
-                    break
-            if reject_reason: break
-
-        if reject_reason: 
-            self._record(val_lower, 'rejected', reject_reason, formatted_rule)
-        else: 
-            self._record(val_lower, 'valid', 'Clean IP', formatted_rule)
-
-    def _record(self, domain, status, reason, formatted_rule):
-        self.cache[domain] = {
-            "status": status, 
-            "ts": int(time.time()), 
-            "reason": reason
-        }
-        if status == 'valid':
-            self.valid_rules.add(formatted_rule)
-        else:
-            self.non_cn.append(f"{formatted_rule} # {reason}")
-
-    def save(self):
-        os.makedirs(DATA_DIR, exist_ok=True)
-        with open(CACHE_FILE, 'w', encoding='utf-8') as f: json.dump(self.cache, f)
-        with open(LOG_NON_CN, 'w', encoding='utf-8') as f: f.write("\n".join(sorted(self.non_cn)))
-        
-        output_path = os.path.join(INJECT_ROOT, "GeoSite_CN", "list.txt")
-        os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write("# NAME: GeoSite:CN\n")
-            f.write("\n".join(sorted(list(self.valid_rules))))
-        print(f"✅ 生成主干道域名规则: {output_path} (数量: {len(self.valid_rules)})")
+    output_dir = os.path.join(INJECT_ROOT, "GeoSite_CN")
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, "list.txt"), 'w', encoding='utf-8') as f:
+        f.write(f"# NAME: GeoSite_CN\n# Total: {len(clean_rules)}\n")
+        f.write("\n".join(sorted(list(clean_rules))))
+    print(f"✅ GeoSite_CN 清洗完成，共 {len(clean_rules)} 条。")
 
 async def main():
-    raw_cn_ip = os.path.join(RAW_DIR, "geoip_cn.txt")
-    raw_black_ip = os.path.join(RAW_DIR, "geoip_black.txt")
+    # 1. 加载黑洞库
+    ads_bh = load_blackhole("blackhole_ads.txt")
+    foreign_bh = load_blackhole("blackhole_foreign.txt")
     
-    engine = GeoIPEngine(raw_cn_ip, [raw_black_ip])
-    engine.export_clean_list(raw_cn_ip) 
-
-    cleaner = Cleaner(engine)
-
-    # --- 💡 触发免检 VIP 通道与跨国直连 ---
-    print("🚀 开始处理 VIP 免检与跨国直连通道...")
-    process_vip_channel(os.path.join(RAW_DIR, "ai_rules.txt"), os.path.join(INJECT_ROOT, "AI_Rules"), "AI_Rules", cleaner.blackhole)
-    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-!cn.txt"), os.path.join(INJECT_ROOT, "Game_Proxy"), "Game_Proxy", cleaner.blackhole)
-    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-cn.txt"), os.path.join(INJECT_ROOT, "Game_CN"), "Game_CN", cleaner.blackhole)
+    # 2. 修复 AI、游戏、Global_CN (只过广告黑洞)
+    # AI 规则
+    process_vip_channel(os.path.join(RAW_DIR, "ai_rules.txt"), os.path.join(INJECT_ROOT, "AI_Rules"), "AI_Rules", ads_bh)
+    # 海外游戏 (Game_Proxy)
+    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-!cn.txt"), os.path.join(INJECT_ROOT, "Game_Proxy"), "Game_Proxy", ads_bh)
+    # 国内游戏 (Game_CN)
+    process_vip_channel(os.path.join(RAW_DIR, "geosite_category-games-cn.txt"), os.path.join(INJECT_ROOT, "Game_CN"), "Game_CN", ads_bh)
+    # 🚨 Global_CN (带 @cn 的规则)
+    process_vip_channel(os.path.join(DATA_DIR, "global_cn_raw.txt"), os.path.join(INJECT_ROOT, "Global_CN"), "Global_CN", ads_bh)
     
-    # 🟢 注意：这里的输入路径已更改为 DATA_DIR，读取增量持久化的库
-    process_cn_specific_channel(os.path.join(DATA_DIR, "global_cn_raw.txt"), os.path.join(INJECT_ROOT, "Global_CN"), "Global_CN", cleaner.blackhole)
-    print("-" * 40)
-
-    lines = set()
-    if os.path.exists(os.path.join(RAW_DIR, "geosite_cn.txt")):
-        with open(os.path.join(RAW_DIR, "geosite_cn.txt"), 'r', encoding='utf-8') as f:
-            for l in f: lines.add(l.strip())
-    
-    print(f"🚀 开始转换与验活 {len(lines)} 条上游主干道规则...")
-    async with aiohttp.ClientSession() as session:
-        tasks = [cleaner.inspect(session, l) for l in lines if l]
-        done = 0
-        for f in asyncio.as_completed(tasks):
-            await f
-            done += 1
-            if done % 2000 == 0: print(f"   进度: {done}/{len(tasks)}...", end='\r')
-            
-    cleaner.save()
-    print("\n🎉 清洗与转译流程结束")
+    # 3. 深度清洗国内主干道 (过双重黑洞)
+    await clean_domestic_track(ads_bh, foreign_bh)
 
 if __name__ == "__main__":
     asyncio.run(main())

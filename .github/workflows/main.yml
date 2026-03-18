@@ -10,304 +10,69 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
-      issues: write
-
     steps:
-      - name: 📥 检出代码仓库
+      - name: 📥 检出代码
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: 🚑 强制抹除幽灵子模块 (自愈机制)
-        run: |
-          git rm --cached temp_source || true
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git commit -m "fix: 彻底抹除幽灵子模块 temp_source" || true
-          git push || true
-
-      - name: 💾 恢复持久化数据 (缓存整个 data 目录)
-        uses: actions/cache@v3
-        with:
-          path: data/
-          key: ${{ runner.os }}-domain-cache-${{ github.run_id }}
-          restore-keys: |
-            ${{ runner.os }}-domain-cache-
-
-      - name: 🐍 配置 Python 环境
+      - name: 🐍 配置环境
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
       
-      - name: 📦 安装依赖库
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-          pip install PyYAML requests aiohttp
+      - name: 📦 安装依赖
+        run: pip install PyYAML requests aiohttp
 
-      - name: 📡 克隆上游规则库 (Blackmatrix7)
-        run: git clone --depth 1 https://github.com/blackmatrix7/ios_rule_script.git temp_source
-
-      - name: 🛠️ 部署 Mihomo 编译内核
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          API_URL="https://api.github.com/repos/MetaCubeX/mihomo/releases"
-          DOWNLOAD_URL=$(curl -sL -H "Authorization: token $GH_TOKEN" $API_URL | jq -r 'map(select(.prerelease==false)) | first | .assets[] | select(.name | contains("linux-amd64") and endswith(".gz") and (contains("compatible") | not)) | .browser_download_url' | head -n 1)
-          curl -fL -o mihomo.gz "$DOWNLOAD_URL"
-          gunzip mihomo.gz
-          mv mihomo mihomo-bin
-          chmod +x mihomo-bin
-          ./mihomo-bin -v
-          mv mihomo-bin mihomo
-
-      - name: 🧩 准备基础数据 (源码编译 v2dat & 企业级高可用容灾下载)
+      - name: 🧩 准备基础数据 (物理隔离黑洞)
         run: |
           mkdir -p raw_data data
-          
-          echo "🛠️ Installing v2dat from source..."
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
-          echo "⬇️ Downloading Data Files (Enterprise HA Mode)..."
+          curl -fL -o geosite.dat "https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat"
           
-          # 🟢 GeoIP 下载 (官方库三重容灾，使用 curl 避免伪装文件)
-          download_success=0
-          for url in \
-            "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat" \
-            "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat" \
-            "https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat" ; do
-            echo "📥 尝试下载 GeoIP: $url"
-            if curl -fL -o geoip.dat "$url"; then
-              echo "✅ GeoIP 下载成功!"
-              download_success=1
-              break
-            fi
-          done
-          if [ $download_success -eq 0 ]; then
-            echo "❌ 致命错误：geoip.dat 所有备用节点均下载失败！"
-            exit 1
-          fi
-          
-          # 🟢 GeoSite 下载 (坚守 domain-list-custom 源的三重容灾！)
-          download_success=0
-          for url in \
-            "https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat" \
-            "https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/geosite.dat" \
-            "https://fastly.jsdelivr.net/gh/Loyalsoldier/domain-list-custom@release/geosite.dat" ; do
-            echo "📥 尝试下载 GeoSite (Custom版): $url"
-            if curl -fL -o geosite.dat "$url"; then
-              echo "✅ GeoSite 下载成功!"
-              download_success=1
-              break
-            fi
-          done
-          if [ $download_success -eq 0 ]; then
-            echo "❌ 致命错误：geosite.dat (domain-list-custom) 所有备用节点均下载失败！"
-            exit 1
-          fi
-          
-          echo "🔓 Unpacking GeoIP..."
-          ./v2dat unpack geoip -o raw_data -f cn geoip.dat || true
-          
-          if [ ! -f "raw_data/geoip_cn.txt" ]; then
-            echo "❌ GeoIP CN extraction failed!"
-            exit 1
-          fi
-          
-          echo "🔓 Unpacking Blacklist IPs..."
-          cat /dev/null > raw_data/geoip_black.txt
-          for tag in google cloudflare telegram twitter facebook netflix; do
-            ./v2dat unpack geoip -o raw_data -f $tag geoip.dat || true
-            if [ -f "raw_data/geoip_$tag.txt" ]; then
-              cat "raw_data/geoip_$tag.txt" >> raw_data/geoip_black.txt
-              rm "raw_data/geoip_$tag.txt"
-            fi
-          done
-          
-          echo "🕳️ Unpacking Poison Blackhole (增量比库)..."
-          for tag in 'category-ads-all' 'geolocation-!cn' 'category-porn'; do
+          # 🚨 核心：提取纯广告黑洞
+          cat /dev/null > data/blackhole_ads.txt
+          for tag in 'category-ads-all' 'category-porn'; do
             ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
-            if [ -f "raw_data/geosite_$tag.txt" ]; then
-              cat "raw_data/geosite_$tag.txt" >> data/blackhole.txt
-            fi
+            if [ -f "raw_data/geosite_$tag.txt" ]; then cat "raw_data/geosite_$tag.txt" >> data/blackhole_ads.txt; fi
           done
-          sort -u data/blackhole.txt -o data/blackhole.txt || true
           
-          echo "🔓 Unpacking GeoSite (Domestic Multi-Track)..."
-          for tag in geolocation-cn 115 17zuoye 36kr 4399 51job 58tongcheng aamgame aiqicha aisiku aixcoder alibaba alibabacloud aliyun aliyun-drive baidu baishancloud beisen bilibili bytedance cainiao chaoxing chinabroadnet chinamobile chinanews chinapower chinaso chinatelecom chinatower chinaunicom ciweimao cnblogs csdn ctyun dingdatech dingtalk douban douyin duowan eleme feishu fengxing ifanr iflytek ihuman iqiyi jinshuju kuaidi100 kuaikan kuaishou kuaiyikeji lagou landian lanzou lark lianjia meituan netease pingan qcloud qingcloud qingtingfm qiniu qixin tencent tencent-dev tencent-games taikang taomee taptap tianyancha ucloud weiphone wenshushu xiaomi xiaomi-ai xiaomi-iot ximalaya xueersi xueqiu yunfanjiasu yunlaopo yundaex youzan yuanbei yuanfudao yuewen yuketang zhubajie ziroom zto-express jd pinduoduo unionpay ccb icbc huawei huawei-dev huaweicloud lenovo tcl vivo oppo sto-express yto-express; do
-            ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
-            if [ -f "raw_data/geosite_$tag.txt" ]; then
-              cat "raw_data/geosite_$tag.txt" >> raw_data/geosite_cn_merged.txt
-            fi
-          done
-          mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
+          # 🚨 核心：提取纯海外隔离库 (仅用于清洗 GeoSite_CN)
+          ./v2dat unpack geosite -o raw_data -f 'geolocation-!cn' geosite.dat || true
+          mv 'raw_data/geosite_geolocation-!cn.txt' data/blackhole_foreign.txt || true
 
-          echo "🔓 Unpacking Global CN (Multinational Direct - Incremental)..."
-          # 🟢 增量持久化改动：不再使用 cat /dev/null 清空，而是确保文件存在
+          # 下载国内主干道图纸
+          ./v2dat unpack geosite -o raw_data -f 'geolocation-cn' geosite.dat || true
+          mv 'raw_data/geosite_geolocation-cn.txt' raw_data/geosite_cn.txt || true
+
+          # 🚨 核心：下载 Global_CN (@cn) 规则
           touch data/global_cn_raw.txt
-          
-          # 定向抓取跨国大厂带有 @cn 的节点
           for tag in aws azure oracle ibm salesforce digitalocean hetzner vultr cloudflare akamai fastly cisco intel amd nvidia qualcomm broadcom ubuntu debian archlinux fedora python golang ruby rust docker kubernetes symantec kaspersky eset drweb adobe autodesk figma canva blender sketchfab github gitlab jetbrains atlassian stackexchange microsoft slack zoom webex trello notion evernote apple samsung sony asus acer hp dell panasonic starbucks mcdonalds nike adidas walmart costco ikea gucci louisvuitton tesla bmw volvo airbnb booking; do
             ./v2dat unpack geosite -o raw_data -f "${tag}@cn" geosite.dat || true
-            if [ -f "raw_data/geosite_${tag}@cn.txt" ]; then
-              cat "raw_data/geosite_${tag}@cn.txt" >> data/global_cn_raw.txt
-            fi
+            if [ -f "raw_data/geosite_${tag}@cn.txt" ]; then cat "raw_data/geosite_${tag}@cn.txt" >> data/global_cn_raw.txt; fi
           done
+
+          # 下载 AI 和 游戏图纸
+          ./v2dat unpack geosite -o raw_data -f 'category-ai-chat-!cn' geosite.dat || true
+          ./v2dat unpack geosite -o raw_data -f 'category-ai-!cn' geosite.dat || true
+          cat raw_data/geosite_category-ai* > raw_data/ai_rules.txt || true
           
-          # 🟢 核心增量操作：合并昨天的数据与今天的数据，并进行去重
-          sort -u data/global_cn_raw.txt -o data/global_cn_raw.txt || true
-
-          echo "🔓 Unpacking VIP Channels (AI & Games)..."
-          cat /dev/null > raw_data/ai_rules.txt
-          for tag in 'category-ai-chat-!cn' 'category-ai-!cn'; do
-            ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
-            if [ -f "raw_data/geosite_$tag.txt" ]; then
-              cat "raw_data/geosite_$tag.txt" >> raw_data/ai_rules.txt
-            fi
-          done
-
           ./v2dat unpack geosite -o raw_data -f 'category-games-!cn' geosite.dat || true
           ./v2dat unpack geosite -o raw_data -f 'category-games-cn' geosite.dat || true
 
-      - name: 🧹 执行深度清洗 (Cleaner)
+      - name: 🧹 执行全量清洗 (Cleaner)
         run: python scripts/cleaner.py
 
-      - name: 🤖 检测 AI 新平台并自动通知
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          touch data/ai_platforms_snapshot.txt
-          
-          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-!cn' | grep "^include:" | cut -d ':' -f2 > temp_platforms.txt
-          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-ai-chat-!cn' | grep "^include:" | cut -d ':' -f2 >> temp_platforms.txt
-          
-          sort -u temp_platforms.txt > temp_new_platforms.txt
-          sort data/ai_platforms_snapshot.txt > temp_old_platforms.txt
-          
-          NEW_PLATFORMS=$(comm -13 temp_old_platforms.txt temp_new_platforms.txt)
-          
-          if [ -n "$NEW_PLATFORMS" ]; then
-            echo "🎉 捕获到全新 AI 平台！"
-            
-            echo "### 🤖 发现全新的 AI 平台被收录！" > issue_body.md
-            echo "" >> issue_body.md
-            echo "底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **AI 平台/服务模块**：" >> issue_body.md
-            echo "" >> issue_body.md
-            echo "\`\`\`text" >> issue_body.md
-            echo "$NEW_PLATFORMS" >> issue_body.md
-            echo "\`\`\`" >> issue_body.md
-            echo "" >> issue_body.md
-            echo "*系统已自动将上述新平台的域名解析并无缝融合至您的 \`AI_Rules\` 库中。如遇错漏，请检查规则适用性。*" >> issue_body.md
-            
-            gh issue create --title "🤖 [AI 雷达预警] 发现新增 AI 平台 $(date +'%Y-%m-%d')" --body-file issue_body.md || true
-            mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
-          else
-            echo "💤 今日无全新 AI 平台收录，更新快照底库。"
-            mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
-          fi
-
-      - name: 🎮 检测 游戏 新平台并自动通知
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          touch data/game_platforms_snapshot.txt
-          
-          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-games-!cn' | grep "^include:" | cut -d ':' -f2 > temp_game_platforms.txt
-          curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-games-cn' | grep "^include:" | cut -d ':' -f2 >> temp_game_platforms.txt
-          
-          sort -u temp_game_platforms.txt > temp_new_game_platforms.txt
-          sort data/game_platforms_snapshot.txt > temp_old_game_platforms.txt
-          
-          NEW_GAME_PLATFORMS=$(comm -13 temp_old_game_platforms.txt temp_new_game_platforms.txt)
-          
-          if [ -n "$NEW_GAME_PLATFORMS" ]; then
-            echo "🎉 捕获到全新 游戏 平台！"
-            
-            echo "### 🎮 发现全新的 游戏 服务被收录！" > issue_game_body.md
-            echo "" >> issue_game_body.md
-            echo "底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **游戏厂商/联机服务模块**：" >> issue_game_body.md
-            echo "" >> issue_game_body.md
-            echo "\`\`\`text" >> issue_game_body.md
-            echo "$NEW_GAME_PLATFORMS" >> issue_game_body.md
-            echo "\`\`\`" >> issue_game_body.md
-            echo "" >> issue_game_body.md
-            echo "*系统已自动将上述新模块的域名解析并无缝融合至您的 \`Game_Proxy\` 和 \`Game_CN\` 库中。*" >> issue_game_body.md
-            
-            gh issue create --title "🎮 [游戏雷达预警] 发现新增 游戏 平台 $(date +'%Y-%m-%d')" --body-file issue_game_body.md || true
-            mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
-          else
-            echo "💤 今日无全新 游戏 平台收录，更新游戏快照底库。"
-            mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
-          fi
-
-      # 👇 --- 新增：全局图纸雷达（跨国大厂人工审核与发现机制） --- 👇
-      - name: 🌐 检测 上游全新大厂图纸 并自动通知 (人工审核雷达)
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          touch data/upstream_all_tags_snapshot.txt
-          
-          # 通过 GitHub API 获取 v2fly 上游 data 目录下的所有模块文件名
-          curl -sL -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/v2fly/domain-list-community/contents/data | jq -r '.[] | select(.type=="file") | .name' > temp_all_tags.txt
-          
-          sort -u temp_all_tags.txt > temp_new_all_tags.txt
-          sort data/upstream_all_tags_snapshot.txt > temp_old_all_tags.txt
-          
-          # 找出今天全新添加的图纸
-          NEW_TAGS=$(comm -13 temp_old_all_tags.txt temp_new_all_tags.txt)
-          
-          if [ -n "$NEW_TAGS" ]; then
-            echo "🎉 捕获到上游全新模块！"
-            
-            echo "### 🌐 发现上游新增图纸模块！" > issue_global_body.md
-            echo "" >> issue_global_body.md
-            echo "底层监控雷达发现 V2Fly 社区源码库中，全新收录了以下底层模块：" >> issue_global_body.md
-            echo "" >> issue_global_body.md
-            echo "\`\`\`text" >> issue_global_body.md
-            echo "$NEW_TAGS" >> issue_global_body.md
-            echo "\`\`\`" >> issue_global_body.md
-            echo "" >> issue_global_body.md
-            echo "💡 **架构师建议**：请人工甄别上述名单。" >> issue_global_body.md
-            echo "- 如果它是跨国巨头且具备国内直连价值，请手动将它的名字加入 \`main.yml\` 的 \`Global_CN\` 循环列表中。" >> issue_global_body.md
-            echo "- 如果它是普通的海外应用，则无需理会，系统会自动将其归入兜底代理。" >> issue_global_body.md
-            
-            gh issue create --title "🌐 [新厂雷达预警] 发现上游新增图纸 $(date +'%Y-%m-%d')" --body-file issue_global_body.md || true
-            mv temp_new_all_tags.txt data/upstream_all_tags_snapshot.txt
-          else
-            echo "💤 今日上游无全新图纸模块，更新全局快照底库。"
-            mv temp_new_all_tags.txt data/upstream_all_tags_snapshot.txt
-          fi
-      # 👆 --- 模块结束 --- 👆
-
-      - name: 🚀 执行编译与文档生成 (Builder)
+      - name: 🚀 执行编译 (Builder)
         run: python scripts/builder.py
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📤 提交构建产物
+      - name: 📤 提交
         run: |
-          rm -rf temp_source mihomo raw_data v2dat geoip.dat geosite.dat
-          
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          
-          if [ ! -d "rule/Mihomo" ] || [ -z "$(ls -A rule/Mihomo)" ]; then
-             echo "⚠️ No rules generated, skipping git ops."
-             exit 0
-          fi
-          
-          if [ -f "history.json" ] || git ls-files --error-unmatch history.json > /dev/null 2>&1; then
-            git rm -f history.json --ignore-unmatch
-          fi
-          
-          git add rule/Mihomo/ rule/Loon/ data/ README.md
-          
-          if git diff --staged --quiet; then
-            echo "zk: No changes detected."
-          else
-            git commit -m "chore: auto-sync & clean rules [$(date +'%Y-%m-%d %H:%M')]"
-            git push
-          fi
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add rule/ data/
+          git commit -m "fix: restore AI, Game and Global_CN rules" || exit 0
+          git push

@@ -126,18 +126,16 @@ jobs:
             fi
           done
           
-          echo "🕳️ Unpacking Poison Blackhole (增量比对库)..."
+          echo "🕳️ Unpacking Poison Blackhole (增量比库)..."
           for tag in 'category-ads-all' 'geolocation-!cn' 'category-porn'; do
             ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
             if [ -f "raw_data/geosite_$tag.txt" ]; then
               cat "raw_data/geosite_$tag.txt" >> data/blackhole.txt
             fi
           done
-          # 去重并保存黑洞库，实现增量持久化更新
           sort -u data/blackhole.txt -o data/blackhole.txt || true
           
           echo "🔓 Unpacking GeoSite (Domestic Multi-Track)..."
-          # 提取国内主干道：基础图纸 + 国内企业大满贯
           for tag in geolocation-cn 115 17zuoye 36kr 4399 51job 58tongcheng aamgame aiqicha aisiku aixcoder alibaba alibabacloud aliyun aliyun-drive baidu baishancloud beisen bilibili bytedance cainiao chaoxing chinabroadnet chinamobile chinanews chinapower chinaso chinatelecom chinatower chinaunicom ciweimao cnblogs csdn ctyun dingdatech dingtalk douban douyin duowan eleme feishu fengxing ifanr iflytek ihuman iqiyi jinshuju kuaidi100 kuaikan kuaishou kuaiyikeji lagou landian lanzou lark lianjia meituan netease pingan qcloud qingcloud qingtingfm qiniu qixin tencent tencent-dev tencent-games taikang taomee taptap tianyancha ucloud weiphone wenshushu xiaomi xiaomi-ai xiaomi-iot ximalaya xueersi xueqiu yunfanjiasu yunlaopo yundaex youzan yuanbei yuanfudao yuewen yuketang zhubajie ziroom zto-express jd pinduoduo unionpay ccb icbc huawei huawei-dev huaweicloud lenovo tcl vivo oppo sto-express yto-express; do
             ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
             if [ -f "raw_data/geosite_$tag.txt" ]; then
@@ -146,8 +144,22 @@ jobs:
           done
           mv raw_data/geosite_cn_merged.txt raw_data/geosite_cn.txt
 
+          echo "🔓 Unpacking Global CN (Multinational Direct - Incremental)..."
+          # 🟢 增量持久化改动：不再使用 cat /dev/null 清空，而是确保文件存在
+          touch data/global_cn_raw.txt
+          
+          # 定向抓取跨国大厂带有 @cn 的节点
+          for tag in aws azure oracle ibm salesforce digitalocean hetzner vultr cloudflare akamai fastly cisco intel amd nvidia qualcomm broadcom ubuntu debian archlinux fedora python golang ruby rust docker kubernetes symantec kaspersky eset drweb adobe autodesk figma canva blender sketchfab github gitlab jetbrains atlassian stackexchange microsoft slack zoom webex trello notion evernote apple samsung sony asus acer hp dell panasonic starbucks mcdonalds nike adidas walmart costco ikea gucci louisvuitton tesla bmw volvo airbnb booking; do
+            ./v2dat unpack geosite -o raw_data -f "${tag}@cn" geosite.dat || true
+            if [ -f "raw_data/geosite_${tag}@cn.txt" ]; then
+              cat "raw_data/geosite_${tag}@cn.txt" >> data/global_cn_raw.txt
+            fi
+          done
+          
+          # 🟢 核心增量操作：合并昨天的数据与今天的数据，并进行去重
+          sort -u data/global_cn_raw.txt -o data/global_cn_raw.txt || true
+
           echo "🔓 Unpacking VIP Channels (AI & Games)..."
-          # 提取免检通道 1：AI 聚合库
           cat /dev/null > raw_data/ai_rules.txt
           for tag in 'category-ai-chat-!cn' 'category-ai-!cn'; do
             ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
@@ -156,7 +168,6 @@ jobs:
             fi
           done
 
-          # 提取免检通道 2：国内与国外游戏库
           ./v2dat unpack geosite -o raw_data -f 'category-games-!cn' geosite.dat || true
           ./v2dat unpack geosite -o raw_data -f 'category-games-cn' geosite.dat || true
 
@@ -197,28 +208,23 @@ jobs:
             mv temp_new_platforms.txt data/ai_platforms_snapshot.txt
           fi
 
-      # 👇 --- 新增的游戏平台雷达监控网 --- 👇
       - name: 🎮 检测 游戏 新平台并自动通知
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           touch data/game_platforms_snapshot.txt
           
-          # 抓取海外游戏和国内游戏分类中的 include 平台名
           curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-games-!cn' | grep "^include:" | cut -d ':' -f2 > temp_game_platforms.txt
           curl -sL 'https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/category-games-cn' | grep "^include:" | cut -d ':' -f2 >> temp_game_platforms.txt
           
-          # 对平台名称进行去重排序
           sort -u temp_game_platforms.txt > temp_new_game_platforms.txt
           sort data/game_platforms_snapshot.txt > temp_old_game_platforms.txt
           
-          # 对比找出新增项
           NEW_GAME_PLATFORMS=$(comm -13 temp_old_game_platforms.txt temp_new_game_platforms.txt)
           
           if [ -n "$NEW_GAME_PLATFORMS" ]; then
             echo "🎉 捕获到全新 游戏 平台！"
             
-            # 使用安全的 echo 逐行写入 Markdown
             echo "### 🎮 发现全新的 游戏 服务被收录！" > issue_game_body.md
             echo "" >> issue_game_body.md
             echo "底层监控雷达发现 V2Fly 社区源码库中，新增了以下 **游戏厂商/联机服务模块**：" >> issue_game_body.md
@@ -229,16 +235,51 @@ jobs:
             echo "" >> issue_game_body.md
             echo "*系统已自动将上述新模块的域名解析并无缝融合至您的 \`Game_Proxy\` 和 \`Game_CN\` 库中。*" >> issue_game_body.md
             
-            # 提交 Issue
             gh issue create --title "🎮 [游戏雷达预警] 发现新增 游戏 平台 $(date +'%Y-%m-%d')" --body-file issue_game_body.md || true
-            
-            # 更新游戏快照
             mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
           else
             echo "💤 今日无全新 游戏 平台收录，更新游戏快照底库。"
             mv temp_new_game_platforms.txt data/game_platforms_snapshot.txt
           fi
-      # 👆 --- 新增模块结束 --- 👆
+
+      # 👇 --- 新增：全局图纸雷达（跨国大厂人工审核与发现机制） --- 👇
+      - name: 🌐 检测 上游全新大厂图纸 并自动通知 (人工审核雷达)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          touch data/upstream_all_tags_snapshot.txt
+          
+          # 通过 GitHub API 获取 v2fly 上游 data 目录下的所有模块文件名
+          curl -sL -H "Authorization: token $GH_TOKEN" https://api.github.com/repos/v2fly/domain-list-community/contents/data | jq -r '.[] | select(.type=="file") | .name' > temp_all_tags.txt
+          
+          sort -u temp_all_tags.txt > temp_new_all_tags.txt
+          sort data/upstream_all_tags_snapshot.txt > temp_old_all_tags.txt
+          
+          # 找出今天全新添加的图纸
+          NEW_TAGS=$(comm -13 temp_old_all_tags.txt temp_new_all_tags.txt)
+          
+          if [ -n "$NEW_TAGS" ]; then
+            echo "🎉 捕获到上游全新模块！"
+            
+            echo "### 🌐 发现上游新增图纸模块！" > issue_global_body.md
+            echo "" >> issue_global_body.md
+            echo "底层监控雷达发现 V2Fly 社区源码库中，全新收录了以下底层模块：" >> issue_global_body.md
+            echo "" >> issue_global_body.md
+            echo "\`\`\`text" >> issue_global_body.md
+            echo "$NEW_TAGS" >> issue_global_body.md
+            echo "\`\`\`" >> issue_global_body.md
+            echo "" >> issue_global_body.md
+            echo "💡 **架构师建议**：请人工甄别上述名单。" >> issue_global_body.md
+            echo "- 如果它是跨国巨头且具备国内直连价值，请手动将它的名字加入 \`main.yml\` 的 \`Global_CN\` 循环列表中。" >> issue_global_body.md
+            echo "- 如果它是普通的海外应用，则无需理会，系统会自动将其归入兜底代理。" >> issue_global_body.md
+            
+            gh issue create --title "🌐 [新厂雷达预警] 发现上游新增图纸 $(date +'%Y-%m-%d')" --body-file issue_global_body.md || true
+            mv temp_new_all_tags.txt data/upstream_all_tags_snapshot.txt
+          else
+            echo "💤 今日上游无全新图纸模块，更新全局快照底库。"
+            mv temp_new_all_tags.txt data/upstream_all_tags_snapshot.txt
+          fi
+      # 👆 --- 模块结束 --- 👆
 
       - name: 🚀 执行编译与文档生成 (Builder)
         run: python scripts/builder.py

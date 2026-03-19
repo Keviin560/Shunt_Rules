@@ -313,9 +313,9 @@ function main(config) {
         // 📱 这里是你面板上看到的功能应用分组，图标同样全自动拼接
         const appGroups = [
             { name: 'AI Rules', type: 'select', proxies: ['美国节点', '日本节点', '新加坡节点', '节点选择'], icon: iconBase + 'Chatbot.png' },
-            { name: 'YouTube', type: 'select', proxies: ['节点选择', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'YouTube.png' },
+            { name: 'YouTube', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'YouTube.png' },
             { name: 'Google', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Google.png' },
-            { name: 'Telegram', type: 'select', proxies: ['节点选择', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Telegram.png' },
+            { name: 'Telegram', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '节点选择'], icon: iconBase + 'Telegram.png' },
             { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify.png' },
             { name: 'TikTok', type: 'select', proxies: ['美国节点', '台湾节点', '日本节点', '新加坡节点'], icon: iconBase + 'TikTok.png' },
             { name: 'Netflix', type: 'select', proxies: ['新加坡节点', '香港节点', '美国节点'], icon: iconBase + 'Netflix.png' },

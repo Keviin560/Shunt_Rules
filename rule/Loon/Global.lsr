@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-18 04:39:49
-# Total = 33186
+# Update = 2026-03-20 04:23:11
+# Total = 33191
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -28493,6 +28493,11 @@ DOMAIN-SUFFIX,tiktokv.eu
 DOMAIN-SUFFIX,tiktokv.us
 DOMAIN-SUFFIX,tiktokw.eu
 DOMAIN-SUFFIX,tiktokw.us
+DOMAIN-SUFFIX,tilda.cc
+DOMAIN-SUFFIX,tilda.ru
+DOMAIN-SUFFIX,tilda.ws
+DOMAIN-SUFFIX,tildaapi.com
+DOMAIN-SUFFIX,tildacdn.com
 DOMAIN-SUFFIX,tilehill.ac.uk
 DOMAIN-SUFFIX,tiltbrush.com
 DOMAIN-SUFFIX,timdir.com

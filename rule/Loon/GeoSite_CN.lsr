@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-20 04:23:09
-# Total = 6383
+# Update = 2026-03-20 09:04:10
+# Total = 6369
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -49,20 +49,6 @@ DOMAIN,upos-hz-mirrorakam.akamaized.net
 DOMAIN,wetv.qq.com
 DOMAIN-REGEX,.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$
 DOMAIN-REGEX,.+\.awsdns-cn-[0-9][a-e0-9]\.cn$
-DOMAIN-REGEX,\.(.+-)?ap-beijing(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-beijing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-DOMAIN-REGEX,\.(.+-)?ap-chengdu(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-chengdu(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-DOMAIN-REGEX,\.(.+-)?ap-chongqing(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-chongqing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-DOMAIN-REGEX,\.(.+-)?ap-guangzhou(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-guangzhou(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-DOMAIN-REGEX,\.(.+-)?ap-nanjing(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-nanjing(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-DOMAIN-REGEX,\.(.+-)?ap-shanghai(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-shanghai(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
-DOMAIN-REGEX,\.(.+-)?ap-shenzhen(-.+)?\.myqcloud\.com$
-DOMAIN-REGEX,\.(.+-)?ap-shenzhen(-.+)?\.tencentcos\.(cn|com(\.cn)?)$
 DOMAIN-REGEX,^.+-mihayo\.akamaized\.net$
 DOMAIN-SUFFIX,0033.cn
 DOMAIN-SUFFIX,00cdn.com

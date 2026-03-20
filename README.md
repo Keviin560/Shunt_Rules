@@ -21,7 +21,7 @@
   <br><sub>Steam (Valve)、Epic Games、GOG (CD Projekt)、EA (Electronic Arts/Origin)、Ubisoft (Uplay/Ubisoft Connect)、Rockstar Games (Social Club)、Nintendo (任天堂)、Xbox (Microsoft Gaming)、PlayStation (Sony)、Riot Games (拳头游戏)、Blizzard (战网/暴雪)、PUBG (绝地求生)、osu!、Escape from Tarkov (逃离塔科夫)、HoYoverse (米哈游国际服)、Supercell、Yostar (悠星)、Cygames、Garena、Minecraft (我的世界)、Roblox (罗布乐思)、itch.io 等</sub>
 
 ## 📍 Mihomo 配置
->用 `type: http` 引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-rule.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-rule.yaml)
+>用 `type: http` 引用规则集，覆写参考: [mihomo-dns.js](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.js) | [mihomo-dns.yaml](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/mihomo-dns.yaml)
 
 <details>
 <summary><strong>示例</strong> </summary>
@@ -233,7 +233,7 @@ rules:
 | ChinaNews | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaNews.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaNews.lsr) | 13 days ago |
 | ChinaNoMedia | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaNoMedia.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaNoMedia_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaNoMedia.lsr) | 13 days ago |
 | ChinaTelecom | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTelecom.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaTelecom.lsr) | 13 days ago |
-| ChinaTest | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTest.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTest_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaTest.lsr) | 9 days ago |
+| ChinaTest | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTest.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaTest_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaTest.lsr) | 10 days ago |
 | ChinaUnicom | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaUnicom.mrs) \| [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChinaUnicom_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChinaUnicom.lsr) | 13 days ago |
 | Chromecast | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Chromecast.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Chromecast.lsr) | 13 days ago |
 | ChuangKeTie | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/ChuangKeTie.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/ChuangKeTie.lsr) | 13 days ago |
@@ -343,7 +343,7 @@ rules:
 | Garena | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Garena.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Garena.lsr) | 13 days ago |
 | Geely | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Geely.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Geely.lsr) | 13 days ago |
 | Gemini | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gemini.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gemini.lsr) | 13 days ago |
-| GeoIP_CN | [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoIP_CN.lsr) | 6 days ago |
+| GeoIP_CN | [`IP-CIDR`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoIP_CN.lsr) | Today |
 | GeoSite_CN | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/GeoSite_CN.lsr) | Today |
 | Gettyimages | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gettyimages.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gettyimages.lsr) | 13 days ago |
 | Gigabyte | [`DOMAIN`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Gigabyte.mrs) | [`RAW Link`](https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Loon/Gigabyte.lsr) | 13 days ago |

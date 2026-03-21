@@ -1,21 +1,21 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-03-20
- * 
+ * 更新日期：2026-03-21
+ *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
  * ->  动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置 240+ 国家与城市中英双语及高频三字码字典
- * ->  自动隐藏无节点分组 ：没有节点的分组会自动隐藏分组，并自动修复依赖
+ * ->  自动隐藏无节点分组 ：没有节点的组会自动隐藏，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
  * 
  * -------------------------------------------------------------------------------------------------------------------------
- * 【 ⚠️ 小白用户必读设置 】
- * ->  全局仓库锚点：可以自行更改所需的全局规则仓库和 icon 仓库
- * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"。防止浏览器绕过客户端自己去解析 DNS
- * ->   Windows 用户：关闭 "智能多宿主名称解析" (组策略或注册表修改)，TUN 模式下防止 Windows  把 DNS 请求同步给物理网卡
+ * 【 ⚠️ 必读设置 】
+ * ->  全局仓库锚点：可以自行更改所需的规则或 icon 仓库
+ * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"，防止浏览器绕过客户端自己去解析 DNS
+ * ->   Windows 用户：关闭 "智能多宿主名称解析" (组策略或注册表修改)，TUN 模式下防止把 DNS 请求同步给物理网卡
  * ->   IPv6 相关设置（二选一）：
- * - 【不用 IPv6，默认】 ：在客户端的基础设置和 DNS 设置里关闭 IPv6 ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6
+ * - 【不用 IPv6，默认】 ：在客户端的基础设置和 DNS 设置里关闭 IPv6 ；同时在系统的物理网卡（一般是 WLAN 或 以太网）里关闭 IPv6 [ Windows：选择 Wi-Fi 或以太网 → 属性 → 取消勾选 'Internet协议版本6 (TCP/IPv6)' ；Mac：网络 → (选择 Wi-Fi 或以太网) → 详细信息 → TCP/IP，将'配置 IPv6' 设置为 仅本地链路 或 关闭 ]
  * - 【用 IPv6】 ：在客户端开启 IPv6，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1]
  * 
  * -------------------------------------------------------------------------------------------------------------------------
@@ -34,16 +34,10 @@
  * ->  [虚拟网卡 (TUN) 设置]：
  * - 状态：开启
  * - 堆栈：system
- * - 自动路由：开启
- * - 自动检测接口：开启
+ * - 开启：严格路由、自动设置路由规则、自动选择流量出口
  * - DNS 劫持：any:53
- * - 严格路由：开启
  * ->  [内核设置]：
- * - 查找进程：开启
- * - 存储选择节点：开启
- * - 存储 FakelP：开启
- * - 使用 RTT 延迟测试：开启
- * - TCP 并发：开启
+ * - 开启：查找进程、存储选择节点、存储 FakelP 、使用 RTT 延迟测试（统一延迟测试）、 TCP 并发
  * ->  [域名嗅探设置]：
  * - HTTP 端口嗅探：80, 8080
  * - TLS 端口嗅探：443, 8443
@@ -72,21 +66,20 @@ function main(config) {
     delete config['global-client-fingerprint'];
 
     // =======================================================
-    // 🛠️ 全局仓库锚点区 (修改这里，全局生效)
-    // 要换规则集或 icon 图标，修改下面这两行
+    // 🛠️ 全局仓库锚点区 (全局生效)
+    // 需自定义规则集仓库或 icon 图标仓库，修改下面地址即可
     // =======================================================
     const iconBase = 'https://raw.githubusercontent.com/Keviin560/resources/main/icon/';
     const ruleBase = 'https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
 
     
     // =======================================================
-    // 0. 核心底层性能优化 (GUI 难以触及的深层参数)
+    // 0. 核心底层
     // =======================================================
     Object.assign(config, {
         'keep-alive-interval': 15      // 探针保活核心：全局 TCP 底层保活，每 15 秒发送心跳包，防 NAT 僵死
     });
 
-    // ⚡将 prefer-h3 注入到 dns 模块中，同时不破坏 GUI 传过来的其他 DNS 设置
     config.dns = config.dns || {};
     config.dns['prefer-h3'] = true;    // 优先使用 HTTP/3 (QUIC) 查询 DNS，降延迟
 
@@ -98,7 +91,7 @@ function main(config) {
         // 1. 分类扫描与微型国家字典
         // =======================================================
         
-        // 【国旗提取器】：识别节点名里的 Emoji 国旗
+        // 【国旗解码】：识别节点名里的 Emoji 国旗
         const emojiRegex = /[\uD83C][\uDDE6-\uDDFF][\uD83C][\uDDE6-\uDDFF]/;
         const extractISO = (str) => {
             const match = str.match(emojiRegex);
@@ -115,7 +108,7 @@ function main(config) {
             ['ZA','Africa'], ['EG','Africa'], ['NG','Africa'], ['MA','Africa'], ['DZ','Africa'], ['TN','Africa'], ['LY','Africa'], ['SD','Africa'], ['ET','Africa'], ['KE','Africa'], ['TZ','Africa'], ['UG','Africa'], ['AO','Africa'], ['MZ','Africa'], ['MG','Africa'], ['CM','Africa'], ['CI','Africa'], ['GH','Africa'], ['SN','Africa'], ['ML','Africa'], ['BF','Africa'], ['NE','Africa'], ['TD','Africa'], ['MR','Africa'], ['GN','Africa'], ['SL','Africa'], ['LR','Africa'], ['TG','Africa'], ['BJ','Africa'], ['CF','Africa'], ['CG','Africa'], ['CD','Africa'], ['GA','Africa'], ['GQ','Africa'], ['ST','Africa'], ['RW','Africa'], ['BI','Africa'], ['SO','Africa'], ['DJ','Africa'], ['ER','Africa'], ['ZM','Africa'], ['ZW','Africa'], ['MW','Africa'], ['BW','Africa'], ['NA','Africa'], ['LS','Africa'], ['SZ','Africa'], ['KM','Africa'], ['MU','Africa'], ['SC','Africa'], ['CV','Africa']
         ]);
 
-        // 【独立分组名单】：这些国家（港澳台日韩新美）的节点单独成立一个策略组
+        // 【独立分组】：港澳台日韩新美 单独一个策略组
         const specialISOs = new Set(['HK', 'MO', 'TW', 'JP', 'KR', 'SG', 'US']);
         
         // 【高级隐身名单】：以下协议加上随机防封锁指纹
@@ -124,7 +117,7 @@ function main(config) {
         // 【净化】：过滤掉“剩余流量”、“到期”等信息
         const ignoreRegex = /剩余|到期|过期|官网|流量|联系|套餐|重置|更新|交流群|TG群|QQ群|电报群|群组|邀请|返回|网址|贩卖|倒卖|Expire|Traffic/i;
         
-        // 【独立分组扫描】：包含中英文和三字码，一旦匹配上，立刻放到对应的盒子里
+        // 【独立分组扫描】：匹配上就放到对应的盒子里
         const regionRegexes = [
             ['HK', /香港|HK|Hong Kong|深港|广港/i], 
             ['MO', /澳门|Macau|MO|Macao/i],
@@ -135,7 +128,7 @@ function main(config) {
             ['US', /美国|US|America|United States|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯/i]
         ];
 
-        // 【五大洲兜底扫描】：冷门国家丢进对应大洲
+        // 【五大洲扫描】：冷门国家丢进对应大洲
         const continentRegexes = [
             ['Asia', /印度|阿联酋|迪拜|土耳其|泰国|印尼|马来西亚|菲律宾|越南|巴基斯坦|以色列|哈萨克斯坦|柬埔寨|尼泊尔|沙特|孟加拉|斯里兰卡|曼谷|雅加达|吉隆坡|马尼拉|金边|万象|孟买|新德里|伊斯兰堡|卡拉奇|阿布扎比|伊斯坦布尔|安卡拉|特拉维夫|耶路撒冷|德黑兰|卡塔尔|科威特|伊朗|伊拉克|叙利亚|黎巴嫩|约旦|阿曼|也门|巴林|马尔代夫|缅甸|老挝|文莱|蒙古|乌兹别克斯坦|土库曼斯坦|吉尔吉斯斯坦|塔吉克斯坦|阿富汗|不丹|塞浦路斯|格鲁吉亚|亚美尼亚|阿塞拜疆|Pakistan|PAK|India|IND|Malaysia|MYS|Indonesia|IDN|Thailand|THA|Vietnam|VNM|Cambodia|KHM|Philippines|PHL|Turkey|TUR|Kazakhstan|KAZ|Dubai|UAE|Israel|ISR|Saudi Arabia|SAU|Bangladesh|BGD/i],
             ['Europe', /英国|法国|德国|荷兰|俄罗斯|意大利|瑞士|瑞典|西班牙|葡萄牙|波兰|爱尔兰|奥地利|芬兰|丹麦|冰岛|挪威|乌克兰|比利时|伦敦|巴黎|法兰克福|阿姆斯特丹|莫斯科|罗马|米兰|日内瓦|苏黎世|斯德哥尔摩|马德里|里斯本|华沙|都柏林|维也纳|哥本哈根|卢森堡|摩纳哥|安道尔|列支敦士登|圣马力诺|梵蒂冈|马耳他|希腊|保加利亚|罗马尼亚|匈牙利|捷克|斯洛伐克|斯洛文尼亚|克罗地亚|波黑|黑山|塞尔维亚|北马其顿|阿尔巴尼亚|爱沙尼亚|拉脱维亚|立陶宛|白俄罗斯|摩尔多瓦|UK|United Kingdom|France|FRA|Germany|DEU|Netherlands|NLD|Russia|RUS|Italy|ITA|Switzerland|CHE|Sweden|SWE|Spain|ESP|Poland|POL|Ireland|IRL|Austria|AUT|Denmark|DNK|Norway|NOR|Iceland|ISL|Ukraine|UKR|Czech|CZE|Hungary|HUN|Romania|ROU|Bulgaria|BGR|Greece|GRC/i],
@@ -145,7 +138,7 @@ function main(config) {
         ];
 
         // =======================================================
-        // 2. 把所有节点分别装进对应的“盒子”里
+        // 2. 把节点放进对应的盒子区
         // =======================================================
         
         // 空盒子区
@@ -210,7 +203,7 @@ function main(config) {
         const activeGroups = new Set(['节点选择', 'DIRECT', 'REJECT', 'PASS']);
         const dynamicGroupsList = [];
 
-        // 🗺️ 这是一个“候选名单”。不管机场有没有，先全部列出来。图标自动通过锚点拼接
+        // 🗺️ 【候选名单】：图标会自动通过锚点拼接
         const regionsConfig = [
             { tag: 'HK', name: '香港节点', icon: iconBase + 'HK.png' },
             { tag: 'MO', name: '澳门节点', icon: iconBase + 'MAC.png' },
@@ -242,7 +235,7 @@ function main(config) {
             }
         }
 
-        // 📱 这里是你面板上看到的功能应用分组，图标同样全自动拼接
+        // 📱 客户端面板上的分组，图标会自动拼接
         const appGroups = [
             { name: 'AI Rules', type: 'select', proxies: ['美国节点', '日本节点', '新加坡节点', '节点选择'], icon: iconBase + 'Chatbot.png' },
             { name: 'YouTube', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'YouTube.png' },
@@ -251,6 +244,7 @@ function main(config) {
             { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify.png' },
             { name: 'TikTok', type: 'select', proxies: ['美国节点', '台湾节点', '日本节点', '新加坡节点'], icon: iconBase + 'TikTok.png' },
             { name: 'Netflix', type: 'select', proxies: ['新加坡节点', '香港节点', '美国节点'], icon: iconBase + 'Netflix.png' },
+            { name: '海外游戏', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Game Controller.png' },
             { name: '广告拦截', type: 'select', proxies: ['REJECT', 'DIRECT'], icon: iconBase + 'Ad Blocker.png' },
             { name: '隐私保护', type: 'select', proxies: ['REJECT', 'DIRECT'], icon: iconBase + 'Privacy.png' },
             { name: '反劫持', type: 'select', proxies: ['REJECT', 'DIRECT'], icon: iconBase + 'Hijacking.png' },
@@ -263,7 +257,7 @@ function main(config) {
             g.proxies = g.proxies.filter(p => activeGroups.has(p));
             if (g.proxies.length === 0) g.proxies = ['节点选择'];
             
-            // 注入探针机制：确保各种流媒体选项卡也能防断流
+            // 注入探针机制
             g.url = 'https://www.gstatic.com/generate_204';
             g.interval = 300;
             g.timeout = 3000;
@@ -309,7 +303,7 @@ function main(config) {
 
         // 👇 配置区
         config['rule-providers'] = {
-            // 外部特殊规则（手动填网址）
+            // 外部特殊规则（需手动填 RAW URL）
             AdRules:        buildRule('AdRules', 'https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
             WinSpy:         buildRule('WinSpy',  'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
             
@@ -325,6 +319,7 @@ function main(config) {
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             AI_Rules:         buildRule('AI_Rules'),
+            Game_Proxy:       buildRule('Game_Proxy'),
             YouTube:        buildRule('YouTube'),
             YouTube_IP:     buildRule('YouTube_IP'),
             Netflix:        buildRule('Netflix'),
@@ -387,7 +382,7 @@ function main(config) {
             'PROCESS-NAME,WebTorrent.exe,DIRECT',
             
             // ===============================================
-            // 🚀 第四层：各大应用智能分流
+            // 🚀 第四层：海外平台分流
             // ===============================================
             'RULE-SET,AI_Rules,AI Rules',
             'RULE-SET,YouTube,YouTube',
@@ -396,9 +391,10 @@ function main(config) {
             'RULE-SET,Spotify,Spotify',
             'RULE-SET,Telegram,Telegram',
             'RULE-SET,Google,Google',
+            'RULE-SET,Game_Proxy,海外游戏',
             
             // ===============================================
-            // 🍏 第五层：跨国企业部分直连的域名和特殊通道
+            // 🍏 第五层：部分海外直连域名和分组
             // ===============================================
             'RULE-SET,Global_CN,DIRECT', 
             'RULE-SET,AppleID,美国节点',
@@ -420,13 +416,13 @@ function main(config) {
             'RULE-SET,GeoIP_CN_IP,DIRECT,no-resolve', 
             
             // ===============================================
-            // 🌍 兜底：所有未匹配规则的外国流量
+            // 🌍 兜底：所有未匹配规则
             // ===============================================
             'MATCH,兜底策略'
         ];
 
     } catch (error) {
-        console.log("[架构师防御机制]: 预处理脚本执行遭遇异常", error);
+        console.log("[防御机制]: 预处理脚本执行遭遇异常", error);
     }
 
     return config; 

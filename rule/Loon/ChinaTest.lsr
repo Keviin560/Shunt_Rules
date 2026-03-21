@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-10 04:46:27
-# Total = 118325
+# Update = 2026-03-22 04:24:39
+# Total = 118322
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -34856,13 +34856,11 @@ DOMAIN-SUFFIX,esou.biz
 DOMAIN-SUFFIX,esoua.com
 DOMAIN-SUFFIX,esound.vip
 DOMAIN-SUFFIX,esouou.com
-DOMAIN-SUFFIX,esp8266.com
 DOMAIN-SUFFIX,espeedpost.com
 DOMAIN-SUFFIX,esplus.club
 DOMAIN-SUFFIX,espnlol.com
 DOMAIN-SUFFIX,esports-console.com
 DOMAIN-SUFFIX,esportsreg.com
-DOMAIN-SUFFIX,espressif.com
 DOMAIN-SUFFIX,esr.com
 DOMAIN-SUFFIX,essaystar.com
 DOMAIN-SUFFIX,essca.com
@@ -74923,7 +74921,6 @@ DOMAIN-SUFFIX,okk123.com
 DOMAIN-SUFFIX,okki.com
 DOMAIN-SUFFIX,okktee.com
 DOMAIN-SUFFIX,oklaapp.com
-DOMAIN-SUFFIX,oklink.com
 DOMAIN-SUFFIX,oklinklink.com
 DOMAIN-SUFFIX,okmao.com
 DOMAIN-SUFFIX,okmart.com

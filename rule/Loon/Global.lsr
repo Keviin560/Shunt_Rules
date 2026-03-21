@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-20 04:23:11
-# Total = 33191
+# Update = 2026-03-22 04:24:42
+# Total = 33199
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -4116,6 +4116,7 @@ DOMAIN-SUFFIX,beeg.com
 DOMAIN-SUFFIX,beeg.rest
 DOMAIN-SUFFIX,beegfree.com
 DOMAIN-SUFFIX,beejp.net
+DOMAIN-SUFFIX,beeline.tv
 DOMAIN-SUFFIX,beep.ac.uk
 DOMAIN-SUFFIX,beepool.com
 DOMAIN-SUFFIX,beepool.org
@@ -4222,6 +4223,7 @@ DOMAIN-SUFFIX,bestbuytradein.com
 DOMAIN-SUFFIX,bestbuyus.com
 DOMAIN-SUFFIX,bestcamsites.net
 DOMAIN-SUFFIX,bestclouddrive.com
+DOMAIN-SUFFIX,bestdori.com
 DOMAIN-SUFFIX,besterpornos.com
 DOMAIN-SUFFIX,bestescortgirls.nl
 DOMAIN-SUFFIX,bestforchina.org
@@ -6884,6 +6886,7 @@ DOMAIN-SUFFIX,chyoa.com
 DOMAIN-SUFFIX,ci-en.jp
 DOMAIN-SUFFIX,ci-en.net
 DOMAIN-SUFFIX,cia.ac.uk
+DOMAIN-SUFFIX,cia.gov
 DOMAIN-SUFFIX,cias.ac.uk
 DOMAIN-SUFFIX,ciattackers.com
 DOMAIN-SUFFIX,cib.ac.uk
@@ -10318,6 +10321,7 @@ DOMAIN-SUFFIX,esoir.be
 DOMAIN-SUFFIX,esopworld.com
 DOMAIN-SUFFIX,esp-scotland.ac.uk
 DOMAIN-SUFFIX,esp32.com
+DOMAIN-SUFFIX,esp8266.com
 DOMAIN-SUFFIX,espa-headlines.ac.uk
 DOMAIN-SUFFIX,espa.ac.uk
 DOMAIN-SUFFIX,espadoldettol.com.ar
@@ -10329,6 +10333,7 @@ DOMAIN-SUFFIX,espncdn.com
 DOMAIN-SUFFIX,espnqa.com
 DOMAIN-SUFFIX,esports.gg
 DOMAIN-SUFFIX,esposasymaridos.com
+DOMAIN-SUFFIX,espressif.com
 DOMAIN-SUFFIX,esrc.ac.uk
 DOMAIN-SUFFIX,esrcfestival.ac.uk
 DOMAIN-SUFFIX,esrcmanchesterfest.ac.uk
@@ -21897,12 +21902,14 @@ DOMAIN-SUFFIX,ok.xxx
 DOMAIN-SUFFIX,okayfreedom.com
 DOMAIN-SUFFIX,okazudouga.tokyo
 DOMAIN-SUFFIX,okcdn.ru
+DOMAIN-SUFFIX,okcoin.com
 DOMAIN-SUFFIX,okex.com
 DOMAIN-SUFFIX,okinawabank.co.jp
 DOMAIN-SUFFIX,okk.tw
 DOMAIN-SUFFIX,okkisokuho.com
 DOMAIN-SUFFIX,okko.sport
 DOMAIN-SUFFIX,okko.tv
+DOMAIN-SUFFIX,oklink.com
 DOMAIN-SUFFIX,okpool.me
 DOMAIN-SUFFIX,okx-dns.com
 DOMAIN-SUFFIX,okx-dns1.com
@@ -33063,6 +33070,7 @@ DOMAIN-SUFFIX,zi.media
 DOMAIN-SUFFIX,zi5.me
 DOMAIN-SUFFIX,zibacity.com
 DOMAIN-SUFFIX,ziddu.com
+DOMAIN-SUFFIX,ziglang.org
 DOMAIN-SUFFIX,zigzag.kr
 DOMAIN-SUFFIX,zillionk.com
 DOMAIN-SUFFIX,zim.vn

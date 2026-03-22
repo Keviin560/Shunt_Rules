@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-03-21
+ * 更新日期：2026-03-22
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -241,6 +241,7 @@ function main(config) {
             { name: 'YouTube', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'YouTube.png' },
             { name: 'Google', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Google.png' },
             { name: 'Telegram', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '节点选择'], icon: iconBase + 'Telegram.png' },
+            { name: 'Apple', type: 'select', proxies: ['美国节点', '香港节点', '日本节点', '亚洲节点', '欧洲节点', '美洲节点', '大洋洲节点', '非洲节点', 'DIRECT'], icon: iconBase + 'Apple-3.png' },
             { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify.png' },
             { name: 'TikTok', type: 'select', proxies: ['美国节点', '台湾节点', '日本节点', '新加坡节点'], icon: iconBase + 'TikTok.png' },
             { name: 'Netflix', type: 'select', proxies: ['新加坡节点', '香港节点', '美国节点'], icon: iconBase + 'Netflix.png' },
@@ -397,8 +398,8 @@ function main(config) {
             // 🍏 第五层：部分海外直连域名和分组
             // ===============================================
             'RULE-SET,Global_CN,DIRECT', 
-            'RULE-SET,AppleID,美国节点',
-            'RULE-SET,Apple,美国节点',
+            'RULE-SET,AppleID,Apple',
+            'RULE-SET,Apple,Apple',
             'RULE-SET,Microsoft,美国节点',
             
             // ===============================================

@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-22 04:24:31
-# Total = 130648
+# Update = 2026-03-24 04:37:09
+# Total = 130650
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -2645,7 +2645,6 @@ IP-CIDR,106.74.0.0/15,no-resolve
 IP-CIDR,106.8.0.0/15,no-resolve
 IP-CIDR,106.80.0.0/12,no-resolve
 IP-CIDR,107.148.240.0/21,no-resolve
-IP-CIDR,107.149.116.0/23,no-resolve
 IP-CIDR,107.150.125.199/32,no-resolve
 IP-CIDR,107.151.212.0/24,no-resolve
 IP-CIDR,107.153.91.0/24,no-resolve
@@ -6212,6 +6211,7 @@ IP-CIDR,218.213.92.0/24,no-resolve
 IP-CIDR,218.240.0.0/13,no-resolve
 IP-CIDR,218.249.0.0/16,no-resolve
 IP-CIDR,218.252.0.0/17,no-resolve
+IP-CIDR,218.252.128.0/19,no-resolve
 IP-CIDR,218.253.0.0/18,no-resolve
 IP-CIDR,218.56.0.0/13,no-resolve
 IP-CIDR,218.64.0.0/11,no-resolve
@@ -8542,6 +8542,7 @@ IP-CIDR,2404:7600::/32,no-resolve
 IP-CIDR,2404:7740::/32,no-resolve
 IP-CIDR,2404:7940::/32,no-resolve
 IP-CIDR,2404:7ac0:200::/40,no-resolve
+IP-CIDR,2404:7cc0:7f04::/47,no-resolve
 IP-CIDR,2404:7d00::/32,no-resolve
 IP-CIDR,2404:8040::/32,no-resolve
 IP-CIDR,2404:80c0::/32,no-resolve
@@ -11402,7 +11403,6 @@ IP-CIDR,2a14:7583:f744::/48,no-resolve
 IP-CIDR,2a14:7583:f764::/48,no-resolve
 IP-CIDR,2a14:7586:6100::/45,no-resolve
 IP-CIDR,2a14:7586:6108::/48,no-resolve
-IP-CIDR,2a14:7586:6110::/48,no-resolve
 IP-CIDR,2a14:7c0:5103::/48,no-resolve
 IP-CIDR,2a14:7dc0:510::/47,no-resolve
 IP-CIDR,2a14:7dc0:515::/48,no-resolve
@@ -12400,6 +12400,7 @@ IP-CIDR,60.254.173.38/32,no-resolve
 IP-CIDR,60.255.0.0/16,no-resolve
 IP-CIDR,60.55.0.0/16,no-resolve
 IP-CIDR,60.63.0.0/16,no-resolve
+IP-CIDR,61.10.0.0/19,no-resolve
 IP-CIDR,61.10.128.0/20,no-resolve
 IP-CIDR,61.10.160.0/20,no-resolve
 IP-CIDR,61.10.208.0/20,no-resolve
@@ -12410,6 +12411,7 @@ IP-CIDR,61.128.0.0/10,no-resolve
 IP-CIDR,61.14.212.0/22,no-resolve
 IP-CIDR,61.14.216.0/21,no-resolve
 IP-CIDR,61.14.240.0/21,no-resolve
+IP-CIDR,61.15.0.0/18,no-resolve
 IP-CIDR,61.15.112.0/20,no-resolve
 IP-CIDR,61.15.128.0/17,no-resolve
 IP-CIDR,61.18.0.0/17,no-resolve

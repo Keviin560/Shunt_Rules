@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-22 04:24:39
-# Total = 6367
+# Update = 2026-03-24 04:37:09
+# Total = 6375
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -390,6 +390,7 @@ DOMAIN-SUFFIX,800bestapp.com
 DOMAIN-SUFFIX,818ps.com
 DOMAIN-SUFFIX,8264.com
 DOMAIN-SUFFIX,84399.com
+DOMAIN-SUFFIX,8531.cn
 DOMAIN-SUFFIX,8686c.com
 DOMAIN-SUFFIX,885.com
 DOMAIN-SUFFIX,88cdn.com
@@ -1649,6 +1650,7 @@ DOMAIN-SUFFIX,coloros.com
 DOMAIN-SUFFIX,coloros.net
 DOMAIN-SUFFIX,computeinit.com
 DOMAIN-SUFFIX,comsenz.com
+DOMAIN-SUFFIX,conac.cn
 DOMAIN-SUFFIX,contentchina.com
 DOMAIN-SUFFIX,cookicut.com
 DOMAIN-SUFFIX,coolab.top
@@ -3412,6 +3414,8 @@ DOMAIN-SUFFIX,jvoice.cn
 DOMAIN-SUFFIX,jxedt.com
 DOMAIN-SUFFIX,jxksw.net
 DOMAIN-SUFFIX,jxpp.com
+DOMAIN-SUFFIX,jyeoo.com
+DOMAIN-SUFFIX,jyeoo.net
 DOMAIN-SUFFIX,jyimg.com
 DOMAIN-SUFFIX,jyzq.cn
 DOMAIN-SUFFIX,jzfz.net
@@ -4384,6 +4388,7 @@ DOMAIN-SUFFIX,pipix.com
 DOMAIN-SUFFIX,pipixiaha.com
 DOMAIN-SUFFIX,pishu.com.cn
 DOMAIN-SUFFIX,pixeldance.com
+DOMAIN-SUFFIX,piyao.org.cn
 DOMAIN-SUFFIX,piyipiba.com
 DOMAIN-SUFFIX,pkoplink.com
 DOMAIN-SUFFIX,pkuh6.cn
@@ -5202,6 +5207,7 @@ DOMAIN-SUFFIX,tidaas.com
 DOMAIN-SUFFIX,tidb.ai
 DOMAIN-SUFFIX,tidb.net
 DOMAIN-SUFFIX,tidbcloud.com
+DOMAIN-SUFFIX,tidenews.com.cn
 DOMAIN-SUFFIX,tieba.com
 DOMAIN-SUFFIX,tiebaimg.com
 DOMAIN-SUFFIX,tietuku.com
@@ -5823,6 +5829,7 @@ DOMAIN-SUFFIX,xesimg.com
 DOMAIN-SUFFIX,xf-fund.com
 DOMAIN-SUFFIX,xfdown.com
 DOMAIN-SUFFIX,xfyun.cn
+DOMAIN-SUFFIX,xhby.net
 DOMAIN-SUFFIX,xhlsgs.com
 DOMAIN-SUFFIX,xiachufang.com
 DOMAIN-SUFFIX,xiamai.net
@@ -6178,6 +6185,7 @@ DOMAIN-SUFFIX,yystatic.com
 DOMAIN-SUFFIX,yystv.cn
 DOMAIN-SUFFIX,yytcdn.com
 DOMAIN-SUFFIX,yzcdn.cn
+DOMAIN-SUFFIX,yzwb.net
 DOMAIN-SUFFIX,yzyxgame.com
 DOMAIN-SUFFIX,z-bank.com
 DOMAIN-SUFFIX,z.ai

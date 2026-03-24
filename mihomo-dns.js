@@ -242,7 +242,7 @@ function main(config) {
             { name: 'Google', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Google.png' },
             { name: 'Telegram', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '节点选择'], icon: iconBase + 'Telegram.png' },
             { name: 'Apple', type: 'select', proxies: ['美国节点', '香港节点', '日本节点', '亚洲节点', '欧洲节点', '美洲节点', '非洲节点', 'DIRECT'], icon: iconBase + 'Apple-3.png' },
-            { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify.png' },
+            { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify-2.png' },
             { name: 'TikTok', type: 'select', proxies: ['美国节点', '台湾节点', '日本节点', '新加坡节点'], icon: iconBase + 'TikTok.png' },
             { name: 'Netflix', type: 'select', proxies: ['新加坡节点', '香港节点', '美国节点'], icon: iconBase + 'Netflix.png' },
             { name: '海外游戏', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Game Controller.png' },

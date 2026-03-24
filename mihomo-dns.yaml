@@ -103,7 +103,7 @@ proxy-groups:
   - {name: YouTube, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/YouTube.png", <<: *Probe}
   - {name: Google, type: select, proxies: [美国节点, 香港节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Google.png", <<: *Probe}
   - {name: Telegram, type: select, proxies: [香港节点, 美国节点, 新加坡节点, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Telegram.png", <<: *Probe}
-  - {name: Spotify, type: select, proxies: [DIRECT, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Spotify.png", <<: *Probe}
+  - {name: Spotify, type: select, proxies: [DIRECT, 香港节点, 美国节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Spotify-2.png", <<: *Probe}
   - {name: TikTok, type: select, proxies: [美国节点, 台湾节点, 日本节点, 新加坡节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/TikTok.png", <<: *Probe}
   - {name: Netflix, type: select, proxies: [新加坡节点, 香港节点, 美国节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Netflix.png", <<: *Probe}
   - {name: Apple, type: select, proxies: [DIRECT, 美国节点, 香港节点], icon: "https://raw.githubusercontent.com/Keviin560/resources/main/icon/Apple-3.png", <<: *Probe}

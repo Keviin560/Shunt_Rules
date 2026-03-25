@@ -1,8 +1,8 @@
 # Name = Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-22 04:24:42
-# Total = 6718
+# Update = 2026-03-26 04:37:38
+# Total = 6720
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,103.2.28.0/22,no-resolve
@@ -4796,6 +4796,7 @@ DOMAIN-SUFFIX,rxhj.net
 DOMAIN-SUFFIX,s-cute.com
 DOMAIN-SUFFIX,s-dragon.org
 DOMAIN-SUFFIX,s-nbcnews.com
+DOMAIN-SUFFIX,s.rmimg.com
 DOMAIN-SUFFIX,s.team
 DOMAIN-SUFFIX,s1heng.com
 DOMAIN-SUFFIX,s1s1s1.com
@@ -6484,6 +6485,7 @@ DOMAIN-SUFFIX,xm.com
 DOMAIN-SUFFIX,xml-training-guide.com
 DOMAIN-SUFFIX,xmovies.com
 DOMAIN-SUFFIX,xn--11xs86f.icu
+DOMAIN-SUFFIX,xn--1jqvh729avzfcy2d8ummib.com
 DOMAIN-SUFFIX,xn--4gq171p.com
 DOMAIN-SUFFIX,xn--90wwvt03e.com
 DOMAIN-SUFFIX,xn--9iqy04a7fi01l.com

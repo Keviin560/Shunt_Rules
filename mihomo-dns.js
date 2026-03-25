@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-03-22
+ * 更新日期：2026-03-25
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -59,7 +59,7 @@
 
 
 function main(config) {
-    // 【系统自检】：确保软件传进来的节点列表是正常的，防止一启动就崩溃
+    // 【系统自检】：防止启动时崩溃
     if (!config.proxies || !Array.isArray(config.proxies)) config.proxies = [];
     
     // 删掉旧版的全局指纹配置，避免冲突
@@ -67,7 +67,7 @@ function main(config) {
 
     // =======================================================
     // 🛠️ 全局仓库锚点区 (全局生效)
-    // 需自定义规则集仓库或 icon 图标仓库，修改下面地址即可
+    // 需自定义规则集或 icon 图标仓库，修改下面地址即可
     // =======================================================
     const iconBase = 'https://raw.githubusercontent.com/Keviin560/resources/main/icon/';
     const ruleBase = 'https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
@@ -99,7 +99,7 @@ function main(config) {
                            String.fromCharCode(match[0].charCodeAt(3) - 0xDDE6 + 65) : null;
         };
 
-        // 【国家转大洲】
+        // 【五大洲】
         const isoToContinentMap = new Map([
             ['IN','Asia'], ['AE','Asia'], ['TR','Asia'], ['TH','Asia'], ['ID','Asia'], ['MY','Asia'], ['PH','Asia'], ['VN','Asia'], ['PK','Asia'], ['IL','Asia'], ['KZ','Asia'], ['KH','Asia'], ['NP','Asia'], ['SA','Asia'], ['IR','Asia'], ['IQ','Asia'], ['SY','Asia'], ['LB','Asia'], ['JO','Asia'], ['OM','Asia'], ['YE','Asia'], ['QA','Asia'], ['BH','Asia'], ['KW','Asia'], ['BD','Asia'], ['LK','Asia'], ['MV','Asia'], ['MM','Asia'], ['LA','Asia'], ['BN','Asia'], ['TL','Asia'], ['MN','Asia'], ['UZ','Asia'], ['TM','Asia'], ['KG','Asia'], ['TJ','Asia'], ['AF','Asia'], ['BT','Asia'], ['CY','Asia'], ['GE','Asia'], ['AM','Asia'], ['AZ','Asia'],
             ['GB','Europe'], ['FR','Europe'], ['DE','Europe'], ['NL','Europe'], ['RU','Europe'], ['IT','Europe'], ['CH','Europe'], ['SE','Europe'], ['ES','Europe'], ['PT','Europe'], ['PL','Europe'], ['IE','Europe'], ['AT','Europe'], ['FI','Europe'], ['DK','Europe'], ['IS','Europe'], ['NO','Europe'], ['UA','Europe'], ['BE','Europe'], ['LU','Europe'], ['MC','Europe'], ['AD','Europe'], ['LI','Europe'], ['SM','Europe'], ['VA','Europe'], ['MT','Europe'], ['GR','Europe'], ['BG','Europe'], ['RO','Europe'], ['HU','Europe'], ['CZ','Europe'], ['SK','Europe'], ['SI','Europe'], ['HR','Europe'], ['BA','Europe'], ['ME','Europe'], ['RS','Europe'], ['MK','Europe'], ['AL','Europe'], ['EE','Europe'], ['LV','Europe'], ['LT','Europe'], ['BY','Europe'], ['MD','Europe'],
@@ -108,16 +108,16 @@ function main(config) {
             ['ZA','Africa'], ['EG','Africa'], ['NG','Africa'], ['MA','Africa'], ['DZ','Africa'], ['TN','Africa'], ['LY','Africa'], ['SD','Africa'], ['ET','Africa'], ['KE','Africa'], ['TZ','Africa'], ['UG','Africa'], ['AO','Africa'], ['MZ','Africa'], ['MG','Africa'], ['CM','Africa'], ['CI','Africa'], ['GH','Africa'], ['SN','Africa'], ['ML','Africa'], ['BF','Africa'], ['NE','Africa'], ['TD','Africa'], ['MR','Africa'], ['GN','Africa'], ['SL','Africa'], ['LR','Africa'], ['TG','Africa'], ['BJ','Africa'], ['CF','Africa'], ['CG','Africa'], ['CD','Africa'], ['GA','Africa'], ['GQ','Africa'], ['ST','Africa'], ['RW','Africa'], ['BI','Africa'], ['SO','Africa'], ['DJ','Africa'], ['ER','Africa'], ['ZM','Africa'], ['ZW','Africa'], ['MW','Africa'], ['BW','Africa'], ['NA','Africa'], ['LS','Africa'], ['SZ','Africa'], ['KM','Africa'], ['MU','Africa'], ['SC','Africa'], ['CV','Africa']
         ]);
 
-        // 【独立分组】：港澳台日韩新美 单独一个策略组
+        // 【独立分组】：港澳台日韩新美
         const specialISOs = new Set(['HK', 'MO', 'TW', 'JP', 'KR', 'SG', 'US']);
         
-        // 【高级隐身名单】：以下协议加上随机防封锁指纹
+        // 【动态指纹】：以下协议加上随机防封锁指纹
         const tlsProtocols = new Set(['vmess', 'vless', 'trojan', 'tuic', 'hysteria2']);
 
         // 【净化】：过滤掉“剩余流量”、“到期”等信息
         const ignoreRegex = /剩余|到期|过期|官网|流量|联系|套餐|重置|更新|交流群|TG群|QQ群|电报群|群组|邀请|返回|网址|贩卖|倒卖|Expire|Traffic/i;
         
-        // 【独立分组扫描】：匹配上就放到对应的盒子里
+        // 【独立分组扫描】
         const regionRegexes = [
             ['HK', /香港|HK|Hong Kong|深港|广港/i], 
             ['MO', /澳门|Macau|MO|Macao/i],
@@ -308,7 +308,7 @@ function main(config) {
             AdRules:        buildRule('AdRules', 'https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
             WinSpy:         buildRule('WinSpy',  'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
             
-            // 全局的规则仓库（填写 锚定规则仓库 中的规则名，系统会自动完成）
+            // 全局的规则仓库（填写规则名即可）
             Privacy:        buildRule('Privacy'),
             Hijacking:      buildRule('Hijacking'),
             Hijacking_IP:   buildRule('Hijacking_IP'), 
@@ -316,7 +316,7 @@ function main(config) {
             Lan_IP:         buildRule('Lan_IP'),
             GameDownloadCN: buildRule('GameDownloadCN'),
             WeChat:         buildRule('WeChat'),
-            Global_CN:         buildRule('Global_CN'),
+            // Global_CN:         buildRule('Global_CN'),  (国外企业在国内部分直连，已进行注释，需要的可自行开启，同时取消 5.规则集 中对应的注释）
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             AI_Rules:         buildRule('AI_Rules'),
@@ -397,7 +397,7 @@ function main(config) {
             // ===============================================
             // 🍏 第五层：部分海外直连域名和分组
             // ===============================================
-            'RULE-SET,Global_CN,DIRECT', 
+            // 'RULE-SET,Global_CN,DIRECT', 
             'RULE-SET,AppleID,Apple',
             'RULE-SET,Apple,Apple',
             'RULE-SET,Microsoft,美国节点',

@@ -245,7 +245,7 @@ function main(config) {
             { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify-2.png' },
             { name: 'TikTok', type: 'select', proxies: ['美国节点', '台湾节点', '日本节点', '新加坡节点'], icon: iconBase + 'TikTok.png' },
             { name: 'Netflix', type: 'select', proxies: ['新加坡节点', '香港节点', '美国节点'], icon: iconBase + 'Netflix.png' },
-            { name: '海外游戏', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '日本节点', '节点选择', 'DIRECT'], icon: iconBase + 'Game Controller.png' },
+            { name: '海外游戏', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '日本节点', '亚洲节点', '欧洲节点', '美洲节点', '大洋洲节点', '非洲节点', 'DIRECT'], icon: iconBase + 'Game Controller.png' },
             { name: '广告拦截', type: 'select', proxies: ['REJECT', 'DIRECT'], icon: iconBase + 'Ad Blocker.png' },
             { name: '隐私保护', type: 'select', proxies: ['REJECT', 'DIRECT'], icon: iconBase + 'Privacy.png' },
             { name: '反劫持', type: 'select', proxies: ['REJECT', 'DIRECT'], icon: iconBase + 'Hijacking.png' },

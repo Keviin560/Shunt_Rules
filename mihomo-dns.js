@@ -48,11 +48,11 @@
  * - 基础服务器：223.5.5.5 | 119.29.29.29
  * - 默认解析服务器：https://1.1.1.1/dns-query#节点选择 | https://8.8.8.8/dns-query#节点选择
  * - 直连解析服务器：223.5.5.5 | 119.29.29.29 | 180.184.1.1
- * - 代理节点解析服务器：https://doh.pub/dns-query | https://dns.alidns.com/dns-query
+ * - 代理节点解析服务器：https://dns.alidns.com/dns-query | https://doh.pub/dns-query
  * - 域名解析策略（这里做一些强制要求）：
  * 左侧 rule-set:Lan，右侧 system
  * 左侧 rule-set:Google (如YouTube, Netflix 等需要防漏的规则集，按需添加)，右侧 https://1.1.1.1/dns-query#节点选择
- * - Fake-IP 过滤: rule-set:Lan, *.stun.*, *.+.msftncsi.com, *.+.msftconnecttest.com, *.+.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
+ * - Fake-IP 过滤: rule-set:Lan, *.stun.*, +.msftncsi.com, +.msftconnecttest.com, +.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
  * 
  * -------------------------------------------------------------------------------------------------------------------------
  */

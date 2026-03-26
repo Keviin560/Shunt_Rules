@@ -1,12 +1,13 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-26 04:37:31
-# Total = 6374
+# Update = 2026-03-27 04:35:00
+# Total = 6392
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
 DOMAIN,community.oneplus.com
+DOMAIN,ctdsb.clouddiffuse.xyz
 DOMAIN,cueme-api.quark.cn
 DOMAIN,geetest.datasink.sensorsdata.cn
 DOMAIN,hellofontpreview.oss-cn-beijing.aliyuncs.com
@@ -295,6 +296,7 @@ DOMAIN-SUFFIX,51ccd.com
 DOMAIN-SUFFIX,51cdn.com
 DOMAIN-SUFFIX,51credit.com
 DOMAIN-SUFFIX,51cto.com
+DOMAIN-SUFFIX,51ctocdn.cn
 DOMAIN-SUFFIX,51dzt.com
 DOMAIN-SUFFIX,51eshop.com
 DOMAIN-SUFFIX,51gaifang.com
@@ -397,6 +399,7 @@ DOMAIN-SUFFIX,88cdn.com
 DOMAIN-SUFFIX,8btc.com
 DOMAIN-SUFFIX,8gcdp.cn
 DOMAIN-SUFFIX,8n82b.cn
+DOMAIN-SUFFIX,8uri.cn
 DOMAIN-SUFFIX,900.la
 DOMAIN-SUFFIX,900cha.com
 DOMAIN-SUFFIX,91.com
@@ -519,6 +522,7 @@ DOMAIN-SUFFIX,airitilibrary.cn
 DOMAIN-SUFFIX,airstarfinance.net
 DOMAIN-SUFFIX,aisee.tv
 DOMAIN-SUFFIX,aiskycn.com
+DOMAIN-SUFFIX,aispeech.com
 DOMAIN-SUFFIX,aitcfw.com
 DOMAIN-SUFFIX,aitransfy.com
 DOMAIN-SUFFIX,aixcoder.com
@@ -638,6 +642,7 @@ DOMAIN-SUFFIX,andfx.cn
 DOMAIN-SUFFIX,andfx.net
 DOMAIN-SUFFIX,anfensi.com
 DOMAIN-SUFFIX,anhuinews.com
+DOMAIN-SUFFIX,anhuiyun.com
 DOMAIN-SUFFIX,animetamashi.cn
 DOMAIN-SUFFIX,animetamashi.com
 DOMAIN-SUFFIX,anitama.cn
@@ -1717,6 +1722,7 @@ DOMAIN-SUFFIX,ctdcdn.com
 DOMAIN-SUFFIX,ctdns.cn
 DOMAIN-SUFFIX,ctdns.com.cn
 DOMAIN-SUFFIX,ctdns.net
+DOMAIN-SUFFIX,ctdsb.net
 DOMAIN-SUFFIX,ctecdn.cn
 DOMAIN-SUFFIX,ctecx.cn
 DOMAIN-SUFFIX,ctexcel.com
@@ -2563,6 +2569,7 @@ DOMAIN-SUFFIX,guabu.com
 DOMAIN-SUFFIX,guaiguai.com
 DOMAIN-SUFFIX,guaiku.com
 DOMAIN-SUFFIX,guanaitong.com
+DOMAIN-SUFFIX,guancha.cn
 DOMAIN-SUFFIX,guanggaotongapp.cn
 DOMAIN-SUFFIX,guanhaobio.com
 DOMAIN-SUFFIX,guanyierp.com
@@ -2973,6 +2980,7 @@ DOMAIN-SUFFIX,icpcw.com
 DOMAIN-SUFFIX,icphoto.cn
 DOMAIN-SUFFIX,icplishi.com
 DOMAIN-SUFFIX,ics.design
+DOMAIN-SUFFIX,icswb.com
 DOMAIN-SUFFIX,ictbda.cn
 DOMAIN-SUFFIX,ictbda.com
 DOMAIN-SUFFIX,icve.com.cn
@@ -3031,6 +3039,7 @@ DOMAIN-SUFFIX,ihykb.com
 DOMAIN-SUFFIX,ijiandao.com
 DOMAIN-SUFFIX,ijinshan.com
 DOMAIN-SUFFIX,ikafan.com
+DOMAIN-SUFFIX,ikanchai.com
 DOMAIN-SUFFIX,ilanzou.com
 DOMAIN-SUFFIX,ileapcloud.com
 DOMAIN-SUFFIX,iluckysf.net
@@ -3279,6 +3288,7 @@ DOMAIN-SUFFIX,jikeiot.cloud
 DOMAIN-SUFFIX,jikexueyuan.com
 DOMAIN-SUFFIX,jikipedia.com
 DOMAIN-SUFFIX,jin10.com
+DOMAIN-SUFFIX,jinantimes.com.cn
 DOMAIN-SUFFIX,jindidata.com
 DOMAIN-SUFFIX,jingdong.com
 DOMAIN-SUFFIX,jingdongjinrong.com
@@ -3413,6 +3423,7 @@ DOMAIN-SUFFIX,jvcsmart.com.cn
 DOMAIN-SUFFIX,jvoice.cn
 DOMAIN-SUFFIX,jxedt.com
 DOMAIN-SUFFIX,jxksw.net
+DOMAIN-SUFFIX,jxnews.com.cn
 DOMAIN-SUFFIX,jxpp.com
 DOMAIN-SUFFIX,jyeoo.com
 DOMAIN-SUFFIX,jyeoo.net
@@ -3492,6 +3503,7 @@ DOMAIN-SUFFIX,kmcb-cn-north-4.cn
 DOMAIN-SUFFIX,kmop-cn-east-3.cn
 DOMAIN-SUFFIX,kmop-cn-north-4.cn
 DOMAIN-SUFFIX,knet.cn
+DOMAIN-SUFFIX,knewsmart.com
 DOMAIN-SUFFIX,kolbuyer.cn
 DOMAIN-SUFFIX,kongfz.com
 DOMAIN-SUFFIX,koocdn.com
@@ -4340,8 +4352,10 @@ DOMAIN-SUFFIX,paopaoche.net
 DOMAIN-SUFFIX,papocket.com
 DOMAIN-SUFFIX,paydxm.com
 DOMAIN-SUFFIX,pc6.com
+DOMAIN-SUFFIX,pcauto.com.cn
 DOMAIN-SUFFIX,pcbeta.com
 DOMAIN-SUFFIX,pchome.net
+DOMAIN-SUFFIX,pchouse.com.cn
 DOMAIN-SUFFIX,pchpic.net
 DOMAIN-SUFFIX,pconline.com.cn
 DOMAIN-SUFFIX,pcpop.com
@@ -4863,6 +4877,7 @@ DOMAIN-SUFFIX,sojump.com
 DOMAIN-SUFFIX,soku.com
 DOMAIN-SUFFIX,solidot.org
 DOMAIN-SUFFIX,somode.com
+DOMAIN-SUFFIX,sootoo.com
 DOMAIN-SUFFIX,soso.com
 DOMAIN-SUFFIX,soso.com.cn
 DOMAIN-SUFFIX,sososnap.com
@@ -5096,6 +5111,7 @@ DOMAIN-SUFFIX,tebiefuza.cloud
 DOMAIN-SUFFIX,tebiefuza.cn
 DOMAIN-SUFFIX,tebon.com.cn
 DOMAIN-SUFFIX,techo.chat
+DOMAIN-SUFFIX,techwalker.com
 DOMAIN-SUFFIX,techweb.com.cn
 DOMAIN-SUFFIX,teemo.cn
 DOMAIN-SUFFIX,tefscloud.com
@@ -5985,6 +6001,7 @@ DOMAIN-SUFFIX,yccdn.com
 DOMAIN-SUFFIX,ycgame.com
 DOMAIN-SUFFIX,ycrx360.com
 DOMAIN-SUFFIX,yctdyy.com
+DOMAIN-SUFFIX,ycwb.com
 DOMAIN-SUFFIX,ydamc.com
 DOMAIN-SUFFIX,ydsc.com.cn
 DOMAIN-SUFFIX,ydstatic.com
@@ -6252,6 +6269,7 @@ DOMAIN-SUFFIX,zhfund.com
 DOMAIN-SUFFIX,zhibo8.cc
 DOMAIN-SUFFIX,zhichanli.com
 DOMAIN-SUFFIX,zhidemai.com
+DOMAIN-SUFFIX,zhiding.cn
 DOMAIN-SUFFIX,zhiding.com.cn
 DOMAIN-SUFFIX,zhidx.com
 DOMAIN-SUFFIX,zhifang.com

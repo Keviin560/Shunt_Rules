@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoIP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-27 04:34:51
-# Total = 118159
+# Update = 2026-03-28 04:37:16
+# Total = 118162
 
 DOMAIN,1-fss24-s0.streamhoster.com
 DOMAIN,14033.live.streamtheworld.com
@@ -124,6 +124,7 @@ DOMAIN,icecast-ruvr.cdnvideo.ru
 DOMAIN,images-cn-8.ssl-images-amazon.com
 DOMAIN,images-cn.ssl-images-amazon.com
 DOMAIN,ip.istatmenus.app
+DOMAIN,izattime.qcomgeo2.com
 DOMAIN,jpts.sinovision.net
 DOMAIN,kcrw.streamguys1.com
 DOMAIN,kjzz.streamguys1.com
@@ -305,6 +306,7 @@ DOMAIN,www.szmgiptv.com
 DOMAIN,www.yxssp.com
 DOMAIN,www4-static.gog-statics.com
 DOMAIN,xn--flw351e.com
+DOMAIN,xtratime.qcomgeo2.com
 DOMAIN,youku.cdn2-youku.com
 DOMAIN,zb.dehua.tv
 DOMAIN,zb.pzhgd.com
@@ -12882,6 +12884,7 @@ DOMAIN-SUFFIX,anhuiry.com
 DOMAIN-SUFFIX,anhuisjx.com
 DOMAIN-SUFFIX,anhuisuya.com
 DOMAIN-SUFFIX,anhuiwine.com
+DOMAIN-SUFFIX,anhuiyun.com
 DOMAIN-SUFFIX,anhuizk.com
 DOMAIN-SUFFIX,ani-sh.com
 DOMAIN-SUFFIX,aniccw.net

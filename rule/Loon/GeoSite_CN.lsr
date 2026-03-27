@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-27 04:35:00
-# Total = 6392
+# Update = 2026-03-28 04:37:33
+# Total = 6394
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -13,6 +13,7 @@ DOMAIN,geetest.datasink.sensorsdata.cn
 DOMAIN,hellofontpreview.oss-cn-beijing.aliyuncs.com
 DOMAIN,hellowebfonts.oss-cn-beijing.aliyuncs.com
 DOMAIN,hospital.pku.edu.cn
+DOMAIN,izattime.qcomgeo2.com
 DOMAIN,manga.bilibili.com
 DOMAIN,moocs.unipus.cn
 DOMAIN,ntp.aliyun.com
@@ -48,6 +49,7 @@ DOMAIN,time.izatcloud.net
 DOMAIN,time.xtracloud.net
 DOMAIN,upos-hz-mirrorakam.akamaized.net
 DOMAIN,wetv.qq.com
+DOMAIN,xtratime.qcomgeo2.com
 DOMAIN-REGEX,.+\.awsdns-cn-[0-9][0-9]\.(biz|com|net|top)$
 DOMAIN-REGEX,.+\.awsdns-cn-[0-9][a-e0-9]\.cn$
 DOMAIN-REGEX,^.+-mihayo\.akamaized\.net$

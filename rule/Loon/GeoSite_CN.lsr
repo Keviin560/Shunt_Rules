@@ -1,7 +1,7 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-28 04:37:33
+# Update = 2026-03-29 04:27:13
 # Total = 6394
 
 DOMAIN,ai.zhaomi.cn
@@ -4671,6 +4671,7 @@ DOMAIN-SUFFIX,rumt-us.com
 DOMAIN-SUFFIX,rumt-zh.com
 DOMAIN-SUFFIX,runoob.com
 DOMAIN-SUFFIX,runsheng.com
+DOMAIN-SUFFIX,ruseer.com
 DOMAIN-SUFFIX,rwkv.cn
 DOMAIN-SUFFIX,rzrc114.com
 DOMAIN-SUFFIX,s0n.cn
@@ -5761,7 +5762,6 @@ DOMAIN-SUFFIX,wol.tv
 DOMAIN-SUFFIX,wolai.com
 DOMAIN-SUFFIX,womai.com
 DOMAIN-SUFFIX,wondercv.com
-DOMAIN-SUFFIX,wonnder.com
 DOMAIN-SUFFIX,woodo.cn
 DOMAIN-SUFFIX,wooyun.org
 DOMAIN-SUFFIX,woozooo.com

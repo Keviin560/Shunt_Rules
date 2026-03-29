@@ -78,7 +78,7 @@ function main(config) {
     // 🛠️ 全局仓库锚点区 (全局生效)
     // 需自定义规则集或 icon 图标仓库，修改下面地址即可
     // =======================================================
-    const iconBase = 'https://raw.githubusercontent.com/Keviin560/resources/main/icon/';
+    const iconBase = 'https://raw.githubusercontent.com/Keviin560/icon/main/src/';
     const ruleBase = 'https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
 
     
@@ -246,11 +246,11 @@ function main(config) {
 
         // 📱 客户端面板上的分组，图标会自动拼接
         const appGroups = [
-            { name: 'AI Rules', type: 'select', proxies: ['美国节点', '日本节点', '新加坡节点', '节点选择'], icon: iconBase + 'Chatbot.png' },
+            { name: 'AI Rules', type: 'select', proxies: ['美国节点', '日本节点', '新加坡节点', '节点选择'], icon: iconBase + 'ChatGPT.png' },
             { name: 'YouTube', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'YouTube.png' },
             { name: 'Google', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Google.png' },
             { name: 'Telegram', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '节点选择'], icon: iconBase + 'Telegram.png' },
-            { name: 'Apple', type: 'select', proxies: ['美国节点', '香港节点', '日本节点', '亚洲节点', '欧洲节点', '美洲节点', '非洲节点', 'DIRECT'], icon: iconBase + 'Apple-3.png' },
+            { name: 'Apple', type: 'select', proxies: ['美国节点', '香港节点', '日本节点', '亚洲节点', '欧洲节点', '美洲节点', '非洲节点', 'DIRECT'], icon: iconBase + 'Apple.png' },
             { name: 'Spotify', type: 'select', proxies: ['DIRECT', '香港节点', '美国节点', '新加坡节点'], icon: iconBase + 'Spotify.png' },
             { name: 'TikTok', type: 'select', proxies: ['美国节点', '台湾节点', '日本节点', '新加坡节点'], icon: iconBase + 'TikTok.png' },
             { name: 'Netflix', type: 'select', proxies: ['新加坡节点', '香港节点', '美国节点'], icon: iconBase + 'Netflix.png' },

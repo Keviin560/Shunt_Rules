@@ -68,8 +68,35 @@ jobs:
           go install github.com/urlesistiana/v2dat@latest
           mv $(go env GOPATH)/bin/v2dat .
           
-          curl -fL -o geoip.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-          curl -fL -o geosite.dat "https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat"
+          download_success=0
+          for url in \
+            "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat" \
+            "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/geoip.dat" \
+            "https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat" \
+            "https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat" ; do
+            echo "📥 尝试下载 GeoIP: $url"
+            if curl -fL --retry 3 -o geoip.dat "$url"; then
+              echo "✅ GeoIP 下载成功!"
+              download_success=1
+              break
+            fi
+          done
+          if [ $download_success -eq 0 ]; then echo "❌ GeoIP 所有节点均下载失败！"; exit 1; fi
+          
+          download_success=0
+          for url in \
+            "https://github.com/Loyalsoldier/domain-list-custom/releases/latest/download/geosite.dat" \
+            "https://raw.githubusercontent.com/Loyalsoldier/domain-list-custom/release/geosite.dat" \
+            "https://fastly.jsdelivr.net/gh/Loyalsoldier/domain-list-custom@release/geosite.dat" \
+            "https://cdn.jsdelivr.net/gh/Loyalsoldier/domain-list-custom@release/geosite.dat" ; do
+            echo "📥 尝试下载 GeoSite: $url"
+            if curl -fL --retry 3 -o geosite.dat "$url"; then
+              echo "✅ GeoSite 下载成功!"
+              download_success=1
+              break
+            fi
+          done
+          if [ $download_success -eq 0 ]; then echo "❌ GeoSite 所有节点均下载失败！"; exit 1; fi
           
           ./v2dat unpack geoip -o raw_data -f cn geoip.dat || true
           cat /dev/null > raw_data/geoip_black.txt
@@ -78,7 +105,6 @@ jobs:
             if [ -f "raw_data/geoip_$tag.txt" ]; then cat "raw_data/geoip_$tag.txt" >> raw_data/geoip_black.txt; fi
           done
           
-          # 🚨 物理隔离黑洞：广告和海外分开
           cat /dev/null > data/blackhole_ads.txt
           for tag in 'category-ads-all' 'category-porn'; do
             ./v2dat unpack geosite -o raw_data -f "$tag" geosite.dat || true
@@ -91,13 +117,11 @@ jobs:
           if [ -f 'raw_data/geosite_geolocation-!cn.txt' ]; then cat 'raw_data/geosite_geolocation-!cn.txt' >> data/blackhole_foreign.txt; fi
           sort -u data/blackhole_foreign.txt -o data/blackhole_foreign.txt || true
           
-          # 提取国内主干道
           for tag in geolocation-cn 115 17zuoye 36kr 4399 51job 58tongcheng aamgame aiqicha aisiku aixcoder alibaba alibabacloud aliyun aliyun-drive baidu baishancloud beisen bilibili bytedance cainiao chaoxing chinabroadnet chinamobile chinanews chinapower chinaso chinatelecom chinatower chinaunicom ciweimao cnblogs csdn ctyun dingdatech dingtalk douban douyin duowan eleme feishu fengxing ifanr iflytek ihuman iqiyi jinshuju kuaidi100 kuaikan kuaishou kuaiyikeji lagou landian lanzou lark lianjia meituan netease pingan qcloud qingcloud qingtingfm qiniu qixin tencent tencent-dev tencent-games taikang taomee taptap tianyancha ucloud weiphone wenshushu xiaomi xiaomi-ai xiaomi-iot ximalaya xueersi xueqiu yunfanjiasu yunlaopo yundaex youzan yuanbei yuanfudao yuewen yuketang zhubajie ziroom zto-express jd pinduoduo unionpay ccb icbc huawei huawei-dev huaweicloud lenovo tcl vivo oppo sto-express yto-express; do
             ./v2dat unpack geosite -o raw_data -f $tag geosite.dat || true
             if [ -f "raw_data/geosite_$tag.txt" ]; then cat "raw_data/geosite_$tag.txt" >> raw_data/geosite_cn.txt; fi
           done
 
-          # 🚨 你的心血：Global_CN 跨国大厂国内节点增量提取
           echo "🔓 Unpacking Global CN (Multinational Direct - Incremental)..."
           touch data/global_cn_raw.txt
           for tag in aws azure oracle ibm salesforce digitalocean hetzner vultr cloudflare akamai fastly cisco intel amd nvidia qualcomm broadcom ubuntu debian archlinux fedora python golang ruby rust docker kubernetes symantec kaspersky eset drweb adobe autodesk figma canva blender sketchfab github gitlab jetbrains atlassian stackexchange microsoft slack zoom webex trello notion evernote apple samsung sony asus acer hp dell panasonic starbucks mcdonalds nike adidas walmart costco ikea gucci louisvuitton tesla bmw volvo airbnb booking; do
@@ -106,7 +130,6 @@ jobs:
           done
           sort -u data/global_cn_raw.txt -o data/global_cn_raw.txt || true
 
-          # 🚨 完美提取 AI & Games 规则
           echo "🔓 Unpacking VIP Channels (AI & Games)..."
           cat /dev/null > raw_data/ai_rules.txt
           for tag in 'category-ai-chat-!cn' 'category-ai-!cn'; do

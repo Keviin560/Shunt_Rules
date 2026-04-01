@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-27 04:35:00
-# Total = 792
+# Update = 2026-04-02 04:42:46
+# Total = 803
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -382,6 +382,7 @@ DOMAIN-SUFFIX,mariokart8.com
 DOMAIN-SUFFIX,mariosupersluggers.com
 DOMAIN-SUFFIX,masseffect.com
 DOMAIN-SUFFIX,masseffectarchives.com
+DOMAIN-SUFFIX,masteroforion.com
 DOMAIN-SUFFIX,maxis.com
 DOMAIN-SUFFIX,miitomo.com
 DOMAIN-SUFFIX,miitomo.com.cn
@@ -737,6 +738,8 @@ DOMAIN-SUFFIX,visceralgames.com
 DOMAIN-SUFFIX,vrchat.cloud
 DOMAIN-SUFFIX,vrchat.com
 DOMAIN-SUFFIX,vrchat.net
+DOMAIN-SUFFIX,wargaming.com
+DOMAIN-SUFFIX,wargaming.net
 DOMAIN-SUFFIX,wariolandshakeit.com
 DOMAIN-SUFFIX,wariowarediy.com
 DOMAIN-SUFFIX,warnerbrosgames.com
@@ -744,6 +747,8 @@ DOMAIN-SUFFIX,warthunder.com
 DOMAIN-SUFFIX,wbagora.com
 DOMAIN-SUFFIX,wbgames.com
 DOMAIN-SUFFIX,wbinsights.com
+DOMAIN-SUFFIX,wgcdn.co
+DOMAIN-SUFFIX,wgcrowd.io
 DOMAIN-SUFFIX,wii-u.com
 DOMAIN-SUFFIX,wiifit.com
 DOMAIN-SUFFIX,wiifitu.com
@@ -755,7 +760,13 @@ DOMAIN-SUFFIX,wiivc.net
 DOMAIN-SUFFIX,wmsjsteam.com
 DOMAIN-SUFFIX,worldflipper.akamaized.net
 DOMAIN-SUFFIX,worldflipper.jp
+DOMAIN-SUFFIX,worldoftanks.com
+DOMAIN-SUFFIX,worldoftanks.eu
 DOMAIN-SUFFIX,worldofwarcraft.com
+DOMAIN-SUFFIX,worldofwarplanes.com
+DOMAIN-SUFFIX,worldofwarships.com
+DOMAIN-SUFFIX,wotblitz.com
+DOMAIN-SUFFIX,wowsblitz.com
 DOMAIN-SUFFIX,wtmobile.com
 DOMAIN-SUFFIX,xbox
 DOMAIN-SUFFIX,xbox.co

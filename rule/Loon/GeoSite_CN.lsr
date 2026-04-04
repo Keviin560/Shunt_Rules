@@ -1,7 +1,7 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-01 04:42:06
+# Update = 2026-04-05 04:28:00
 # Total = 6396
 
 DOMAIN,ai.zhaomi.cn
@@ -1476,6 +1476,7 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
+DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -2783,6 +2784,7 @@ DOMAIN-SUFFIX,huafeng-accuweather.cn
 DOMAIN-SUFFIX,huafengaw.com
 DOMAIN-SUFFIX,huajingsec.com
 DOMAIN-SUFFIX,huajinsc.cn
+DOMAIN-SUFFIX,huangyuhui.net
 DOMAIN-SUFFIX,huanleguang.com
 DOMAIN-SUFFIX,huanqiu.com
 DOMAIN-SUFFIX,huanqiucdn.cn
@@ -3925,7 +3927,6 @@ DOMAIN-SUFFIX,meipian.cn
 DOMAIN-SUFFIX,meipian.me
 DOMAIN-SUFFIX,meiqia.com
 DOMAIN-SUFFIX,meishichina.com
-DOMAIN-SUFFIX,meishij.net
 DOMAIN-SUFFIX,meitu.com
 DOMAIN-SUFFIX,meituan.com
 DOMAIN-SUFFIX,meituan.net
@@ -5487,7 +5488,6 @@ DOMAIN-SUFFIX,uwtmy.cn
 DOMAIN-SUFFIX,uyunad.com
 DOMAIN-SUFFIX,uzero.cn
 DOMAIN-SUFFIX,uzzf.com
-DOMAIN-SUFFIX,v5875.com
 DOMAIN-SUFFIX,value500.com
 DOMAIN-SUFFIX,vamaker.com
 DOMAIN-SUFFIX,vancl.com
@@ -5739,6 +5739,7 @@ DOMAIN-SUFFIX,windows10zj.com
 DOMAIN-SUFFIX,windows7en.com
 DOMAIN-SUFFIX,windowszj.com
 DOMAIN-SUFFIX,winegame.net
+DOMAIN-SUFFIX,winos.me
 DOMAIN-SUFFIX,winwin7.com
 DOMAIN-SUFFIX,winyoungreading.com
 DOMAIN-SUFFIX,wishdown.com
@@ -5925,7 +5926,6 @@ DOMAIN-SUFFIX,xinhuanet.com
 DOMAIN-SUFFIX,xinhuaxmt.com
 DOMAIN-SUFFIX,xinlingshou.cn
 DOMAIN-SUFFIX,xinrenxinshi.com
-DOMAIN-SUFFIX,xinshipu.com
 DOMAIN-SUFFIX,xinwuji.com
 DOMAIN-SUFFIX,xinyan.cn
 DOMAIN-SUFFIX,xinyuanfin.com

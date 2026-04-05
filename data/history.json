@@ -270,10 +270,10 @@
     "rule_count": 118
   },
   "Advertising": {
-    "src_hash": "650cfc52c54e6f23447c7f93ecc3377b",
-    "updated_at": 1775248392,
+    "src_hash": "1b65666978dec9c55aeaefe08a8b3dd3",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 253192
+    "rule_count": 252791
   },
   "AdvertisingLite": {
     "src_hash": "3d7e1f963dd73aa52af138b8f4ed6aec",
@@ -288,10 +288,10 @@
     "rule_count": 165
   },
   "AdvertisingTest": {
-    "src_hash": "55ce79e7ab01e11d053cb7489e248d59",
-    "updated_at": 1775248392,
+    "src_hash": "1ac3c61bacaab00c3805393b67236b10",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 274948
+    "rule_count": 274746
   },
   "Aerogard": {
     "src_hash": "9c3c35c084b928598f5f2ec9e9b845eb",
@@ -702,8 +702,8 @@
     "rule_count": 9
   },
   "Blizzard": {
-    "src_hash": "308bfe78f1140db4dc5a87c0b1b37ca9",
-    "updated_at": 1775248392,
+    "src_hash": "8ac368112fd22d19246728e5da1eab00",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
     "rule_count": 62
   },
@@ -918,28 +918,28 @@
     "rule_count": 22872
   },
   "ChinaIPsBGP": {
-    "src_hash": "ebbe0837497b11f05420c43fa722f5c2",
-    "updated_at": 1775248392,
+    "src_hash": "b2bf4d073411c482a7da3393c878d46b",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 3921
+    "rule_count": 3922
   },
   "ChinaMax": {
-    "src_hash": "e2c03be256996cd1467651198297acad",
-    "updated_at": 1775248392,
+    "src_hash": "e6165fdf928080661309beb80e9132e4",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 130866
+    "rule_count": 130869
   },
   "ChinaMaxNoIP": {
-    "src_hash": "55d4a08b2d933be354d344ab03b70137",
-    "updated_at": 1775248392,
+    "src_hash": "b7881c01dac8b005ad961b265d9dbf5b",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
     "rule_count": 118260
   },
   "ChinaMaxNoMedia": {
-    "src_hash": "76c5cc4e099b048c7fd3ab00e7ac97d7",
-    "updated_at": 1775248392,
+    "src_hash": "e8bf6d21dbe1dceeba2566082f9c9a99",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 130420
+    "rule_count": 130423
   },
   "ChinaMedia": {
     "src_hash": "27927cdb0f0293cae72f5758d6fed614",
@@ -1554,8 +1554,8 @@
     "rule_count": 10
   },
   "Game": {
-    "src_hash": "f8db2e583a1b71604203941b6895e5c0",
-    "updated_at": 1775248392,
+    "src_hash": "a8ac7b926dc3da12d764ac55f00d8f82",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
     "rule_count": 597
   },
@@ -1632,10 +1632,10 @@
     "rule_count": 2
   },
   "Global": {
-    "src_hash": "4e14bfc05d8db009176300f43e02b766",
-    "updated_at": 1775076086,
+    "src_hash": "2c4427e34f15f72a4caa64ae190b1394",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 33354
+    "rule_count": 33399
   },
   "GlobalMedia": {
     "src_hash": "149b1355b2646f7a693d0d54b45bfd39",
@@ -2160,10 +2160,10 @@
     "rule_count": 33
   },
   "Lan": {
-    "src_hash": "2d7eee63d09504860de19a0496ef4ae4",
-    "updated_at": 1772823965,
-    "gen_ver": "v5.0",
-    "rule_count": 139
+    "src_hash": "fe16a2f9a313f0cb09703cec1f2ae1e8",
+    "updated_at": 1775420974,
+    "gen_ver": "v6.3",
+    "rule_count": 138
   },
   "LanZouYun": {
     "src_hash": "718f6b181ea6129337f5208de8c4c4d3",
@@ -2784,10 +2784,10 @@
     "rule_count": 39936
   },
   "PrivateTracker": {
-    "src_hash": "d265ca9997692329c83f7c5d77014321",
-    "updated_at": 1775248392,
+    "src_hash": "07a05305cc0d7f3f5db3dd8abf89fefa",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 263
+    "rule_count": 259
   },
   "Protonmail": {
     "src_hash": "62486da198df172cbde984c485749ced",
@@ -2796,10 +2796,10 @@
     "rule_count": 5
   },
   "Proxy": {
-    "src_hash": "f55f9bab48bf0a28fad4958287772182",
-    "updated_at": 1774851860,
+    "src_hash": "713f43b0369994203e9ffc152510145c",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 6720
+    "rule_count": 6721
   },
   "ProxyLite": {
     "src_hash": "fb34f80afac51c23d227e8241a941adb",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1775334465,
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "55b3aa72614310ad2ac03ac268b56fca",
-    "updated_at": 1775334465,
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4026,10 +4026,10 @@
     "rule_count": 16
   },
   "ChinaIPsTest": {
-    "src_hash": "8c0742b230eb146fa83e2e271dd79f28",
-    "updated_at": 1775248392,
+    "src_hash": "32499980146d3a1b20a2d228f9d4f650",
+    "updated_at": 1775420974,
     "gen_ver": "v6.3",
-    "rule_count": 29471
+    "rule_count": 29484
   },
   "360Cloud": {
     "src_hash": "76b813c7453168717874e7a399fa6928",

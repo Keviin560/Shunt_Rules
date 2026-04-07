@@ -1,8 +1,8 @@
 # Name = ChinaIPsTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-06 04:31:01
-# Total = 29484
+# Update = 2026-04-08 04:44:48
+# Total = 29494
 
 IP-CIDR,1.0.1.0/24,no-resolve
 IP-CIDR,1.0.2.0/23,no-resolve
@@ -1154,6 +1154,7 @@ IP-CIDR,103.135.156.0/22,no-resolve
 IP-CIDR,103.135.160.0/21,no-resolve
 IP-CIDR,103.135.160.0/22,no-resolve
 IP-CIDR,103.135.164.0/22,no-resolve
+IP-CIDR,103.135.164.0/23,no-resolve
 IP-CIDR,103.135.176.0/22,no-resolve
 IP-CIDR,103.135.184.0/22,no-resolve
 IP-CIDR,103.135.192.0/21,no-resolve
@@ -5308,9 +5309,7 @@ IP-CIDR,104.212.68.151/32,no-resolve
 IP-CIDR,104.212.68.152/32,no-resolve
 IP-CIDR,104.212.68.57/32,no-resolve
 IP-CIDR,104.212.68.58/32,no-resolve
-IP-CIDR,104.219.211.0/24,no-resolve
 IP-CIDR,104.227.65.96/28,no-resolve
-IP-CIDR,104.233.144.0/21,no-resolve
 IP-CIDR,104.237.80.0/21,no-resolve
 IP-CIDR,104.28.101.0/27,no-resolve
 IP-CIDR,104.28.101.32/29,no-resolve
@@ -8329,7 +8328,7 @@ IP-CIDR,118.202.96.0/20,no-resolve
 IP-CIDR,118.203.0.0/18,no-resolve
 IP-CIDR,118.203.112.0/20,no-resolve
 IP-CIDR,118.203.128.0/18,no-resolve
-IP-CIDR,118.203.192.0/21,no-resolve
+IP-CIDR,118.203.192.0/19,no-resolve
 IP-CIDR,118.203.64.0/20,no-resolve
 IP-CIDR,118.203.96.0/22,no-resolve
 IP-CIDR,118.204.0.0/14,no-resolve
@@ -11469,6 +11468,7 @@ IP-CIDR,159.221.232.0/24,no-resolve
 IP-CIDR,159.226.0.0/16,no-resolve
 IP-CIDR,159.226.143.0/24,no-resolve
 IP-CIDR,159.27.0.0/16,no-resolve
+IP-CIDR,159.27.255.0/24,no-resolve
 IP-CIDR,159.75.0.0/16,no-resolve
 IP-CIDR,16.12.6.0/23,no-resolve
 IP-CIDR,16.12.8.0/24,no-resolve
@@ -11632,6 +11632,7 @@ IP-CIDR,163.179.0.0/16,no-resolve
 IP-CIDR,163.204.0.0/16,no-resolve
 IP-CIDR,163.227.40.0/23,no-resolve
 IP-CIDR,163.228.0.0/16,no-resolve
+IP-CIDR,163.228.102.0/24,no-resolve
 IP-CIDR,163.244.246.0/24,no-resolve
 IP-CIDR,163.47.4.0/22,no-resolve
 IP-CIDR,163.53.0.0/20,no-resolve
@@ -16856,13 +16857,21 @@ IP-CIDR,211.144.12.0/22,no-resolve
 IP-CIDR,211.144.120.0/21,no-resolve
 IP-CIDR,211.144.128.0/19,no-resolve
 IP-CIDR,211.144.128.0/20,no-resolve
+IP-CIDR,211.144.128.0/21,no-resolve
+IP-CIDR,211.144.136.0/22,no-resolve
+IP-CIDR,211.144.140.0/23,no-resolve
+IP-CIDR,211.144.142.0/24,no-resolve
+IP-CIDR,211.144.144.0/21,no-resolve
 IP-CIDR,211.144.144.0/23,no-resolve
 IP-CIDR,211.144.147.0/24,no-resolve
 IP-CIDR,211.144.149.0/24,no-resolve
 IP-CIDR,211.144.150.0/23,no-resolve
+IP-CIDR,211.144.152.0/22,no-resolve
 IP-CIDR,211.144.152.0/23,no-resolve
 IP-CIDR,211.144.155.0/24,no-resolve
 IP-CIDR,211.144.156.0/22,no-resolve
+IP-CIDR,211.144.156.0/23,no-resolve
+IP-CIDR,211.144.158.0/24,no-resolve
 IP-CIDR,211.144.16.0/24,no-resolve
 IP-CIDR,211.144.18.0/23,no-resolve
 IP-CIDR,211.144.192.0/18,no-resolve
@@ -19382,6 +19391,7 @@ IP-CIDR,222.26.0.0/15,no-resolve
 IP-CIDR,222.26.0.0/16,no-resolve
 IP-CIDR,222.27.0.0/19,no-resolve
 IP-CIDR,222.27.129.0/24,no-resolve
+IP-CIDR,222.27.130.0/24,no-resolve
 IP-CIDR,222.27.144.0/20,no-resolve
 IP-CIDR,222.27.160.0/19,no-resolve
 IP-CIDR,222.27.192.0/20,no-resolve
@@ -22209,6 +22219,7 @@ IP-CIDR,2406:840:9860::/43,no-resolve
 IP-CIDR,2406:840:9880::/41,no-resolve
 IP-CIDR,2406:840:9900::/41,no-resolve
 IP-CIDR,2406:840:9962::/47,no-resolve
+IP-CIDR,2406:840:9966::/48,no-resolve
 IP-CIDR,2406:840:996c::/48,no-resolve
 IP-CIDR,2406:840:9981::/48,no-resolve
 IP-CIDR,2406:840:9982::/47,no-resolve
@@ -25286,8 +25297,6 @@ IP-CIDR,2a0f:1cc5:1d10::/47,no-resolve
 IP-CIDR,2a0f:1cc5:1d14::/48,no-resolve
 IP-CIDR,2a0f:1cc5:1f::/48,no-resolve
 IP-CIDR,2a0f:1cc5:2600::/42,no-resolve
-IP-CIDR,2a0f:1cc5:2600::/43,no-resolve
-IP-CIDR,2a0f:1cc5:2630::/44,no-resolve
 IP-CIDR,2a0f:1cc5:2640::/43,no-resolve
 IP-CIDR,2a0f:1cc5:2660::/44,no-resolve
 IP-CIDR,2a0f:1cc5:2d01::/48,no-resolve
@@ -25303,7 +25312,6 @@ IP-CIDR,2a0f:1cc5:f00::/46,no-resolve
 IP-CIDR,2a0f:1cc5:f04::/47,no-resolve
 IP-CIDR,2a0f:1cc5:f06::/48,no-resolve
 IP-CIDR,2a0f:1cc5:f08::/47,no-resolve
-IP-CIDR,2a0f:1cc5:f09::/48,no-resolve
 IP-CIDR,2a0f:1cc5:fff::/48,no-resolve
 IP-CIDR,2a0f:1cc6:b110::/47,no-resolve
 IP-CIDR,2a0f:2706::/32,no-resolve
@@ -25423,6 +25431,7 @@ IP-CIDR,2a14:7583:f701::/48,no-resolve
 IP-CIDR,2a14:7583:f703::/48,no-resolve
 IP-CIDR,2a14:7583:f704::/46,no-resolve
 IP-CIDR,2a14:7583:f708::/46,no-resolve
+IP-CIDR,2a14:7583:f70c::/48,no-resolve
 IP-CIDR,2a14:7583:f743::/48,no-resolve
 IP-CIDR,2a14:7583:f744::/48,no-resolve
 IP-CIDR,2a14:7583:f764::/48,no-resolve
@@ -29404,6 +29413,7 @@ IP-CIDR,77.73.8.0/24,no-resolve
 IP-CIDR,8.128.0.0/10,no-resolve
 IP-CIDR,8.128.0.0/12,no-resolve
 IP-CIDR,8.128.32.0/19,no-resolve
+IP-CIDR,8.128.4.0/22,no-resolve
 IP-CIDR,8.128.64.0/19,no-resolve
 IP-CIDR,8.128.96.0/20,no-resolve
 IP-CIDR,8.129.0.0/16,no-resolve

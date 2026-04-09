@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-04 04:34:39
-# Total = 118411
+# Update = 2026-04-10 04:46:54
+# Total = 118412
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -69,6 +69,7 @@ DOMAIN,ea2cn-prod-outlet.dell.com
 DOMAIN,ea2cn-staging-outlet.dell.com
 DOMAIN,emoi-cncdn.bing.com
 DOMAIN,fcs.dell.com
+DOMAIN,firebase-settings.crashlytics.com
 DOMAIN,fta.dell.com
 DOMAIN,ftaapj.dell.com
 DOMAIN,ftaemea.dell.com
@@ -144,6 +145,7 @@ DOMAIN,test.gbugs-qa.chromium.org
 DOMAIN,time.xtracloud.net
 DOMAIN,tp.louisvuitton.com
 DOMAIN,tx.lilyemby.com
+DOMAIN,update.crashlytics.com
 DOMAIN,uplaypc-s-ubisoft.cdn.ubi.com
 DOMAIN,www-csb.dell.com
 DOMAIN,www.destinationurl.com
@@ -27442,7 +27444,6 @@ DOMAIN-SUFFIX,crane-china.cc
 DOMAIN-SUFFIX,crane-net.com
 DOMAIN-SUFFIX,cranewh.com
 DOMAIN-SUFFIX,crash.work
-DOMAIN-SUFFIX,crashlytics.com
 DOMAIN-SUFFIX,cravatar.com
 DOMAIN-SUFFIX,crazepony.com
 DOMAIN-SUFFIX,crazybig.fun

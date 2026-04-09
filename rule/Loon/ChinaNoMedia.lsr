@@ -1,8 +1,8 @@
 # Name = ChinaNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-07 03:07:34
-# Total = 3629
+# Update = 2026-04-10 04:46:47
+# Total = 3628
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -1018,7 +1018,6 @@ DOMAIN-SUFFIX,cpppf.org
 DOMAIN-SUFFIX,cqccn.com
 DOMAIN-SUFFIX,cqvip.com
 DOMAIN-SUFFIX,cr173.com
-DOMAIN-SUFFIX,crashlytics.com
 DOMAIN-SUFFIX,crggcn.com
 DOMAIN-SUFFIX,crsky.com
 DOMAIN-SUFFIX,cryuantafund.com

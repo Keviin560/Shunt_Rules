@@ -181,6 +181,7 @@ DOMAIN-SUFFIX,dnsv1.com.cn # Blacklisted IP: 1.1.1.1
 DOMAIN-SUFFIX,dola.com # 命中海外防线
 DOMAIN-SUFFIX,doure.net # 命中广告剧毒库
 DOMAIN-SUFFIX,drmcmm.baidu.com # 命中广告剧毒库
+DOMAIN-SUFFIX,dt.dbankcloud.ru # 命中广告剧毒库
 DOMAIN-SUFFIX,dualstack-logs.amap.com # 命中广告剧毒库
 DOMAIN-SUFFIX,duiwai.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,dup.baidustatic.com # 命中广告剧毒库

@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-12 04:30:57
-# Total = 6420
+# Update = 2026-04-14 04:53:21
+# Total = 6434
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -14,7 +14,6 @@ DOMAIN,hellofontpreview.oss-cn-beijing.aliyuncs.com
 DOMAIN,hellowebfonts.oss-cn-beijing.aliyuncs.com
 DOMAIN,hospital.pku.edu.cn
 DOMAIN,izattime.qcomgeo2.com
-DOMAIN,manga.bilibili.com
 DOMAIN,moocs.unipus.cn
 DOMAIN,ntp.aliyun.com
 DOMAIN,ntp.tencent.com
@@ -90,11 +89,14 @@ DOMAIN-SUFFIX,116cd.com
 DOMAIN-SUFFIX,116cd.net
 DOMAIN-SUFFIX,119you.com
 DOMAIN-SUFFIX,12306.cn
+DOMAIN-SUFFIX,12315.cn
+DOMAIN-SUFFIX,12321.cn
 DOMAIN-SUFFIX,123245.com
 DOMAIN-SUFFIX,123254.com
 DOMAIN-SUFFIX,123294.com
 DOMAIN-SUFFIX,123624.com
 DOMAIN-SUFFIX,123641.com
+DOMAIN-SUFFIX,12365auto.com
 DOMAIN-SUFFIX,123842.com
 DOMAIN-SUFFIX,123860.com
 DOMAIN-SUFFIX,123912.com
@@ -1503,6 +1505,7 @@ DOMAIN-SUFFIX,cjol.com
 DOMAIN-SUFFIX,cjsc.com
 DOMAIN-SUFFIX,ckd.im
 DOMAIN-SUFFIX,ckxx.net
+DOMAIN-SUFFIX,clawhub-mirror.com
 DOMAIN-SUFFIX,cleargrass.com
 DOMAIN-SUFFIX,clink.cn
 DOMAIN-SUFFIX,clk1.cn
@@ -1650,6 +1653,7 @@ DOMAIN-SUFFIX,cnweblog.com
 DOMAIN-SUFFIX,cnzz.com
 DOMAIN-SUFFIX,cocodiy.com
 DOMAIN-SUFFIX,code666.com
+DOMAIN-SUFFIX,codebuddy.cn
 DOMAIN-SUFFIX,codechina.net
 DOMAIN-SUFFIX,codeloop.top
 DOMAIN-SUFFIX,coding.me
@@ -1802,6 +1806,8 @@ DOMAIN-SUFFIX,cztvcloud.com
 DOMAIN-SUFFIX,dadajiasu.com
 DOMAIN-SUFFIX,dadighost.com
 DOMAIN-SUFFIX,daguzhe.com
+DOMAIN-SUFFIX,daheapp.com
+DOMAIN-SUFFIX,dahebao.cn
 DOMAIN-SUFFIX,dajiabao.com
 DOMAIN-SUFFIX,dajie.com
 DOMAIN-SUFFIX,dajieimg.com
@@ -1836,6 +1842,7 @@ DOMAIN-SUFFIX,dbankcdn.cn
 DOMAIN-SUFFIX,dbankcdn.com
 DOMAIN-SUFFIX,dbankcloud.cn
 DOMAIN-SUFFIX,dbankcloud.com
+DOMAIN-SUFFIX,dbankcloud.ru
 DOMAIN-SUFFIX,dbankedge.cn
 DOMAIN-SUFFIX,dbankedge.net
 DOMAIN-SUFFIX,dbfund.com.cn
@@ -2449,6 +2456,7 @@ DOMAIN-SUFFIX,gaoshouyou.com
 DOMAIN-SUFFIX,gaoxiaojob.com
 DOMAIN-SUFFIX,gatzs.com.cn
 DOMAIN-SUFFIX,gcable.com.cn
+DOMAIN-SUFFIX,gcloudcache.com
 DOMAIN-SUFFIX,gcloudcs.com
 DOMAIN-SUFFIX,gcloudcstest.com
 DOMAIN-SUFFIX,gcloudcstestonly.com
@@ -2794,6 +2802,7 @@ DOMAIN-SUFFIX,huangyuhui.net
 DOMAIN-SUFFIX,huanleguang.com
 DOMAIN-SUFFIX,huanqiu.com
 DOMAIN-SUFFIX,huanqiucdn.cn
+DOMAIN-SUFFIX,huasheng.cn
 DOMAIN-SUFFIX,huashengdaili.com
 DOMAIN-SUFFIX,huatu.com
 DOMAIN-SUFFIX,huawei.com
@@ -3278,6 +3287,7 @@ DOMAIN-SUFFIX,jianguoyun.com
 DOMAIN-SUFFIX,jianshu.com
 DOMAIN-SUFFIX,jianshu.io
 DOMAIN-SUFFIX,jianshuapi.com
+DOMAIN-SUFFIX,jianying.com
 DOMAIN-SUFFIX,jianyuweb.com
 DOMAIN-SUFFIX,jiaodong.net
 DOMAIN-SUFFIX,jiaoyimao.com
@@ -3550,6 +3560,7 @@ DOMAIN-SUFFIX,kuaidi100.com
 DOMAIN-SUFFIX,kuaidilab.com
 DOMAIN-SUFFIX,kuaiduizuoye.com
 DOMAIN-SUFFIX,kuaihou.com
+DOMAIN-SUFFIX,kuaiji.com
 DOMAIN-SUFFIX,kuaikanmanhua.com
 DOMAIN-SUFFIX,kuailepipixia.com
 DOMAIN-SUFFIX,kuaishou.cn
@@ -4843,6 +4854,7 @@ DOMAIN-SUFFIX,sinopecnews.com.cn
 DOMAIN-SUFFIX,sinopecsales.com
 DOMAIN-SUFFIX,sipeed.com
 DOMAIN-SUFFIX,sjwyx.com
+DOMAIN-SUFFIX,skillhub.cn
 DOMAIN-SUFFIX,skimit.net
 DOMAIN-SUFFIX,skycn.com
 DOMAIN-SUFFIX,skydweller.cn
@@ -6166,6 +6178,7 @@ DOMAIN-SUFFIX,ytxptz.cn
 DOMAIN-SUFFIX,ytzq.com
 DOMAIN-SUFFIX,yuanbei.biz
 DOMAIN-SUFFIX,yuanfudao.com
+DOMAIN-SUFFIX,yuanqi.tencent.com
 DOMAIN-SUFFIX,yuanshen.com
 DOMAIN-SUFFIX,yuansouti.com
 DOMAIN-SUFFIX,yuantiku.com
@@ -6265,6 +6278,7 @@ DOMAIN-SUFFIX,zealer.com
 DOMAIN-SUFFIX,zebracdn.com
 DOMAIN-SUFFIX,zeekrlife.com
 DOMAIN-SUFFIX,zgbk.com
+DOMAIN-SUFFIX,zgbznet.com.cn
 DOMAIN-SUFFIX,zgcbank.com
 DOMAIN-SUFFIX,zggbdszt.cn
 DOMAIN-SUFFIX,zggbdszt.com.cn

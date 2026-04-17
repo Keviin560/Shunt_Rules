@@ -1,8 +1,8 @@
 # Name = GeoIP_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-16 04:45:40
-# Total = 8337
+# Update = 2026-04-18 04:43:09
+# Total = 8338
 
 IP-CIDR,1.0.1.0/24
 IP-CIDR,1.0.2.0/23
@@ -5958,6 +5958,7 @@ IP-CIDR,2400:cb80:e30::/44
 IP-CIDR,2400:cb80:e40::/44
 IP-CIDR,2400:da00::/32
 IP-CIDR,2400:dd00::/28
+IP-CIDR,2400:e680::/32
 IP-CIDR,2400:ee00::/32
 IP-CIDR,2400:f6e0::/32
 IP-CIDR,2400:f720::/32

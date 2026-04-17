@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-16 04:45:42
-# Total = 33965
+# Update = 2026-04-18 04:43:11
+# Total = 34008
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -574,8 +574,8 @@ DOMAIN-SUFFIX,2gis.ge
 DOMAIN-SUFFIX,2gis.kg
 DOMAIN-SUFFIX,2gis.kz
 DOMAIN-SUFFIX,2gis.ru
+DOMAIN-SUFFIX,2gis.tech
 DOMAIN-SUFFIX,2gis.tj
-DOMAIN-SUFFIX,2gis.ua
 DOMAIN-SUFFIX,2gis.uz
 DOMAIN-SUFFIX,2k.com
 DOMAIN-SUFFIX,2kcoretech.online
@@ -3090,6 +3090,7 @@ DOMAIN-SUFFIX,asuscloud.com
 DOMAIN-SUFFIX,asuswebstorage.com
 DOMAIN-SUFFIX,asvin.ac.uk
 DOMAIN-SUFFIX,async.be
+DOMAIN-SUFFIX,at.ua
 DOMAIN-SUFFIX,atandt.com
 DOMAIN-SUFFIX,atasale.com
 DOMAIN-SUFFIX,atc.org.au
@@ -3131,6 +3132,7 @@ DOMAIN-SUFFIX,att.com
 DOMAIN-SUFFIX,att.jobs
 DOMAIN-SUFFIX,att.net
 DOMAIN-SUFFIX,att.tv
+DOMAIN-SUFFIX,attachmail.ru
 DOMAIN-SUFFIX,attachmy.com
 DOMAIN-SUFFIX,attackers.net
 DOMAIN-SUFFIX,attalascom.com
@@ -3399,6 +3401,7 @@ DOMAIN-SUFFIX,avidemux.org
 DOMAIN-SUFFIX,avinetworks.com
 DOMAIN-SUFFIX,avinin.com
 DOMAIN-SUFFIX,avira.com
+DOMAIN-SUFFIX,avistaz.to
 DOMAIN-SUFFIX,avito.ru
 DOMAIN-SUFFIX,avito.st
 DOMAIN-SUFFIX,avizoon.site
@@ -4161,6 +4164,8 @@ DOMAIN-SUFFIX,beevpn.com
 DOMAIN-SUFFIX,beforeigners.com
 DOMAIN-SUFFIX,befuck.com
 DOMAIN-SUFFIX,befuck.net
+DOMAIN-SUFFIX,beget.com
+DOMAIN-SUFFIX,beget.ru
 DOMAIN-SUFFIX,begin-trade.com
 DOMAIN-SUFFIX,behance.net
 DOMAIN-SUFFIX,behaviour4learning.ac.uk
@@ -12664,6 +12669,7 @@ DOMAIN-SUFFIX,ghtv666.top
 DOMAIN-SUFFIX,ghut.org
 DOMAIN-SUFFIX,giantessbooru.com
 DOMAIN-SUFFIX,giantessnight.com
+DOMAIN-SUFFIX,gid.ru
 DOMAIN-SUFFIX,giffgaff.com
 DOMAIN-SUFFIX,giffgaff.design
 DOMAIN-SUFFIX,gifnuki.com
@@ -22265,6 +22271,7 @@ DOMAIN-SUFFIX,okk.tw
 DOMAIN-SUFFIX,okkisokuho.com
 DOMAIN-SUFFIX,okko.sport
 DOMAIN-SUFFIX,okko.tv
+DOMAIN-SUFFIX,okkoapi.tv
 DOMAIN-SUFFIX,okl.lt
 DOMAIN-SUFFIX,oklink.com
 DOMAIN-SUFFIX,okpool.me
@@ -24266,6 +24273,7 @@ DOMAIN-SUFFIX,projectsangam.com
 DOMAIN-SUFFIX,projectshoreline.com
 DOMAIN-SUFFIX,projectvasari.com
 DOMAIN-SUFFIX,projectvoyeur.com
+DOMAIN-SUFFIX,promodj.com
 DOMAIN-SUFFIX,promonsterbeatsbydre.com
 DOMAIN-SUFFIX,promotingpartnership.ac.uk
 DOMAIN-SUFFIX,prompthero.com
@@ -25956,6 +25964,7 @@ DOMAIN-SUFFIX,screenwisetrendspanel.com
 DOMAIN-SUFFIX,screw-my-wife.com
 DOMAIN-SUFFIX,scri.ac.uk
 DOMAIN-SUFFIX,scribd.com
+DOMAIN-SUFFIX,scripts-for-ucoz.ru
 DOMAIN-SUFFIX,scriptspot.com
 DOMAIN-SUFFIX,scrolla.ac.uk
 DOMAIN-SUFFIX,scrolller.com
@@ -29093,6 +29102,8 @@ DOMAIN-SUFFIX,timelinestoryteller.com
 DOMAIN-SUFFIX,timesmembership.com
 DOMAIN-SUFFIX,timesnownews.com
 DOMAIN-SUFFIX,timestalks.com
+DOMAIN-SUFFIX,timeweb.cloud
+DOMAIN-SUFFIX,timeweb.com
 DOMAIN-SUFFIX,timi1.me
 DOMAIN-SUFFIX,timo0.com
 DOMAIN-SUFFIX,timsah.com
@@ -29706,6 +29717,7 @@ DOMAIN-SUFFIX,twbbs.tw
 DOMAIN-SUFFIX,twblogger.com
 DOMAIN-SUFFIX,twca.com.tw
 DOMAIN-SUFFIX,twcomix.com
+DOMAIN-SUFFIX,twcstorage.ru
 DOMAIN-SUFFIX,twdvd.com
 DOMAIN-SUFFIX,tweakadmin.com
 DOMAIN-SUFFIX,tweakfilms.com
@@ -29943,6 +29955,30 @@ DOMAIN-SUFFIX,ucml.ac.uk
 DOMAIN-SUFFIX,ucn.ac.uk
 DOMAIN-SUFFIX,ucnl.ac.uk
 DOMAIN-SUFFIX,uco.ac.uk
+DOMAIN-SUFFIX,ucoz.ae
+DOMAIN-SUFFIX,ucoz.club
+DOMAIN-SUFFIX,ucoz.co
+DOMAIN-SUFFIX,ucoz.co.il
+DOMAIN-SUFFIX,ucoz.co.uk
+DOMAIN-SUFFIX,ucoz.com
+DOMAIN-SUFFIX,ucoz.com.br
+DOMAIN-SUFFIX,ucoz.com.ro
+DOMAIN-SUFFIX,ucoz.de
+DOMAIN-SUFFIX,ucoz.es
+DOMAIN-SUFFIX,ucoz.fr
+DOMAIN-SUFFIX,ucoz.hu
+DOMAIN-SUFFIX,ucoz.kz
+DOMAIN-SUFFIX,ucoz.lv
+DOMAIN-SUFFIX,ucoz.md
+DOMAIN-SUFFIX,ucoz.net
+DOMAIN-SUFFIX,ucoz.org
+DOMAIN-SUFFIX,ucoz.pl
+DOMAIN-SUFFIX,ucoz.ru
+DOMAIN-SUFFIX,ucoz.site
+DOMAIN-SUFFIX,ucoz.ua
+DOMAIN-SUFFIX,ucozmedia.com
+DOMAIN-SUFFIX,ucozmedia.ru
+DOMAIN-SUFFIX,ucoztemplates.com
 DOMAIN-SUFFIX,ucp.ac.uk
 DOMAIN-SUFFIX,ucpmarjon.ac.uk
 DOMAIN-SUFFIX,ucq.ac.uk
@@ -29984,6 +30020,7 @@ DOMAIN-SUFFIX,ufm.ac.uk
 DOMAIN-SUFFIX,uforadio.com.tw
 DOMAIN-SUFFIX,ufreevpn.com
 DOMAIN-SUFFIX,ugo.com
+DOMAIN-SUFFIX,uguide.ru
 DOMAIN-SUFFIX,uguisupapa.net
 DOMAIN-SUFFIX,uhairy.com
 DOMAIN-SUFFIX,uhdwallpapers.org
@@ -30049,6 +30086,10 @@ DOMAIN-SUFFIX,ukhls.ac.uk
 DOMAIN-SUFFIX,ukimr.ac.uk
 DOMAIN-SUFFIX,ukipad.com
 DOMAIN-SUFFIX,ukirc.ac.uk
+DOMAIN-SUFFIX,ukit.ai
+DOMAIN-SUFFIX,ukit.com
+DOMAIN-SUFFIX,ukit.group
+DOMAIN-SUFFIX,ukit.me
 DOMAIN-SUFFIX,uklibrariesplus.ac.uk
 DOMAIN-SUFFIX,ukliferadio.co.uk
 DOMAIN-SUFFIX,uklight.ac.uk
@@ -30105,6 +30146,7 @@ DOMAIN-SUFFIX,ultravpn.fr
 DOMAIN-SUFFIX,ultraxs.com
 DOMAIN-SUFFIX,ultrayoungsex.com
 DOMAIN-SUFFIX,ulyssesapp.com
+DOMAIN-SUFFIX,uma.media
 DOMAIN-SUFFIX,umagazine.com.hk
 DOMAIN-SUFFIX,umass.edu
 DOMAIN-SUFFIX,umbrella.com
@@ -32579,6 +32621,7 @@ DOMAIN-SUFFIX,xlovecam.com
 DOMAIN-SUFFIX,xlstudio.com
 DOMAIN-SUFFIX,xlydh.cc
 DOMAIN-SUFFIX,xm.com
+DOMAIN-SUFFIX,xmail.ru
 DOMAIN-SUFFIX,xmalay.com
 DOMAIN-SUFFIX,xmas.ac.uk
 DOMAIN-SUFFIX,xmat.ac.uk

@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-18 04:43:11
-# Total = 34008
+# Update = 2026-04-22 04:49:55
+# Total = 34011
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -1214,6 +1214,7 @@ DOMAIN-SUFFIX,adguard.info
 DOMAIN-SUFFIX,adguard.io
 DOMAIN-SUFFIX,adguard.org
 DOMAIN-SUFFIX,adguardaccount.com
+DOMAIN-SUFFIX,adguardcdn.com
 DOMAIN-SUFFIX,adguardvpn.com
 DOMAIN-SUFFIX,adhelpnews.com
 DOMAIN-SUFFIX,adidas-archive.org
@@ -19755,6 +19756,7 @@ DOMAIN-SUFFIX,minilondon.co
 DOMAIN-SUFFIX,minim.ac.uk
 DOMAIN-SUFFIX,minimarkham.ca
 DOMAIN-SUFFIX,minimarkham.com
+DOMAIN-SUFFIX,minimax.io
 DOMAIN-SUFFIX,minimoncton.ca
 DOMAIN-SUFFIX,minimoncton.com
 DOMAIN-SUFFIX,minimontrealcentre.ca
@@ -25909,6 +25911,7 @@ DOMAIN-SUFFIX,scop.ac.uk
 DOMAIN-SUFFIX,scope-uk.ac.uk
 DOMAIN-SUFFIX,scopic.ac.uk
 DOMAIN-SUFFIX,score.ac.uk
+DOMAIN-SUFFIX,scorecardresearch.com
 DOMAIN-SUFFIX,scoreclassics.com
 DOMAIN-SUFFIX,scorediscounts.club
 DOMAIN-SUFFIX,scoregroup.com

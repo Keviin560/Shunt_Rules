@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-22 04:49:53
-# Total = 6482
+# Update = 2026-04-24 04:50:41
+# Total = 6484
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -1023,7 +1023,6 @@ DOMAIN-SUFFIX,bosc.cn
 DOMAIN-SUFFIX,boscam.com.cn
 DOMAIN-SUFFIX,bosera.com
 DOMAIN-SUFFIX,bosszhipin.com
-DOMAIN-SUFFIX,botvip.cn
 DOMAIN-SUFFIX,bouffalolab.com
 DOMAIN-SUFFIX,boxdouyin.com
 DOMAIN-SUFFIX,bplslb.com
@@ -3793,6 +3792,8 @@ DOMAIN-SUFFIX,liaoxuefeng.com
 DOMAIN-SUFFIX,liba.com
 DOMAIN-SUFFIX,libaclub.com
 DOMAIN-SUFFIX,liblib.art
+DOMAIN-SUFFIX,liblib.cloud
+DOMAIN-SUFFIX,liblib.tv
 DOMAIN-SUFFIX,libvideo.com
 DOMAIN-SUFFIX,liebao.cn
 DOMAIN-SUFFIX,liepin.com
@@ -5096,6 +5097,7 @@ DOMAIN-SUFFIX,tapapks.com
 DOMAIN-SUFFIX,tapd.cn
 DOMAIN-SUFFIX,tapimg.com
 DOMAIN-SUFFIX,tapimg.net
+DOMAIN-SUFFIX,tapnow.top
 DOMAIN-SUFFIX,taptap.cn
 DOMAIN-SUFFIX,taptap.com
 DOMAIN-SUFFIX,taptapdada.com

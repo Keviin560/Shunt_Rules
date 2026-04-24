@@ -1,8 +1,8 @@
 # Name = AI_Rules
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-24 04:49:30
-# Total = 138
+# Update = 2026-04-25 04:43:49
+# Total = 141
 
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
@@ -24,7 +24,9 @@ DOMAIN,production-openaicom-storage.azureedge.net
 DOMAIN,servd-anthropic-website.b-cdn.net
 DOMAIN,webchannel-alkalimakersuite-pa.clients6.google.com
 DOMAIN-REGEX,^chatgpt-async-webps-prod-\S+-\d+\.webpubsub\.azure\.com$
+DOMAIN-SUFFIX,agentclientprotocol.com
 DOMAIN-SUFFIX,ai.studio
+DOMAIN-SUFFIX,aicode.googleapis.com
 DOMAIN-SUFFIX,aida.googleapis.com
 DOMAIN-SUFFIX,aisandbox-pa.googleapis.com
 DOMAIN-SUFFIX,aistudio.google.com
@@ -125,6 +127,7 @@ DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,oystermercury.top
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,perplexity.com
+DOMAIN-SUFFIX,plannotator.ai
 DOMAIN-SUFFIX,poe.com
 DOMAIN-SUFFIX,poecdn.net
 DOMAIN-SUFFIX,pplx.ai

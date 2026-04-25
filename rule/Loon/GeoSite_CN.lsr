@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-24 04:50:41
-# Total = 6484
+# Update = 2026-04-26 04:36:59
+# Total = 6485
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -3447,6 +3447,7 @@ DOMAIN-SUFFIX,juequling.com
 DOMAIN-SUFFIX,jugongdan.com
 DOMAIN-SUFFIX,juhuasuan.com
 DOMAIN-SUFFIX,juhuiwan.com
+DOMAIN-SUFFIX,juhuiwan.com.cn
 DOMAIN-SUFFIX,juhuiwan.net
 DOMAIN-SUFFIX,julive.com
 DOMAIN-SUFFIX,jumei.com
@@ -3977,6 +3978,7 @@ DOMAIN-SUFFIX,meipian.cn
 DOMAIN-SUFFIX,meipian.me
 DOMAIN-SUFFIX,meiqia.com
 DOMAIN-SUFFIX,meishichina.com
+DOMAIN-SUFFIX,meishij.net
 DOMAIN-SUFFIX,meitu.com
 DOMAIN-SUFFIX,meituan.com
 DOMAIN-SUFFIX,meituan.net
@@ -4666,7 +4668,6 @@ DOMAIN-SUFFIX,qugame.com
 DOMAIN-SUFFIX,quickapp.cn
 DOMAIN-SUFFIX,qunjielong.com
 DOMAIN-SUFFIX,qunliao.info
-DOMAIN-SUFFIX,quyaoya.com
 DOMAIN-SUFFIX,qweather.com
 DOMAIN-SUFFIX,qweather.net
 DOMAIN-SUFFIX,qwen.ai
@@ -5431,7 +5432,6 @@ DOMAIN-SUFFIX,tudou.com
 DOMAIN-SUFFIX,tudouui.com
 DOMAIN-SUFFIX,tuer123.com
 DOMAIN-SUFFIX,tuicool.com
-DOMAIN-SUFFIX,tuiwen.net
 DOMAIN-SUFFIX,tujia.com
 DOMAIN-SUFFIX,tuniu.com
 DOMAIN-SUFFIX,tutuapp.com
@@ -5560,6 +5560,7 @@ DOMAIN-SUFFIX,uwtmy.cn
 DOMAIN-SUFFIX,uyunad.com
 DOMAIN-SUFFIX,uzero.cn
 DOMAIN-SUFFIX,uzzf.com
+DOMAIN-SUFFIX,v5875.com
 DOMAIN-SUFFIX,value500.com
 DOMAIN-SUFFIX,vamaker.com
 DOMAIN-SUFFIX,vancl.com

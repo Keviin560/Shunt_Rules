@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoIP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-30 05:02:08
-# Total = 116159
+# Update = 2026-05-02 04:50:18
+# Total = 116158
 
 DOMAIN,1-fss24-s0.streamhoster.com
 DOMAIN,14033.live.streamtheworld.com
@@ -108670,7 +108670,6 @@ DOMAIN-SUFFIX,yodao.info
 DOMAIN-SUFFIX,yodao.net
 DOMAIN-SUFFIX,yodao.org
 DOMAIN-SUFFIX,yodiya.com
-DOMAIN-SUFFIX,yodo1.com
 DOMAIN-SUFFIX,yodo1api.com
 DOMAIN-SUFFIX,yodou.com
 DOMAIN-SUFFIX,yoduzw.com

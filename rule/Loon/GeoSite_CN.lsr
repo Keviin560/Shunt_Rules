@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-30 05:02:24
-# Total = 6516
+# Update = 2026-05-03 04:39:20
+# Total = 6514
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -456,7 +456,6 @@ DOMAIN-SUFFIX,abdf002.com
 DOMAIN-SUFFIX,abhouses.com
 DOMAIN-SUFFIX,ac.fun
 DOMAIN-SUFFIX,acadn.cn
-DOMAIN-SUFFIX,acadn.com
 DOMAIN-SUFFIX,account.xiaomi.com
 DOMAIN-SUFFIX,acctdns.com
 DOMAIN-SUFFIX,acctdns.net
@@ -2330,6 +2329,7 @@ DOMAIN-SUFFIX,fliggy.com
 DOMAIN-SUFFIX,fliggy.hk
 DOMAIN-SUFFIX,flowus.cn
 DOMAIN-SUFFIX,flxdns.cn
+DOMAIN-SUFFIX,flxdns.com
 DOMAIN-SUFFIX,flycua.com
 DOMAIN-SUFFIX,flyme.cn
 DOMAIN-SUFFIX,flyme.com
@@ -3999,7 +3999,6 @@ DOMAIN-SUFFIX,meipian.cn
 DOMAIN-SUFFIX,meipian.me
 DOMAIN-SUFFIX,meiqia.com
 DOMAIN-SUFFIX,meishichina.com
-DOMAIN-SUFFIX,meishij.net
 DOMAIN-SUFFIX,meitu.com
 DOMAIN-SUFFIX,meituan.com
 DOMAIN-SUFFIX,meituan.net
@@ -6036,7 +6035,6 @@ DOMAIN-SUFFIX,xinhuanet.com
 DOMAIN-SUFFIX,xinhuaxmt.com
 DOMAIN-SUFFIX,xinlingshou.cn
 DOMAIN-SUFFIX,xinrenxinshi.com
-DOMAIN-SUFFIX,xinshipu.com
 DOMAIN-SUFFIX,xinwuji.com
 DOMAIN-SUFFIX,xinyan.cn
 DOMAIN-SUFFIX,xinyuanfin.com

@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-30 05:02:26
-# Total = 34033
+# Update = 2026-05-04 04:40:41
+# Total = 34037
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -12098,6 +12098,7 @@ DOMAIN-SUFFIX,ftvgirls.com
 DOMAIN-SUFFIX,ftvmilfs.com
 DOMAIN-SUFFIX,ftvnews.com.tw
 DOMAIN-SUFFIX,ftx.com
+DOMAIN-SUFFIX,fu62.vip
 DOMAIN-SUFFIX,fubo.tv
 DOMAIN-SUFFIX,fucd.com
 DOMAIN-SUFFIX,fuchsia.dev
@@ -19787,6 +19788,7 @@ DOMAIN-SUFFIX,minisaskatoon.ca
 DOMAIN-SUFFIX,minisaskatoon.com
 DOMAIN-SUFFIX,minisexdoll.com
 DOMAIN-SUFFIX,minishop.ca
+DOMAIN-SUFFIX,miniso-au.com
 DOMAIN-SUFFIX,miniso-bh.com
 DOMAIN-SUFFIX,miniso-np.com
 DOMAIN-SUFFIX,miniso-nz.com
@@ -20691,6 +20693,7 @@ DOMAIN-SUFFIX,mythicentertainment.net
 DOMAIN-SUFFIX,mythicgames.com
 DOMAIN-SUFFIX,mytimesplus.co.uk
 DOMAIN-SUFFIX,mytizi.com
+DOMAIN-SUFFIX,mytokenapi.com
 DOMAIN-SUFFIX,mytopf.com
 DOMAIN-SUFFIX,mytrannycams.com
 DOMAIN-SUFFIX,mytrk.link
@@ -24884,6 +24887,7 @@ DOMAIN-SUFFIX,rdnet.ac.uk
 DOMAIN-SUFFIX,rds-yes.buzz
 DOMAIN-SUFFIX,rdtcdn.com
 DOMAIN-SUFFIX,re-net.ac.uk
+DOMAIN-SUFFIX,re25.vip
 DOMAIN-SUFFIX,rea-asia.com
 DOMAIN-SUFFIX,rea-group.com
 DOMAIN-SUFFIX,rea.design

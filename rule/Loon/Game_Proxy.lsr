@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-22 04:49:52
-# Total = 804
+# Update = 2026-05-08 05:03:57
+# Total = 805
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -696,6 +696,7 @@ DOMAIN-SUFFIX,supermariorun.com
 DOMAIN-SUFFIX,superpapermario.com
 DOMAIN-SUFFIX,supersmashbros.cn
 DOMAIN-SUFFIX,supersmashbros.com.cn
+DOMAIN-SUFFIX,supr.cl
 DOMAIN-SUFFIX,supremacy.com
 DOMAIN-SUFFIX,supremacy.net
 DOMAIN-SUFFIX,swjedifallenorder.com

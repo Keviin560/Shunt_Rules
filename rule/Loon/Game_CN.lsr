@@ -1,9 +1,11 @@
 # Name = Game_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-03-27 04:34:59
-# Total = 217
+# Update = 2026-05-08 05:03:57
+# Total = 219
 
+DOMAIN,end-api.shallow.ink
+DOMAIN,end.shallow.ink
 DOMAIN-REGEX,^.+-mihayo\.akamaized\.net$
 DOMAIN-SUFFIX,17roco.com
 DOMAIN-SUFFIX,3304399.com

@@ -1,8 +1,8 @@
 # Name = ChinaNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-10 04:46:47
-# Total = 3628
+# Update = 2026-05-10 04:42:58
+# Total = 3624
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -22,7 +22,6 @@ IP-CIDR,2a0b:b583::/48,no-resolve
 DOMAIN,analytics.strava.com
 DOMAIN,blzddist1-a.akamaihd.net
 DOMAIN,cdn.angruo.com
-DOMAIN,cdn.lilyemby.com
 DOMAIN,client.amplifi.com
 DOMAIN,download.jetbrains.com
 DOMAIN,download.microsoft.com
@@ -32,10 +31,8 @@ DOMAIN,kc.kexinshe.com
 DOMAIN,ntservicepack.microsoft.com
 DOMAIN,origin-a.akamaihd.ne
 DOMAIN,origin-a.akamaihd.net
-DOMAIN,smart.uhdnow.com
 DOMAIN,sms.imagetasks.com
 DOMAIN,steamcommunity-a.akamaihd.net
-DOMAIN,tx.lilyemby.com
 DOMAIN,weixin.com
 DOMAIN,www.libvideo.com
 DOMAIN,www.yxssp.com
@@ -1921,7 +1918,6 @@ DOMAIN-SUFFIX,jiayuan.com
 DOMAIN-SUFFIX,jiazhao.com
 DOMAIN-SUFFIX,jibencaozuo.com
 DOMAIN-SUFFIX,jidian.im
-DOMAIN-SUFFIX,jiedaibao.gs
 DOMAIN-SUFFIX,jiemeng8.com
 DOMAIN-SUFFIX,jiemian.com
 DOMAIN-SUFFIX,jikeiot.cloud

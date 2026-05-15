@@ -1,8 +1,8 @@
 # Name = Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-15 05:09:23
-# Total = 6766
+# Update = 2026-05-16 04:59:30
+# Total = 6767
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,103.2.28.0/22,no-resolve
@@ -1210,6 +1210,7 @@ DOMAIN-SUFFIX,chingcheong.com
 DOMAIN-SUFFIX,chinman.net
 DOMAIN-SUFFIX,chithu.org
 DOMAIN-SUFFIX,chobit.cc
+DOMAIN-SUFFIX,chonglangtv.org
 DOMAIN-SUFFIX,chosun.com
 DOMAIN-SUFFIX,chrdnet.com
 DOMAIN-SUFFIX,christianfreedom.org

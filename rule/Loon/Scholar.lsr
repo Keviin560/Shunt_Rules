@@ -1,8 +1,8 @@
 # Name = Scholar
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-24 04:50:49
-# Total = 230
+# Update = 2026-05-28 05:53:07
+# Total = 231
 
 DOMAIN,scholar.google.com
 DOMAIN-SUFFIX,1lib.cloud
@@ -144,6 +144,7 @@ DOMAIN-SUFFIX,newisiknowledge.com
 DOMAIN-SUFFIX,oecd-ilibrary.org
 DOMAIN-SUFFIX,oed.com
 DOMAIN-SUFFIX,omscr.com
+DOMAIN-SUFFIX,optica.org
 DOMAIN-SUFFIX,osapublishing.org
 DOMAIN-SUFFIX,oup.com
 DOMAIN-SUFFIX,ouplaw.com

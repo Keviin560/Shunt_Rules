@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-29 05:54:07
-# Total = 6642
+# Update = 2026-05-30 05:52:56
+# Total = 6641
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -2875,7 +2875,6 @@ DOMAIN-SUFFIX,hpplay.cn
 DOMAIN-SUFFIX,hqchip.com
 DOMAIN-SUFFIX,hqdoc.com
 DOMAIN-SUFFIX,hqpcb.com
-DOMAIN-SUFFIX,hr-welink.com
 DOMAIN-SUFFIX,hrsec.com.cn
 DOMAIN-SUFFIX,hsfund.com
 DOMAIN-SUFFIX,hsqh.net

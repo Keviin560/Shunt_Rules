@@ -1,8 +1,8 @@
 # Name = AI_Rules
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-28 05:51:42
-# Total = 150
+# Update = 2026-05-31 04:53:08
+# Total = 151
 
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
@@ -37,6 +37,7 @@ DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,antigravity-unleash.goog
 DOMAIN-SUFFIX,antigravity.google
 DOMAIN-SUFFIX,anythingllm.com
+DOMAIN-SUFFIX,arena.ai
 DOMAIN-SUFFIX,bard.google.com
 DOMAIN-SUFFIX,cerebras.ai
 DOMAIN-SUFFIX,chat.com

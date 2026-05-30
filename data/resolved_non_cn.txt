@@ -21,7 +21,8 @@ DOMAIN,rtlog3-applog.fqnovel.com # 命中广告剧毒库
 DOMAIN,rtlog5-applog-hl.fqnovel.com # 命中广告剧毒库
 DOMAIN,rtlog5-applog.fqnovel.com # 命中广告剧毒库
 DOMAIN,wlog.kuaishou.com # 命中广告剧毒库
-DOMAIN-SUFFIX,360chou.com # Blacklisted IP: 104.21.31.15
+DOMAIN-SUFFIX,360chou.com # Blacklisted IP: 172.67.174.162
+DOMAIN-SUFFIX,365azw.com # Blacklisted IP: 172.67.223.225
 DOMAIN-SUFFIX,40407.com # Blacklisted IP: 172.67.183.207
 DOMAIN-SUFFIX,5566ua.com # Blacklisted IP: 104.21.76.177
 DOMAIN-SUFFIX,a.alimama.cn # 命中广告剧毒库
@@ -113,7 +114,7 @@ DOMAIN-SUFFIX,alog.umeng.com # 命中广告剧毒库
 DOMAIN-SUFFIX,alog.umengcloud.com # 命中广告剧毒库
 DOMAIN-SUFFIX,alogs.umeng.com # 命中广告剧毒库
 DOMAIN-SUFFIX,alogus.umeng.com # 命中广告剧毒库
-DOMAIN-SUFFIX,aloys233.top # Blacklisted IP: 104.21.14.247
+DOMAIN-SUFFIX,aloys233.top # Blacklisted IP: 172.67.160.209
 DOMAIN-SUFFIX,analytics.163.com # 命中广告剧毒库
 DOMAIN-SUFFIX,analytics.tiktok.com # 命中广告剧毒库
 DOMAIN-SUFFIX,anitabi.cn # Blacklisted IP: 188.114.97.3
@@ -124,7 +125,7 @@ DOMAIN-SUFFIX,atanx.alicdn.com # 命中广告剧毒库
 DOMAIN-SUFFIX,atanx2.alicdn.com # 命中广告剧毒库
 DOMAIN-SUFFIX,atm.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,audid.umeng.com # 命中广告剧毒库
-DOMAIN-SUFFIX,b3log.org # Blacklisted IP: 172.67.185.146
+DOMAIN-SUFFIX,b3log.org # Blacklisted IP: 104.21.36.48
 DOMAIN-SUFFIX,badjs.weixinbridge.com # 命中广告剧毒库
 DOMAIN-SUFFIX,baichuan-sdk.alicdn.com # 命中广告剧毒库
 DOMAIN-SUFFIX,baifen.music.baidu.com # 命中广告剧毒库
@@ -147,15 +148,16 @@ DOMAIN-SUFFIX,c.uaa.iqiyi.com # 命中广告剧毒库
 DOMAIN-SUFFIX,cb.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,cbjs.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ccs.umeng.com # 命中广告剧毒库
-DOMAIN-SUFFIX,chongbuluo.com # Blacklisted IP: 104.21.61.103
+DOMAIN-SUFFIX,chongbuluo.com # Blacklisted IP: 172.67.208.241
+DOMAIN-SUFFIX,chuansongme.com # Blacklisted IP: 23.145.248.126
 DOMAIN-SUFFIX,cici.com # 命中海外防线
 DOMAIN-SUFFIX,ciciai.com # 命中海外防线
 DOMAIN-SUFFIX,ciciaicdn.com # 命中海外防线
-DOMAIN-SUFFIX,cloudflarestaging.com # Blacklisted IP: 104.18.29.121
+DOMAIN-SUFFIX,cloudflarestaging.com # Blacklisted IP: 104.18.28.121
 DOMAIN-SUFFIX,cloudpush.iqiyi.com # 命中广告剧毒库
 DOMAIN-SUFFIX,cloudxns.com # Blacklisted IP: 172.67.197.207
 DOMAIN-SUFFIX,cm.baidu.com # 命中广告剧毒库
-DOMAIN-SUFFIX,cn.pool.ntp.org # Blacklisted IP: 162.159.200.1
+DOMAIN-SUFFIX,cn.pool.ntp.org # Blacklisted IP: 162.159.200.123
 DOMAIN-SUFFIX,cnlogs.umeng.com # 命中广告剧毒库
 DOMAIN-SUFFIX,cnlogs.umengcloud.com # 命中广告剧毒库
 DOMAIN-SUFFIX,coze.com # 命中海外防线
@@ -168,7 +170,7 @@ DOMAIN-SUFFIX,crashlytics.163.com # 命中广告剧毒库
 DOMAIN-SUFFIX,cstm.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ctexcel.ca # Blacklisted IP: 104.18.6.115
 DOMAIN-SUFFIX,ctobsnssdk.com # 命中广告剧毒库
-DOMAIN-SUFFIX,ctsbw.com # Blacklisted IP: 104.21.90.95
+DOMAIN-SUFFIX,ctsbw.com # Blacklisted IP: 172.67.155.107
 DOMAIN-SUFFIX,cupid.iqiyi.com # 命中广告剧毒库
 DOMAIN-SUFFIX,data.mistat.india.xiaomi.com # 命中广告剧毒库
 DOMAIN-SUFFIX,data.mistat.intl.xiaomi.com # 命中广告剧毒库
@@ -187,12 +189,13 @@ DOMAIN-SUFFIX,dt.dbankcloud.ru # 命中广告剧毒库
 DOMAIN-SUFFIX,dualstack-logs.amap.com # 命中广告剧毒库
 DOMAIN-SUFFIX,duiwai.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,dup.baidustatic.com # 命中广告剧毒库
-DOMAIN-SUFFIX,dxpmedia.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,dxpmedia.com # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,e.kuaishou.cn # 命中广告剧毒库
 DOMAIN-SUFFIX,e.kuaishou.com # 命中广告剧毒库
 DOMAIN-SUFFIX,e.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,e.stat.ykimg.com # 命中广告剧毒库
 DOMAIN-SUFFIX,eclick.baidu.com # 命中广告剧毒库
+DOMAIN-SUFFIX,ecloud-gdu.com # Blacklisted IP: 172.67.191.7
 DOMAIN-SUFFIX,ecma.bdimg.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ecmb.bdimg.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ecmc.bdimg.com # 命中广告剧毒库
@@ -201,29 +204,29 @@ DOMAIN-SUFFIX,eiv.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ems.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,euads-o.api.leiniao.com # 命中广告剧毒库
 DOMAIN-SUFFIX,extlog.snssdk.com # 命中广告剧毒库
-DOMAIN-SUFFIX,fanmingming.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,fanmingming.com # Blacklisted IP: 172.67.220.212
 DOMAIN-SUFFIX,fclick.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,fclog.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,fofa.info # Blocked CDN: cloudflare
-DOMAIN-SUFFIX,fofa.so # Blacklisted IP: 172.66.148.169
+DOMAIN-SUFFIX,fofa.so # Blacklisted IP: 104.20.21.134
 DOMAIN-SUFFIX,fourier.taobao.com # 命中广告剧毒库
 DOMAIN-SUFFIX,g.163.com # 命中广告剧毒库
 DOMAIN-SUFFIX,g.click.taobao.com # 命中广告剧毒库
-DOMAIN-SUFFIX,gameloop.com # Blacklisted IP: 172.66.174.89
+DOMAIN-SUFFIX,gameloop.com # Blacklisted IP: 104.20.43.73
 DOMAIN-SUFFIX,gdt.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,gia.jd.com # 命中广告剧毒库
 DOMAIN-SUFFIX,gio.ren # 命中广告剧毒库
 DOMAIN-SUFFIX,giocdn.com # 命中广告剧毒库
 DOMAIN-SUFFIX,gmw.com # Blacklisted IP: 141.193.213.11
-DOMAIN-SUFFIX,golinkcn.com # Blacklisted IP: 104.21.96.1
+DOMAIN-SUFFIX,golinkcn.com # Blacklisted IP: 104.21.80.1
 DOMAIN-SUFFIX,gongqingyun.cn # Blacklisted IP: 104.21.77.106
-DOMAIN-SUFFIX,goproxy.io # Blacklisted IP: 104.26.5.191
+DOMAIN-SUFFIX,goproxy.io # Blacklisted IP: 104.26.4.191
 DOMAIN-SUFFIX,growin.cn # 命中广告剧毒库
 DOMAIN-SUFFIX,growingio.cn # 命中广告剧毒库
 DOMAIN-SUFFIX,growingio.com # 命中广告剧毒库
 DOMAIN-SUFFIX,guanggaoad.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,gxb.io # Blacklisted IP: 172.67.154.87
-DOMAIN-SUFFIX,gzwanju.com # Blacklisted IP: 172.67.171.106
+DOMAIN-SUFFIX,gzwanju.com # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,h-adashx.ut.ele.me # 命中广告剧毒库
 DOMAIN-SUFFIX,h-adashx.ut.taobao.com # 命中广告剧毒库
 DOMAIN-SUFFIX,h-adashx.ut.youku.com # 命中广告剧毒库
@@ -257,14 +260,16 @@ DOMAIN-SUFFIX,ipshu.com # Blacklisted IP: 172.67.72.200
 DOMAIN-SUFFIX,isdspeed.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ivweb.io # Blacklisted IP: 104.21.8.78
 DOMAIN-SUFFIX,iwanad.baidu.com # 命中广告剧毒库
-DOMAIN-SUFFIX,jchat.io # Blacklisted IP: 104.21.61.124
-DOMAIN-SUFFIX,jhwan.com.cn # Blacklisted IP: 104.21.4.43
-DOMAIN-SUFFIX,jianzhi8.com # Blacklisted IP: 188.114.97.3
-DOMAIN-SUFFIX,jiathis.com # Blacklisted IP: 188.114.97.3
-DOMAIN-SUFFIX,jinglingbiaozhu.com # Blacklisted IP: 103.50.96.187
+DOMAIN-SUFFIX,jchat.io # Blacklisted IP: 172.67.210.74
+DOMAIN-SUFFIX,jhwan.com.cn # Blacklisted IP: 172.67.131.165
+DOMAIN-SUFFIX,jianzhi8.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,jiathis.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,jiazhao.com # Blacklisted IP: 23.179.248.201
+DOMAIN-SUFFIX,jiemeng8.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,jinglingbiaozhu.com # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,jzt.jd.com # 命中广告剧毒库
 DOMAIN-SUFFIX,kuaipa.net # 命中广告剧毒库
-DOMAIN-SUFFIX,lancdn.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,lancdn.com # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,leanote.com # Blacklisted IP: 172.67.200.101
 DOMAIN-SUFFIX,log.tbs.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,log.umtrack.com # 命中广告剧毒库
@@ -343,11 +348,11 @@ DOMAIN-SUFFIX,report.qqweb.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,report.tencentmusic.com # 命中广告剧毒库
 DOMAIN-SUFFIX,resolve.umeng.com # 命中广告剧毒库
 DOMAIN-SUFFIX,retcode.taobao.com # 命中广告剧毒库
-DOMAIN-SUFFIX,rmbgame.net # Blacklisted IP: 104.21.81.219
+DOMAIN-SUFFIX,rmbgame.net # Blacklisted IP: 172.67.165.59
 DOMAIN-SUFFIX,rmonitor.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,rqnoj.cn # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,ruby-china.org # Blacklisted IP: 188.114.96.3
-DOMAIN-SUFFIX,rubyconfchina.org # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,rubyconfchina.org # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,rwkv.com # Blacklisted IP: 104.21.82.92
 DOMAIN-SUFFIX,s-adashx.ut.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,sclick.baidu.com # 命中广告剧毒库
@@ -355,8 +360,8 @@ DOMAIN-SUFFIX,sentry.d.mi.com # 命中广告剧毒库
 DOMAIN-SUFFIX,sentry.d.xiaomi.net # 命中广告剧毒库
 DOMAIN-SUFFIX,sentry.music.163.com # 命中广告剧毒库
 DOMAIN-SUFFIX,sf3-ttcdn-tos.pstatp.com # 命中广告剧毒库
-DOMAIN-SUFFIX,shareintelli.com # Blacklisted IP: 188.114.96.3
-DOMAIN-SUFFIX,shelterdome.net # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,shareintelli.com # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,shelterdome.net # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,shoppingads.cn # 命中广告剧毒库
 DOMAIN-SUFFIX,sifou.com # Blacklisted IP: 104.21.87.229
 DOMAIN-SUFFIX,sngmta.qq.com # 命中广告剧毒库
@@ -369,7 +374,7 @@ DOMAIN-SUFFIX,staticfile.org # Blocked CDN: cdn77
 DOMAIN-SUFFIX,statis.api.3g.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,stats.music.xiaomi.com # 命中广告剧毒库
 DOMAIN-SUFFIX,syh.zybang.com # 命中广告剧毒库
-DOMAIN-SUFFIX,t00ls.net # Blacklisted IP: 188.114.97.3
+DOMAIN-SUFFIX,t00ls.net # Blacklisted IP: 188.114.96.3
 DOMAIN-SUFFIX,tajs.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,taptap.io # Blacklisted IP: 34.120.233.109
 DOMAIN-SUFFIX,tcbox.baidu.com # 命中广告剧毒库
@@ -416,7 +421,7 @@ DOMAIN-SUFFIX,ttcdn-us.com # 命中海外防线
 DOMAIN-SUFFIX,ttlivecdn.com # 命中海外防线
 DOMAIN-SUFFIX,ttoverseaus.net # 命中海外防线
 DOMAIN-SUFFIX,ttwstatic.com # 命中海外防线
-DOMAIN-SUFFIX,tuiwen.net # Blacklisted IP: 104.21.94.32
+DOMAIN-SUFFIX,tuiwen.net # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,ubmcvideo.baidustatic.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ugdtimg.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ulogs.umeng.com # 命中广告剧毒库
@@ -433,12 +438,13 @@ DOMAIN-SUFFIX,vijos.org # Blacklisted IP: 35.241.97.55
 DOMAIN-SUFFIX,w.cnzz.com # 命中广告剧毒库
 DOMAIN-SUFFIX,wangmeng.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,webnovel.com # 命中海外防线
-DOMAIN-SUFFIX,whlovehome.com # Blacklisted IP: 172.67.223.126
+DOMAIN-SUFFIX,whlovehome.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,winos.me # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,wit.qq.com # 命中广告剧毒库
 DOMAIN-SUFFIX,wkctj.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,wm.baidu.com # 命中广告剧毒库
 DOMAIN-SUFFIX,wonnder.com # Blacklisted IP: 198.202.211.1
-DOMAIN-SUFFIX,yamibo.com # Blacklisted IP: 104.21.5.93
+DOMAIN-SUFFIX,yamibo.com # Blacklisted IP: 172.67.133.64
 DOMAIN-SUFFIX,yk-ssp.ad.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ykad-data.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,yunlaopo.cc # 命中广告剧毒库
@@ -446,6 +452,6 @@ DOMAIN-SUFFIX,yunlaopo.com # 命中广告剧毒库
 DOMAIN-SUFFIX,yunlaopo.net # 命中广告剧毒库
 DOMAIN-SUFFIX,yuzua.com # Blacklisted IP: 172.65.211.209
 DOMAIN-SUFFIX,z.gds.cnzz.com # 命中广告剧毒库
-DOMAIN-SUFFIX,zhipucn.com # Blacklisted IP: 188.114.96.3
+DOMAIN-SUFFIX,zhipucn.com # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,zhuanyewanjia.com # Blacklisted IP: 188.114.97.3
 DOMAIN-SUFFIX,zz.bdstatic.com # 命中广告剧毒库

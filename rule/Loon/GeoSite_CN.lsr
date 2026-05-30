@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-30 05:52:56
-# Total = 6641
+# Update = 2026-05-31 04:53:08
+# Total = 6635
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -240,7 +240,6 @@ DOMAIN-SUFFIX,360tres.com
 DOMAIN-SUFFIX,360webcache.com
 DOMAIN-SUFFIX,360zhyx.com
 DOMAIN-SUFFIX,360zqaq.com
-DOMAIN-SUFFIX,365azw.com
 DOMAIN-SUFFIX,365dmp.com
 DOMAIN-SUFFIX,365yg.com
 DOMAIN-SUFFIX,36dianping.com
@@ -1529,7 +1528,6 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
-DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -2180,7 +2178,6 @@ DOMAIN-SUFFIX,ebscn-am.com
 DOMAIN-SUFFIX,ebscn.com
 DOMAIN-SUFFIX,ebtrust.com
 DOMAIN-SUFFIX,ecjobhome.com
-DOMAIN-SUFFIX,ecloud-gdu.com
 DOMAIN-SUFFIX,ecns.cn
 DOMAIN-SUFFIX,ecombdapi.com
 DOMAIN-SUFFIX,ecombdstatic.com
@@ -3401,9 +3398,7 @@ DOMAIN-SUFFIX,jiasu.bohe.com
 DOMAIN-SUFFIX,jiasuhui.com
 DOMAIN-SUFFIX,jiasule.com
 DOMAIN-SUFFIX,jiayuan.com
-DOMAIN-SUFFIX,jiazhao.com
 DOMAIN-SUFFIX,jibencaozuo.com
-DOMAIN-SUFFIX,jiemeng8.com
 DOMAIN-SUFFIX,jiemian.com
 DOMAIN-SUFFIX,jiemian.com.cn
 DOMAIN-SUFFIX,jiguang.cn
@@ -5954,7 +5949,6 @@ DOMAIN-SUFFIX,windows10zj.com
 DOMAIN-SUFFIX,windows7en.com
 DOMAIN-SUFFIX,windowszj.com
 DOMAIN-SUFFIX,winegame.net
-DOMAIN-SUFFIX,winos.me
 DOMAIN-SUFFIX,winwin7.com
 DOMAIN-SUFFIX,winyoungreading.com
 DOMAIN-SUFFIX,wishdown.com

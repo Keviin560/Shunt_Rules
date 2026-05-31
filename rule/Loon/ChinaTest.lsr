@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-30 05:52:55
-# Total = 113224
+# Update = 2026-06-01 04:57:19
+# Total = 113223
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -13386,7 +13386,6 @@ DOMAIN-SUFFIX,arvinhk.com
 DOMAIN-SUFFIX,aryasec.com
 DOMAIN-SUFFIX,as-doll.com
 DOMAIN-SUFFIX,as-hitech.com
-DOMAIN-SUFFIX,as.mr
 DOMAIN-SUFFIX,as16.com
 DOMAIN-SUFFIX,as3f.com
 DOMAIN-SUFFIX,as5.com

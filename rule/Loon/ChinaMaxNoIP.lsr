@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoIP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-30 05:52:41
-# Total = 113135
+# Update = 2026-06-01 04:57:03
+# Total = 113134
 
 DOMAIN,1-fss24-s0.streamhoster.com
 DOMAIN,14033.live.streamtheworld.com
@@ -13256,7 +13256,6 @@ DOMAIN-SUFFIX,arvinhk.com
 DOMAIN-SUFFIX,aryasec.com
 DOMAIN-SUFFIX,as-doll.com
 DOMAIN-SUFFIX,as-hitech.com
-DOMAIN-SUFFIX,as.mr
 DOMAIN-SUFFIX,as16.com
 DOMAIN-SUFFIX,as3f.com
 DOMAIN-SUFFIX,as5.com

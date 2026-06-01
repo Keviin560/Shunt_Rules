@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-01 04:57:22
-# Total = 34348
+# Update = 2026-06-02 06:34:14
+# Total = 34350
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -19923,7 +19923,6 @@ DOMAIN-SUFFIX,minilondon.co
 DOMAIN-SUFFIX,minim.ac.uk
 DOMAIN-SUFFIX,minimarkham.ca
 DOMAIN-SUFFIX,minimarkham.com
-DOMAIN-SUFFIX,minimax.io
 DOMAIN-SUFFIX,minimoncton.ca
 DOMAIN-SUFFIX,minimoncton.com
 DOMAIN-SUFFIX,minimontrealcentre.ca
@@ -32876,8 +32875,11 @@ DOMAIN-SUFFIX,xhamster2.com
 DOMAIN-SUFFIX,xhamster3.com
 DOMAIN-SUFFIX,xhamsterlive.com
 DOMAIN-SUFFIX,xhcdn.com
+DOMAIN-SUFFIX,xhnews.live
 DOMAIN-SUFFIX,xhot.pro
+DOMAIN-SUFFIX,xhpingcdn.com
 DOMAIN-SUFFIX,xhpjc6-cdn-settings.appsflyersdk.com
+DOMAIN-SUFFIX,xhreal5.com
 DOMAIN-SUFFIX,xhub.tv
 DOMAIN-SUFFIX,xianba.net
 DOMAIN-SUFFIX,xianchawang.net

@@ -410,7 +410,7 @@ function main(config) {
             // 🍏 国内直连
             // ===============================================
             'DOMAIN-KEYWORD,spark4k,DIRECT', 
-            'RULE-SET,Global_CN,DIRECT',
+            // 'RULE-SET,Global_CN,DIRECT',
             'RULE-SET,GeoSite_CN,DIRECT', 
 
             // ===============================================

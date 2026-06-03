@@ -325,7 +325,7 @@ function main(config) {
             Lan_IP:         buildRule('Lan_IP'),
             GameDownloadCN: buildRule('GameDownloadCN'),
             WeChat:         buildRule('WeChat'),
-            // Global_CN:         buildRule('Global_CN'),  (国外企业在国内部分直连，已进行注释，需要的可自行开启，同时取消 5.规则集 中对应的注释）
+            // Global_CN:         buildRule('Global_CN'),  (国外企业在国内部分直连，已进行注释，需要的可自行开启，同时需取消 国内直连 中对应的注释）
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             AI_Rules:         buildRule('AI_Rules'),

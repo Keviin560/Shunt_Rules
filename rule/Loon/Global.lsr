@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-02 06:34:14
-# Total = 34350
+# Update = 2026-06-04 06:29:14
+# Total = 34353
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -12676,6 +12676,7 @@ DOMAIN-SUFFIX,getmalus.com
 DOMAIN-SUFFIX,getmdl.io
 DOMAIN-SUFFIX,getnews.jp
 DOMAIN-SUFFIX,getoutline.org
+DOMAIN-SUFFIX,getpaint.net
 DOMAIN-SUFFIX,getpocket.com
 DOMAIN-SUFFIX,getporn.tv
 DOMAIN-SUFFIX,getpricetag.com
@@ -23020,6 +23021,7 @@ DOMAIN-SUFFIX,paily.org
 DOMAIN-SUFFIX,paimon.moe
 DOMAIN-SUFFIX,painfulpussytortures.com
 DOMAIN-SUFFIX,painnovel.com
+DOMAIN-SUFFIX,paint.net
 DOMAIN-SUFFIX,paipal.com
 DOMAIN-SUFFIX,paipancon.com
 DOMAIN-SUFFIX,paisapay.cc
@@ -29510,6 +29512,7 @@ DOMAIN-SUFFIX,tomp3.cc
 DOMAIN-SUFFIX,tomsguide.com
 DOMAIN-SUFFIX,tomshardware.com
 DOMAIN-SUFFIX,ton.org
+DOMAIN-SUFFIX,toncenter.com
 DOMAIN-SUFFIX,tonec.com
 DOMAIN-SUFFIX,tongil.or.kr
 DOMAIN-SUFFIX,tonicmovies.com

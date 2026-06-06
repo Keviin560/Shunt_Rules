@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-06 05:24:26
-# Total = 6729
+# Update = 2026-06-07 05:01:58
+# Total = 6735
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -242,6 +242,7 @@ DOMAIN-SUFFIX,360tres.com
 DOMAIN-SUFFIX,360webcache.com
 DOMAIN-SUFFIX,360zhyx.com
 DOMAIN-SUFFIX,360zqaq.com
+DOMAIN-SUFFIX,365azw.com
 DOMAIN-SUFFIX,365dmp.com
 DOMAIN-SUFFIX,365yg.com
 DOMAIN-SUFFIX,36dianping.com
@@ -471,6 +472,7 @@ DOMAIN-SUFFIX,abdf002.com
 DOMAIN-SUFFIX,abhouses.com
 DOMAIN-SUFFIX,ac.fun
 DOMAIN-SUFFIX,acadn.cn
+DOMAIN-SUFFIX,acadn.com
 DOMAIN-SUFFIX,account.xiaomi.com
 DOMAIN-SUFFIX,acctdns.com
 DOMAIN-SUFFIX,acctdns.net
@@ -1546,6 +1548,7 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
+DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -2416,6 +2419,7 @@ DOMAIN-SUFFIX,fnnas.net
 DOMAIN-SUFFIX,fnos.net
 DOMAIN-SUFFIX,focus-img.cn
 DOMAIN-SUFFIX,focus.cn
+DOMAIN-SUFFIX,fofa.info
 DOMAIN-SUFFIX,fontstar.com.cn
 DOMAIN-SUFFIX,foresightfund.com
 DOMAIN-SUFFIX,forevernine.com
@@ -3426,6 +3430,7 @@ DOMAIN-SUFFIX,jianshu.io
 DOMAIN-SUFFIX,jianshuapi.com
 DOMAIN-SUFFIX,jianying.com
 DOMAIN-SUFFIX,jianyuweb.com
+DOMAIN-SUFFIX,jianzhi8.com
 DOMAIN-SUFFIX,jiaodong.net
 DOMAIN-SUFFIX,jiaoyimao.cn
 DOMAIN-SUFFIX,jiaoyimao.com
@@ -3435,6 +3440,7 @@ DOMAIN-SUFFIX,jiasuhui.com
 DOMAIN-SUFFIX,jiasule.com
 DOMAIN-SUFFIX,jiayuan.com
 DOMAIN-SUFFIX,jibencaozuo.com
+DOMAIN-SUFFIX,jiemeng8.com
 DOMAIN-SUFFIX,jiemian.com
 DOMAIN-SUFFIX,jiemian.com.cn
 DOMAIN-SUFFIX,jiguang.cn
@@ -3670,7 +3676,6 @@ DOMAIN-SUFFIX,kk1.vip
 DOMAIN-SUFFIX,kkmh.com
 DOMAIN-SUFFIX,kksmg.com
 DOMAIN-SUFFIX,kkzj.com
-DOMAIN-SUFFIX,klpbbs.com
 DOMAIN-SUFFIX,km6g.cn
 DOMAIN-SUFFIX,km7g.cn
 DOMAIN-SUFFIX,km8g.cn
@@ -6509,6 +6514,7 @@ DOMAIN-SUFFIX,yuque.com
 DOMAIN-SUFFIX,yushanfang.com
 DOMAIN-SUFFIX,yushiyan.net
 DOMAIN-SUFFIX,yuweikuijianzhan.com
+DOMAIN-SUFFIX,yuzua.com
 DOMAIN-SUFFIX,yxbao.com
 DOMAIN-SUFFIX,yxdmgame.com
 DOMAIN-SUFFIX,yxdown.com

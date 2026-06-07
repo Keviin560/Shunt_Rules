@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-20 05:18:50
-# Total = 825
+# Update = 2026-06-08 05:10:22
+# Total = 826
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -34,6 +34,7 @@ DOMAIN,gog-cdn-fastly.gog.com
 DOMAIN,gog-cdn.akamaized.net
 DOMAIN,gog.qtlglb.com
 DOMAIN,gogalaxy.gog-statics.com
+DOMAIN,hb.imgix.net
 DOMAIN,lazer.ppy.sh
 DOMAIN,lolstatic-a.akamaihd.net
 DOMAIN,lv.queniujq.cn

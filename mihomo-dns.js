@@ -419,7 +419,7 @@ function main(config) {
             'RULE-SET,Google_IP,Google,no-resolve',
             'RULE-SET,YouTube_IP,YouTube,no-resolve',
             'RULE-SET,Netflix_IP,Netflix,no-resolve',
-            'RULE-SET,GeoIP_CN_IP,DIRECT,no-resolve', 
+            'RULE-SET,GeoIP_CN_IP,DIRECT', 
             
             // ===============================================
             // 🌍 兜底层

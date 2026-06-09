@@ -367,7 +367,6 @@ function main(config) {
             'RULE-SET,Lan,DIRECT',
             'RULE-SET,Lan_IP,DIRECT,no-resolve',
             'RULE-SET,GameDownloadCN,DIRECT',
-            'RULE-SET,Global_CN,DIRECT',
             'DST-PORT,123,DIRECT',                      
 
             // ===============================================
@@ -401,13 +400,13 @@ function main(config) {
             'RULE-SET,Spotify,Spotify',
             'RULE-SET,Telegram,Telegram',
             'RULE-SET,Google,Google',
-            'RULE-SET,AppleID,Apple',
             'RULE-SET,Apple,Apple',
             'RULE-SET,Game_Proxy,海外游戏',
             
             // ===============================================
             // 🍏 国内直连
             // ===============================================
+            'RULE-SET,Global_CN,DIRECT',
             'RULE-SET,Game_CN,DIRECT',             
             'RULE-SET,GeoSite_CN,DIRECT', 
 

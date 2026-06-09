@@ -367,6 +367,7 @@ function main(config) {
             'RULE-SET,Lan,DIRECT',
             'RULE-SET,Lan_IP,DIRECT,no-resolve',
             'RULE-SET,GameDownloadCN,DIRECT',
+            'RULE-SET,Global_CN,DIRECT',
             'DST-PORT,123,DIRECT',                      
 
             // ===============================================
@@ -409,7 +410,6 @@ function main(config) {
             // ===============================================
             'RULE-SET,Game_CN,DIRECT',             
             'RULE-SET,GeoSite_CN,DIRECT', 
-            'RULE-SET,Global_CN,DIRECT',
 
             // ===============================================
             // 🕳️ IP 补漏

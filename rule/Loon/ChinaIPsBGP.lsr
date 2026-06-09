@@ -1,7 +1,7 @@
 # Name = ChinaIPsBGP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-06 05:23:56
+# Update = 2026-06-10 05:46:38
 # Total = 3916
 
 IP-CIDR,1.1.8.0/24,no-resolve

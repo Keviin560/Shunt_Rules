@@ -322,9 +322,10 @@ function main(config) {
             Hijacking_IP:   buildRule('Hijacking_IP'), 
             Lan:            buildRule('Lan'),
             Lan_IP:         buildRule('Lan_IP'),
+            Game_CN:     buildRule('Game_CN'),
             GameDownloadCN: buildRule('GameDownloadCN'),
             WeChat:         buildRule('WeChat'),
-            // Global_CN:         buildRule('Global_CN'),  (国外企业在国内部分直连，已进行注释，需要的可自行开启，同时需取消 国内直连 中对应的注释）
+            Global_CN:         buildRule('Global_CN'), 
             GeoSite_CN:     buildRule('GeoSite_CN'), 
             GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
             AI_Rules:         buildRule('AI_Rules'),
@@ -406,8 +407,9 @@ function main(config) {
             // ===============================================
             // 🍏 国内直连
             // ===============================================
-            // 'RULE-SET,Global_CN,DIRECT',
+            'RULE-SET,Game_CN,DIRECT',             
             'RULE-SET,GeoSite_CN,DIRECT', 
+            'RULE-SET,Global_CN,DIRECT',
 
             // ===============================================
             // 🕳️ IP 补漏

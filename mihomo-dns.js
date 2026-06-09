@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-06-03
+ * 更新日期：2026-06-09
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -341,7 +341,6 @@ function main(config) {
             Google_IP:      buildRule('Google_IP'),
             AppleID:        buildRule('AppleID'),
             Apple:          buildRule('Apple'),
-            Microsoft:      buildRule('Microsoft')
         };
 
         // =======================================================
@@ -379,7 +378,7 @@ function main(config) {
             'DOMAIN-KEYWORD,tracker,DIRECT',
             'DOMAIN-KEYWORD,torrent,DIRECT',
             'DOMAIN-KEYWORD,announce,DIRECT',
-             // 3. 匹配主流下载器进程直连
+             // 3. 主流下载器进程直连
             'PROCESS-NAME,aria2c.exe,DIRECT',
             'PROCESS-NAME,BitComet.exe,DIRECT',
             'PROCESS-NAME,qbittorrent.exe,DIRECT',
@@ -402,13 +401,11 @@ function main(config) {
             'RULE-SET,Google,Google',
             'RULE-SET,AppleID,Apple',
             'RULE-SET,Apple,Apple',
-            'RULE-SET,Microsoft,美国节点',
             'RULE-SET,Game_Proxy,海外游戏',
             
             // ===============================================
             // 🍏 国内直连
             // ===============================================
-            'DOMAIN-KEYWORD,spark4k,DIRECT', 
             // 'RULE-SET,Global_CN,DIRECT',
             'RULE-SET,GeoSite_CN,DIRECT', 
 

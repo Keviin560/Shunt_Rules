@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-06-09
+ * 更新日期：2026-06-10
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -340,6 +340,7 @@ function main(config) {
             Telegram_IP:    buildRule('Telegram_IP'),
             Google:         buildRule('Google'),
             Google_IP:      buildRule('Google_IP'),
+            iCloud:        buildRule('iCloud'),
             AppleID:        buildRule('AppleID'),
             Apple:          buildRule('Apple'),
         };
@@ -400,6 +401,8 @@ function main(config) {
             'RULE-SET,Spotify,Spotify',
             'RULE-SET,Telegram,Telegram',
             'RULE-SET,Google,Google',
+            'RULE-SET,iCloud,Apple',
+            'RULE-SET,AppleID,Apple',
             'RULE-SET,Apple,Apple',
             'RULE-SET,Game_Proxy,海外游戏',
             

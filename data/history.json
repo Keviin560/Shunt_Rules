@@ -1584,10 +1584,10 @@
     "rule_count": 13
   },
   "GeoIP_CN": {
-    "src_hash": "ddc6730b6e29d27a633b9538f4e407df",
-    "updated_at": 1780955320,
+    "src_hash": "2a00f4570a4548bf7438153d46d91673",
+    "updated_at": 1781299784,
     "gen_ver": "v6.3",
-    "rule_count": 5786
+    "rule_count": 5710
   },
   "GeoSite_CN": {
     "src_hash": "9e28106804eef2ce67e683062709743b",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1781215194,
+    "updated_at": 1781299784,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1781215194,
+    "updated_at": 1781299784,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4158,10 +4158,10 @@
     "rule_count": 227
   },
   "Game_Proxy": {
-    "src_hash": "3ae4c542340188b27bd9b6b4975095fe",
-    "updated_at": 1781215194,
+    "src_hash": "2a31c9f6adb31e1c7146ab79ae9c2314",
+    "updated_at": 1781299784,
     "gen_ver": "v6.3",
-    "rule_count": 830
+    "rule_count": 832
   },
   "Global_CN": {
     "src_hash": "c81c5887dac22ee885a6da41868e4882",

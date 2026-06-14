@@ -1,8 +1,8 @@
 # Name = Game_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-06 05:24:25
-# Total = 227
+# Update = 2026-06-15 05:07:57
+# Total = 224
 
 DOMAIN,end-api.shallow.ink
 DOMAIN,end.shallow.ink
@@ -48,7 +48,6 @@ DOMAIN-SUFFIX,7k7k.com
 DOMAIN-SUFFIX,9game.cn
 DOMAIN-SUFFIX,9xgame.com
 DOMAIN-SUFFIX,abdf002.com
-DOMAIN-SUFFIX,aki-game.com
 DOMAIN-SUFFIX,aligames.com
 DOMAIN-SUFFIX,anticheatexpert.com
 DOMAIN-SUFFIX,appeeres.com
@@ -116,8 +115,6 @@ DOMAIN-SUFFIX,in.th
 DOMAIN-SUFFIX,jiaoyimao.cn
 DOMAIN-SUFFIX,jiaoyimao.com
 DOMAIN-SUFFIX,juequling.com
-DOMAIN-SUFFIX,kurogames.com
-DOMAIN-SUFFIX,kurogames.net
 DOMAIN-SUFFIX,labycore.cn
 DOMAIN-SUFFIX,langrenclub.com
 DOMAIN-SUFFIX,ledu.com

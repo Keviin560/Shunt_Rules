@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-14 05:13:54
-# Total = 6801
+# Update = 2026-06-15 05:07:58
+# Total = 6802
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -566,7 +566,6 @@ DOMAIN-SUFFIX,aiyunxiao.com
 DOMAIN-SUFFIX,aizgtc.com
 DOMAIN-SUFFIX,aizhan.com
 DOMAIN-SUFFIX,ajzq.com
-DOMAIN-SUFFIX,aki-game.com
 DOMAIN-SUFFIX,akikocorp.cn
 DOMAIN-SUFFIX,akspeedy.com
 DOMAIN-SUFFIX,aldwx.com
@@ -654,6 +653,7 @@ DOMAIN-SUFFIX,alizhaopin.com
 DOMAIN-SUFFIX,allawnfs.com
 DOMAIN-SUFFIX,allawno.com
 DOMAIN-SUFFIX,allawntech.com
+DOMAIN-SUFFIX,allday.work
 DOMAIN-SUFFIX,allflow.cn
 DOMAIN-SUFFIX,allhistory.com
 DOMAIN-SUFFIX,alloyteam.com
@@ -1230,6 +1230,7 @@ DOMAIN-SUFFIX,calorietech.com
 DOMAIN-SUFFIX,camcard.com
 DOMAIN-SUFFIX,camscanner.com
 DOMAIN-SUFFIX,cang.com
+DOMAIN-SUFFIX,cangpeng.com
 DOMAIN-SUFFIX,cankaoxiaoxi.com
 DOMAIN-SUFFIX,caocao.com.cn
 DOMAIN-SUFFIX,caocaokeji.cn
@@ -2270,6 +2271,7 @@ DOMAIN-SUFFIX,eolink.com
 DOMAIN-SUFFIX,er07.com
 DOMAIN-SUFFIX,erji.net
 DOMAIN-SUFFIX,erp.cn
+DOMAIN-SUFFIX,erp198.com
 DOMAIN-SUFFIX,erp321.cn
 DOMAIN-SUFFIX,erp321.com
 DOMAIN-SUFFIX,erp321.net
@@ -3806,8 +3808,6 @@ DOMAIN-SUFFIX,kunlunta.com
 DOMAIN-SUFFIX,kunlunvi.com
 DOMAIN-SUFFIX,kunlunwe.com
 DOMAIN-SUFFIX,kuqin.com
-DOMAIN-SUFFIX,kurogames.com
-DOMAIN-SUFFIX,kurogames.net
 DOMAIN-SUFFIX,kuwo.cn
 DOMAIN-SUFFIX,kuyin123.com
 DOMAIN-SUFFIX,kuyinxiu.com
@@ -5271,6 +5271,7 @@ DOMAIN-SUFFIX,suningestate.com
 DOMAIN-SUFFIX,suningholdings.com
 DOMAIN-SUFFIX,sunlife-everbright.com
 DOMAIN-SUFFIX,sunlogin.net
+DOMAIN-SUFFIX,sunrocks.cn
 DOMAIN-SUFFIX,sunrtb.com
 DOMAIN-SUFFIX,supercachenet.com
 DOMAIN-SUFFIX,supercachenode.com

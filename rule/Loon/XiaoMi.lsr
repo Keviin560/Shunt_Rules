@@ -1,10 +1,14 @@
 # Name = XiaoMi
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-04-10 04:47:01
-# Total = 155
+# Update = 2026-06-16 06:18:09
+# Total = 159
 
 IP-CIDR,110.43.63.242/32,no-resolve
+IP-CIDR,111.205.195.120/30,no-resolve
+IP-CIDR,111.205.195.124/31,no-resolve
+IP-CIDR,114.247.175.210/31,no-resolve
+IP-CIDR,114.247.175.212/32,no-resolve
 IP-CIDR,120.133.33.222/32,no-resolve
 IP-CIDR,47.241.176.221/32,no-resolve
 IP-CIDR,58.220.58.152/31,no-resolve

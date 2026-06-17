@@ -1,24 +1,19 @@
 /**
  * 作者：Keviin560
- * 版本：v1.51
+ * 版本：v1.6 (破除缓存增强版)
  * 更新日期：2026-06-17
  *
  * -------------------------------------------------------------------------------------------------------------------------
- * 【 v1.51 更新日志 】
- * 1. 修复：彻底修复了 JS 数组中因中文全角逗号导致的语法解析错误，解决分组不生效的问题
- * 2. 优化 (解决15s超时)：将 GitHub Raw 链接全面替换为 fastly.jsdelivr.net 全球加速 CDN，解决国内下载规则 15000ms 超时崩溃问题
- * 3. 隐私增强：新增全局拦截外部明文 DNS 查询 (UDP 53 端口)，强制所有 App 走内核加密 DNS
- * 4. 防跟踪增强：新增对 telemetry、app-measurement、appsflyer、bugly、umeng 等流氓设备指纹探针的全局封杀
- * 5. 备用策略：新增 WebRTC 真实 IP 泄漏防护规则（默认注释屏蔽，供对隐私要求极高者按需开启）
- *
- * -------------------------------------------------------------------------------------------------------------------------
+ * 【 v1.6 更新日志 】
+ * 1. 破除死缓存：全面废弃 jsDelivr CDN，改用 mirror.ghproxy.com，解决 15秒超时 的同时，确保代码和规则库实现 GitHub 级别的秒级实时更新。
+ * 2. 注入式 Debug：在底层捕获器中新增“可视化错误回显”。如果远程脚本因为任何原因崩溃，会将具体报错信息直接显示在客户端的策略组面板上，拒绝黑盒。
+ * * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
  * ->  动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置国家与城市三字码字典
  * ->  自动隐藏无节点分组 ：没有节点的组会自动隐藏，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
- * 
- * -------------------------------------------------------------------------------------------------------------------------
+ * * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 必读设置与防卡顿优化 】
  * ->  全局仓库锚点：可以自行更改所需的规则或 icon 仓库
  * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"，防止浏览器绕过客户端自己去解析 DNS
@@ -26,13 +21,12 @@
  * ->   IPv6 相关设置（二选一）： 
  * - 【不用 IPv6，默认】 👇
  * ---- 客户端内：内核设置和 DNS 设置里关闭 IPv6 
- * ---- 系统物理网卡：控制面板 -> 网络和 Internet -> 网络和共享中心 -> 以太网/WLAN -> 属性 -> 取消勾选「Internet 协议版本 6 (TCP/IPv6)」；Mac则在 [网络 → (选择 Wi-Fi 或以太网) → 详细信息 → TCP/IP，将'配置 IPv6' 设置为 仅本地链路 或 关闭 ]
+ * ---- 系统物理网卡：控制面板 -> 网络和 Internet -> 网络和共享中心 -> 以太网/WLAN -> 属性 -> 取消勾选「Internet 协议版本 6 (TCP/IPv6)」
  * ---- 系统虚拟网卡：同上，右键 `mihomo` 虚拟网卡 -> 属性 -> 取消勾选「Internet 协议版本 6 (TCP/IPv6)」
  * ---- 清理系统缓存：按 Win+R 输入 cmd，执行 `ipconfig /flushdns` 并回车
  * - 【用 IPv6】 ：在客户端开启 IPv6，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1] 👉 在「Internet 协议版本 6 (TCP/IPv6)」的属性里
  * - 【可考虑】：浏览器层面物理阉割 QUIC：在 Chrome 或 Edge 浏览器地址栏输入：chrome://flags (Edge 输入 edge://flags) → 搜索：QUIC → 找到 Experimental QUIC protocol，把后面的 Default 改成 Disabled → 重启浏览器
- * 
- * -------------------------------------------------------------------------------------------------------------------------
+ * * -------------------------------------------------------------------------------------------------------------------------
  * 【 🛠️ 修改与维护】
  * ->  如果冷门国家节点未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
  * ->  想新增独立国家/地区分组（例如新增“英国节点”）：
@@ -70,8 +64,7 @@
  * 左侧 rule-set:Google (含 YouTube, Netflix 等防漏规则集)，右侧 https://1.1.1.1/dns-query#节点选择
  * - Fake-IP 过滤: rule-set:Lan, *.stun.*, +.msftncsi.com, +.msftconnecttest.com, +.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
  * - 连接遵守规则：关闭
- * 
- * -------------------------------------------------------------------------------------------------------------------------
+ * * -------------------------------------------------------------------------------------------------------------------------
  */
 
 
@@ -84,11 +77,10 @@ function main(config) {
 
     // =======================================================
     // 🛠️ 全局仓库锚点区 (全局生效)
-    // 需自定义规则集或 icon 图标仓库，修改下面地址即可
-    // 优化：全面使用 fastly.jsdelivr.net 加速，解决超时崩溃问题
+    // 废弃带有24小时死缓存的 jsDelivr，改用实时的 ghproxy，杜绝超时且实时更新
     // =======================================================
-    const iconBase = 'https://fastly.jsdelivr.net/gh/Keviin560/icon@main/src/';
-    const ruleBase = 'https://fastly.jsdelivr.net/gh/Keviin560/Shunt_Rules@main/rule/Mihomo/';
+    const iconBase = 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Keviin560/icon/main/src/';
+    const ruleBase = 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
 
     
     // =======================================================
@@ -98,8 +90,8 @@ function main(config) {
         'keep-alive-interval': 60      // 探针保活核心：全局 TCP 底层保活，每 60 秒发送心跳包，防 NAT 僵死
     });
 
-    config。dns = config.dns || {};
-    config。dns['prefer-h3'] = false;   // 关闭 H3，防止国内运营商丢弃 UDP 导致网页首屏打开卡顿 3~5 秒
+    config.dns = config.dns || {};
+    config.dns['prefer-h3'] = false;   // 关闭 H3，防止国内运营商丢弃 UDP 导致网页首屏打开卡顿 3~5 秒
 
 
     // 【防断网】
@@ -150,7 +142,7 @@ function main(config) {
         const continentRegexes = [
             ['Asia', /印度|阿联酋|迪拜|土耳其|泰国|印尼|马来西亚|菲律宾|越南|巴基斯坦|以色列|哈萨克斯坦|柬埔寨|尼泊尔|沙特|孟加拉|斯里兰卡|曼谷|雅加达|吉隆坡|马尼拉|金边|万象|孟买|新德里|伊斯兰堡|卡拉奇|阿布扎比|伊斯坦布尔|安卡拉|特拉维夫|耶路撒冷|德黑兰|卡塔尔|科威特|伊朗|伊拉克|叙利亚|黎巴嫩|约旦|阿曼|也门|巴林|马尔代夫|缅甸|老挝|文莱|蒙古|乌兹别克斯坦|土库曼斯坦|吉尔吉斯斯坦|塔吉克斯坦|阿富汗|不丹|塞浦路斯|格鲁吉亚|亚美尼亚|阿塞拜疆|Pakistan|PAK|India|IND|Malaysia|MYS|Indonesia|IDN|Thailand|THA|Vietnam|VNM|Cambodia|KHM|Philippines|PHL|Turkey|TUR|Kazakhstan|KAZ|Dubai|UAE|Israel|ISR|Saudi Arabia|SAU|Bangladesh|BGD/i],
             ['Europe', /英国|法国|德国|荷兰|俄罗斯|意大利|瑞士|瑞典|西班牙|葡萄牙|波兰|爱尔兰|奥地利|芬兰|丹麦|冰岛|挪威|乌克兰|比利时|伦敦|巴黎|法兰克福|阿姆斯特丹|莫斯科|罗马|米兰|日内瓦|苏黎世|斯德哥尔摩|马德里|里斯本|华沙|都柏林|维也纳|哥本哈根|卢森堡|摩纳哥|安道尔|列支敦士登|圣马力诺|梵蒂冈|马耳他|希腊|保加利亚|罗马尼亚|匈牙利|捷克|斯洛伐克|斯洛文尼亚|克罗地亚|波黑|黑山|塞尔维亚|北马其顿|阿尔巴尼亚|爱沙尼亚|拉脱维亚|立陶宛|白俄罗斯|摩尔多瓦|UK|United Kingdom|France|FRA|Germany|DEU|Netherlands|NLD|Russia|RUS|Italy|ITA|Switzerland|CHE|Sweden|SWE|Spain|ESP|Poland|POL|Ireland|IRL|Austria|AUT|Denmark|DNK|Norway|NOR|Iceland|ISL|Ukraine|UKR|Czech|CZE|Hungary|HUN|Romania|ROU|Bulgaria|BGR|Greece|GRC/i],
-            ['Americas', /加拿大|巴西|阿根廷|墨西哥|智利|哥伦比亚|秘鲁|委内瑞拉|厄瓜多尔|古巴|巴拿马|多伦多|温哥华|蒙特利尔|卡尔加里|渥太华|圣保罗|里约热内卢|布宜诺斯艾利斯|墨西哥城|圣地亚哥|利马|玻利维亚|巴拉圭|乌拉圭|圭亚那|苏里南|法属圭亚那|伯利兹|危地马拉|洪都拉斯|萨尔瓦多|尼加拉瓜|哥斯达രുവ|海地|多米尼加|牙买加|特立尼达|巴巴多斯|巴哈马|Canada|CAN|Toronto|YTO|YYZ|Vancouver|YVR|Montreal|YMQ|Mexico|MEX|Brazil|BRA|Argentina|ARG|Chile|CHL|Colombia|COL|Peru|PER/i],
+            ['Americas', /加拿大|巴西|阿根廷|墨西哥|智利|哥伦比亚|秘鲁|委内瑞拉|厄瓜多尔|古巴|巴拿马|多伦多|温哥华|蒙特利尔|卡尔加里|渥太华|圣保罗|里约热内卢|布宜诺斯艾利斯|墨西哥城|圣地亚哥|利马|玻利维亚|巴拉圭|乌拉圭|圭亚那|苏里南|法属圭亚那|伯利兹|危地马拉|洪都拉斯|萨尔瓦多|尼加拉瓜|哥斯达黎加|海地|多米尼加|牙买加|特立尼达|巴巴多斯|巴哈马|Canada|CAN|Toronto|YTO|YYZ|Vancouver|YVR|Montreal|YMQ|Mexico|MEX|Brazil|BRA|Argentina|ARG|Chile|CHL|Colombia|COL|Peru|PER/i],
             ['Oceania', /澳大利亚|澳洲|新西兰|悉尼|墨尔本|布里斯班|珀斯|阿德莱德|奥克兰|惠灵顿|基督城|巴布亚新几内亚|所罗门群岛|瓦努阿图|斐济|帕劳|密克罗尼西亚|马绍尔群岛|基里巴斯|瑙鲁|图瓦卢|萨摩亚|汤加|纽埃|库克群岛|Australia|AUS|New Zealand|NZL|Fiji|FJI|Sydney|Melbourne|Auckland/i],
             ['Africa', /南非|埃及|尼日利亚|摩洛哥|阿尔及利亚|肯尼亚|毛里求斯|约翰内斯堡|开普敦|开罗|拉各斯|卡萨布兰卡|内罗毕|突尼斯|利比亚|苏丹|埃塞俄比亚|坦桑尼亚|乌干达|安哥拉|莫桑比克|马达加斯加|喀麦隆|科特迪瓦|加纳|塞内加尔|马里|布基纳法索|尼日尔|乍得|毛里塔尼亚|几内亚|塞拉利昂|利比里亚|多哥|贝宁|中非|刚果|加蓬|赤道几内亚|圣多美|卢旺达|布隆迪|索马里|吉布提|厄立特里亚|赞比亚|津巴布韦|马拉维|博茨瓦纳|纳米比亚|莱索托|斯威士兰|科摩罗|塞舌尔|佛得角|South Africa|ZAF|Egypt|EGY|Nigeria|NGA|Morocco|MAR|Kenya|KEN/i]
         ];
@@ -197,7 +189,7 @@ function main(config) {
             // 第二步：识别关键字
             for (const [reg, regex] of regionRegexes) {
                 if (regex.test(pName)) {
-                    sorted[reg]。push(pName); 
+                    sorted[reg].push(pName); 
                     matched = true; 
                     break;
                 }
@@ -322,9 +314,9 @@ function main(config) {
 
         // 👇 配置区
         config['rule-providers'] = {
-            // 外部特殊规则（全面使用 jsDelivr 加速）
-            AdRules:        buildRule('AdRules', 'https://fastly.jsdelivr.net/gh/Cats-Team/AdRules@main/adrules-mihomo.mrs'),
-            WinSpy:         buildRule('WinSpy',  'https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/win-spy.txt'),
+            // 外部特殊规则（全面使用 ghproxy 实时加速）
+            AdRules:        buildRule('AdRules', 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
+            WinSpy:         buildRule('WinSpy',  'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
             
             // 全局的规则仓库（填写规则名即可）
             Privacy:        buildRule('Privacy'),
@@ -369,7 +361,7 @@ function main(config) {
             // 🚨 WebRTC 防漏 (按需开启)：防止网页通过 STUN 协议获取你的真实物理 IP (注：开启后可能会影响微信视频/TG语音通话)
             // 'DOMAIN-KEYWORD,stun,REJECT', 
 
-            // 屏蔽隐私收集/遥测收集/行为埋点/性能监控/网页性标/诊断数据上传
+            // 增强型：屏蔽隐私收集/遥测收集/行为埋点/性能监控/网页性标/诊断数据上传
             'DOMAIN-REGEX,^(crash|metrics|track|report|api|stat|collect|telemetry|apm|sdk|event|events|trace|beacon|analytics|probe|upload|diag)\\.log\\.,REJECT',
             'DOMAIN-KEYWORD,telemetry,REJECT',           // 全局拦截遥测探针
             'DOMAIN-KEYWORD,app-measurement,REJECT',     // 拦截谷歌高强度用户测量
@@ -380,7 +372,7 @@ function main(config) {
             'RULE-SET,Privacy,隐私保护',
             'RULE-SET,WinSpy,隐私保护',
             'RULE-SET,Hijacking,反劫持',
-            'RULE-SET,Hijacking_IP,反劫持,no-resolve',  
+            'RULE-SET,Hijacking_IP,反劫持,no-resolve',   
           
             // ===============================================
             // 🏠 局域网与基础直连
@@ -403,7 +395,7 @@ function main(config) {
             'DOMAIN-KEYWORD,announce,DIRECT',
              // 3. 主流下载器进程直连
             'PROCESS-NAME,aria2c.exe,DIRECT',
-            'PROCESS-NAME,BitComet.exe,DIRECT'，
+            'PROCESS-NAME,BitComet.exe,DIRECT',
             'PROCESS-NAME,qbittorrent.exe,DIRECT',
             'PROCESS-NAME,transmission-daemon.exe,DIRECT',
             'PROCESS-NAME,transmission-qt.exe,DIRECT',
@@ -450,6 +442,19 @@ function main(config) {
         ];
 
     } catch (error) {
+        // 【神级防线】：将黑盒报错直接映射到 UI 面板，彻底解决“失效退回默认且无提示”的痛点
+        config['proxy-groups'] = [
+            {
+                name: '🚨 脚本执行报错',
+                type: 'select',
+                proxies: ['DIRECT']
+            },
+            {
+                name: String(error.message || error),
+                type: 'select',
+                proxies: ['DIRECT']
+            }
+        ];
         console.log("[防御机制]: 预处理脚本执行遭遇异常", error);
     }
 

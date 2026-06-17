@@ -1,19 +1,24 @@
 /**
  * 作者：Keviin560
- * 版本：v1.6 (破除缓存增强版)
+ * 版本：v1.7
  * 更新日期：2026-06-17
  *
  * -------------------------------------------------------------------------------------------------------------------------
- * 【 v1.6 更新日志 】
- * 1. 破除死缓存：全面废弃 jsDelivr CDN，改用 mirror.ghproxy.com，解决 15秒超时 的同时，确保代码和规则库实现 GitHub 级别的秒级实时更新。
- * 2. 注入式 Debug：在底层捕获器中新增“可视化错误回显”。如果远程脚本因为任何原因崩溃，会将具体报错信息直接显示在客户端的策略组面板上，拒绝黑盒。
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 【 v1.7 更新日志 】
+ * 1. 修复：彻底修复了 JS 数组中因中文全角逗号导致的语法解析错误，解决分组不生效的问题
+ * 2. 隐私增强：新增全局拦截外部明文 DNS 查询 (UDP 53 端口)，强制所有 App 走内核加密 DNS
+ * 3. 防跟踪增强：新增对 telemetry、app-measurement、appsflyer、bugly、umeng 等流氓设备指纹探针的全局封杀
+ * 4. 备用策略：新增 WebRTC 真实 IP 泄漏防护规则（默认注释屏蔽，供对隐私要求极高者按需开启）
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
  * ->  动态指纹防封：为 TLS 协议 (VMess/VLESS/Trojan/AnyTLS 协议) 动态挂载 random 高熵指纹
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置国家与城市三字码字典
  * ->  自动隐藏无节点分组 ：没有节点的组会自动隐藏，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
- * * -------------------------------------------------------------------------------------------------------------------------
+ * ->  注意事项：由于使用了原生 GitHub 链接，请在客户端中开了代理再更新该覆写配置，如果客户端有“订阅更新走代理”和“脚本更新走代理”的功能，请打开，否则会导致超时
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 必读设置与防卡顿优化 】
  * ->  全局仓库锚点：可以自行更改所需的规则或 icon 仓库
  * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"，防止浏览器绕过客户端自己去解析 DNS
@@ -26,7 +31,8 @@
  * ---- 清理系统缓存：按 Win+R 输入 cmd，执行 `ipconfig /flushdns` 并回车
  * - 【用 IPv6】 ：在客户端开启 IPv6，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1] 👉 在「Internet 协议版本 6 (TCP/IPv6)」的属性里
  * - 【可考虑】：浏览器层面物理阉割 QUIC：在 Chrome 或 Edge 浏览器地址栏输入：chrome://flags (Edge 输入 edge://flags) → 搜索：QUIC → 找到 Experimental QUIC protocol，把后面的 Default 改成 Disabled → 重启浏览器
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 🛠️ 修改与维护】
  * ->  如果冷门国家节点未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
  * ->  想新增独立国家/地区分组（例如新增“英国节点”）：
@@ -64,7 +70,8 @@
  * 左侧 rule-set:Google (含 YouTube, Netflix 等防漏规则集)，右侧 https://1.1.1.1/dns-query#节点选择
  * - Fake-IP 过滤: rule-set:Lan, *.stun.*, +.msftncsi.com, +.msftconnecttest.com, +.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
  * - 连接遵守规则：关闭
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  */
 
 
@@ -77,10 +84,10 @@ function main(config) {
 
     // =======================================================
     // 🛠️ 全局仓库锚点区 (全局生效)
-    // 废弃带有24小时死缓存的 jsDelivr，改用实时的 ghproxy，杜绝超时且实时更新
+    // 如需自定义全局仓库锚点，在这里填写 GitHub Raw 链接
     // =======================================================
-    const iconBase = 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Keviin560/icon/main/src/';
-    const ruleBase = 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
+    const iconBase = 'https://raw.githubusercontent.com/Keviin560/icon/main/src/';
+    const ruleBase = 'https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
 
     
     // =======================================================
@@ -314,9 +321,9 @@ function main(config) {
 
         // 👇 配置区
         config['rule-providers'] = {
-            // 外部特殊规则（全面使用 ghproxy 实时加速）
-            AdRules:        buildRule('AdRules', 'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
-            WinSpy:         buildRule('WinSpy',  'https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
+            // 外部特殊规则 (引用外部规则需完整填写其 RAW 链接)
+            AdRules:        buildRule('AdRules', 'https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
+            WinSpy:         buildRule('WinSpy',  'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
             
             // 全局的规则仓库（填写规则名即可）
             Privacy:        buildRule('Privacy'),
@@ -352,7 +359,7 @@ function main(config) {
         // =======================================================
         config.rules = [
             // ===============================================
-            // 🛡️ 净化与拦截 (高阶隐私防护版)
+            // 🛡️ 净化与拦截
             // ===============================================
             'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', // 阻断 QUIC，防止 App 绕过代理
             'AND,((NETWORK,UDP),(DST-PORT,53)),REJECT',  // 阻断外部明文 DNS，强制所有 App 走 Mihomo 加密 DNS，防运营商嗅探
@@ -361,7 +368,7 @@ function main(config) {
             // 🚨 WebRTC 防漏 (按需开启)：防止网页通过 STUN 协议获取你的真实物理 IP (注：开启后可能会影响微信视频/TG语音通话)
             // 'DOMAIN-KEYWORD,stun,REJECT', 
 
-            // 增强型：屏蔽隐私收集/遥测收集/行为埋点/性能监控/网页性标/诊断数据上传
+            // 屏蔽隐私收集/遥测收集/行为埋点/性能监控/网页性标/诊断数据上传
             'DOMAIN-REGEX,^(crash|metrics|track|report|api|stat|collect|telemetry|apm|sdk|event|events|trace|beacon|analytics|probe|upload|diag)\\.log\\.,REJECT',
             'DOMAIN-KEYWORD,telemetry,REJECT',           // 全局拦截遥测探针
             'DOMAIN-KEYWORD,app-measurement,REJECT',     // 拦截谷歌高强度用户测量
@@ -442,7 +449,7 @@ function main(config) {
         ];
 
     } catch (error) {
-        // 【神级防线】：将黑盒报错直接映射到 UI 面板，彻底解决“失效退回默认且无提示”的痛点
+        // 【防线】：将报错直接映射到 UI 面板，防止失效退回默认且无提示
         config['proxy-groups'] = [
             {
                 name: '🚨 脚本执行报错',

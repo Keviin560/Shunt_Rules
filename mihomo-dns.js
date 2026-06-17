@@ -1,6 +1,6 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-06-17
+ * 更新日期：2026-06-10
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -8,7 +8,8 @@
  * ->  五大洲节点自动筛选：Unicode 国旗解码；内置国家与城市三字码字典
  * ->  自动隐藏无节点分组 ：没有节点的组会自动隐藏，并自动修复依赖
  * ->  智能规则：自动识别名字带 "_IP" 的规则，自动按 IP 拦截处理；带 ".txt" 的规则，自动按文本处理
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚠️ 必读设置与防卡顿优化 】
  * ->  全局仓库锚点：可以自行更改所需的规则或 icon 仓库
  * ->  浏览器防漏： Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"，防止浏览器绕过客户端自己去解析 DNS
@@ -16,12 +17,13 @@
  * ->   IPv6 相关设置（二选一）： 
  * - 【不用 IPv6，默认】 👇
  * ---- 客户端内：内核设置和 DNS 设置里关闭 IPv6 
- * ---- 系统物理网卡：Windows 控制面板 -> 网络连接 -> 右键物理网卡(以太网/WLAN) -> 属性 -> 坚决取消勾选「Internet 协议版本 6 (TCP/IPv6)」；Mac 则在 [网络 → (选择 Wi-Fi 或以太网) → 详细信息 → TCP/IP，将'配置 IPv6' 设置为 仅本地链路 或 关闭 ]
+ * ---- 系统物理网卡：控制面板 -> 网络连接 -> 右键物理网卡(以太网/WLAN) -> 属性 -> 坚决取消勾选「Internet 协议版本 6 (TCP/IPv6)」；Mac则在 [网络 → (选择 Wi-Fi 或以太网) → 详细信息 → TCP/IP，将'配置 IPv6' 设置为 仅本地链路 或 关闭 ]
  * ---- 系统虚拟网卡：同上，右键 `mihomo` 虚拟网卡 -> 属性 -> 坚决取消勾选「Internet 协议版本 6 (TCP/IPv6)」
  * ---- 清理系统缓存：按 Win+R 输入 cmd，执行 `ipconfig /flushdns` 并回车
  * - 【用 IPv6】 ：在客户端开启 IPv6，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1]
  * - 【可考虑】：浏览器层面物理阉割 QUIC：在 Chrome 或 Edge 浏览器地址栏输入：chrome://flags (Edge 输入 edge://flags) → 搜索：QUIC → 找到 Experimental QUIC protocol，把后面的 Default 改成 Disabled → 重启浏览器
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  * 【 🛠️ 修改与维护】
  * ->  如果冷门国家节点未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
  * ->  想新增独立国家/地区分组（例如新增“英国节点”）：
@@ -347,12 +349,23 @@ function main(config) {
         // =======================================================
         config.rules = [
             // ===============================================
-            // 🛡️ 净化与拦截
+            // 🛡️ 净化与拦截 (高阶隐私防护版)
             // ===============================================
-            'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', 
+            'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', // 阻断 QUIC，防止 App 绕过代理
+            'AND,((NETWORK,UDP),(DST-PORT,53)),REJECT',  // 阻断外部明文 DNS，强制所有 App 走 Mihomo 加密 DNS，防运营商嗅探
             'RULE-SET,AdRules,广告拦截',
+            
+            // 🚨 WebRTC 防漏 (按需开启)：防止网页通过 STUN 协议获取你的真实物理 IP (注：开启后可能会影响微信视频/TG语音通话)
+            // 'DOMAIN-KEYWORD,stun,REJECT', 
+
             // 屏蔽隐私收集/遥测收集/行为埋点/性能监控/网页性标/诊断数据上传
             'DOMAIN-REGEX,^(crash|metrics|track|report|api|stat|collect|telemetry|apm|sdk|event|events|trace|beacon|analytics|probe|upload|diag)\\.log\\.,REJECT',
+            'DOMAIN-KEYWORD,telemetry,REJECT',           // 全局拦截遥测探针
+            'DOMAIN-KEYWORD,app-measurement,REJECT',     // 拦截谷歌高强度用户测量
+            'DOMAIN-KEYWORD,appsflyer,REJECT',           // 拦截流氓归因分析 SDK
+            'DOMAIN-KEYWORD,bugly,REJECT',               // 拦截腾讯 Bugly 探针
+            'DOMAIN-KEYWORD,umeng,REJECT',               // 拦截友盟大数据设备指纹收集
+            
             'RULE-SET,Privacy,隐私保护',
             'RULE-SET,WinSpy,隐私保护',
             'RULE-SET,Hijacking,反劫持',
@@ -394,7 +407,7 @@ function main(config) {
             'RULE-SET,AI_Rules,AI Rules',
             'RULE-SET,YouTube,YouTube',
             'RULE-SET,Netflix,Netflix',
-            'RULE-SET,TikTok,TikTok',
+            'RULE-SET,TikTok,TikTok'，
             'RULE-SET,Spotify,Spotify',
             'RULE-SET,Telegram,Telegram',
             'RULE-SET,Google,Google',

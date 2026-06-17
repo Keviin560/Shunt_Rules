@@ -1,6 +1,14 @@
 /**
  * 作者：Keviin560
- * 更新日期：2026-06-10
+ * 版本：v1.5
+ * 更新日期：2026-06-17
+ *
+ * -------------------------------------------------------------------------------------------------------------------------
+ * 【 v1.5 更新日志 】
+ * 1. 修复：修复了一个致命崩溃漏洞
+ * 2. 隐私增强：新增全局拦截外部明文 DNS 查询 (UDP 53 端口)，强制所有 App 走内核加密 DNS
+ * 3. 防跟踪增强：新增对 telemetry、app-measurement、appsflyer、bugly、umeng 等流氓设备指纹探针的全局封杀
+ * 4. 备用策略：新增 WebRTC 真实 IP 泄漏防护规则（默认注释屏蔽，供对隐私要求极高的可按需开启）
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -61,7 +69,8 @@
  * 左侧 rule-set:Google (含 YouTube, Netflix 等防漏规则集)，右侧 https://1.1.1.1/dns-query#节点选择
  * - Fake-IP 过滤: rule-set:Lan, *.stun.*, +.msftncsi.com, +.msftconnecttest.com, +.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
  * - 连接遵守规则：关闭
- * * -------------------------------------------------------------------------------------------------------------------------
+ * 
+ * -------------------------------------------------------------------------------------------------------------------------
  */
 
 
@@ -139,7 +148,7 @@ function main(config) {
         const continentRegexes = [
             ['Asia', /印度|阿联酋|迪拜|土耳其|泰国|印尼|马来西亚|菲律宾|越南|巴基斯坦|以色列|哈萨克斯坦|柬埔寨|尼泊尔|沙特|孟加拉|斯里兰卡|曼谷|雅加达|吉隆坡|马尼拉|金边|万象|孟买|新德里|伊斯兰堡|卡拉奇|阿布扎比|伊斯坦布尔|安卡拉|特拉维夫|耶路撒冷|德黑兰|卡塔尔|科威特|伊朗|伊拉克|叙利亚|黎巴嫩|约旦|阿曼|也门|巴林|马尔代夫|缅甸|老挝|文莱|蒙古|乌兹别克斯坦|土库曼斯坦|吉尔吉斯斯坦|塔吉克斯坦|阿富汗|不丹|塞浦路斯|格鲁吉亚|亚美尼亚|阿塞拜疆|Pakistan|PAK|India|IND|Malaysia|MYS|Indonesia|IDN|Thailand|THA|Vietnam|VNM|Cambodia|KHM|Philippines|PHL|Turkey|TUR|Kazakhstan|KAZ|Dubai|UAE|Israel|ISR|Saudi Arabia|SAU|Bangladesh|BGD/i],
             ['Europe', /英国|法国|德国|荷兰|俄罗斯|意大利|瑞士|瑞典|西班牙|葡萄牙|波兰|爱尔兰|奥地利|芬兰|丹麦|冰岛|挪威|乌克兰|比利时|伦敦|巴黎|法兰克福|阿姆斯特丹|莫斯科|罗马|米兰|日内瓦|苏黎世|斯德哥尔摩|马德里|里斯本|华沙|都柏林|维也纳|哥本哈根|卢森堡|摩纳哥|安道尔|列支敦士登|圣马力诺|梵蒂冈|马耳他|希腊|保加利亚|罗马尼亚|匈牙利|捷克|斯洛伐克|斯洛文尼亚|克罗地亚|波黑|黑山|塞尔维亚|北马其顿|阿尔巴尼亚|爱沙尼亚|拉脱维亚|立陶宛|白俄罗斯|摩尔多瓦|UK|United Kingdom|France|FRA|Germany|DEU|Netherlands|NLD|Russia|RUS|Italy|ITA|Switzerland|CHE|Sweden|SWE|Spain|ESP|Poland|POL|Ireland|IRL|Austria|AUT|Denmark|DNK|Norway|NOR|Iceland|ISL|Ukraine|UKR|Czech|CZE|Hungary|HUN|Romania|ROU|Bulgaria|BGR|Greece|GRC/i],
-            ['Americas', /加拿大|巴西|阿根廷|墨西哥|智利|哥伦比亚|秘鲁|委内瑞拉|厄瓜多尔|古巴|巴拿马|多伦多|温哥华|蒙特利尔|卡尔加里|渥太华|圣保罗|里约热内卢|布宜诺斯艾利斯|墨西哥城|圣地亚哥|利马|玻利维亚|巴拉圭|乌拉圭|圭亚那|苏里南|法属圭亚那|伯利兹|危地马拉|洪都拉斯|萨尔瓦多|尼加拉瓜|哥斯达黎加|海地|多米尼加|牙买加|特立尼达|巴巴多斯|巴哈马|Canada|CAN|Toronto|YTO|YYZ|Vancouver|YVR|Montreal|YMQ|Mexico|MEX|Brazil|BRA|Argentina|ARG|Chile|CHL|Colombia|COL|Peru|PER/i],
+            ['Americas', /加拿大|巴西|阿根廷|墨西哥|智利|哥伦比亚|秘鲁|委内瑞拉|厄瓜多尔|古巴|巴拿马|多伦多|温哥华|蒙特利尔|卡尔加里|渥太华|圣保罗|里约热内卢|布宜诺斯艾利斯|墨西哥城|圣地亚哥|利马|玻利维亚|巴拉圭|乌拉圭|圭亚那|苏里南|法属圭亚那|伯利兹|危地马拉|洪都拉斯|萨尔瓦多|尼加拉瓜|哥斯达രുവ|海地|多米尼加|牙买加|特立尼达|巴巴多斯|巴哈马|Canada|CAN|Toronto|YTO|YYZ|Vancouver|YVR|Montreal|YMQ|Mexico|MEX|Brazil|BRA|Argentina|ARG|Chile|CHL|Colombia|COL|Peru|PER/i],
             ['Oceania', /澳大利亚|澳洲|新西兰|悉尼|墨尔本|布里斯班|珀斯|阿德莱德|奥克兰|惠灵顿|基督城|巴布亚新几内亚|所罗门群岛|瓦努阿图|斐济|帕劳|密克罗尼西亚|马绍尔群岛|基里巴斯|瑙鲁|图瓦卢|萨摩亚|汤加|纽埃|库克群岛|Australia|AUS|New Zealand|NZL|Fiji|FJI|Sydney|Melbourne|Auckland/i],
             ['Africa', /南非|埃及|尼日利亚|摩洛哥|阿尔及利亚|肯尼亚|毛里求斯|约翰内斯堡|开普敦|开罗|拉各斯|卡萨布兰卡|内罗毕|突尼斯|利比亚|苏丹|埃塞俄比亚|坦桑尼亚|乌干达|安哥拉|莫桑比克|马达加斯加|喀麦隆|科特迪瓦|加纳|塞内加尔|马里|布基纳法索|尼日尔|乍得|毛里塔尼亚|几内亚|塞拉利昂|利比里亚|多哥|贝宁|中非|刚果|加蓬|赤道几内亚|圣多美|卢旺达|布隆迪|索马里|吉布提|厄立特里亚|赞比亚|津巴布韦|马拉维|博茨瓦纳|纳米比亚|莱索托|斯威士兰|科摩罗|塞舌尔|佛得角|South Africa|ZAF|Egypt|EGY|Nigeria|NGA|Morocco|MAR|Kenya|KEN/i]
         ];
@@ -351,7 +360,7 @@ function main(config) {
             // ===============================================
             // 🛡️ 净化与拦截 (高阶隐私防护版)
             // ===============================================
-            'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', // 阻断 QUIC，防止 App 绕过代理
+            'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT'， // 阻断 QUIC，防止 App 绕过代理
             'AND,((NETWORK,UDP),(DST-PORT,53)),REJECT',  // 阻断外部明文 DNS，强制所有 App 走 Mihomo 加密 DNS，防运营商嗅探
             'RULE-SET,AdRules,广告拦截',
             
@@ -406,8 +415,8 @@ function main(config) {
             // ===============================================
             'RULE-SET,AI_Rules,AI Rules',
             'RULE-SET,YouTube,YouTube',
-            'RULE-SET,Netflix,Netflix',
-            'RULE-SET,TikTok,TikTok'，
+            'RULE-SET,Netflix,Netflix'，
+            'RULE-SET,TikTok,TikTok',
             'RULE-SET,Spotify,Spotify',
             'RULE-SET,Telegram,Telegram',
             'RULE-SET,Google,Google',

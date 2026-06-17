@@ -85,7 +85,7 @@ function main(config) {
     // 0. 底层优化与排错
     // =======================================================
     Object.assign(config, {
-        'keep-alive-interval': 15      // 探针保活核心：全局 TCP 底层保活，每 15 秒发送心跳包，防 NAT 僵死
+        'keep-alive-interval': 60      // 探针保活核心：全局 TCP 底层保活，每 60 秒发送心跳包，防 NAT 僵死
     });
 
     config.dns = config.dns || {};
@@ -186,7 +186,7 @@ function main(config) {
 
             // 第二步：识别关键字
             for (const [reg, regex] of regionRegexes) {
-                if (regex.test(pName)) {
+                if (regex。test(pName)) {
                     sorted[reg].push(pName); 
                     matched = true; 
                     break;

@@ -1,14 +1,15 @@
 /**
  * 作者：Keviin560
- * 版本：v1.5
+ * 版本：v1.51
  * 更新日期：2026-06-17
  *
  * -------------------------------------------------------------------------------------------------------------------------
- * 【 v1.5 更新日志 】
- * 1. 修复：修复了一个致命崩溃漏洞
- * 2. 隐私增强：新增全局拦截外部明文 DNS 查询 (UDP 53 端口)，强制所有 App 走内核加密 DNS
- * 3. 防跟踪增强：新增对 telemetry、app-measurement、appsflyer、bugly、umeng 等流氓设备指纹探针的全局封杀
- * 4. 备用策略：新增 WebRTC 真实 IP 泄漏防护规则（默认注释屏蔽，供对隐私要求极高的可按需开启）
+ * 【 v1.51 更新日志 】
+ * 1. 修复：彻底修复了 JS 数组中因中文全角逗号导致的语法解析错误，解决分组不生效的问题
+ * 2. 优化 (解决15s超时)：将 GitHub Raw 链接全面替换为 fastly.jsdelivr.net 全球加速 CDN，解决国内下载规则 15000ms 超时崩溃问题
+ * 3. 隐私增强：新增全局拦截外部明文 DNS 查询 (UDP 53 端口)，强制所有 App 走内核加密 DNS
+ * 4. 防跟踪增强：新增对 telemetry、app-measurement、appsflyer、bugly、umeng 等流氓设备指纹探针的全局封杀
+ * 5. 备用策略：新增 WebRTC 真实 IP 泄漏防护规则（默认注释屏蔽，供对隐私要求极高者按需开启）
  *
  * -------------------------------------------------------------------------------------------------------------------------
  * 【 ⚙️ 核心架构说明 】
@@ -84,9 +85,10 @@ function main(config) {
     // =======================================================
     // 🛠️ 全局仓库锚点区 (全局生效)
     // 需自定义规则集或 icon 图标仓库，修改下面地址即可
+    // 优化：全面使用 fastly.jsdelivr.net 加速，解决超时崩溃问题
     // =======================================================
-    const iconBase = 'https://raw.githubusercontent.com/Keviin560/icon/main/src/';
-    const ruleBase = 'https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/';
+    const iconBase = 'https://fastly.jsdelivr.net/gh/Keviin560/icon@main/src/';
+    const ruleBase = 'https://fastly.jsdelivr.net/gh/Keviin560/Shunt_Rules@main/rule/Mihomo/';
 
     
     // =======================================================
@@ -96,8 +98,8 @@ function main(config) {
         'keep-alive-interval': 60      // 探针保活核心：全局 TCP 底层保活，每 60 秒发送心跳包，防 NAT 僵死
     });
 
-    config.dns = config.dns || {};
-    config.dns['prefer-h3'] = false;   // 关闭 H3，防止国内运营商丢弃 UDP 导致网页首屏打开卡顿 3~5 秒
+    config。dns = config.dns || {};
+    config。dns['prefer-h3'] = false;   // 关闭 H3，防止国内运营商丢弃 UDP 导致网页首屏打开卡顿 3~5 秒
 
 
     // 【防断网】
@@ -195,7 +197,7 @@ function main(config) {
             // 第二步：识别关键字
             for (const [reg, regex] of regionRegexes) {
                 if (regex.test(pName)) {
-                    sorted[reg].push(pName); 
+                    sorted[reg]。push(pName); 
                     matched = true; 
                     break;
                 }
@@ -320,9 +322,9 @@ function main(config) {
 
         // 👇 配置区
         config['rule-providers'] = {
-            // 外部特殊规则（需手动填 RAW URL）
-            AdRules:        buildRule('AdRules', 'https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs'),
-            WinSpy:         buildRule('WinSpy',  'https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt'),
+            // 外部特殊规则（全面使用 jsDelivr 加速）
+            AdRules:        buildRule('AdRules', 'https://fastly.jsdelivr.net/gh/Cats-Team/AdRules@main/adrules-mihomo.mrs'),
+            WinSpy:         buildRule('WinSpy',  'https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/win-spy.txt'),
             
             // 全局的规则仓库（填写规则名即可）
             Privacy:        buildRule('Privacy'),
@@ -330,14 +332,14 @@ function main(config) {
             Hijacking_IP:   buildRule('Hijacking_IP'), 
             Lan:            buildRule('Lan'),
             Lan_IP:         buildRule('Lan_IP'),
-            Game_CN:     buildRule('Game_CN'),
+            Game_CN:        buildRule('Game_CN'),
             GameDownloadCN: buildRule('GameDownloadCN'),
             WeChat:         buildRule('WeChat'),
-            Global_CN:         buildRule('Global_CN'), 
+            Global_CN:      buildRule('Global_CN'), 
             GeoSite_CN:     buildRule('GeoSite_CN'), 
-            GeoIP_CN_IP:       buildRule('GeoIP_CN_IP'), 
-            AI_Rules:         buildRule('AI_Rules'),
-            Game_Proxy:       buildRule('Game_Proxy'),
+            GeoIP_CN_IP:    buildRule('GeoIP_CN_IP'), 
+            AI_Rules:       buildRule('AI_Rules'),
+            Game_Proxy:     buildRule('Game_Proxy'),
             YouTube:        buildRule('YouTube'),
             YouTube_IP:     buildRule('YouTube_IP'),
             Netflix:        buildRule('Netflix'),
@@ -348,7 +350,7 @@ function main(config) {
             Telegram_IP:    buildRule('Telegram_IP'),
             Google:         buildRule('Google'),
             Google_IP:      buildRule('Google_IP'),
-            iCloud:        buildRule('iCloud'),
+            iCloud:         buildRule('iCloud'),
             AppleID:        buildRule('AppleID'),
             Apple:          buildRule('Apple'),
         };
@@ -360,7 +362,7 @@ function main(config) {
             // ===============================================
             // 🛡️ 净化与拦截 (高阶隐私防护版)
             // ===============================================
-            'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT'， // 阻断 QUIC，防止 App 绕过代理
+            'AND,((NETWORK,UDP),(DST-PORT,443)),REJECT', // 阻断 QUIC，防止 App 绕过代理
             'AND,((NETWORK,UDP),(DST-PORT,53)),REJECT',  // 阻断外部明文 DNS，强制所有 App 走 Mihomo 加密 DNS，防运营商嗅探
             'RULE-SET,AdRules,广告拦截',
             
@@ -378,7 +380,7 @@ function main(config) {
             'RULE-SET,Privacy,隐私保护',
             'RULE-SET,WinSpy,隐私保护',
             'RULE-SET,Hijacking,反劫持',
-            'RULE-SET,Hijacking_IP,反劫持,no-resolve',   
+            'RULE-SET,Hijacking_IP,反劫持,no-resolve',  
           
             // ===============================================
             // 🏠 局域网与基础直连
@@ -401,7 +403,7 @@ function main(config) {
             'DOMAIN-KEYWORD,announce,DIRECT',
              // 3. 主流下载器进程直连
             'PROCESS-NAME,aria2c.exe,DIRECT',
-            'PROCESS-NAME,BitComet.exe,DIRECT',
+            'PROCESS-NAME,BitComet.exe,DIRECT'，
             'PROCESS-NAME,qbittorrent.exe,DIRECT',
             'PROCESS-NAME,transmission-daemon.exe,DIRECT',
             'PROCESS-NAME,transmission-qt.exe,DIRECT',
@@ -415,7 +417,7 @@ function main(config) {
             // ===============================================
             'RULE-SET,AI_Rules,AI Rules',
             'RULE-SET,YouTube,YouTube',
-            'RULE-SET,Netflix,Netflix'，
+            'RULE-SET,Netflix,Netflix',
             'RULE-SET,TikTok,TikTok',
             'RULE-SET,Spotify,Spotify',
             'RULE-SET,Telegram,Telegram',

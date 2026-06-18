@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-16 06:18:06
-# Total = 834
+# Update = 2026-06-19 06:04:56
+# Total = 835
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -71,6 +71,8 @@ DOMAIN,steamugcquincy.blob.core.windows.net
 DOMAIN,steamusercontent-a.akamaihd.net
 DOMAIN,steamuserimages-a.akamaihd.net
 DOMAIN,steamvideo-a.akamaihd.net
+DOMAIN,supercell.helpshift.com
+DOMAIN,supercell.zendesk.com
 DOMAIN,ubisoft-orbit-savegames.s3.amazonaws.com
 DOMAIN,ubisoft-uplay-savegames.s3.amazonaws.com
 DOMAIN,ubisoft.siteintercept.qualtrics.com
@@ -709,7 +711,6 @@ DOMAIN-SUFFIX,steamusercontent.com
 DOMAIN-SUFFIX,stellasora.global
 DOMAIN-SUFFIX,stellasora.jp
 DOMAIN-SUFFIX,supercell.com
-DOMAIN-SUFFIX,supercell.helpshift.com
 DOMAIN-SUFFIX,supercell.net
 DOMAIN-SUFFIX,supercellcreators.com
 DOMAIN-SUFFIX,supercellgames.com

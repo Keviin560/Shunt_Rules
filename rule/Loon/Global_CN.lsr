@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-09 05:48:54
-# Total = 727
+# Update = 2026-06-19 06:04:57
+# Total = 728
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -607,6 +607,7 @@ DOMAIN-SUFFIX,itunesradio.com.cn
 DOMAIN-SUFFIX,izatcloud.net
 DOMAIN-SUFFIX,janrain.biz
 DOMAIN-SUFFIX,janrainservices.com
+DOMAIN-SUFFIX,jetbrains.com.cn
 DOMAIN-SUFFIX,just-do-it.cn
 DOMAIN-SUFFIX,kaspersky.com.cn
 DOMAIN-SUFFIX,livephotos.cn

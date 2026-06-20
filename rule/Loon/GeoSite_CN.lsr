@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-18 06:00:11
-# Total = 6854
+# Update = 2026-06-21 05:14:54
+# Total = 6850
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -1575,6 +1575,7 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
+DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -2190,7 +2191,6 @@ DOMAIN-SUFFIX,duxiaoman.com
 DOMAIN-SUFFIX,duxiaomanfintech.com
 DOMAIN-SUFFIX,duxiaomantech.com
 DOMAIN-SUFFIX,duxiu.com
-DOMAIN-SUFFIX,dwion.com
 DOMAIN-SUFFIX,dwjq.com.cn
 DOMAIN-SUFFIX,dwstatic.com
 DOMAIN-SUFFIX,dwz.cn
@@ -3371,7 +3371,6 @@ DOMAIN-SUFFIX,jamcz.com
 DOMAIN-SUFFIX,jandan.net
 DOMAIN-SUFFIX,japps.cn
 DOMAIN-SUFFIX,jb51.com
-DOMAIN-SUFFIX,jb51.net
 DOMAIN-SUFFIX,jbcz.tv
 DOMAIN-SUFFIX,jcloud-cache.com
 DOMAIN-SUFFIX,jcloud-cache.net
@@ -3742,6 +3741,7 @@ DOMAIN-SUFFIX,kkmh.com
 DOMAIN-SUFFIX,kksmg.com
 DOMAIN-SUFFIX,kkzj.com
 DOMAIN-SUFFIX,klingai.com
+DOMAIN-SUFFIX,klpbbs.com
 DOMAIN-SUFFIX,km6g.cn
 DOMAIN-SUFFIX,km7g.cn
 DOMAIN-SUFFIX,km8g.cn
@@ -4201,7 +4201,6 @@ DOMAIN-SUFFIX,meipai.com
 DOMAIN-SUFFIX,meipian.cn
 DOMAIN-SUFFIX,meipian.me
 DOMAIN-SUFFIX,meiqia.com
-DOMAIN-SUFFIX,meishichina.com
 DOMAIN-SUFFIX,meishitx.com
 DOMAIN-SUFFIX,meitu.com
 DOMAIN-SUFFIX,meituan.com
@@ -4542,7 +4541,6 @@ DOMAIN-SUFFIX,offcn.com
 DOMAIN-SUFFIX,officese.com
 DOMAIN-SUFFIX,ofweek.com
 DOMAIN-SUFFIX,oi-wiki.com
-DOMAIN-SUFFIX,oicq88.com
 DOMAIN-SUFFIX,okjike.com
 DOMAIN-SUFFIX,okjk.co
 DOMAIN-SUFFIX,okooo.com
@@ -5124,7 +5122,6 @@ DOMAIN-SUFFIX,shenzhenair.com
 DOMAIN-SUFFIX,sheui.com
 DOMAIN-SUFFIX,shfft.com
 DOMAIN-SUFFIX,shgsec.com
-DOMAIN-SUFFIX,shhxzq.com
 DOMAIN-SUFFIX,shidianbaike.com
 DOMAIN-SUFFIX,shidianguji.com
 DOMAIN-SUFFIX,shifen.com
@@ -6443,7 +6440,6 @@ DOMAIN-SUFFIX,yeyousg.com
 DOMAIN-SUFFIX,yfcache.com
 DOMAIN-SUFFIX,yfcalc.com
 DOMAIN-SUFFIX,yfcdn.net
-DOMAIN-SUFFIX,yfcloud.com
 DOMAIN-SUFFIX,yfdts.net
 DOMAIN-SUFFIX,yfp2p.net
 DOMAIN-SUFFIX,yfscdn.net

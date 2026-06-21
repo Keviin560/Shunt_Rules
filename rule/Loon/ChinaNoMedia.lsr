@@ -1,8 +1,8 @@
 # Name = ChinaNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-10 05:47:00
-# Total = 3624
+# Update = 2026-06-22 05:12:58
+# Total = 3622
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -1358,8 +1358,6 @@ DOMAIN-SUFFIX,funcdn.com
 DOMAIN-SUFFIX,funnycore.com
 DOMAIN-SUFFIX,funshion.com
 DOMAIN-SUFFIX,funshion.net
-DOMAIN-SUFFIX,futu5.com
-DOMAIN-SUFFIX,futunn.com
 DOMAIN-SUFFIX,fuwai.com
 DOMAIN-SUFFIX,fuwj.com
 DOMAIN-SUFFIX,fxxz.com

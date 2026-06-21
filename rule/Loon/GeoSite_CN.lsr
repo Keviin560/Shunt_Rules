@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-21 05:14:54
-# Total = 6850
+# Update = 2026-06-22 05:13:06
+# Total = 6851
 
 DOMAIN,ai.zhaomi.cn
 DOMAIN,bytedance.map.fastly.net
@@ -4403,6 +4403,7 @@ DOMAIN-SUFFIX,myqcloud.com
 DOMAIN-SUFFIX,myquark.cn
 DOMAIN-SUFFIX,myshow360.net
 DOMAIN-SUFFIX,mysiteres.com
+DOMAIN-SUFFIX,mysqil.com
 DOMAIN-SUFFIX,mysxl.cn
 DOMAIN-SUFFIX,myypark.com
 DOMAIN-SUFFIX,myyx618.com

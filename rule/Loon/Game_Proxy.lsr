@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-19 06:04:56
-# Total = 835
+# Update = 2026-06-22 05:13:05
+# Total = 827
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -30,24 +30,21 @@ DOMAIN,eaassets-a.akamaihd.net
 DOMAIN,f3b7q2p3.ssl.hwcdn.net
 DOMAIN,flightsimulator.azureedge.net
 DOMAIN,gamedownloads-rockstargames-com.akamaized.net
-DOMAIN,gog-cdn-fastly.gog.com
+DOMAIN,gog-cdn-lumen.secure2.footprint.net
 DOMAIN,gog-cdn.akamaized.net
 DOMAIN,gog.qtlglb.com
-DOMAIN,gogalaxy.gog-statics.com
 DOMAIN,hb.imgix.net
 DOMAIN,lazer.ppy.sh
 DOMAIN,lolstatic-a.akamaihd.net
 DOMAIN,lv.queniujq.cn
 DOMAIN,m1.ppy.sh
 DOMAIN,media-rockstargames-com.akamaized.net
-DOMAIN,menu-static.gog-statics.com
 DOMAIN,notify.ppy.sh
 DOMAIN,opgg-static.akamaized.net
 DOMAIN,origin-a.akamaihd.net
 DOMAIN,osu.ppy.sh
 DOMAIN,prd-priconne-redive.akamaized.net
 DOMAIN,prodforza.blob.core.windows.net
-DOMAIN,productcard.gog-statics.com
 DOMAIN,pubg1.battleye.com
 DOMAIN,roblox-load-generator-configuration.s3.us-east-2.amazonaws.com
 DOMAIN,roblox-poc.global.ssl.fastly.net
@@ -56,7 +53,6 @@ DOMAIN,rtm.tnt-ea.com
 DOMAIN,sentry.ppy.sh
 DOMAIN,spectator.ppy.sh
 DOMAIN,ssl-lvlt.cdn.ea.com
-DOMAIN,static-login.gog-statics.com
 DOMAIN,steambroadcast.akamaized.net
 DOMAIN,steamcdn-a.akamaihd.net
 DOMAIN,steamcloudsweden.blob.core.windows.net
@@ -103,14 +99,10 @@ DOMAIN,ubistatic9-a.akamaihd.net
 DOMAIN,uplaypc-s-ubisoft.cdn.ubi.com
 DOMAIN,videos-rockstargames-com.akamaized.net
 DOMAIN,wb-agora-hydra-file-storage-k1.s3.amazonaws.com
-DOMAIN,www4-static.gog-statics.com
 DOMAIN,xz.pphimalayanrt.com
-DOMAIN-REGEX,^cdn-akamai-.+\.gog-services\.com$
 DOMAIN-REGEX,^cdn\d-epicgames-\d+\.file\.myqcloud\.com$
 DOMAIN-REGEX,^epicgames-download\d-\d+\.file\.myqcloud\.com$
 DOMAIN-REGEX,^epicgames-download\d\.akamaized\.net$
-DOMAIN-REGEX,^gog-cdn-.+\.footprint\.net$
-DOMAIN-REGEX,^images(-\d)?\.gog-statics\.com$
 DOMAIN-SUFFIX,100classicbooks.com
 DOMAIN-SUFFIX,2k.com
 DOMAIN-SUFFIX,2kcoretech.online

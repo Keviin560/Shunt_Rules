@@ -1,8 +1,8 @@
 # Name = China
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-05-15 05:08:47
-# Total = 3721
+# Update = 2026-06-22 05:12:34
+# Total = 3719
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.104.0/21,no-resolve
@@ -1402,8 +1402,6 @@ DOMAIN-SUFFIX,funcdn.com
 DOMAIN-SUFFIX,funnycore.com
 DOMAIN-SUFFIX,funshion.com
 DOMAIN-SUFFIX,funshion.net
-DOMAIN-SUFFIX,futu5.com
-DOMAIN-SUFFIX,futunn.com
 DOMAIN-SUFFIX,fuwai.com
 DOMAIN-SUFFIX,fuwj.com
 DOMAIN-SUFFIX,fxxz.com

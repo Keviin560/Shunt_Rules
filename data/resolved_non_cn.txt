@@ -457,6 +457,7 @@ DOMAIN-SUFFIX,yamibo.com # Blacklisted IP: 104.21.5.93
 DOMAIN-SUFFIX,yfcloud.com # Blacklisted IP: 103.204.13.128
 DOMAIN-SUFFIX,yk-ssp.ad.youku.com # 命中广告剧毒库
 DOMAIN-SUFFIX,ykad-data.youku.com # 命中广告剧毒库
+DOMAIN-SUFFIX,youdaoads.com # 命中广告剧毒库
 DOMAIN-SUFFIX,yunlaopo.cc # 命中广告剧毒库
 DOMAIN-SUFFIX,yunlaopo.com # 命中广告剧毒库
 DOMAIN-SUFFIX,yunlaopo.net # 命中广告剧毒库

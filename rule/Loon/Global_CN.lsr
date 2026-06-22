@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-19 06:04:57
-# Total = 728
+# Update = 2026-06-23 06:01:34
+# Total = 765
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -34,6 +34,10 @@ DOMAIN,appleid.cdn-apple.com
 DOMAIN,apps.mzstatic.com
 DOMAIN,apptrailers.itunes.apple.com
 DOMAIN,auth.music.apple.com
+DOMAIN,azuremigrate.download.prss.microsoft.com
+DOMAIN,azuremigratetest.download.prss.microsoft.com
+DOMAIN,azurestackhub.download.prss.microsoft.com
+DOMAIN,azurestackhubuat.download.prss.microsoft.com
 DOMAIN,b.c2r.ts.cdn.office.net
 DOMAIN,bag-cdn.itunes-apple.com.akadns.net
 DOMAIN,bag.itunes.apple.com
@@ -42,6 +46,7 @@ DOMAIN,bg4.v4.a.dl.ws.microsoft.com
 DOMAIN,bj1.api.bing.com
 DOMAIN,bookkeeper.itunes.apple.com
 DOMAIN,build.microsoft.com
+DOMAIN,cbdstest.download.prss.microsoft.com
 DOMAIN,cdn-cn.apple-mapkit.com
 DOMAIN,cdn-cn1.apple-mapkit.com
 DOMAIN,cdn-cn2.apple-mapkit.com
@@ -80,6 +85,8 @@ DOMAIN,cma.itunes.apple.com
 DOMAIN,cn-smp-paymentservices.apple.com
 DOMAIN,cn.download.nvidia.com
 DOMAIN,cn.windowssearch.com
+DOMAIN,collaborate.download.prss.microsoft.com
+DOMAIN,collaborateppe.download.prss.microsoft.com
 DOMAIN,communities.apple.com
 DOMAIN,configuration.apple.com
 DOMAIN,configuration.apple.com.akadns.net
@@ -129,6 +136,8 @@ DOMAIN,download.developer.apple.com
 DOMAIN,download.microsoft.com
 DOMAIN,download.visualstudio.microsoft.com
 DOMAIN,downloaddispatch.itunes.apple.com
+DOMAIN,dreamspark.download.prss.microsoft.com
+DOMAIN,dreamsparkuat.download.prss.microsoft.com
 DOMAIN,ea2cn-dev-outlet.dell.com
 DOMAIN,ea2cn-prod-outlet.dell.com
 DOMAIN,ea2cn-staging-outlet.dell.com
@@ -203,6 +212,8 @@ DOMAIN,is4-ssl.mzstatic.com
 DOMAIN,is4.mzstatic.com
 DOMAIN,is5-ssl.mzstatic.com
 DOMAIN,is5.mzstatic.com
+DOMAIN,itacademy.download.prss.microsoft.com
+DOMAIN,itacademyuat.download.prss.microsoft.com
 DOMAIN,itunes-apple.com.akadns.net
 DOMAIN,itunes.apple.com
 DOMAIN,itunesconnect.apple.com
@@ -233,13 +244,23 @@ DOMAIN,ksn-url.geoksn.kaspersky.com
 DOMAIN,ksn-verdict-geo.kaspersky-labs.com
 DOMAIN,ksn-verdict.geoksn.kaspersky.com
 DOMAIN,learn.microsoft.com
+DOMAIN,lex.download.prss.microsoft.com
+DOMAIN,lexuat.download.prss.microsoft.com
 DOMAIN,maps.apple.com
+DOMAIN,mbs.download.prss.microsoft.com
 DOMAIN,mdr.ksn.kaspersky-labs.com
+DOMAIN,mensura.cdn-apple.com
 DOMAIN,mesu-cdn.apple.com.akadns.net
 DOMAIN,mesu-china.apple.com.akadns.net
 DOMAIN,mesu.apple.com
 DOMAIN,misc-assets.itunes.apple.com
 DOMAIN,ml.cdn-apple.com
+DOMAIN,mpnbenefits.download.prss.microsoft.com
+DOMAIN,mpnbenefitsrtl.download.prss.microsoft.com
+DOMAIN,mpnbenefitsrtluat.download.prss.microsoft.com
+DOMAIN,msdn.download.prss.microsoft.com
+DOMAIN,msdprod-ad.download.prss.microsoft.com
+DOMAIN,msproduct.download.prss.microsoft.com
 DOMAIN,music.apple.com
 DOMAIN,musicstatus.music.apple.com
 DOMAIN,mvod.itunes.apple.com
@@ -252,9 +273,13 @@ DOMAIN,ocsp.apple.com
 DOMAIN,ocsp2-lb.apple.com.akadns.net
 DOMAIN,ocsp2.apple.com
 DOMAIN,oemsoc.download.prss.microsoft.com
+DOMAIN,oemsocuat.download.prss.microsoft.com
 DOMAIN,officecdn.microsoft.com
+DOMAIN,officemkt.download.prss.microsoft.com
+DOMAIN,officemktuat.download.prss.microsoft.com
 DOMAIN,oscdn.apple.com
 DOMAIN,oscdn.origin-apple.com.akadns.net
+DOMAIN,osrelease.download.prss.microsoft.com
 DOMAIN,osxapps.itunes.apple.com
 DOMAIN,osxapps.itunes.g.aaplimg.com
 DOMAIN,p.cdn.persaas.dell.com
@@ -292,6 +317,7 @@ DOMAIN,refresh-bkg.activation-v2.kaspersky.com
 DOMAIN,res-1.cdn.office.net
 DOMAIN,res.cdn.office.net
 DOMAIN,reserve-prime.apple.com
+DOMAIN,rsm.download.prss.microsoft.com
 DOMAIN,s.mzstatic.com
 DOMAIN,s00.upd.kaspersky.com
 DOMAIN,s01.upd.kaspersky.com
@@ -348,12 +374,15 @@ DOMAIN,store.apple.com.edgekey.net
 DOMAIN,store.apple.com.edgekey.net.globalredir.akadns.net
 DOMAIN,store.storeimages.apple.com.akadns.net
 DOMAIN,store.storeimages.cdn-apple.com
+DOMAIN,storecorefulfillment.download.prss.microsoft.com
+DOMAIN,storeedge.microsoft.com
 DOMAIN,storeedgefd.dsx.mp.microsoft.com
 DOMAIN,streamingaudio.itunes.apple.com
 DOMAIN,su.itunes.apple.com
 DOMAIN,support-china.apple-support.akadns.net
 DOMAIN,support.apple.com
 DOMAIN,supportassist.dell.com
+DOMAIN,surface.download.prss.microsoft.com
 DOMAIN,surface.downloads.prss.microsoft.com
 DOMAIN,swallow-apple-com.v.aaplimg.com
 DOMAIN,swallow.apple.com
@@ -378,6 +407,8 @@ DOMAIN,updates.cdn-apple.com
 DOMAIN,upp.itunes.apple.com
 DOMAIN,valid.apple.com
 DOMAIN,valid.origin-apple.com.akadns.net
+DOMAIN,vlportal.download.prss.microsoft.com
+DOMAIN,volic.download.prss.microsoft.com
 DOMAIN,vscode.download.prss.microsoft.com
 DOMAIN,vz.download.prss.microsoft.com
 DOMAIN,weather-data.apple.com
@@ -385,6 +416,7 @@ DOMAIN,weather-data.apple.com.akadns.net
 DOMAIN,weather-map.apple.com
 DOMAIN,weather-map2.apple.com
 DOMAIN,weatherkit.apple.com
+DOMAIN,windbg.download.prss.microsoft.com
 DOMAIN,wscont1.apps.microsoft.com
 DOMAIN,wscont2.apps.microsoft.com
 DOMAIN,www-csb.dell.com
@@ -506,6 +538,7 @@ DOMAIN-SUFFIX,azure-dns-7.cn
 DOMAIN-SUFFIX,azure-dns-8.cn
 DOMAIN-SUFFIX,azure-dns-9.cn
 DOMAIN-SUFFIX,azure-dns.cn
+DOMAIN-SUFFIX,azure-mobile.cn
 DOMAIN-SUFFIX,azure.cn
 DOMAIN-SUFFIX,azurecr-test.cn
 DOMAIN-SUFFIX,azurecr.cn
@@ -705,6 +738,10 @@ DOMAIN-SUFFIX,sagemaker.com.cn
 DOMAIN-SUFFIX,samsungeshop.com.cn
 DOMAIN-SUFFIX,sharepoint.cn
 DOMAIN-SUFFIX,skycdn.com.cn
+DOMAIN-SUFFIX,sovcloud-mx.cn
+DOMAIN-SUFFIX,sovcloud-static.cn
+DOMAIN-SUFFIX,sovcloud-usercontent.cn
+DOMAIN-SUFFIX,sovcloud.cn
 DOMAIN-SUFFIX,starbucks.com.cn
 DOMAIN-SUFFIX,swiftui.cn
 DOMAIN-SUFFIX,swiftui.com.cn

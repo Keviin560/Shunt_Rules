@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1782250210,
+    "updated_at": 1782336054,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1782250210,
+    "updated_at": 1782336054,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4164,9 +4164,9 @@
     "rule_count": 831
   },
   "Global_CN": {
-    "src_hash": "49ccb9572eecd43e6f7cc35d735a97d9",
-    "updated_at": 1782165679,
+    "src_hash": "c70a858c5ecb972a317c23547e6fd767",
+    "updated_at": 1782336054,
     "gen_ver": "v6.3",
-    "rule_count": 765
+    "rule_count": 768
   }
 }

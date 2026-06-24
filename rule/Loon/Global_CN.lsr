@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-23 06:01:34
-# Total = 765
+# Update = 2026-06-25 05:21:08
+# Total = 768
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -735,7 +735,10 @@ DOMAIN-SUFFIX,researchkit.cn
 DOMAIN-SUFFIX,researchkit.com.cn
 DOMAIN-SUFFIX,route53.cn
 DOMAIN-SUFFIX,sagemaker.com.cn
+DOMAIN-SUFFIX,samsung.com.cn
+DOMAIN-SUFFIX,samsungcloudcn.com
 DOMAIN-SUFFIX,samsungeshop.com.cn
+DOMAIN-SUFFIX,samsunghealthcn.com
 DOMAIN-SUFFIX,sharepoint.cn
 DOMAIN-SUFFIX,skycdn.com.cn
 DOMAIN-SUFFIX,sovcloud-mx.cn

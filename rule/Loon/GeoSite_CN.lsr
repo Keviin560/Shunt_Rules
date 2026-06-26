@@ -1,11 +1,14 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-23 06:01:34
-# Total = 6923
+# Update = 2026-06-27 05:16:23
+# Total = 6930
 
+DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
+DOMAIN,api.alibabacloud.com
 DOMAIN,bytedance.map.fastly.net
+DOMAIN,cn.alibabacloud.com
 DOMAIN,community.oneplus.com
 DOMAIN,ctdsb.clouddiffuse.xyz
 DOMAIN,cueme-api.quark.cn
@@ -44,6 +47,7 @@ DOMAIN,p7-juejin.byteimg.com
 DOMAIN,p8-juejin.byteimg.com
 DOMAIN,p9-juejin.byteimg.com
 DOMAIN,ss.bjmu.edu.cn
+DOMAIN,status.alibabacloud.com
 DOMAIN,study.163.com
 DOMAIN,time.amazonaws.cn
 DOMAIN,time.izatcloud.net
@@ -759,6 +763,7 @@ DOMAIN-SUFFIX,ap-singapore.myqcloud.com
 DOMAIN-SUFFIX,ap-singapore.tencentcos.cn
 DOMAIN-SUFFIX,ap-singapore.tencentcos.com
 DOMAIN-SUFFIX,ap-singapore.tencentcos.com.cn
+DOMAIN-SUFFIX,ap-southeast-1.aliyuncs.com
 DOMAIN-SUFFIX,ap-southeast-1.myhuaweicloud.com
 DOMAIN-SUFFIX,ap-southeast-2.myhuaweicloud.com
 DOMAIN-SUFFIX,ap-southeast-201.myhuaweicloud.com
@@ -1734,6 +1739,8 @@ DOMAIN-SUFFIX,cmpay.com
 DOMAIN-SUFFIX,cmread.com
 DOMAIN-SUFFIX,cmvideo.cn
 DOMAIN-SUFFIX,cn-ha.mqtt.io.mi.com
+DOMAIN-SUFFIX,cn-hangzhou.aliyuncs.com
+DOMAIN-SUFFIX,cn-shanghai.aliyuncs.com
 DOMAIN-SUFFIX,cnanzhi.com
 DOMAIN-SUFFIX,cnb.cool
 DOMAIN-SUFFIX,cnbksy.com

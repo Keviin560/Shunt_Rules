@@ -1,0 +1,407 @@
+# =====================================================================
+# ■ 🚀 MIHOMO NAS HYBRID CONFIGURATION（裸核双栖总闸）
+# =====================================================================
+# 
+# [特性] 本配置运行于 network_mode:host 环境，通过 TUN 模式深度劫持
+#            宿主机物理网络层，NAS 本身及内部所有 Bridge 容器流量将无感接管
+#
+# ─────────────────────────────────────────────────────────────────────
+# ❖ 拓扑应用场景与切换指南（三维网络拓扑选择）
+# ─────────────────────────────────────────────────────────────────────
+#
+# ┌── 方案 A : 【 本地透明网关 】
+# │   ├── 适用场景 : 仅解决 NAS 本身及内部容器（如镜像拉取、自动化脚本）出海
+# │   ├── 核心动作 : 保持 tun.enable: true
+# │   └── 网络行为: 其他容器无需任何端口映射或环境变量，出站流量自动丢进代理隧道
+# │                  局域网其他设备及主路由保持原样，互不干扰
+# │
+# ┌── 方案 B : 【 全屋旁路网关 】
+# │   ├── 适用场景 : NAS 升格为全屋流量总闸，局域网内所有设备（含网线与无线）接入即代理
+# │   ├── 核心动作 : 保持 tun.enable: true，且 interface-name 必须硬绑定 NAS 物理网卡 end0（可改）
+# │   └── 网络行为 : 在主路由后台，将 DHCP 的 [网关/Gateway] 与 [DNS] 强制修改为你的 NAS IP
+# │
+# ┌── 方案 C : 【 局域网旁路单机劫持 】
+#     ├── 适用场景 : 主路由完全不动（防炸网），仅让局域网内指定的一台或几台设备(电脑/电视)走 NAS 代理
+#     ├── 核心动作 : 保持 tun.enable: true，且 interface-name 绑定物理网卡 NAS 物理网卡 end0（可改），NAS 侧不做任何修改。
+#     └── 网络行为 : 主路由和全局其他设备完全无感，只需要在【目标设备】上手动修改网络设置：
+#                    将 IP 设为静态，把 [网关/Gateway] 和 [DNS] 单独填入你的 NAS IP
+#
+# ─────────────────────────────────────────────────────────────────────
+# ❖ ⚙️ INITIALIZATION & TROUBLESHOOTING（初始化配置与救砖指南）
+# ─────────────────────────────────────────────────────────────────────
+#
+# ┌── 🔧 初始化对接指南
+# │   ├── 机场订阅 : 在第 5 部分机场订阅 [proxy-providers]中，将 Airport_Sub 的 url 替换为你的机场订阅链接
+# │   ├── 面板访问 : Docker 完全启动后，局域网内设备浏览器访问【 http://你的NAS_IP:9090/ui 】即可
+# │   └── 环境自检 : 本配置默认全局启用 IPv6。若局域网无 v6 环境，请自行将以下 4 处进行注释或改写：
+# │                  1. 基础设置与 DNS 内的 ipv6 改为 false
+# │                  2. 注释或删除 DNS 内的 fake-ip-range6 伪装网段
+# │                  3. 移除 default-nameserver 内的 IPv6 地址行（如 "2402:4e00::"）
+# │                  注：自动测速策略组和负载均衡组默认已在面板中隐藏，属正常设计
+# │
+# ┌── 🚨 救砖方案
+#     ├── 订阅拉取超时 : 1. 从其他设备复制一个目前可用节点的纯文本信息
+#     │                  2. 粘贴到下方 [BOOTSTRAP PROXIES] 模块内并取消注释
+#     │                  3. 在第 5 部分 [proxy-providers] 内部取消注释并指定 proxy: 引导节点
+#     │                  4. 订阅成功拉取完后，即可重新注释该引导演示行与引导节点
+#     │
+#     └── 面板拉取失败 : 1. 用电脑等能出海的设备直接下载官方面板的 dist.zip
+#                        2. 在 NAS 宿主机挂载目录（如/vol1/1000/Docker/mihomo/）下新建名为 ui 的文件夹
+#                        3. 将 dist.zip 内部的文件直接解压并上传至该 ui 文件夹内即可（确保 index.html 在 ui 根目录下）
+#
+# ─────────────────────────────────────────────────────────────────────
+# ❖ 🌐 BOOTSTRAP PROXIES（临时救砖/自定义引导节点示例）
+# ─────────────────────────────────────────────────────────────────────
+# 
+# [使用说明] 本模块默认全行注释，当且仅当遇到机场订阅因网络问题无法拉取时，
+#            可取消下方【其中一种协议】的注释，填入可用节点进行冷启动引导
+#
+# ┌── 示例一 : VLESS 协议引导（REALITY / Vision）
+# ─────────────────────────────────────────────────────────────────────
+# proxies:
+#   - name: 引导节点
+#     type: vless
+#     server: 你的服务器 IP 或域名
+#     port: 443
+#     uuid: 你的 UUID_KEY
+#     flow: xtls-rprx-vision
+#     tls: true
+#     skip-cert-verify: true
+#     servername: 你的 Reality 伪装域名
+#     client-fingerprint: chrome
+#     reality-opts:
+#       public-key: 你的 Reality 公钥
+#       short-id: 你的 ShortID
+#
+# ─────────────────────────────────────────────────────────────────────
+# ┌── 示例二 : Shadowsocks 协议引导（常规 SS 节点）
+# ─────────────────────────────────────────────────────────────────────
+# proxies:      
+#   - name: 引导节点
+#     type: ss
+#     server: 你的服务器 IP 或域名
+#     port: 你的端口
+#     cipher: aes-256-gcm
+#     password: "你的密码"
+#
+# =====================================================================
+    
+    
+# ===== 0. 基础设置 ==========================================
+mode: rule
+log-level: info
+mixed-port: 7890          # HTTP(S) 和 SOCKS 代理混合端口
+allow-lan: true
+ipv6: true
+keep-alive-interval: 60      # TCP 保活探测包的发送间隔（秒）
+keep-alive-idle: 600      # TCP 连接空闲多久后开始发送保活探测包（秒）
+bind-address: '*'      # 绑定所有网卡的所有 IP
+tcp-concurrent: true
+unified-delay: true
+find-process-mode: off
+
+experimental:
+  quic-go-disable-gso: true
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+
+# ===== 1. 控制面板 ===============================================
+external-controller: 0.0.0.0:9090
+external-ui: ui
+external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
+# secret: ""      # 无面板访问密码，可自行修改
+
+
+# ===== 2. TUN 虚拟网卡 (透明网关) =================================
+tun:
+  enable: true
+  stack: system
+  auto-route: true
+  auto-redirect: true
+  interface-name: end0        # 绑定宿主机（NAS）物理网卡（把 eth0 改为你的真实出口网卡）
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  strict-route: true
+
+
+# ===== 3. 域名嗅探引擎 ============================================
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "*.apple.com"
+    - "*.icloud.com"
+    - "+.push.apple.com"
+
+
+# ===== 4. DNS 解析 ================================================
+dns:
+  enable: true
+  ipv6: true      # 解析ipv 6（如只用ipv 4，改为false，同时修改其他相关配置）
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-range6: fdfe:dcba:9876::1/64
+  fake-ip-filter:
+    - rule-set:Lan
+    - "*.stun.*"
+    - "*.local"
+    - "*.ptlogin2.qq.com"
+    - "+.pool.ntp.org"
+    - "+.miwifi.com"
+    - "+.push.apple.com"
+    - "+.docker.io"
+    
+  prefer-h3: false
+  
+  respect-rules: false      # DNS 连接是否遵守路由规则（需配置 proxy-server-nameserver）
+  default-nameserver:      # 默认 DNS，解析其他 DNS 服务器的域名
+    - 223.5.5.5
+    - 119.29.29.29
+    - "2402:4e00::"
+  nameserver:      # 主 DNS 服务器，解析直连域名
+    - 223.5.5.5
+    - 119.29.29.29
+    - 180.184.1.1
+  proxy-server-nameserver:       # 代理节点域名解析服务器 ，解析机场节点自身的域名
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  nameserver-policy:      # 按域名指定解析服务器（优先于 nameserver）
+    "rule-set:Lan": system
+    "rule-set:Google": https://1.1.1.1/dns-query#节点选择
+
+
+# ===== 5. 机场订阅 ============================================
+proxy-providers:
+  Airport_Sub:
+    type: http
+    url: "你的机场订阅链接"
+    interval: 86400      # 如需关闭自动更新订阅，改 type 为 file，注释或删除 url 和 interval 参数，path 指向本地静态节点文件即可（默认）
+    path: ./proxies/airport.yaml
+    #proxy: 引导节点（这里是和配置开头部分的引导节点相关）
+    health-check:
+      enable: true
+      interval: 300
+      url: https://www.gstatic.com/generate_204
+  
+
+# ===== 6. 锚点配置 =================================
+Probe: &Probe {url: "https://www.gstatic.com/generate_204", interval: 300, timeout: 3000}
+
+# url-test 自动策略组
+UrlTest: &UrlTest { type: url-test, url: "https://www.gstatic.com/generate_204", interval: 300, tolerance: 50, empty-fallback: REJECT, include-all: true, hidden: true }
+
+# load-balance 负载均衡组
+LoadBalance: &LoadBalance { type: load-balance, url: "https://www.gstatic.com/generate_204", interval: 300, empty-fallback: REJECT, include-all: true, hidden: true, strategy: consistent-hashing }
+
+# 规则源：域名类 MRS 格式
+RuleDomain: &RuleDomain {type: http, format: mrs, behavior: domain, interval: 86400, proxy: 故障转移}
+# 规则源：IP 类 MRS 格式
+RuleIP:     &RuleIP     {type: http, format: mrs, behavior: ipcidr, interval: 86400, proxy: 故障转移}
+# 规则源：文本格式
+RuleText:   &RuleText   {type: http, format: text, behavior: domain, interval: 86400, proxy: 故障转移}
+
+FilterHK: &FilterHK '(?i)(?:🇭🇰|香港|Hong\s?Kong|\b(?:HK|HKG)\d*\b)'
+FilterMO: &FilterMAC '(?i)(?:🇲🇴|澳门|Maca[ou]|\b(?:MO|MAC)\b)'
+FilterTW: &FilterTW '(?i)(?:🇹🇼|台湾|Tai(?:wan)?|\b(?:TW|TWN)\d*\b)'
+FilterJP: &FilterJP '(?i)(?:🇯🇵|日本|川日|东京|大阪|埼玉|Japan|\b(?:JP|JPN)\d*\b)'
+FilterKR: &FilterKR '(?i)(?:🇰🇷|韩国|韓|首尔|Korea|\b(?:KR|KOR)\d*\b)'
+FilterSG: &FilterSG '(?i)(?:🇸🇬|新加坡|狮|Singapore|\b(?:SG|SGP)\d*\b)'
+FilterUS: &FilterUS '(?i)(?:🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|拉斯维加斯|United States|\b(?:US|USA)\d*\b)'
+
+FilterAsia: &FilterAsia '(?i)(?:🇦🇪|🇧🇩|🇧🇭|🇮🇩|🇮🇱|🇮🇳|🇮🇶|🇮🇷|🇯🇴|🇰🇬|🇰🇭|🇰🇼|🇰🇿|🇱🇦|🇱🇧|🇱🇰|🇲🇲|🇲🇻|🇲🇾|🇳🇵|🇴🇲|🇵🇭|🇵🇰|🇶🇦|🇸🇦|🇹🇭|🇹🇯|🇹🇲|🇹🇷|🇺🇿|🇻🇳|巴基斯坦|Pakistan|斯里兰卡|孟加拉国|印度|India|伊朗|伊拉克|以色列|约旦|黎巴嫩|阿曼|阿联酋|沙特阿拉伯|卡塔尔|科威特|巴林|土耳其|哈萨克斯坦|吉尔吉斯斯坦|塔吉克斯坦|土库曼斯坦|乌兹别克斯坦|尼泊尔|马尔代夫|马来西亚|菲律宾|泰国|越南|老挝|缅甸|柬埔寨|印尼|印度尼西亚|Asia|\b(?:AE|BD|BH|ID|IL|IN|IQ|IR|JO|KG|KH|KW|KZ|LA|LB|LK|MM|MV|MY|NP|OM|PH|PK|QA|SA|TH|TJ|TM|TR|UZ|VN)\d*\b|\b(?:ARE|BGD|BHR|IDN|IND|IRN|IRQ|ISR|JOR|KAZ|KGZ|KHM|KWT|LAO|LBN|LKA|MDV|MMR|MYS|NPL|OMN|PAK|PHL|QAT|SAU|THA|TJK|TKM|TUR|UZB|VNM)\d*\b)'
+
+FilterEurope: &FilterEurope '(?i)(?:🇦🇩|🇦🇹|🇧🇦|🇧🇪|🇧🇬|🇨🇭|🇨🇿|🇩🇪|🇩🇰|🇪🇪|🇪🇸|🇫🇮|🇫🇷|🇬🇧|🇬🇷|🇭🇷|🇭🇺|🇮🇪|🇮🇸|🇮🇹|🇱🇮|🇱🇹|🇱🇺|🇱🇻|🇲🇨|🇲🇪|🇲🇰|🇲🇹|🇳🇱|🇳🇴|🇵🇱|🇵🇹|🇷🇴|🇷🇸|🇷🇺|🇸🇪|🇸🇮|🇸🇰|🇸🇲|🇹🇷|🇺🇦|🇻🇦|🇽🇰|阿塞拜疆|Azerbaijan|保加利亚|克罗地亚|塞尔维亚|拉脱维亚|斯洛伐克|爱沙尼亚|罗马尼亚|乌克兰|俄罗斯|匈牙利|土耳其|奥地利|意大利|比利时|爱尔兰|立陶宛|葡萄牙|西班牙|丹麦|冰岛|希腊|德国|挪威|捷克|法国|波兰|瑞典|瑞士|芬兰|英国|荷兰|Europe|\b(?:AT|BE|BG|CH|CZ|DE|DK|EE|ES|FI|FR|GB|GR|HR|HU|IE|IS|IT|LT|LV|NL|NO|PL|PT|RO|RS|RU|SE|SK|TR|UA|UK)\d*\b|\b(?:AUT|BEL|BGR|CHE|CZE|DEU|DNK|ESP|EST|FIN|FRA|GRC|HRV|HUN|IRL|ISL|ITA|LTU|LVA|NLD|NOR|POL|PRT|ROU|RUS|SRB|SVK|SWE|TUR|UKR)\d*\b)'
+
+FilterAmericas: &FilterAmericas '(?i)(?:🇦🇷|🇧🇴|🇧🇷|🇨🇦|🇨🇱|🇨🇴|🇨🇷|🇪🇨|🇬🇹|🇬🇾|🇭🇳|🇲🇽|🇳🇮|🇵🇦|🇵🇪|🇵🇾|🇸🇷|🇸🇻|🇺🇾|🇻🇪|阿根廷|玻利维亚|巴西|加拿大|智利|哥伦比亚|哥斯达黎加|厄瓜多尔|危地马拉|圭亚那|洪都拉斯|墨西哥|尼加拉瓜|巴拿马|秘鲁|巴拉圭|苏里南|萨尔瓦多|乌拉圭|委内瑞拉|Argentina|Bolivia|Brazil|Canada|Chile|Colombia|Costa Rica|Ecuador|Guatemala|Guyana|Honduras|Mexico|Nicaragua|Panama|Peru|Paraguay|Suriname|El Salvador|Uruguay|Venezuela|\b(?:AR|BO|BR|CA|CL|CO|CR|EC|GT|GY|HN|MX|NI|PA|PE|PY|SR|SV|UY|VE)\d*\b|\b(?:ARG|BOL|BRA|CAN|CHL|COL|CRI|ECU|GTM|GUY|HND|MEX|NIC|PAN|PER|PRY|SLV|SUR|URY|VEN)\d*\b)'
+
+FilterOceania: &FilterOceania '(?i)(?:🇦🇺|🇫🇯|🇫🇲|🇰🇮|🇲🇭|🇳🇿|🇵🇬|🇵🇼|🇸🇧|🇹🇴|🇻🇺|🇼🇸|澳大利亚|澳洲|新西兰|巴布亚新几内亚|所罗门群岛|斐济|密克罗尼西亚|马绍尔群岛|帕劳|萨摩亚|汤加|瓦努阿图|Australia|New Zealand|Oceania|\b(?:AU|FJ|FM|KI|MH|NZ|PG|PW|SB|TO|VU|WS)\d*\b|\b(?:AUS|FJI|FSM|KIR|MHL|NZL|PNG|PLW|SLB|TON|VUT|WSM)\d*\b)'
+
+FilterAfrica: &FilterAfrica '(?i)(?:🇦🇴|🇨🇩|🇨🇮|🇩🇿|🇪🇬|🇪🇹|🇬🇭|🇰🇪|🇱🇾|🇲🇦|🇲🇱|🇳🇦|🇳🇬|🇸🇩|🇸🇳|🇹🇬|🇹🇳|🇹🇿|🇺🇬|🇿🇦|🇿🇲|🇿🇼|安哥拉|刚果|科特迪瓦|阿尔及利亚|埃及|埃塞俄比亚|加纳|肯尼亚|利比亚|摩洛哥|马里|纳米比亚|尼日利亚|苏丹|塞内加尔|多哥|突尼斯|坦桑尼亚|乌干达|南非|赞比亚|津巴布韦|Africa|\b(?:AO|CD|CI|DZ|EG|ET|GH|KE|LY|MA|ML|NA|NG|SD|SN|TG|TN|TZ|UG|ZA|ZM|ZW)\d*\b|\b(?:AGO|COD|CIV|DZA|EGY|ETH|GHA|KEN|LBY|MAR|MLI|NAM|NGA|SDN|SEN|TGO|TUN|TZA|UGA|ZAF|ZMB|ZWE)\d*\b)'
+
+# 节点净化过滤器：排除包含流量/到期/群/官网等关键词的无效节点
+FilterAll: &FilterAll '^(?!.*(?:(?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|剩余流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\d{4}-\d{2}-\d{2}|\d+G)).*$'
+
+
+# ===== 7. 策略组 ==================================================
+# 分流逻辑：流量 → rules 匹配 → 路由到指定策略组 → 该组独立决策
+
+proxy-groups:
+
+  # --- 故障转移总入口 ---
+  # type=fallback：按列表顺序测试代理，始终选第一个健康的。当前代理失效时自动切换，定期重测恢复
+  - { name: 故障转移, type: fallback, url: "https://www.gstatic.com/generate_204", interval: 300, proxies: [香港策略, 澳门均衡, 台湾策略, 美国策略, 日本策略, 狮城策略, 韩国策略,], empty-fallback: REJECT, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/DNS Inspector.png" }
+  
+  # --- 手动选择组 ---
+  # type=select：手动选择。proxies 列出可选子策略组 (自动/均衡)，include-all+filter 自动填充该区域的所有节点
+  - { name: 香港策略, type: select, include-all: true, filter: *FilterHK, proxies: [香港自动, 香港均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/HK.png", <<: *Probe }
+  - { name: 澳门策略, type: select, include-all: true, filter: *FilterMAC, proxies: [澳门自动, 澳门均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/MAC.png", <<: *Probe }
+  - { name: 台湾策略, type: select, include-all: true, filter: *FilterTW, proxies: [台湾自动, 台湾均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/CHN.png", <<: *Probe }
+  - { name: 日本策略, type: select, include-all: true, filter: *FilterJP, proxies: [日本自动, 日本均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/JP.png", <<: *Probe }
+  - { name: 韩国策略, type: select, include-all: true, filter: *FilterKR, proxies: [韩国自动, 韩国均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/KOR.png", <<: *Probe }
+  - { name: 狮城策略, type: select, include-all: true, filter: *FilterSG, proxies: [狮城自动, 狮城均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/SG.png", <<: *Probe }
+  - { name: 美国策略, type: select, include-all: true, filter: *FilterUS, proxies: [美国自动, 美国均衡], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/USA.png", <<: *Probe }
+  
+  # --- 自动策略组 ---
+  # type=url-test：定期对所有节点测速，始终自动选延迟最低的。hidden=true 不在面板独立显示，由上层 select 组引用
+  - { name: 香港自动, <<: *UrlTest, filter: *FilterHK, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/HK.png" }
+  - { name: 澳门自动, <<: *UrlTest, filter: *FilterMAC, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/MAC.png" }
+  - { name: 台湾自动, <<: *UrlTest, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/CHN.png" }
+  - { name: 日本自动, <<: *UrlTest, filter: *FilterJP, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/JP.png" }
+  - { name: 韩国自动, <<: *UrlTest, filter: *FilterKR, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/KOR.png" }
+  - { name: 狮城自动, <<: *UrlTest, filter: *FilterSG, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/SG.png" }
+  - { name: 美国自动, <<: *UrlTest, filter: *FilterUS, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/USA.png" }
+  
+   # --- 负载均衡组 ---
+   # type=load-balance：把不同连接通过一致性哈希分配到不同节点，适合多线程下载等需要分散流量的场景
+  - { name: 香港均衡, <<: *LoadBalance, filter: *FilterHK, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/HK.png" }
+  - { name: 澳门均衡, <<: *LoadBalance, filter: *FilterMAC, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/MAC.png" }
+  - { name: 台湾均衡, <<: *LoadBalance, filter: *FilterTW, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/CHN.png" }
+  - { name: 日本均衡, <<: *LoadBalance, filter: *FilterJP, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/JP.png" }
+  - { name: 韩国均衡, <<: *LoadBalance, filter: *FilterKR, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/KOR.png" }
+  - { name: 狮城均衡, <<: *LoadBalance, filter: *FilterSG, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/SG.png" }
+  - { name: 美国均衡, <<: *LoadBalance, filter: *FilterUS, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/USA.png" }
+  
+  # --- 五大洲兜底手动选择组 ---
+  - { name: 亚洲节点, type: select, include-all: true, filter: *FilterAsia, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Asia.png", <<: *Probe }
+  - { name: 欧洲节点, type: select, include-all: true, filter: *FilterEurope, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Europe.png", <<: *Probe }
+  - { name: 美洲节点, type: select, include-all: true, filter: *FilterAmericas, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Americas.png", <<: *Probe }
+  - { name: 大洋洲节点, type: select, include-all: true, filter: *FilterOceania, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Oceania.png", <<: *Probe }
+  - { name: 非洲节点, type: select, include-all: true, filter: *FilterAfrica, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Africa.png", <<: *Probe }
+  
+  - { name: 节点选择, type: select, include-all: true, filter: *FilterAll, icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Locator.png", <<: *Probe }
+  
+  # --- 应用功能分组 (首个选项为故障转移，实现自动策略) ---
+  - { name: AI Rules, type: select, proxies: [故障转移, 美国策略, 日本策略, 狮城策略, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/ChatGPT.png", <<: *Probe }
+  - { name: YouTube, type: select, proxies: [故障转移, 美国策略, 香港策略, 狮城策略, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/YouTube.png", <<: *Probe }
+  - { name: Google, type: select, proxies: [故障转移, 美国策略, 香港策略, 狮城策略, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Google.png", <<: *Probe }
+  - { name: Telegram, type: select, proxies: [故障转移, 香港策略, 美国策略, 狮城策略, 节点选择], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Telegram.png", <<: *Probe }
+  - { name: Apple, type: select, proxies: [故障转移, 美国策略, 香港策略, 日本策略, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Apple.png", <<: *Probe }
+  - { name: Spotify, type: select, proxies: [故障转移, DIRECT, 香港策略, 美国策略, 狮城策略], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Spotify.png", <<: *Probe }
+  - { name: TikTok, type: select, proxies: [故障转移, 美国策略, 台湾策略, 日本策略, 狮城策略], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/TikTok.png", <<: *Probe }
+  - { name: Netflix, type: select, proxies: [故障转移, 狮城策略, 香港策略, 美国策略], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Netflix.png", <<: *Probe }
+  - { name: 海外游戏, type: select, proxies: [故障转移, 香港策略, 美国策略, 狮城策略, 日本策略, 亚洲节点, 欧洲节点, 美洲节点, 大洋洲节点, 非洲节点, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Game Controller.png", <<: *Probe }
+  
+  # --- 屏蔽 ---
+  # 选择 REJECT 阻断广告域名，选择 DIRECT 则放行
+  - { name: 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Ad Blocker.png" }
+  - { name: 隐私保护, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Privacy.png" }
+  - { name: 反劫持, type: select, proxies: [REJECT, DIRECT], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Hijacking.png" }
+  
+  # 兜底策略：未匹配任何规则的所有流量最终走此组
+  - { name: 兜底策略, type: select, proxies: [故障转移, 节点选择, 香港策略, 狮城策略, 美国策略, 日本策略, 韩国策略, 台湾策略], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Rules.png", <<: *Probe }
+
+
+# ===== 8. 规则集 ==================================
+rule-providers:
+  AdRules: { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs", path: ./rules/AdRules.mrs }
+  Privacy:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",        path: ./rules/Privacy.mrs }
+  Hijacking:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs",      path: ./rules/Hijacking.mrs }
+  Hijacking_IP:   { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs",   path: ./rules/Hijacking_IP.mrs }
+  
+  Lan:            { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs",            path: ./rules/Lan.mrs }
+  Lan_IP:         { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs",         path: ./rules/Lan_IP.mrs }
+  Game_CN:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Game_CN.mrs",        path: ./rules/Game_CN.mrs }
+  GameDownloadCN: { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GameDownloadCN.mrs", path: ./rules/GameDownloadCN.mrs }
+  WeChat:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/WeChat.mrs",         path: ./rules/WeChat.mrs }
+  Global_CN:      { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Global_CN.mrs",      path: ./rules/Global_CN.mrs }
+  GeoSite_CN:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs",     path: ./rules/GeoSite_CN.mrs }
+  GeoIP_CN_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs",    path: ./rules/GeoIP_CN_IP.mrs }
+  
+  AI_Rules:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AI_Rules.mrs",       path: ./rules/AI_Rules.mrs }
+  Game_Proxy:     { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Game_Proxy.mrs",     path: ./rules/Game_Proxy.mrs }
+  YouTube:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs",        path: ./rules/YouTube.mrs }
+  YouTube_IP:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs",     path: ./rules/YouTube_IP.mrs }
+  Netflix:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs",        path: ./rules/Netflix.mrs }
+  Netflix_IP:     { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs",     path: ./rules/Netflix_IP.mrs }
+  TikTok:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs",         path: ./rules/TikTok.mrs }
+  Spotify:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs",        path: ./rules/Spotify.mrs }
+  Telegram:       { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs",       path: ./rules/Telegram.mrs }
+  Telegram_IP:    { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs",    path: ./rules/Telegram_IP.mrs }
+  Google:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs",         path: ./rules/Google.mrs }
+  Google_IP:      { <<: *RuleIP,     url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs",      path: ./rules/Google_IP.mrs }
+  iCloud:         { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/iCloud.mrs",         path: ./rules/iCloud.mrs }
+  AppleID:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs",        path: ./rules/AppleID.mrs }
+  Apple:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",          path: ./rules/Apple.mrs }
+  
+
+# ===== 9. 分流规则 ================
+rules:
+  # ---- BT/PT 流量拦截 ----
+  # 必须将 172.18.0.5/32 替换为你 NAS 上运行 BT 客户端的 Docker 容器的真实 IP 或网段
+  # 在 NAS 的 SSH 终端执行以下指令（将中文部分替换为你真实的下载器容器名）：docker inspect 你的下载容器名 | grep IPAddress
+  # - SRC-IP-CIDR,172.18.0.5/32,DIRECT
+  # - SRC-PORT,6881-6889,DIRECT
+  
+  # ---- 净化与拦截 ----
+  # 阻断海外 QUIC (UDP 443)，但排除中国 IP (保留国内 QUIC，如 B站/抖音)
+  - AND,((NETWORK,UDP),(DST-PORT,443),(NOT,((GEOIP,CN,no-resolve)))),REJECT
+  # 阻断所有外部 UDP DNS 请求 (强制所有 DNS 走内部 DNS 模块)
+  - AND,((NETWORK,UDP),(DST-PORT,53)),REJECT
+  # 广告域名 -> 广告拦截策略组 (默认 REJECT)
+  - RULE-SET,AdRules,广告拦截
+  
+  # DOMAIN-REGEX 正则匹配以 crash/metrics/track 等开头的日志上报域名
+  - DOMAIN-REGEX,^(crash|metrics|track|report|api|stat|collect|telemetry|apm|sdk|event|events|trace|beacon|analytics|probe|upload|diag)\.log\.,REJECT  
+  - DOMAIN-KEYWORD,telemetry,REJECT
+  - DOMAIN-KEYWORD,app-measurement,REJECT
+  - DOMAIN-KEYWORD,appsflyer,REJECT
+  - DOMAIN-KEYWORD,bugly,REJECT
+  - DOMAIN-KEYWORD,umeng,REJECT
+  - RULE-SET,Privacy,隐私保护
+  - RULE-SET,Hijacking,反劫持
+  - RULE-SET,Hijacking_IP,反劫持,no-resolve
+
+  # ---- 局域网与基础直连 ----
+  - RULE-SET,WeChat,DIRECT
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,Lan_IP,DIRECT,no-resolve
+  - RULE-SET,GameDownloadCN,DIRECT
+  - DST-PORT,123,DIRECT
+
+  # ---- P2P/BT 端口与关键字直连 ----
+  - DST-PORT,51413,DIRECT
+  - DOMAIN-KEYWORD,tracker,DIRECT
+  - DOMAIN-KEYWORD,torrent,DIRECT
+  - DOMAIN-KEYWORD,announce,DIRECT
+
+  # ---- 海外平台分流 ----
+  - RULE-SET,AI_Rules,AI Rules
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Netflix,Netflix
+  - RULE-SET,TikTok,TikTok
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,Google,Google
+  - RULE-SET,iCloud,Apple
+  - RULE-SET,AppleID,Apple
+  - RULE-SET,Apple,Apple
+  - RULE-SET,Game_Proxy,海外游戏
+
+  # ---- 国内直连 ----
+  - RULE-SET,Global_CN,DIRECT
+  - RULE-SET,Game_CN,DIRECT
+  - RULE-SET,GeoSite_CN,DIRECT
+
+  # ---- IP 补漏层 ----
+  - RULE-SET,Telegram_IP,Telegram,no-resolve
+  - RULE-SET,Google_IP,Google,no-resolve
+  - RULE-SET,YouTube_IP,YouTube,no-resolve
+  - RULE-SET,Netflix_IP,Netflix,no-resolve
+  - RULE-SET,GeoIP_CN_IP,DIRECT
+
+  # ---- 第七层：兜底 ----
+  - MATCH,兜底策略

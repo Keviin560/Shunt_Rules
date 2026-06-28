@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-25 05:21:08
-# Total = 768
+# Update = 2026-06-28 10:17:30
+# Total = 769
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -621,6 +621,7 @@ DOMAIN-SUFFIX,heptio.cn
 DOMAIN-SUFFIX,homepod.cn
 DOMAIN-SUFFIX,hpstore.cn
 DOMAIN-SUFFIX,icloud-apple.cn
+DOMAIN-SUFFIX,icloud-content.com.cn
 DOMAIN-SUFFIX,icloud.cn
 DOMAIN-SUFFIX,icloud.com.cn
 DOMAIN-SUFFIX,icloud.net.cn

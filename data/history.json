@@ -1590,10 +1590,10 @@
     "rule_count": 5729
   },
   "GeoSite_CN": {
-    "src_hash": "87797b689067480656cd57c6eb7a49ff",
-    "updated_at": 1782508569,
+    "src_hash": "1b562fbdc2d1d13acb747e151c4ccb1e",
+    "updated_at": 1782613036,
     "gen_ver": "v6.3",
-    "rule_count": 6930
+    "rule_count": 6948
   },
   "Gettyimages": {
     "src_hash": "3d313acba1377bfb4b91badb68fc536c",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "769cb03ac44ad3905e7422c061c53bb4",
-    "updated_at": 1782593919,
+    "updated_at": 1782613036,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1782593919,
+    "updated_at": 1782613036,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4146,10 +4146,10 @@
     "rule_count": 3
   },
   "AI_Rules": {
-    "src_hash": "db80aa0102319b7c83f8d0f96c24192d",
-    "updated_at": 1780866541,
+    "src_hash": "bab2c366c3e30f739350defd03cf1483",
+    "updated_at": 1782613036,
     "gen_ver": "v6.3",
-    "rule_count": 155
+    "rule_count": 156
   },
   "Game_CN": {
     "src_hash": "71d02097b896090642dfb2f2be2ab153",
@@ -4164,9 +4164,9 @@
     "rule_count": 831
   },
   "Global_CN": {
-    "src_hash": "c70a858c5ecb972a317c23547e6fd767",
-    "updated_at": 1782336054,
+    "src_hash": "0ef6960cda4614c21ef004d062411987",
+    "updated_at": 1782613036,
     "gen_ver": "v6.3",
-    "rule_count": 768
+    "rule_count": 769
   }
 }

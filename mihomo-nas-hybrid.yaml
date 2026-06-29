@@ -6,7 +6,7 @@
 #            宿主机物理网络层，NAS 本身及内部所有 Bridge 容器流量将无感接管
 #
 # ─────────────────────────────────────────────────────────────────────
-# ❖ 拓扑应用场景与切换指南（三维网络拓扑选择）
+# ❖ 拓扑应用场景与切换指南（三维网络拓扑）
 # ─────────────────────────────────────────────────────────────────────
 #
 # ┌── 方案 A : 【 本地透明网关 】
@@ -18,11 +18,11 @@
 # ┌── 方案 B : 【 全屋旁路网关 】
 # │   ├── 适用场景 : NAS 升格为全屋流量总闸，局域网内所有设备（含网线与无线）接入即代理
 # │   ├── 核心动作 : 保持 tun.enable: true，且 interface-name 必须硬绑定 NAS 物理网卡 end0（可改）
-# │   └── 网络行为 : 在主路由后台，将 DHCP 的 [网关/Gateway] 与 [DNS] 强制修改为你的 NAS IP
+# │   └── 网络行为 : 在主路由后台，将 DHCP 的 [网关/Gateway] 与 [DNS] 修改为你的 NAS IP
 # │
 # ┌── 方案 C : 【 局域网旁路单机劫持 】
 #     ├── 适用场景 : 主路由完全不动（防炸网），仅让局域网内指定的一台或几台设备(电脑/电视)走 NAS 代理
-#     ├── 核心动作 : 保持 tun.enable: true，且 interface-name 绑定物理网卡 NAS 物理网卡 end0（可改），NAS 侧不做任何修改。
+#     ├── 核心动作 : 保持 tun.enable: true，且 interface-name 绑定 NAS 物理网卡 end0（可改），NAS 端不做任何修改
 #     └── 网络行为 : 主路由和全局其他设备完全无感，只需要在【目标设备】上手动修改网络设置：
 #                    将 IP 设为静态，把 [网关/Gateway] 和 [DNS] 单独填入你的 NAS IP
 #
@@ -87,7 +87,7 @@
 # =====================================================================
     
     
-# ===== 0. 基础设置 ==========================================
+# ===== 0. 基础设置 ===================================================
 mode: rule
 log-level: info
 mixed-port: 7890          # HTTP(S) 和 SOCKS 代理混合端口
@@ -108,14 +108,14 @@ profile:
   store-fake-ip: true
 
 
-# ===== 1. 控制面板 ===============================================
+# ===== 1. 控制面板 ========================================================
 external-controller: 0.0.0.0:9090
 external-ui: ui
 external-ui-url: "https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip"
 # secret: ""      # 无面板访问密码，可自行修改
 
 
-# ===== 2. TUN 虚拟网卡 (透明网关) =================================
+# ===== 2. TUN 虚拟网卡 (透明网关) ==========================================
 tun:
   enable: true
   stack: system
@@ -128,7 +128,7 @@ tun:
   strict-route: true
 
 
-# ===== 3. 域名嗅探引擎 ============================================
+# ===== 3. 域名嗅探引擎 =====================================================
 sniffer:
   enable: true
   parse-pure-ip: true
@@ -147,7 +147,7 @@ sniffer:
     - "+.push.apple.com"
 
 
-# ===== 4. DNS 解析 ================================================
+# ===== 4. DNS 解析 =========================================================
 dns:
   enable: true
   ipv6: true      # 解析ipv 6（如只用ipv 4，改为false，同时修改其他相关配置）
@@ -184,7 +184,7 @@ dns:
     "rule-set:Google": https://1.1.1.1/dns-query#节点选择
 
 
-# ===== 5. 机场订阅 ============================================
+# ===== 5. 机场订阅 =====================================================
 proxy-providers:
   Airport_Sub:
     type: http
@@ -198,7 +198,7 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
   
 
-# ===== 6. 锚点配置 =================================
+# ===== 6. 锚点配置 ==========================================
 Probe: &Probe {url: "https://www.gstatic.com/generate_204", interval: 300, timeout: 3000}
 
 # url-test 自动策略组
@@ -236,7 +236,7 @@ FilterAfrica: &FilterAfrica '(?i)(?:🇦🇴|🇨🇩|🇨🇮|🇩🇿|🇪🇬
 FilterAll: &FilterAll '^(?!.*(?:(?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|剩余流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|失联|USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic|\d{4}-\d{2}-\d{2}|\d+G)).*$'
 
 
-# ===== 7. 策略组 ==================================================
+# ===== 7. 策略组 ===========================================================
 # 分流逻辑：流量 → rules 匹配 → 路由到指定策略组 → 该组独立决策
 
 proxy-groups:
@@ -305,7 +305,7 @@ proxy-groups:
   - { name: 兜底策略, type: select, proxies: [故障转移, 节点选择, 香港策略, 狮城策略, 美国策略, 日本策略, 韩国策略, 台湾策略], icon: "https://raw.githubusercontent.com/Keviin560/icon/main/src/Rules.png", <<: *Probe }
 
 
-# ===== 8. 规则集 ==================================
+# ===== 8. 规则集 ===========================================
 rule-providers:
   AdRules: { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs", path: ./rules/AdRules.mrs }
   Privacy:        { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs",        path: ./rules/Privacy.mrs }
@@ -338,7 +338,7 @@ rule-providers:
   Apple:          { <<: *RuleDomain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs",          path: ./rules/Apple.mrs }
   
 
-# ===== 9. 分流规则 ================
+# ===== 9. 分流规则 =========================
 rules:
   # ---- BT/PT 流量拦截 ----
   # 必须将 172.18.0.5/32 替换为你 NAS 上运行 BT 客户端的 Docker 容器的真实 IP 或网段

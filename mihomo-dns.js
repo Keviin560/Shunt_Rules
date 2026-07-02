@@ -254,7 +254,7 @@ function main(config) {
 
         // 📱 客户端面板上的分组，图标会自动拼接
         const appGroups = [
-            { name: 'AI Rules', type: 'select', proxies: ['美国节点', '日本节点', '新加坡节点', '节点选择'], icon: iconBase + 'ChatGPT.png' },
+            { name: 'AI Rules', type: 'select', proxies: ['美国节点', '日本节点', '台湾节点', '节点选择'], icon: iconBase + 'ChatGPT.png' },
             { name: 'YouTube', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'YouTube.png' },
             { name: 'Google', type: 'select', proxies: ['美国节点', '香港节点', '新加坡节点', '节点选择'], icon: iconBase + 'Google.png' },
             { name: 'Telegram', type: 'select', proxies: ['香港节点', '美国节点', '新加坡节点', '节点选择'], icon: iconBase + 'Telegram.png' },

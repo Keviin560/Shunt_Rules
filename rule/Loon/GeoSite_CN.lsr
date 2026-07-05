@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-03 05:01:50
-# Total = 6996
+# Update = 2026-07-06 04:57:09
+# Total = 6999
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -723,6 +723,7 @@ DOMAIN-SUFFIX,anjukestatic.com
 DOMAIN-SUFFIX,anlaiye.com
 DOMAIN-SUFFIX,anlaiye.com.cn
 DOMAIN-SUFFIX,anmo.com
+DOMAIN-SUFFIX,anquan
 DOMAIN-SUFFIX,anquan.org
 DOMAIN-SUFFIX,anquanke.com
 DOMAIN-SUFFIX,anruan.com
@@ -1248,6 +1249,7 @@ DOMAIN-SUFFIX,c-t.work
 DOMAIN-SUFFIX,c.mi.com
 DOMAIN-SUFFIX,ca-east-201.myhuaweicloud.com
 DOMAIN-SUFFIX,ca.file.myqcloud.com
+DOMAIN-SUFFIX,cabbagebox.com
 DOMAIN-SUFFIX,cache4ever.com
 DOMAIN-SUFFIX,cache666.com
 DOMAIN-SUFFIX,caijing.com.cn
@@ -1760,6 +1762,7 @@ DOMAIN-SUFFIX,cmvideo.cn
 DOMAIN-SUFFIX,cn-ha.mqtt.io.mi.com
 DOMAIN-SUFFIX,cn-hangzhou.aliyuncs.com
 DOMAIN-SUFFIX,cn-shanghai.aliyuncs.com
+DOMAIN-SUFFIX,cn.pool.ntp.org
 DOMAIN-SUFFIX,cnanzhi.com
 DOMAIN-SUFFIX,cnb.cool
 DOMAIN-SUFFIX,cnbksy.com
@@ -2251,7 +2254,6 @@ DOMAIN-SUFFIX,duxiaomanfintech.com
 DOMAIN-SUFFIX,duxiaomanfund.com
 DOMAIN-SUFFIX,duxiaomantech.com
 DOMAIN-SUFFIX,duxiu.com
-DOMAIN-SUFFIX,dwion.com
 DOMAIN-SUFFIX,dwjq.com.cn
 DOMAIN-SUFFIX,dwstatic.com
 DOMAIN-SUFFIX,dwz.cn
@@ -2830,7 +2832,6 @@ DOMAIN-SUFFIX,guokr.net
 DOMAIN-SUFFIX,guoocang.com
 DOMAIN-SUFFIX,guoping123.com
 DOMAIN-SUFFIX,guosen.com.cn
-DOMAIN-SUFFIX,guoxinmac.com
 DOMAIN-SUFFIX,guoxuedashi.com
 DOMAIN-SUFFIX,guoxuemi.com
 DOMAIN-SUFFIX,gupzs.com
@@ -3938,6 +3939,7 @@ DOMAIN-SUFFIX,lady8844.com
 DOMAIN-SUFFIX,lagou.com
 DOMAIN-SUFFIX,laiwang.com
 DOMAIN-SUFFIX,laiyagushi.com
+DOMAIN-SUFFIX,lancdn.com
 DOMAIN-SUFFIX,landian.news
 DOMAIN-SUFFIX,landian.vip
 DOMAIN-SUFFIX,landian.xyz
@@ -4029,6 +4031,7 @@ DOMAIN-SUFFIX,lebo.cn
 DOMAIN-SUFFIX,lebo.com.cn
 DOMAIN-SUFFIX,lebo.top
 DOMAIN-SUFFIX,lecloud.com
+DOMAIN-SUFFIX,lecloudapi.com
 DOMAIN-SUFFIX,ledu.com
 DOMAIN-SUFFIX,leetcode-cn.com
 DOMAIN-SUFFIX,leetcode.cn
@@ -4637,7 +4640,6 @@ DOMAIN-SUFFIX,offcn.com
 DOMAIN-SUFFIX,officese.com
 DOMAIN-SUFFIX,ofweek.com
 DOMAIN-SUFFIX,oi-wiki.com
-DOMAIN-SUFFIX,oicq88.com
 DOMAIN-SUFFIX,okjike.com
 DOMAIN-SUFFIX,okjk.co
 DOMAIN-SUFFIX,okooo.com
@@ -4793,7 +4795,6 @@ DOMAIN-SUFFIX,phpcomposer.com
 DOMAIN-SUFFIX,phpweblog.net
 DOMAIN-SUFFIX,phpwind.com
 DOMAIN-SUFFIX,phpwind.net
-DOMAIN-SUFFIX,piaoliang.com
 DOMAIN-SUFFIX,picpic-ai.cn
 DOMAIN-SUFFIX,piedaochuan.top
 DOMAIN-SUFFIX,pigai.org
@@ -5040,7 +5041,6 @@ DOMAIN-SUFFIX,qugame.com
 DOMAIN-SUFFIX,quickapp.cn
 DOMAIN-SUFFIX,qunjielong.com
 DOMAIN-SUFFIX,qunliao.info
-DOMAIN-SUFFIX,quyaoya.com
 DOMAIN-SUFFIX,qweather.com
 DOMAIN-SUFFIX,qweather.net
 DOMAIN-SUFFIX,qweatherapi.com
@@ -5250,6 +5250,7 @@ DOMAIN-SUFFIX,shobserver.com
 DOMAIN-SUFFIX,shopoppo.cn
 DOMAIN-SUFFIX,shopoppo.com.cn
 DOMAIN-SUFFIX,shopss.com
+DOMAIN-SUFFIX,shouji
 DOMAIN-SUFFIX,shoujihuifu.com
 DOMAIN-SUFFIX,shouqianba.com
 DOMAIN-SUFFIX,shoutanjjj.com
@@ -6459,6 +6460,7 @@ DOMAIN-SUFFIX,xiguashipin.cn
 DOMAIN-SUFFIX,xiguashipin.net
 DOMAIN-SUFFIX,xiguavideo.cn
 DOMAIN-SUFFIX,xiguavideo.net
+DOMAIN-SUFFIX,xihuan
 DOMAIN-SUFFIX,xilu.com
 DOMAIN-SUFFIX,ximalaya.com
 DOMAIN-SUFFIX,xin.xin
@@ -6733,6 +6735,7 @@ DOMAIN-SUFFIX,yufuid.com.cn
 DOMAIN-SUFFIX,yufuid.net
 DOMAIN-SUFFIX,yuketang.cn
 DOMAIN-SUFFIX,yumchina.com
+DOMAIN-SUFFIX,yun
 DOMAIN-SUFFIX,yun.139.com
 DOMAIN-SUFFIX,yunaq.com
 DOMAIN-SUFFIX,yunba.io

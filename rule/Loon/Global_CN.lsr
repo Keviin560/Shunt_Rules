@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-06-28 10:17:30
-# Total = 769
+# Update = 2026-07-06 04:57:12
+# Total = 771
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -143,10 +143,12 @@ DOMAIN,ea2cn-prod-outlet.dell.com
 DOMAIN,ea2cn-staging-outlet.dell.com
 DOMAIN,edge.geo.kaspersky.com
 DOMAIN,emoi-cncdn.bing.com
+DOMAIN,entitlements-edge.itunes.apple.com
 DOMAIN,experiments.apple.com
 DOMAIN,f.c2r.ts.cdn.office.net
 DOMAIN,fcs.dell.com
 DOMAIN,fides-pol.apple.com
+DOMAIN,fpinit.itunes.apple.com
 DOMAIN,fs.microsoft.com
 DOMAIN,fta.dell.com
 DOMAIN,ftaapj.dell.com

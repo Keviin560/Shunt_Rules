@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-06 04:57:09
-# Total = 112125
+# Update = 2026-07-10 05:21:39
+# Total = 112127
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -91390,6 +91390,7 @@ DOMAIN-SUFFIX,twtstudio.com
 DOMAIN-SUFFIX,twty.vip
 DOMAIN-SUFFIX,twwtn.com
 DOMAIN-SUFFIX,twyuxin.com
+DOMAIN-SUFFIX,twyxh.com
 DOMAIN-SUFFIX,twyxi.com
 DOMAIN-SUFFIX,twzilla.com
 DOMAIN-SUFFIX,twzui6.com
@@ -111649,6 +111650,7 @@ DOMAIN-SUFFIX,zwzsh.net
 DOMAIN-SUFFIX,zwzyzx.com
 DOMAIN-SUFFIX,zx-tour.com
 DOMAIN-SUFFIX,zx-xcx.com
+DOMAIN-SUFFIX,zx.com
 DOMAIN-SUFFIX,zx0093.com
 DOMAIN-SUFFIX,zx017.com
 DOMAIN-SUFFIX,zx017.net

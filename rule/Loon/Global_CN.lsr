@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-06 04:57:12
-# Total = 771
+# Update = 2026-07-11 05:04:37
+# Total = 775
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -24,6 +24,7 @@ DOMAIN,amp-api-updates.apps.apple.com
 DOMAIN,amp-api.apps.apple.com
 DOMAIN,amp-api.media.apple.com
 DOMAIN,amp-api.music.apple.com
+DOMAIN,amp-api.podcasts.apple.com
 DOMAIN,aod-ssl.itunes.apple.com
 DOMAIN,aod.itunes.apple.com
 DOMAIN,api-edge.apps.apple.com
@@ -310,8 +311,11 @@ DOMAIN,pancake.cdn-apple.com.akadns.net
 DOMAIN,pba0.apple.com
 DOMAIN,pd-nk.itunes.apple.com
 DOMAIN,pd.itunes.apple.com
+DOMAIN,play-edge.itunes.apple.com
 DOMAIN,play.itunes.apple.com
 DOMAIN,play.music.apple.com
+DOMAIN,podcasts.apple.com
+DOMAIN,podcasts.itunes.apple.com
 DOMAIN,probe.siri.apple.com
 DOMAIN,prod-support.apple-support.akadns.net
 DOMAIN,publicassets.cdn-apple.com

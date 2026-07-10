@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-09 05:04:07
-# Total = 7149
+# Update = 2026-07-11 05:04:37
+# Total = 7165
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -866,6 +866,7 @@ DOMAIN-SUFFIX,b612kaji.com
 DOMAIN-SUFFIX,babytree.com
 DOMAIN-SUFFIX,babytreeimg.com
 DOMAIN-SUFFIX,badou.com
+DOMAIN-SUFFIX,baicaf.com
 DOMAIN-SUFFIX,baichuan-ai.com
 DOMAIN-SUFFIX,baicizhan.com
 DOMAIN-SUFFIX,baicizhan.org
@@ -2081,6 +2082,7 @@ DOMAIN-SUFFIX,dcloudstc.com
 DOMAIN-SUFFIX,dcloudstc.net
 DOMAIN-SUFFIX,dcloudvod.com
 DOMAIN-SUFFIX,dcloudvod.net
+DOMAIN-SUFFIX,dcshfu.com
 DOMAIN-SUFFIX,dd373.com
 DOMAIN-SUFFIX,ddcorp.net
 DOMAIN-SUFFIX,ddfresh.net
@@ -2762,6 +2764,7 @@ DOMAIN-SUFFIX,ggowan.com
 DOMAIN-SUFFIX,ghsl.cn
 DOMAIN-SUFFIX,ghxi.com
 DOMAIN-SUFFIX,ghzq.com.cn
+DOMAIN-SUFFIX,gifpay.com
 DOMAIN-SUFFIX,gifshow.com
 DOMAIN-SUFFIX,gijsq.com
 DOMAIN-SUFFIX,gitbook.cn
@@ -3073,6 +3076,7 @@ DOMAIN-SUFFIX,houyicaiji.com
 DOMAIN-SUFFIX,houyuantuan.com
 DOMAIN-SUFFIX,howbuy.com
 DOMAIN-SUFFIX,hpplay.cn
+DOMAIN-SUFFIX,hprtupgrade.com
 DOMAIN-SUFFIX,hqchip.com
 DOMAIN-SUFFIX,hqdoc.com
 DOMAIN-SUFFIX,hqpcb.com
@@ -3403,6 +3407,7 @@ DOMAIN-SUFFIX,in.th
 DOMAIN-SUFFIX,inanguapi.cn
 DOMAIN-SUFFIX,inanguapi.com
 DOMAIN-SUFFIX,incopat.com
+DOMAIN-SUFFIX,indeedpower.com
 DOMAIN-SUFFIX,indienova.com
 DOMAIN-SUFFIX,inewsweek.cn
 DOMAIN-SUFFIX,infineon.cn
@@ -3434,6 +3439,7 @@ DOMAIN-SUFFIX,ipanda.net
 DOMAIN-SUFFIX,ipchaxun.com
 DOMAIN-SUFFIX,ipchaxun.net
 DOMAIN-SUFFIX,iplaysoft.com
+DOMAIN-SUFFIX,iposl.com
 DOMAIN-SUFFIX,ipplus360.com
 DOMAIN-SUFFIX,iprdp.net
 DOMAIN-SUFFIX,iprintworks.cn
@@ -4171,6 +4177,7 @@ DOMAIN-SUFFIX,linliyz.com
 DOMAIN-SUFFIX,linsn.com
 DOMAIN-SUFFIX,linuxidc.com
 DOMAIN-SUFFIX,liqucn.com
+DOMAIN-SUFFIX,listenai.com
 DOMAIN-SUFFIX,litessl.cn
 DOMAIN-SUFFIX,litessl.com
 DOMAIN-SUFFIX,liulanqi.net
@@ -4228,6 +4235,7 @@ DOMAIN-SUFFIX,lufax.com
 DOMAIN-SUFFIX,lufaxcdn.com
 DOMAIN-SUFFIX,lufunds.com
 DOMAIN-SUFFIX,luhua.cn
+DOMAIN-SUFFIX,lulian.cn
 DOMAIN-SUFFIX,lunwengo.net
 DOMAIN-SUFFIX,luojilab.com
 DOMAIN-SUFFIX,luyouqi.com
@@ -4391,6 +4399,7 @@ DOMAIN-SUFFIX,miaotixing.com
 DOMAIN-SUFFIX,miaoya.cn
 DOMAIN-SUFFIX,miaoyanai.com
 DOMAIN-SUFFIX,miaozhen.com
+DOMAIN-SUFFIX,micun.com
 DOMAIN-SUFFIX,midasbuy.com
 DOMAIN-SUFFIX,midea.cn
 DOMAIN-SUFFIX,midea.com
@@ -4559,6 +4568,7 @@ DOMAIN-SUFFIX,mysiteres.com
 DOMAIN-SUFFIX,mysqil.com
 DOMAIN-SUFFIX,myssl-uri.com
 DOMAIN-SUFFIX,myssl.com
+DOMAIN-SUFFIX,mystery0.vip
 DOMAIN-SUFFIX,mysxl.cn
 DOMAIN-SUFFIX,myypark.com
 DOMAIN-SUFFIX,myyx618.com
@@ -5287,6 +5297,7 @@ DOMAIN-SUFFIX,shangzhibo.tv
 DOMAIN-SUFFIX,shanhaitujian.com
 DOMAIN-SUFFIX,shanshuihotel.com
 DOMAIN-SUFFIX,shanxijianzhuzizhi.com
+DOMAIN-SUFFIX,share123.top
 DOMAIN-SUFFIX,sharejs.com
 DOMAIN-SUFFIX,sharesdk.cn
 DOMAIN-SUFFIX,shebiaotm.com
@@ -5745,6 +5756,7 @@ DOMAIN-SUFFIX,texasholdemcup.net
 DOMAIN-SUFFIX,tfogc.com
 DOMAIN-SUFFIX,tfzq.com
 DOMAIN-SUFFIX,tgbus.com
+DOMAIN-SUFFIX,tggfl.com
 DOMAIN-SUFFIX,tgovcloud.com
 DOMAIN-SUFFIX,tgpro.top
 DOMAIN-SUFFIX,th-music.com
@@ -5761,6 +5773,7 @@ DOMAIN-SUFFIX,thinkpad.com
 DOMAIN-SUFFIX,thinkprinter.cn
 DOMAIN-SUFFIX,thinkprinter.com.cn
 DOMAIN-SUFFIX,thinkprinter.net
+DOMAIN-SUFFIX,thispx.com
 DOMAIN-SUFFIX,thmnet.com
 DOMAIN-SUFFIX,threatbook.cn
 DOMAIN-SUFFIX,threatbook.com
@@ -5833,6 +5846,7 @@ DOMAIN-SUFFIX,tmjl.ai
 DOMAIN-SUFFIX,tmtpost.com
 DOMAIN-SUFFIX,tmtsmartlife.com
 DOMAIN-SUFFIX,tmtsmartrun.com
+DOMAIN-SUFFIX,tmwanba.com
 DOMAIN-SUFFIX,tnettms.com
 DOMAIN-SUFFIX,to8to.com
 DOMAIN-SUFFIX,tobosu.com
@@ -6007,6 +6021,8 @@ DOMAIN-SUFFIX,udesk.cn
 DOMAIN-SUFFIX,uewaf.com
 DOMAIN-SUFFIX,ufileos.com
 DOMAIN-SUFFIX,uggame.com
+DOMAIN-SUFFIX,ugnas.cloud
+DOMAIN-SUFFIX,ugnas.com
 DOMAIN-SUFFIX,ugshare-img.com
 DOMAIN-SUFFIX,ugslb.cn
 DOMAIN-SUFFIX,ugslb.com

@@ -1,8 +1,8 @@
 # Name = ChinaMax
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-12 04:44:24
-# Total = 124789
+# Update = 2026-07-14 04:56:44
+# Total = 124798
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -3471,7 +3471,6 @@ IP-CIDR,14.208.0.0/12,no-resolve
 IP-CIDR,14.241.232.0/21,no-resolve
 IP-CIDR,14.255.16.0/24,no-resolve
 IP-CIDR,14.255.238.0/24,no-resolve
-IP-CIDR,14.255.249.0/24,no-resolve
 IP-CIDR,14.255.254.0/24,no-resolve
 IP-CIDR,140.101.208.0/24,no-resolve
 IP-CIDR,140.143.0.0/16,no-resolve
@@ -3686,7 +3685,6 @@ IP-CIDR,154.72.44.0/24,no-resolve
 IP-CIDR,154.72.47.0/24,no-resolve
 IP-CIDR,154.8.128.0/17,no-resolve
 IP-CIDR,154.8.48.0/20,no-resolve
-IP-CIDR,154.84.180.0/24,no-resolve
 IP-CIDR,154.89.32.0/20,no-resolve
 IP-CIDR,154.91.158.0/23,no-resolve
 IP-CIDR,154.94.50.0/24,no-resolve
@@ -3986,9 +3984,7 @@ IP-CIDR,168.160.0.0/16,no-resolve
 IP-CIDR,168.230.0.0/24,no-resolve
 IP-CIDR,17.127.128.0/23,no-resolve
 IP-CIDR,17.127.130.0/24,no-resolve
-IP-CIDR,17.188.211.0/24,no-resolve
 IP-CIDR,17.235.160.0/20,no-resolve
-IP-CIDR,17.33.144.0/24,no-resolve
 IP-CIDR,17.80.0.0/17,no-resolve
 IP-CIDR,17.80.128.0/18,no-resolve
 IP-CIDR,17.80.192.0/19,no-resolve
@@ -10957,7 +10953,7 @@ IP-CIDR,2a0a:8f40:9::/48,no-resolve
 IP-CIDR,2a0a:d681:e000::/40,no-resolve
 IP-CIDR,2a0a:d681:fb00::/40,no-resolve
 IP-CIDR,2a0a:d681:fc00::/38,no-resolve
-IP-CIDR,2a0a:d685:1ff::/48,no-resolve
+IP-CIDR,2a0a:d685:1fe::/47,no-resolve
 IP-CIDR,2a0a:d685:200::/47,no-resolve
 IP-CIDR,2a0a:d685:300::/40,no-resolve
 IP-CIDR,2a0a:d687:f001::/48,no-resolve
@@ -11249,6 +11245,7 @@ IP-CIDR,2a14:7583:f220::/43,no-resolve
 IP-CIDR,2a14:7583:f240::/42,no-resolve
 IP-CIDR,2a14:7583:f300::/46,no-resolve
 IP-CIDR,2a14:7583:f304::/47,no-resolve
+IP-CIDR,2a14:7583:f306::/48,no-resolve
 IP-CIDR,2a14:7583:f411::/48,no-resolve
 IP-CIDR,2a14:7583:f4f0::/47,no-resolve
 IP-CIDR,2a14:7583:f4f4::/48,no-resolve
@@ -11814,6 +11811,7 @@ IP-CIDR,43.93.0.0/16,no-resolve
 IP-CIDR,43.94.0.0/15,no-resolve
 IP-CIDR,43.96.0.0/11,no-resolve
 IP-CIDR,44.30.164.0/24,no-resolve
+IP-CIDR,44.30.171.0/24,no-resolve
 IP-CIDR,44.31.212.0/24,no-resolve
 IP-CIDR,44.31.216.0/24,no-resolve
 IP-CIDR,44.31.28.0/24,no-resolve
@@ -12372,6 +12370,7 @@ IP-CIDR,87.254.207.0/24,no-resolve
 IP-CIDR,87.76.221.0/24,no-resolve
 IP-CIDR,87.76.222.0/24,no-resolve
 IP-CIDR,89.30.124.160/30,no-resolve
+IP-CIDR,91.132.200.0/23,no-resolve
 IP-CIDR,91.233.17.0/24,no-resolve
 IP-CIDR,91.234.36.0/24,no-resolve
 IP-CIDR,93.113.109.104/29,no-resolve
@@ -22847,6 +22846,7 @@ DOMAIN-SUFFIX,ad518.com
 DOMAIN-SUFFIX,ad77.com
 DOMAIN-SUFFIX,ad778.com
 DOMAIN-SUFFIX,ada-post.com
+DOMAIN-SUFFIX,adacpp.com
 DOMAIN-SUFFIX,adamahf.com
 DOMAIN-SUFFIX,adamcdn.com
 DOMAIN-SUFFIX,adamcoder.com
@@ -37436,6 +37436,7 @@ DOMAIN-SUFFIX,colocess.com
 DOMAIN-SUFFIX,color-measure.com
 DOMAIN-SUFFIX,color365.com
 DOMAIN-SUFFIX,colorbird.com
+DOMAIN-SUFFIX,colorfulclouds.com
 DOMAIN-SUFFIX,colorfulclouds.net
 DOMAIN-SUFFIX,colorfulltech.net
 DOMAIN-SUFFIX,colorimeter.com
@@ -43560,6 +43561,7 @@ DOMAIN-SUFFIX,duoyewu.com
 DOMAIN-SUFFIX,duoyi.com
 DOMAIN-SUFFIX,duoying.com
 DOMAIN-SUFFIX,duoyinsu.com
+DOMAIN-SUFFIX,duoyiwangluo.com
 DOMAIN-SUFFIX,duoyoumi.com
 DOMAIN-SUFFIX,duozhi.com
 DOMAIN-SUFFIX,duozhuayu.com
@@ -52486,6 +52488,7 @@ DOMAIN-SUFFIX,gter.net
 DOMAIN-SUFFIX,gtetern.com
 DOMAIN-SUFFIX,gtfund.com
 DOMAIN-SUFFIX,gtg56.com
+DOMAIN-SUFFIX,gtgjtrip.com
 DOMAIN-SUFFIX,gtgqw.com
 DOMAIN-SUFFIX,gtgres.com
 DOMAIN-SUFFIX,gtht.com
@@ -71264,6 +71267,7 @@ DOMAIN-SUFFIX,kldhq.com
 DOMAIN-SUFFIX,klhpw.com
 DOMAIN-SUFFIX,klhuyan.com
 DOMAIN-SUFFIX,klicen.com
+DOMAIN-SUFFIX,kling-ai.com
 DOMAIN-SUFFIX,klingai.com
 DOMAIN-SUFFIX,klinlee.com
 DOMAIN-SUFFIX,klisedu.com
@@ -73661,6 +73665,7 @@ DOMAIN-SUFFIX,leyonb.com
 DOMAIN-SUFFIX,leyoo.com
 DOMAIN-SUFFIX,leyoujia.com
 DOMAIN-SUFFIX,leyu.com
+DOMAIN-SUFFIX,leyuansu.com
 DOMAIN-SUFFIX,leyue100.com
 DOMAIN-SUFFIX,leyuglobal.com
 DOMAIN-SUFFIX,leyun365.com
@@ -93922,6 +93927,7 @@ DOMAIN-SUFFIX,sheca.com
 DOMAIN-SUFFIX,shedongyun.com
 DOMAIN-SUFFIX,shedoor.com
 DOMAIN-SUFFIX,shedunews.com
+DOMAIN-SUFFIX,shedunews.net
 DOMAIN-SUFFIX,sheec-tencentclb.cloud
 DOMAIN-SUFFIX,sheec-tencentclb.com
 DOMAIN-SUFFIX,sheec-tencentclb.net
@@ -111987,6 +111993,7 @@ DOMAIN-SUFFIX,xiaomazhixing.com
 DOMAIN-SUFFIX,xiaomei.cc
 DOMAIN-SUFFIX,xiaomeiti.com
 DOMAIN-SUFFIX,xiaomeng1235.com
+DOMAIN-SUFFIX,xiaomengai.com
 DOMAIN-SUFFIX,xiaomi.com
 DOMAIN-SUFFIX,xiaomi.hk
 DOMAIN-SUFFIX,xiaomi.net
@@ -116122,6 +116129,7 @@ DOMAIN-SUFFIX,ygcooler.com
 DOMAIN-SUFFIX,ygct.com
 DOMAIN-SUFFIX,ygdatabase.com
 DOMAIN-SUFFIX,ygdl.com
+DOMAIN-SUFFIX,ygduoyi.com
 DOMAIN-SUFFIX,yge.me
 DOMAIN-SUFFIX,ygeer.com
 DOMAIN-SUFFIX,ygei.com
@@ -123509,6 +123517,7 @@ DOMAIN-SUFFIX,zmshz.com
 DOMAIN-SUFFIX,zmsq.com
 DOMAIN-SUFFIX,zmssh.com
 DOMAIN-SUFFIX,zmtpc.com
+DOMAIN-SUFFIX,zmtqsh.com
 DOMAIN-SUFFIX,zmtquan.com
 DOMAIN-SUFFIX,zmufivehospital.com
 DOMAIN-SUFFIX,zmumu.com

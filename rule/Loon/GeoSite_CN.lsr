@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-12 04:44:47
-# Total = 7220
+# Update = 2026-07-14 04:57:09
+# Total = 7214
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -503,7 +503,6 @@ DOMAIN-SUFFIX,abdf002.com
 DOMAIN-SUFFIX,abhouses.com
 DOMAIN-SUFFIX,ac.fun
 DOMAIN-SUFFIX,acadn.cn
-DOMAIN-SUFFIX,acadn.com
 DOMAIN-SUFFIX,account.xiaomi.com
 DOMAIN-SUFFIX,acctdns.com
 DOMAIN-SUFFIX,acctdns.net
@@ -1292,7 +1291,6 @@ DOMAIN-SUFFIX,c-t.work
 DOMAIN-SUFFIX,c.mi.com
 DOMAIN-SUFFIX,ca-east-201.myhuaweicloud.com
 DOMAIN-SUFFIX,ca.file.myqcloud.com
-DOMAIN-SUFFIX,cabbagebox.com
 DOMAIN-SUFFIX,cache4ever.com
 DOMAIN-SUFFIX,cache666.com
 DOMAIN-SUFFIX,caijing.com.cn
@@ -1813,7 +1811,6 @@ DOMAIN-SUFFIX,cmvideo.cn
 DOMAIN-SUFFIX,cn-ha.mqtt.io.mi.com
 DOMAIN-SUFFIX,cn-hangzhou.aliyuncs.com
 DOMAIN-SUFFIX,cn-shanghai.aliyuncs.com
-DOMAIN-SUFFIX,cn.pool.ntp.org
 DOMAIN-SUFFIX,cnanzhi.com
 DOMAIN-SUFFIX,cnb.cool
 DOMAIN-SUFFIX,cnbksy.com
@@ -2420,10 +2417,6 @@ DOMAIN-SUFFIX,erp321.cn
 DOMAIN-SUFFIX,erp321.com
 DOMAIN-SUFFIX,erp321.net
 DOMAIN-SUFFIX,ersjk.com
-DOMAIN-SUFFIX,esp8266.cn
-DOMAIN-SUFFIX,esp8266.com.cn
-DOMAIN-SUFFIX,espressif.cn
-DOMAIN-SUFFIX,espressif.com.cn
 DOMAIN-SUFFIX,essence.com.cn
 DOMAIN-SUFFIX,essurl.com
 DOMAIN-SUFFIX,et-api.com
@@ -3912,7 +3905,6 @@ DOMAIN-SUFFIX,kksmg.com
 DOMAIN-SUFFIX,kkzj.com
 DOMAIN-SUFFIX,kling-ai.com
 DOMAIN-SUFFIX,klingai.com
-DOMAIN-SUFFIX,klpbbs.com
 DOMAIN-SUFFIX,km6g.cn
 DOMAIN-SUFFIX,km7g.cn
 DOMAIN-SUFFIX,km8g.cn
@@ -4909,6 +4901,7 @@ DOMAIN-SUFFIX,phpcomposer.com
 DOMAIN-SUFFIX,phpweblog.net
 DOMAIN-SUFFIX,phpwind.com
 DOMAIN-SUFFIX,phpwind.net
+DOMAIN-SUFFIX,piaoliang.com
 DOMAIN-SUFFIX,picpic-ai.cn
 DOMAIN-SUFFIX,piedaochuan.top
 DOMAIN-SUFFIX,pigai.org
@@ -5360,6 +5353,7 @@ DOMAIN-SUFFIX,shenzhenair.com
 DOMAIN-SUFFIX,sheui.com
 DOMAIN-SUFFIX,shfft.com
 DOMAIN-SUFFIX,shgsec.com
+DOMAIN-SUFFIX,shhxzq.com
 DOMAIN-SUFFIX,shidianbaike.com
 DOMAIN-SUFFIX,shidianguji.com
 DOMAIN-SUFFIX,shifen.com

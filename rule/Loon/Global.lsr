@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-16 04:58:27
-# Total = 34842
+# Update = 2026-07-18 04:52:21
+# Total = 34847
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -3598,6 +3598,7 @@ DOMAIN-SUFFIX,azuredns-prd.info
 DOMAIN-SUFFIX,azuredns-prd.org
 DOMAIN-SUFFIX,azureedge-test.net
 DOMAIN-SUFFIX,azureedge.net
+DOMAIN-SUFFIX,azureedge.us
 DOMAIN-SUFFIX,azurefd.net
 DOMAIN-SUFFIX,azureiotcentral.com
 DOMAIN-SUFFIX,azureiotsolutions.com
@@ -7674,6 +7675,7 @@ DOMAIN-SUFFIX,coova.com
 DOMAIN-SUFFIX,coova.net
 DOMAIN-SUFFIX,coova.org
 DOMAIN-SUFFIX,copac.ac.uk
+DOMAIN-SUFFIX,copilot-stg.com
 DOMAIN-SUFFIX,copilot.com
 DOMAIN-SUFFIX,copim.ac.uk
 DOMAIN-SUFFIX,copior.ac.uk
@@ -19732,6 +19734,7 @@ DOMAIN-SUFFIX,mh4u.org
 DOMAIN-SUFFIX,mhcb.ru
 DOMAIN-SUFFIX,mhcbr.ru
 DOMAIN-SUFFIX,mhdss.ac.uk
+DOMAIN-SUFFIX,mhgui.com
 DOMAIN-SUFFIX,mhhanman.xyz
 DOMAIN-SUFFIX,mhie.ac.uk
 DOMAIN-SUFFIX,mhqwe.xyz
@@ -21575,6 +21578,7 @@ DOMAIN-SUFFIX,netwise.ac.uk
 DOMAIN-SUFFIX,network54.com
 DOMAIN-SUFFIX,networkedblogs.com
 DOMAIN-SUFFIX,networktunnel.net
+DOMAIN-SUFFIX,netxh.blog
 DOMAIN-SUFFIX,netzerobuildings.com
 DOMAIN-SUFFIX,netzerobuildingstudio.com
 DOMAIN-SUFFIX,netzwerkdeutsch.ac.uk
@@ -28316,6 +28320,7 @@ DOMAIN-SUFFIX,starfox.com
 DOMAIN-SUFFIX,stargazer-games.com
 DOMAIN-SUFFIX,stark-verlag.ch
 DOMAIN-SUFFIX,starlink.ac.uk
+DOMAIN-SUFFIX,starlink.com
 DOMAIN-SUFFIX,starott.com
 DOMAIN-SUFFIX,starp2p.com
 DOMAIN-SUFFIX,starplus.com

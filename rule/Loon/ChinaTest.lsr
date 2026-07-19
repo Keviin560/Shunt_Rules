@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-18 04:52:18
-# Total = 111867
+# Update = 2026-07-20 04:43:27
+# Total = 111868
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -67498,6 +67498,7 @@ DOMAIN-SUFFIX,mychuguan.com
 DOMAIN-SUFFIX,mychunyan.net
 DOMAIN-SUFFIX,myckjr.com
 DOMAIN-SUFFIX,mycleanmymac.com
+DOMAIN-SUFFIX,mycloudnas.com
 DOMAIN-SUFFIX,mycloudstudy.com
 DOMAIN-SUFFIX,myclub2.com
 DOMAIN-SUFFIX,mycnc.org

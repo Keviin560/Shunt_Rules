@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-18 04:52:19
-# Total = 7226
+# Update = 2026-07-21 05:09:19
+# Total = 7228
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -292,6 +292,7 @@ DOMAIN-SUFFIX,3yx.com
 DOMAIN-SUFFIX,40017.cn
 DOMAIN-SUFFIX,4008-517-517.cn
 DOMAIN-SUFFIX,4008117117.com
+DOMAIN-SUFFIX,40407.com
 DOMAIN-SUFFIX,423down.com
 DOMAIN-SUFFIX,42r.cn
 DOMAIN-SUFFIX,4399.cn
@@ -2896,6 +2897,7 @@ DOMAIN-SUFFIX,guokr.net
 DOMAIN-SUFFIX,guoocang.com
 DOMAIN-SUFFIX,guoping123.com
 DOMAIN-SUFFIX,guosen.com.cn
+DOMAIN-SUFFIX,guoxinmac.com
 DOMAIN-SUFFIX,guoxuedashi.com
 DOMAIN-SUFFIX,guoxuemi.com
 DOMAIN-SUFFIX,gupzs.com
@@ -3910,6 +3912,7 @@ DOMAIN-SUFFIX,kksmg.com
 DOMAIN-SUFFIX,kkzj.com
 DOMAIN-SUFFIX,kling-ai.com
 DOMAIN-SUFFIX,klingai.com
+DOMAIN-SUFFIX,klpbbs.com
 DOMAIN-SUFFIX,km6g.cn
 DOMAIN-SUFFIX,km7g.cn
 DOMAIN-SUFFIX,km8g.cn
@@ -4815,6 +4818,7 @@ DOMAIN-SUFFIX,orient-fund.com
 DOMAIN-SUFFIX,originalimg.com
 DOMAIN-SUFFIX,originalstatic.com
 DOMAIN-SUFFIX,originalvod.com
+DOMAIN-SUFFIX,osbdf.com
 DOMAIN-SUFFIX,oschina.net
 DOMAIN-SUFFIX,oshwhub.com
 DOMAIN-SUFFIX,oss-ap-northeast-1.aliyuncs.com
@@ -4906,7 +4910,6 @@ DOMAIN-SUFFIX,phpcomposer.com
 DOMAIN-SUFFIX,phpweblog.net
 DOMAIN-SUFFIX,phpwind.com
 DOMAIN-SUFFIX,phpwind.net
-DOMAIN-SUFFIX,piaoliang.com
 DOMAIN-SUFFIX,picpic-ai.cn
 DOMAIN-SUFFIX,piedaochuan.top
 DOMAIN-SUFFIX,pigai.org
@@ -5362,7 +5365,6 @@ DOMAIN-SUFFIX,shenzhenair.com
 DOMAIN-SUFFIX,sheui.com
 DOMAIN-SUFFIX,shfft.com
 DOMAIN-SUFFIX,shgsec.com
-DOMAIN-SUFFIX,shhxzq.com
 DOMAIN-SUFFIX,shidianbaike.com
 DOMAIN-SUFFIX,shidianguji.com
 DOMAIN-SUFFIX,shifen.com
@@ -6470,6 +6472,7 @@ DOMAIN-SUFFIX,whalecloud.com
 DOMAIN-SUFFIX,whccb.com
 DOMAIN-SUFFIX,whee.com
 DOMAIN-SUFFIX,whhhealth.com
+DOMAIN-SUFFIX,whlovehome.com
 DOMAIN-SUFFIX,wicresoft.com
 DOMAIN-SUFFIX,wildfirechat.net
 DOMAIN-SUFFIX,win007.com
@@ -6799,9 +6802,9 @@ DOMAIN-SUFFIX,yesky.com
 DOMAIN-SUFFIX,yeyou.com
 DOMAIN-SUFFIX,yeyoucdn.com
 DOMAIN-SUFFIX,yeyousg.com
-DOMAIN-SUFFIX,yfcache.com
 DOMAIN-SUFFIX,yfcalc.com
 DOMAIN-SUFFIX,yfcdn.net
+DOMAIN-SUFFIX,yfcloud.com
 DOMAIN-SUFFIX,yfdts.net
 DOMAIN-SUFFIX,yfp2p.net
 DOMAIN-SUFFIX,yfscdn.net
@@ -7150,7 +7153,6 @@ DOMAIN-SUFFIX,zimgs.cn
 DOMAIN-SUFFIX,ziroom.com
 DOMAIN-SUFFIX,ziroomapartment.com
 DOMAIN-SUFFIX,zixiaomao.com
-DOMAIN-SUFFIX,zixuntop.com
 DOMAIN-SUFFIX,ziyrta.com
 DOMAIN-SUFFIX,zjbyte.cn
 DOMAIN-SUFFIX,zjbyte.com

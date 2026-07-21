@@ -1,8 +1,8 @@
 # Name = Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-20 04:43:29
-# Total = 6881
+# Update = 2026-07-22 05:05:32
+# Total = 6883
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,103.2.28.0/22,no-resolve
@@ -1273,6 +1273,7 @@ DOMAIN-SUFFIX,cixiaoya.club
 DOMAIN-SUFFIX,ck101.com
 DOMAIN-SUFFIX,cl.ly
 DOMAIN-SUFFIX,clarionproject.org
+DOMAIN-SUFFIX,clashyun.com
 DOMAIN-SUFFIX,classicalguitarblog.net
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,clb.org.hk
@@ -5428,6 +5429,7 @@ DOMAIN-SUFFIX,syncback.com
 DOMAIN-SUFFIX,synergyse.com
 DOMAIN-SUFFIX,syosetu.com
 DOMAIN-SUFFIX,sysresccd.org
+DOMAIN-SUFFIX,sysub.com
 DOMAIN-SUFFIX,sytes.net
 DOMAIN-SUFFIX,syx86.com
 DOMAIN-SUFFIX,szbbs.net

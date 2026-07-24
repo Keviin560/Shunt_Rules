@@ -1584,10 +1584,10 @@
     "rule_count": 13
   },
   "GeoIP_CN": {
-    "src_hash": "d17a2dd87b25c4577e77d93e45c57641",
-    "updated_at": 1784321451,
+    "src_hash": "8d0cbc8df02247fdd345c0a5ea506a17",
+    "updated_at": 1784926749,
     "gen_ver": "v6.3",
-    "rule_count": 5817
+    "rule_count": 5805
   },
   "GeoSite_CN": {
     "src_hash": "a56d54932b12ea9ccb4ab35ef584429e",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "a4c3af18f5801c1d71903be7bc24f5f0",
-    "updated_at": 1784840374,
+    "updated_at": 1784926749,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1784840374,
+    "updated_at": 1784926749,
     "gen_ver": "v6.3",
     "rule_count": 1
   },

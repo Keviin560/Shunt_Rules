@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-24 05:01:04
-# Total = 34859
+# Update = 2026-07-26 04:46:19
+# Total = 34864
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -7096,6 +7096,7 @@ DOMAIN-SUFFIX,cinny.in
 DOMAIN-SUFFIX,cios.org
 DOMAIN-SUFFIX,ciota.ac.uk
 DOMAIN-SUFFIX,cipfg.org
+DOMAIN-SUFFIX,circle19.org
 DOMAIN-SUFFIX,circlethebayfortibet.org
 DOMAIN-SUFFIX,cirencester.ac.uk
 DOMAIN-SUFFIX,cirius.ac.uk
@@ -9181,6 +9182,7 @@ DOMAIN-SUFFIX,docs.cfw.lbyczf.com
 DOMAIN-SUFFIX,docs.com
 DOMAIN-SUFFIX,docs.new
 DOMAIN-SUFFIX,docs.rs
+DOMAIN-SUFFIX,docs.rw
 DOMAIN-SUFFIX,doctor-videos.com
 DOMAIN-SUFFIX,doctorvoice.org
 DOMAIN-SUFFIX,documentforce.com
@@ -17524,6 +17526,7 @@ DOMAIN-SUFFIX,kaotic.com
 DOMAIN-SUFFIX,karabako-gmo.com
 DOMAIN-SUFFIX,karafarinbank.ir
 DOMAIN-SUFFIX,karayou.com
+DOMAIN-SUFFIX,kards.com
 DOMAIN-SUFFIX,karechat.ai
 DOMAIN-SUFFIX,karinahart.com
 DOMAIN-SUFFIX,karkhung.com
@@ -18588,6 +18591,7 @@ DOMAIN-SUFFIX,localxlist.org
 DOMAIN-SUFFIX,locate.ac.uk
 DOMAIN-SUFFIX,lockestek.com
 DOMAIN-SUFFIX,lockssalliance.ac.uk
+DOMAIN-SUFFIX,log.rw
 DOMAIN-SUFFIX,logbot.net
 DOMAIN-SUFFIX,logi.com
 DOMAIN-SUFFIX,logic.ac.uk
@@ -30229,6 +30233,7 @@ DOMAIN-SUFFIX,truyenhentai.xyz
 DOMAIN-SUFFIX,truyenkk1.com
 DOMAIN-SUFFIX,truyentranh86.com
 DOMAIN-SUFFIX,truyenwk.com
+DOMAIN-SUFFIX,try.rw
 DOMAIN-SUFFIX,tryalias.com
 DOMAIN-SUFFIX,tryboobs.com
 DOMAIN-SUFFIX,trycloudflare.com

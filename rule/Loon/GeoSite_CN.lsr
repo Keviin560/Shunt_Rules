@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-29 05:04:59
-# Total = 7290
+# Update = 2026-07-30 04:53:50
+# Total = 7291
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -6773,6 +6773,7 @@ DOMAIN-SUFFIX,xkb.com.cn
 DOMAIN-SUFFIX,xkw.com
 DOMAIN-SUFFIX,xmcdn.com
 DOMAIN-SUFFIX,xmhouse.com
+DOMAIN-SUFFIX,xmoj.tech
 DOMAIN-SUFFIX,xn--8y0a063a
 DOMAIN-SUFFIX,xn--fiq53l6wcx3kp9bc7joo6apn8a.cn
 DOMAIN-SUFFIX,xn--fiq53l6wcx3kp9bc7joo6apn8a.xn--fiqs8s

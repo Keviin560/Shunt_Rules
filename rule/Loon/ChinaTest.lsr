@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-24 05:01:01
-# Total = 111929
+# Update = 2026-07-30 04:53:49
+# Total = 111930
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -100665,6 +100665,7 @@ DOMAIN-SUFFIX,xmmtu.com
 DOMAIN-SUFFIX,xmmuye.com
 DOMAIN-SUFFIX,xmnjdwx.com
 DOMAIN-SUFFIX,xmocloud01.com
+DOMAIN-SUFFIX,xmoj.tech
 DOMAIN-SUFFIX,xmonecode.com
 DOMAIN-SUFFIX,xmos.tv
 DOMAIN-SUFFIX,xmov.ai

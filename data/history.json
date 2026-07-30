@@ -1584,16 +1584,16 @@
     "rule_count": 13
   },
   "GeoIP_CN": {
-    "src_hash": "20ee28a8a6d22b114193a6cc0882ba4e",
-    "updated_at": 1785358340,
+    "src_hash": "9f481c990b7764884ec4701de004e8bd",
+    "updated_at": 1785445482,
     "gen_ver": "v6.3",
-    "rule_count": 5806
+    "rule_count": 5822
   },
   "GeoSite_CN": {
-    "src_hash": "df538e1778514d4586317d7f0c0af099",
-    "updated_at": 1785358340,
+    "src_hash": "50b8e0f1074f010c2bfb74dd7540d699",
+    "updated_at": 1785445482,
     "gen_ver": "v6.3",
-    "rule_count": 7291
+    "rule_count": 7292
   },
   "Gettyimages": {
     "src_hash": "3d313acba1377bfb4b91badb68fc536c",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "a4c3af18f5801c1d71903be7bc24f5f0",
-    "updated_at": 1785358340,
+    "updated_at": 1785445482,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1785358340,
+    "updated_at": 1785445482,
     "gen_ver": "v6.3",
     "rule_count": 1
   },

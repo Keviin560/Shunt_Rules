@@ -1,8 +1,8 @@
 # Name = WeTV
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-16 04:58:32
-# Total = 11
+# Update = 2026-08-01 05:02:22
+# Total = 9
 
 IP-CIDR,150.109.28.51/32,no-resolve
 DOMAIN,wetv.qq.com
@@ -10,8 +10,6 @@ DOMAIN-SUFFIX,PROCESS-NAME,com.tencent.qqlivei18n
 DOMAIN-SUFFIX,PROCESS-NAME,com.tencent.qqlivei18n.us
 DOMAIN-SUFFIX,iflix-images.akamaized.net
 DOMAIN-SUFFIX,iflix.com
-DOMAIN-SUFFIX,v.smtcdns.com
-DOMAIN-SUFFIX,v.smtcdns.net
 DOMAIN-SUFFIX,vv.video.qq.com
 DOMAIN-SUFFIX,wetv.vip
 DOMAIN-SUFFIX,wetvinfo.com

@@ -1,8 +1,8 @@
 # Name = ChinaIPs
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-01 05:01:48
-# Total = 22851
+# Update = 2026-08-04 05:00:46
+# Total = 22850
 
 IP-CIDR,1.0.1.0/24,no-resolve
 IP-CIDR,1.0.2.0/23,no-resolve
@@ -5000,6 +5000,7 @@ IP-CIDR,104.212.68.57/32,no-resolve
 IP-CIDR,104.212.68.58/32,no-resolve
 IP-CIDR,104.227.65.96/28,no-resolve
 IP-CIDR,104.237.80.0/21,no-resolve
+IP-CIDR,104.251.176.0/22,no-resolve
 IP-CIDR,104.28.101.0/27,no-resolve
 IP-CIDR,104.28.101.32/29,no-resolve
 IP-CIDR,104.28.101.40/31,no-resolve
@@ -9287,7 +9288,6 @@ IP-CIDR,162.62.242.0/24,no-resolve
 IP-CIDR,163.0.0.0/16,no-resolve
 IP-CIDR,163.125.0.0/16,no-resolve
 IP-CIDR,163.128.254.0/23,no-resolve
-IP-CIDR,163.128.254.0/24,no-resolve
 IP-CIDR,163.142.0.0/16,no-resolve
 IP-CIDR,163.171.193.0/24,no-resolve
 IP-CIDR,163.171.198.0/24,no-resolve
@@ -21995,7 +21995,6 @@ IP-CIDR,45.82.241.0/24,no-resolve
 IP-CIDR,45.87.53.0/24,no-resolve
 IP-CIDR,45.87.54.0/24,no-resolve
 IP-CIDR,45.9.11.0/24,no-resolve
-IP-CIDR,45.91.139.0/24,no-resolve
 IP-CIDR,46.102.251.0/25,no-resolve
 IP-CIDR,46.151.180.0/23,no-resolve
 IP-CIDR,46.151.181.0/24,no-resolve

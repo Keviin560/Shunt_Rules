@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-11 05:04:37
-# Total = 775
+# Update = 2026-08-06 05:06:29
+# Total = 777
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -405,6 +405,8 @@ DOMAIN,sync.itunes.apple.com
 DOMAIN,tesla-cdn.thron.cn
 DOMAIN,tf-feedback.itunes.apple.com
 DOMAIN,tj-pod1-smp-device.apple.com
+DOMAIN,tj-pod2-smp-device.apple.com
+DOMAIN,tj-pod3-smp-device.apple.com
 DOMAIN,tp.louisvuitton.com
 DOMAIN,universal-activity-service.itunes.apple.com
 DOMAIN,updates-http.cdn-apple.com

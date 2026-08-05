@@ -1,7 +1,7 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-05 05:09:53
+# Update = 2026-08-06 05:06:27
 # Total = 7461
 
 DOMAIN,account-cn.alibabacloud.com
@@ -1349,6 +1349,7 @@ DOMAIN-SUFFIX,carnoc.com
 DOMAIN-SUFFIX,cbern.com.cn
 DOMAIN-SUFFIX,cbinews.com
 DOMAIN-SUFFIX,cbjq.com
+DOMAIN-SUFFIX,cbn.cn
 DOMAIN-SUFFIX,cc-pay.cn
 DOMAIN-SUFFIX,ccb-life.com.cn
 DOMAIN-SUFFIX,ccb.cn
@@ -1685,7 +1686,6 @@ DOMAIN-SUFFIX,chinaz.net
 DOMAIN-SUFFIX,chinazns.com
 DOMAIN-SUFFIX,chinesemooc.org
 DOMAIN-SUFFIX,chiphell.com
-DOMAIN-SUFFIX,chn.cn
 DOMAIN-SUFFIX,chndoi.org
 DOMAIN-SUFFIX,chnppmuseum.com
 DOMAIN-SUFFIX,chntel.com

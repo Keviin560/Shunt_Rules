@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-04 05:01:19
-# Total = 34902
+# Update = 2026-08-06 05:06:29
+# Total = 34916
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -8425,6 +8425,8 @@ DOMAIN-SUFFIX,deepfreeze.tech
 DOMAIN-SUFFIX,deeping.ac.uk
 DOMAIN-SUFFIX,deepl.com
 DOMAIN-SUFFIX,deepmind.com
+DOMAIN-SUFFIX,deepwiki.com
+DOMAIN-SUFFIX,deepwiki.org
 DOMAIN-SUFFIX,deeside.ac.uk
 DOMAIN-SUFFIX,deezer.com
 DOMAIN-SUFFIX,defac.ac.uk
@@ -11790,8 +11792,11 @@ DOMAIN-SUFFIX,fluidpreview.com
 DOMAIN-SUFFIX,fluids.ac.uk
 DOMAIN-SUFFIX,flutter.dev
 DOMAIN-SUFFIX,flutterapp.com
+DOMAIN-SUFFIX,fly.dev
+DOMAIN-SUFFIX,fly.io
 DOMAIN-SUFFIX,flyflv.com
 DOMAIN-SUFFIX,flyingjizz.com
+DOMAIN-SUFFIX,flyio.net
 DOMAIN-SUFFIX,flypool.org
 DOMAIN-SUFFIX,flyvpn.com
 DOMAIN-SUFFIX,flyyindh-cc.sbs
@@ -13088,6 +13093,7 @@ DOMAIN-SUFFIX,glen-coll.ac.uk
 DOMAIN-SUFFIX,glenfife.ac.uk
 DOMAIN-SUFFIX,glenrothes-college.ac.uk
 DOMAIN-SUFFIX,glhl.ac.uk
+DOMAIN-SUFFIX,glitchwave.com
 DOMAIN-SUFFIX,gllm.ac.uk
 DOMAIN-SUFFIX,global-sci.org
 DOMAIN-SUFFIX,global.market.xiaomi.com
@@ -23275,14 +23281,17 @@ DOMAIN-SUFFIX,ozodlik.org
 DOMAIN-SUFFIX,ozon-credit.ru
 DOMAIN-SUFFIX,ozon-dostavka.ru
 DOMAIN-SUFFIX,ozon-tech.ru
+DOMAIN-SUFFIX,ozon.app
 DOMAIN-SUFFIX,ozon.by
 DOMAIN-SUFFIX,ozon.com
 DOMAIN-SUFFIX,ozon.com.by
 DOMAIN-SUFFIX,ozon.com.kz
 DOMAIN-SUFFIX,ozon.dev
 DOMAIN-SUFFIX,ozon.express
+DOMAIN-SUFFIX,ozon.global
 DOMAIN-SUFFIX,ozon.kz
 DOMAIN-SUFFIX,ozon.li
+DOMAIN-SUFFIX,ozon.market
 DOMAIN-SUFFIX,ozon.ru
 DOMAIN-SUFFIX,ozon.tech
 DOMAIN-SUFFIX,ozon.tm
@@ -26215,6 +26224,7 @@ DOMAIN-SUFFIX,rutracker.nl
 DOMAIN-SUFFIX,rutracker.org
 DOMAIN-SUFFIX,rutrecker.net
 DOMAIN-SUFFIX,rutube.ru
+DOMAIN-SUFFIX,rutube.sport
 DOMAIN-SUFFIX,rutubelist.ru
 DOMAIN-SUFFIX,ruvideos.net
 DOMAIN-SUFFIX,ruyiseek.com
@@ -26225,6 +26235,7 @@ DOMAIN-SUFFIX,rwbautomation.tech
 DOMAIN-SUFFIX,rwbgeo.ru
 DOMAIN-SUFFIX,rwcmd.ac.uk
 DOMAIN-SUFFIX,rxhj.net
+DOMAIN-SUFFIX,rym.fm
 DOMAIN-SUFFIX,ryokoyomiuri.co.jp
 DOMAIN-SUFFIX,ryukyubank.co.jp
 DOMAIN-SUFFIX,rzr.to
@@ -27708,6 +27719,7 @@ DOMAIN-SUFFIX,snjulebu.com
 DOMAIN-SUFFIX,snk-corp.co.jp
 DOMAIN-SUFFIX,snk-corp.info
 DOMAIN-SUFFIX,snkplaymore.info
+DOMAIN-SUFFIX,snmc.io
 DOMAIN-SUFFIX,snow.me
 DOMAIN-SUFFIX,snowcorp.com
 DOMAIN-SUFFIX,snowlionpub.com
@@ -27817,6 +27829,8 @@ DOMAIN-SUFFIX,somee.com
 DOMAIN-SUFFIX,somerset.ac.uk
 DOMAIN-SUFFIX,somersetcolleges.ac.uk
 DOMAIN-SUFFIX,sonatype.org
+DOMAIN-SUFFIX,sonematic.net
+DOMAIN-SUFFIX,sonemic.com
 DOMAIN-SUFFIX,songjianjun.com
 DOMAIN-SUFFIX,sonicbbs.cc
 DOMAIN-SUFFIX,sonidodelaesperanza.org

@@ -270,10 +270,10 @@
     "rule_count": 118
   },
   "Advertising": {
-    "src_hash": "716be630ae51604c97e34946dfc49435",
-    "updated_at": 1785790786,
+    "src_hash": "a58eb5c32af2e6c6a8c2b5fc381d6e33",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 263880
+    "rule_count": 264426
   },
   "AdvertisingLite": {
     "src_hash": "3d7e1f963dd73aa52af138b8f4ed6aec",
@@ -288,10 +288,10 @@
     "rule_count": 165
   },
   "AdvertisingTest": {
-    "src_hash": "72c18367191b7499aaf9f62808f181be",
-    "updated_at": 1785790786,
+    "src_hash": "9916ba695ec345a00eb10d0ca9b559e3",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 288618
+    "rule_count": 289194
   },
   "Aerogard": {
     "src_hash": "9c3c35c084b928598f5f2ec9e9b845eb",
@@ -474,8 +474,8 @@
     "rule_count": 2
   },
   "Apple": {
-    "src_hash": "7da80929ad9aa6b692b0397099919876",
-    "updated_at": 1785790786,
+    "src_hash": "231aabe1197be4fbcb7c0e7e3f335655",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
     "rule_count": 1582
   },
@@ -702,8 +702,8 @@
     "rule_count": 9
   },
   "Blizzard": {
-    "src_hash": "189deb42f2a194cb6cfb0cc18f8592e6",
-    "updated_at": 1785790786,
+    "src_hash": "124fa707f310c6364c35bf005ae43caf",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
     "rule_count": 62
   },
@@ -912,10 +912,10 @@
     "rule_count": 4
   },
   "ChinaIPs": {
-    "src_hash": "815bf33f09dfd13ad2a8a5341633e7b2",
-    "updated_at": 1785790786,
+    "src_hash": "f2338329f3c62334697c61442e911a50",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 22850
+    "rule_count": 22852
   },
   "ChinaIPsBGP": {
     "src_hash": "db5a0a6d012c0e71708cdcc88f78110a",
@@ -924,10 +924,10 @@
     "rule_count": 3916
   },
   "ChinaMax": {
-    "src_hash": "f02812620eed373bd90f76283f9bbfb4",
-    "updated_at": 1785790786,
+    "src_hash": "f82b267a2b5b5d6de0a169cf15a8eb9b",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 124114
+    "rule_count": 124122
   },
   "ChinaMaxNoIP": {
     "src_hash": "9e4a0f0d4aec9d179adf0fa30e127049",
@@ -936,10 +936,10 @@
     "rule_count": 111316
   },
   "ChinaMaxNoMedia": {
-    "src_hash": "acee3ff0cf3acb5dc51e9adf3097de36",
-    "updated_at": 1785790786,
+    "src_hash": "5f653494aab74feb571a3251efc3f93e",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 123678
+    "rule_count": 123686
   },
   "ChinaMedia": {
     "src_hash": "27927cdb0f0293cae72f5758d6fed614",
@@ -1554,8 +1554,8 @@
     "rule_count": 10
   },
   "Game": {
-    "src_hash": "4b2be1fd4f2f69f33de4b40d6cea63b3",
-    "updated_at": 1785790786,
+    "src_hash": "9a337a106337992e48889b8bf94a27dd",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
     "rule_count": 597
   },
@@ -1590,8 +1590,8 @@
     "rule_count": 5822
   },
   "GeoSite_CN": {
-    "src_hash": "6f796b741745bafdcbf1130b528e6cdd",
-    "updated_at": 1785877779,
+    "src_hash": "acfd7159282570c46d46cb4b0f35c2f7",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
     "rule_count": 7461
   },
@@ -1632,10 +1632,10 @@
     "rule_count": 2
   },
   "Global": {
-    "src_hash": "9581909b960d02b818879fdee712479c",
-    "updated_at": 1785790786,
+    "src_hash": "5863261f8068624f8ad0290443ec0b27",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 34902
+    "rule_count": 34916
   },
   "GlobalMedia": {
     "src_hash": "149b1355b2646f7a693d0d54b45bfd39",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "a4c3af18f5801c1d71903be7bc24f5f0",
-    "updated_at": 1785877779,
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1785877779,
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4026,10 +4026,10 @@
     "rule_count": 16
   },
   "ChinaIPsTest": {
-    "src_hash": "5b2d943f598a22918e1560527869fc0e",
-    "updated_at": 1785790786,
+    "src_hash": "c1439d315c0bc314441e9ea2e59b46ca",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 29274
+    "rule_count": 29293
   },
   "360Cloud": {
     "src_hash": "76b813c7453168717874e7a399fa6928",
@@ -4146,10 +4146,10 @@
     "rule_count": 3
   },
   "AI_Rules": {
-    "src_hash": "3224a28dbe7ec664c97de97579588df3",
-    "updated_at": 1785703864,
+    "src_hash": "ab59e789d0277568259096b0d34595ab",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 167
+    "rule_count": 169
   },
   "Game_CN": {
     "src_hash": "cff4d6fac3432801138331905c1f5ff0",
@@ -4164,9 +4164,9 @@
     "rule_count": 830
   },
   "Global_CN": {
-    "src_hash": "3cd5d8dfb5fb9b820f7512eaaba54511",
-    "updated_at": 1783717462,
+    "src_hash": "3567106020da48f14d5aac1cb8342c76",
+    "updated_at": 1785963914,
     "gen_ver": "v6.3",
-    "rule_count": 775
+    "rule_count": 777
   }
 }

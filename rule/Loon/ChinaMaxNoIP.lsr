@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoIP
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-04 05:01:01
-# Total = 111316
+# Update = 2026-08-08 04:40:55
+# Total = 111319
 
 DOMAIN,1-fss24-s0.streamhoster.com
 DOMAIN,14033.live.streamtheworld.com
@@ -63645,6 +63645,7 @@ DOMAIN-SUFFIX,madailicai.com
 DOMAIN-SUFFIX,madajiefood.com
 DOMAIN-SUFFIX,madaomall.com
 DOMAIN-SUFFIX,madboxi.com
+DOMAIN-SUFFIX,made-in-china.com
 DOMAIN-SUFFIX,madefuns.com
 DOMAIN-SUFFIX,madeinchinastone.com
 DOMAIN-SUFFIX,madewei.com
@@ -65377,6 +65378,7 @@ DOMAIN-SUFFIX,microwu.com
 DOMAIN-SUFFIX,microxiang.com
 DOMAIN-SUFFIX,microyan.com
 DOMAIN-SUFFIX,microzuji.com
+DOMAIN-SUFFIX,micstatic.com
 DOMAIN-SUFFIX,mictormedical.com
 DOMAIN-SUFFIX,micu.hk
 DOMAIN-SUFFIX,micun.com
@@ -73012,6 +73014,7 @@ DOMAIN-SUFFIX,powerchinashow.com
 DOMAIN-SUFFIX,powerchinayun.com
 DOMAIN-SUFFIX,powerde.com
 DOMAIN-SUFFIX,powereasy.net
+DOMAIN-SUFFIX,poweremarket.com
 DOMAIN-SUFFIX,powerex1.com
 DOMAIN-SUFFIX,powerflow-tech.com
 DOMAIN-SUFFIX,powerfulchina.com

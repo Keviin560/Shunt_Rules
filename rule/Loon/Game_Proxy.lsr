@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-15 04:57:47
-# Total = 830
+# Update = 2026-08-07 08:52:47
+# Total = 831
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -123,6 +123,7 @@ DOMAIN-SUFFIX,arcraiders.com
 DOMAIN-SUFFIX,arma3.com
 DOMAIN-SUFFIX,armaplatform.com
 DOMAIN-SUFFIX,artstation.com
+DOMAIN-SUFFIX,artstationmedia.com
 DOMAIN-SUFFIX,artstorm.com
 DOMAIN-SUFFIX,asobostudio.com
 DOMAIN-SUFFIX,awayoutgame.com

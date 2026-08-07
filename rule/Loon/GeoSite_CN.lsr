@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-06 05:06:27
-# Total = 7461
+# Update = 2026-08-07 08:52:48
+# Total = 7477
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -480,6 +480,8 @@ DOMAIN-SUFFIX,95516.net
 DOMAIN-SUFFIX,9553.com
 DOMAIN-SUFFIX,95588.com
 DOMAIN-SUFFIX,95588.com.cn
+DOMAIN-SUFFIX,95598.cn
+DOMAIN-SUFFIX,95598pay.com
 DOMAIN-SUFFIX,962.net
 DOMAIN-SUFFIX,9718.com
 DOMAIN-SUFFIX,97ting.com
@@ -1281,6 +1283,7 @@ DOMAIN-SUFFIX,bytenewst.com
 DOMAIN-SUFFIX,byteoc.com
 DOMAIN-SUFFIX,byteorg.com
 DOMAIN-SUFFIX,byteorge.com
+DOMAIN-SUFFIX,byteoversea.com
 DOMAIN-SUFFIX,byteoversea.net
 DOMAIN-SUFFIX,byteplus-api-test.com
 DOMAIN-SUFFIX,byteplus-api-test.com.cn
@@ -1343,6 +1346,8 @@ DOMAIN-SUFFIX,cangpeng.com
 DOMAIN-SUFFIX,cankaoxiaoxi.com
 DOMAIN-SUFFIX,caocao.com.cn
 DOMAIN-SUFFIX,caocaokeji.cn
+DOMAIN-SUFFIX,capcut.com
+DOMAIN-SUFFIX,capcutcdn-us.com
 DOMAIN-SUFFIX,capitalonline.net
 DOMAIN-SUFFIX,cardbaobao.com
 DOMAIN-SUFFIX,carnoc.com
@@ -1979,6 +1984,7 @@ DOMAIN-SUFFIX,csdn.net
 DOMAIN-SUFFIX,csdn.net.cn
 DOMAIN-SUFFIX,csdnimg.cn
 DOMAIN-SUFFIX,csfounder.com
+DOMAIN-SUFFIX,csg.cn
 DOMAIN-SUFFIX,csmjzs.com
 DOMAIN-SUFFIX,cspro.org
 DOMAIN-SUFFIX,csqaq.com
@@ -2418,10 +2424,12 @@ DOMAIN-SUFFIX,ebscn-am.com
 DOMAIN-SUFFIX,ebscn.com
 DOMAIN-SUFFIX,ebtrust.com
 DOMAIN-SUFFIX,eceshi.com
+DOMAIN-SUFFIX,echargenet.com
 DOMAIN-SUFFIX,ecjobhome.com
 DOMAIN-SUFFIX,ecns.cn
 DOMAIN-SUFFIX,ecombdapi.com
 DOMAIN-SUFFIX,ecombdstatic.com
+DOMAIN-SUFFIX,ecsg.com.cn
 DOMAIN-SUFFIX,ectencent.cn
 DOMAIN-SUFFIX,ectencent.com.cn
 DOMAIN-SUFFIX,ecukwai.com
@@ -2479,6 +2487,7 @@ DOMAIN-SUFFIX,erp321.cn
 DOMAIN-SUFFIX,erp321.com
 DOMAIN-SUFFIX,erp321.net
 DOMAIN-SUFFIX,ersjk.com
+DOMAIN-SUFFIX,esgcc.com.cn
 DOMAIN-SUFFIX,essence.com.cn
 DOMAIN-SUFFIX,essurl.com
 DOMAIN-SUFFIX,et-api.com
@@ -2645,6 +2654,7 @@ DOMAIN-SUFFIX,fnnas.net
 DOMAIN-SUFFIX,fnos.net
 DOMAIN-SUFFIX,focus-img.cn
 DOMAIN-SUFFIX,focus.cn
+DOMAIN-SUFFIX,focuschina.com
 DOMAIN-SUFFIX,fofa.info
 DOMAIN-SUFFIX,fofuai.com
 DOMAIN-SUFFIX,fontstar.com.cn
@@ -4420,6 +4430,7 @@ DOMAIN-SUFFIX,m1905.com
 DOMAIN-SUFFIX,m6.run
 DOMAIN-SUFFIX,m9.run
 DOMAIN-SUFFIX,ma.run
+DOMAIN-SUFFIX,made-in-china.com
 DOMAIN-SUFFIX,mafengwo.cn
 DOMAIN-SUFFIX,mafengwo.com
 DOMAIN-SUFFIX,mafengwo.net
@@ -4559,6 +4570,7 @@ DOMAIN-SUFFIX,miaotixing.com
 DOMAIN-SUFFIX,miaoya.cn
 DOMAIN-SUFFIX,miaoyanai.com
 DOMAIN-SUFFIX,miaozhen.com
+DOMAIN-SUFFIX,micstatic.com
 DOMAIN-SUFFIX,micun.com
 DOMAIN-SUFFIX,midasbuy.com
 DOMAIN-SUFFIX,midea.cn
@@ -5096,6 +5108,7 @@ DOMAIN-SUFFIX,postfund.com.cn
 DOMAIN-SUFFIX,postmail.cn
 DOMAIN-SUFFIX,postoa.com.cn
 DOMAIN-SUFFIX,powerapp.io
+DOMAIN-SUFFIX,poweremarket.com
 DOMAIN-SUFFIX,pp.cn
 DOMAIN-SUFFIX,ppkankan01.com
 DOMAIN-SUFFIX,pplive.cn
@@ -5491,6 +5504,7 @@ DOMAIN-SUFFIX,sffix.cn
 DOMAIN-SUFFIX,sfgy.org
 DOMAIN-SUFFIX,sg.cn
 DOMAIN-SUFFIX,sgamer.com
+DOMAIN-SUFFIX,sgcc.com.cn
 DOMAIN-SUFFIX,sgp.file.myqcloud.com
 DOMAIN-SUFFIX,sgsic.com
 DOMAIN-SUFFIX,sgtmos.com
@@ -6148,6 +6162,7 @@ DOMAIN-SUFFIX,tr-test.net
 DOMAIN-SUFFIX,tr-testboe.net
 DOMAIN-SUFFIX,tr-west-1.myhuaweicloud.com
 DOMAIN-SUFFIX,tracup.com
+DOMAIN-SUFFIX,trademessenger.com
 DOMAIN-SUFFIX,trae.cn
 DOMAIN-SUFFIX,trae.com.cn
 DOMAIN-SUFFIX,trae.guru
@@ -6380,6 +6395,7 @@ DOMAIN-SUFFIX,veigagslb.net
 DOMAIN-SUFFIX,vemarsdev.com
 DOMAIN-SUFFIX,vemarsstatic.com
 DOMAIN-SUFFIX,vemarsweb.com
+DOMAIN-SUFFIX,vemic.com
 DOMAIN-SUFFIX,vertciot.com
 DOMAIN-SUFFIX,veryhuo.com
 DOMAIN-SUFFIX,veryzhun.com

@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-08 04:41:10
-# Total = 111313
+# Update = 2026-08-10 04:29:20
+# Total = 111314
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -60911,6 +60911,7 @@ DOMAIN-SUFFIX,lifeup.vip
 DOMAIN-SUFFIX,lifevc.com
 DOMAIN-SUFFIX,lifevccdn.com
 DOMAIN-SUFFIX,lifeweeker.com
+DOMAIN-SUFFIX,lifexue.com
 DOMAIN-SUFFIX,lifeyk.com
 DOMAIN-SUFFIX,lifeyn.net
 DOMAIN-SUFFIX,lifezb.com

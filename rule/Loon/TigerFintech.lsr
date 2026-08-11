@@ -1,14 +1,25 @@
 # Name = TigerFintech
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-16 04:58:32
-# Total = 8
+# Update = 2026-08-12 04:41:15
+# Total = 19
 
+DOMAIN-SUFFIX,ftfast.com
+DOMAIN-SUFFIX,iotaskyt.com
+DOMAIN-SUFFIX,iotaskyty.com
 DOMAIN-SUFFIX,itiger.com
+DOMAIN-SUFFIX,itigergrowtha.com
+DOMAIN-SUFFIX,itigerup.com
 DOMAIN-SUFFIX,laohu8.com
+DOMAIN-SUFFIX,play-analytics.com
+DOMAIN-SUFFIX,skytigris.cn
+DOMAIN-SUFFIX,tbdesk.com
 DOMAIN-SUFFIX,tigerbbs.cn
 DOMAIN-SUFFIX,tigerbbs.com
+DOMAIN-SUFFIX,tigerbrokers.net
 DOMAIN-SUFFIX,tigerfintech.com
+DOMAIN-SUFFIX,tigertcp.cn
+DOMAIN-SUFFIX,tigr.link
 DOMAIN-SUFFIX,xiaohu8.com
 DOMAIN-SUFFIX,zhijianfengyi.cn
 DOMAIN-SUFFIX,zhijianfengyi.com

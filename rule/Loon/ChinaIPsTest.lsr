@@ -1,7 +1,7 @@
 # Name = ChinaIPsTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-10 04:29:21
+# Update = 2026-08-12 04:41:16
 # Total = 29254
 
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -7592,8 +7592,11 @@ IP-CIDR,117.51.0.0/17,no-resolve
 IP-CIDR,117.51.128.0/17,no-resolve
 IP-CIDR,117.51.128.0/19,no-resolve
 IP-CIDR,117.51.128.0/23,no-resolve
+IP-CIDR,117.51.129.0/24,no-resolve
+IP-CIDR,117.51.130.0/23,no-resolve
 IP-CIDR,117.51.131.0/24,no-resolve
 IP-CIDR,117.51.132.0/22,no-resolve
+IP-CIDR,117.51.134.0/23,no-resolve
 IP-CIDR,117.51.136.0/21,no-resolve
 IP-CIDR,117.51.144.0/20,no-resolve
 IP-CIDR,117.51.160.0/19,no-resolve
@@ -10038,7 +10041,6 @@ IP-CIDR,125.208.42.0/23,no-resolve
 IP-CIDR,125.208.42.0/24,no-resolve
 IP-CIDR,125.208.45.0/24,no-resolve
 IP-CIDR,125.208.46.0/23,no-resolve
-IP-CIDR,125.208.46.0/24,no-resolve
 IP-CIDR,125.208.48.0/20,no-resolve
 IP-CIDR,125.208.49.0/24,no-resolve
 IP-CIDR,125.208.7.0/24,no-resolve
@@ -13102,8 +13104,7 @@ IP-CIDR,2001:dc7::/32,no-resolve
 IP-CIDR,2001:dc7::/45,no-resolve
 IP-CIDR,2001:dc7:a::/47,no-resolve
 IP-CIDR,2001:dc7:c::/46,no-resolve
-IP-CIDR,2001:dc7:cd00::/48,no-resolve
-IP-CIDR,2001:dc7:cd02::/47,no-resolve
+IP-CIDR,2001:dc7:cd00::/46,no-resolve
 IP-CIDR,2001:dc7:cd1a::/48,no-resolve
 IP-CIDR,2001:dc7:ffeb::/48,no-resolve
 IP-CIDR,2001:dc7:ffec::/48,no-resolve
@@ -17518,6 +17519,7 @@ IP-CIDR,218.96.241.0/24,no-resolve
 IP-CIDR,218.96.244.0/24,no-resolve
 IP-CIDR,218.96.255.0/24,no-resolve
 IP-CIDR,218.96.64.0/22,no-resolve
+IP-CIDR,218.96.70.0/23,no-resolve
 IP-CIDR,218.97.0.0/17,no-resolve
 IP-CIDR,218.97.0.0/19,no-resolve
 IP-CIDR,218.97.0.0/22,no-resolve
@@ -20388,7 +20390,6 @@ IP-CIDR,2402:8300::/32,no-resolve
 IP-CIDR,2402:8380::/32,no-resolve
 IP-CIDR,2402:840::/32,no-resolve
 IP-CIDR,2402:840:d000::/46,no-resolve
-IP-CIDR,2402:840:d000::/48,no-resolve
 IP-CIDR,2402:840:e000::/46,no-resolve
 IP-CIDR,2402:840:f000::/38,no-resolve
 IP-CIDR,2402:85c0::/32,no-resolve
@@ -22390,7 +22391,6 @@ IP-CIDR,2408:4014::/31,no-resolve
 IP-CIDR,2408:4016:1000::/36,no-resolve
 IP-CIDR,2408:4016:100::/40,no-resolve
 IP-CIDR,2408:4016:10::/44,no-resolve
-IP-CIDR,2408:4016:1::/48,no-resolve
 IP-CIDR,2408:4016:2000::/35,no-resolve
 IP-CIDR,2408:4016:200::/39,no-resolve
 IP-CIDR,2408:4016:20::/43,no-resolve

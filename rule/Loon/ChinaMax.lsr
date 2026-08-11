@@ -1,8 +1,8 @@
 # Name = ChinaMax
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-10 04:28:57
-# Total = 124119
+# Update = 2026-08-12 04:40:56
+# Total = 124122
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -64131,6 +64131,8 @@ DOMAIN-SUFFIX,iot101.com
 DOMAIN-SUFFIX,iot688.com
 DOMAIN-SUFFIX,iot889.com
 DOMAIN-SUFFIX,iotachem.com
+DOMAIN-SUFFIX,iotaskyt.com
+DOMAIN-SUFFIX,iotaskyty.com
 DOMAIN-SUFFIX,iotbay.com
 DOMAIN-SUFFIX,iotfair.net
 DOMAIN-SUFFIX,iotku.com
@@ -100042,6 +100044,7 @@ DOMAIN-SUFFIX,tbapp.com
 DOMAIN-SUFFIX,tbbbk.com
 DOMAIN-SUFFIX,tbcache.com
 DOMAIN-SUFFIX,tbcdn.com
+DOMAIN-SUFFIX,tbdesk.com
 DOMAIN-SUFFIX,tbh5.com
 DOMAIN-SUFFIX,tbhcc.com
 DOMAIN-SUFFIX,tbhelper.com

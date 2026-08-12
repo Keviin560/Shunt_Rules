@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-10 04:29:20
-# Total = 7504
+# Update = 2026-08-13 04:40:27
+# Total = 7505
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -74,7 +74,6 @@ DOMAIN-SUFFIX,10044.cn
 DOMAIN-SUFFIX,10086.cn
 DOMAIN-SUFFIX,10099.com.cn
 DOMAIN-SUFFIX,100bt.com
-DOMAIN-SUFFIX,100offer.com
 DOMAIN-SUFFIX,100tal.com
 DOMAIN-SUFFIX,100ycdn.com
 DOMAIN-SUFFIX,10155.com
@@ -321,7 +320,6 @@ DOMAIN-SUFFIX,4399youxi.com
 DOMAIN-SUFFIX,4399yyy.com
 DOMAIN-SUFFIX,4paradigm.com
 DOMAIN-SUFFIX,4thworkshop.cn
-DOMAIN-SUFFIX,4thworkshop.com
 DOMAIN-SUFFIX,500.com
 DOMAIN-SUFFIX,500d.me
 DOMAIN-SUFFIX,5054399.com
@@ -369,6 +367,7 @@ DOMAIN-SUFFIX,52z.com
 DOMAIN-SUFFIX,53kf.com
 DOMAIN-SUFFIX,55.com
 DOMAIN-SUFFIX,55555.ink
+DOMAIN-SUFFIX,5566ua.com
 DOMAIN-SUFFIX,5577.com
 DOMAIN-SUFFIX,55bbs.com
 DOMAIN-SUFFIX,56.com
@@ -1708,7 +1707,6 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
-DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -3008,7 +3006,6 @@ DOMAIN-SUFFIX,gw.com.cn
 DOMAIN-SUFFIX,gwdang.com
 DOMAIN-SUFFIX,gwm.com.cn
 DOMAIN-SUFFIX,gxairlines.com
-DOMAIN-SUFFIX,gxb.io
 DOMAIN-SUFFIX,gxnews.com.cn
 DOMAIN-SUFFIX,gxrb.com.cn
 DOMAIN-SUFFIX,gxtv.cn
@@ -4645,6 +4642,7 @@ DOMAIN-SUFFIX,mmarket.com
 DOMAIN-SUFFIX,mmarket6.com
 DOMAIN-SUFFIX,mmbang.com
 DOMAIN-SUFFIX,mmbang.info
+DOMAIN-SUFFIX,mmbizurl.cn
 DOMAIN-SUFFIX,mmstat.com
 DOMAIN-SUFFIX,mndqlib.net
 DOMAIN-SUFFIX,mnw.cn
@@ -5082,6 +5080,7 @@ DOMAIN-SUFFIX,phpcomposer.com
 DOMAIN-SUFFIX,phpweblog.net
 DOMAIN-SUFFIX,phpwind.com
 DOMAIN-SUFFIX,phpwind.net
+DOMAIN-SUFFIX,piaoliang.com
 DOMAIN-SUFFIX,picpic-ai.cn
 DOMAIN-SUFFIX,piedaochuan.top
 DOMAIN-SUFFIX,pigai.org
@@ -5735,7 +5734,6 @@ DOMAIN-SUFFIX,starlakelab.com
 DOMAIN-SUFFIX,starworldgames.com
 DOMAIN-SUFFIX,static163.net
 DOMAIN-SUFFIX,staticfile.net
-DOMAIN-SUFFIX,staticfile.org
 DOMAIN-SUFFIX,statickksmg.com
 DOMAIN-SUFFIX,statusfeishu.cn
 DOMAIN-SUFFIX,statuslarkoffice.com
@@ -6361,6 +6359,7 @@ DOMAIN-SUFFIX,upe.net
 DOMAIN-SUFFIX,upfos.cn
 DOMAIN-SUFFIX,upfos.com
 DOMAIN-SUFFIX,upyun.com
+DOMAIN-SUFFIX,url.cn
 DOMAIN-SUFFIX,urlqh.cn
 DOMAIN-SUFFIX,urselect.com
 DOMAIN-SUFFIX,urtc.com.cn
@@ -6724,6 +6723,7 @@ DOMAIN-SUFFIX,windows7en.com
 DOMAIN-SUFFIX,windowszj.com
 DOMAIN-SUFFIX,winegame.net
 DOMAIN-SUFFIX,wink.cn
+DOMAIN-SUFFIX,winos.me
 DOMAIN-SUFFIX,winwin7.com
 DOMAIN-SUFFIX,winyoungreading.com
 DOMAIN-SUFFIX,wishdown.com
@@ -7058,6 +7058,7 @@ DOMAIN-SUFFIX,yesky.com
 DOMAIN-SUFFIX,yeyou.com
 DOMAIN-SUFFIX,yeyoucdn.com
 DOMAIN-SUFFIX,yeyousg.com
+DOMAIN-SUFFIX,yfcache.com
 DOMAIN-SUFFIX,yfcalc.com
 DOMAIN-SUFFIX,yfcdn.net
 DOMAIN-SUFFIX,yfcloud.com

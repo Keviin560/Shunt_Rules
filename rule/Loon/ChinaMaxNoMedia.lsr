@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-12 04:41:12
-# Total = 123686
+# Update = 2026-08-14 04:39:52
+# Total = 123694
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -2637,6 +2637,7 @@ IP-CIDR,106.56.0.0/13,no-resolve
 IP-CIDR,106.74.0.0/15,no-resolve
 IP-CIDR,106.8.0.0/15,no-resolve
 IP-CIDR,106.80.0.0/12,no-resolve
+IP-CIDR,107.148.6.0/24,no-resolve
 IP-CIDR,107.149.9.0/24,no-resolve
 IP-CIDR,107.150.125.199/32,no-resolve
 IP-CIDR,107.151.212.0/24,no-resolve
@@ -3474,9 +3475,9 @@ IP-CIDR,14.192.76.0/22,no-resolve
 IP-CIDR,14.196.0.0/15,no-resolve
 IP-CIDR,14.204.0.0/15,no-resolve
 IP-CIDR,14.208.0.0/12,no-resolve
+IP-CIDR,14.238.116.0/24,no-resolve
 IP-CIDR,14.255.16.0/24,no-resolve
 IP-CIDR,14.255.238.0/24,no-resolve
-IP-CIDR,14.255.249.0/24,no-resolve
 IP-CIDR,14.255.254.0/24,no-resolve
 IP-CIDR,140.101.208.0/24,no-resolve
 IP-CIDR,140.143.0.0/16,no-resolve
@@ -3987,7 +3988,6 @@ IP-CIDR,166.0.100.0/23,no-resolve
 IP-CIDR,166.0.97.0/24,no-resolve
 IP-CIDR,166.1.139.0/24,no-resolve
 IP-CIDR,166.1.218.0/24,no-resolve
-IP-CIDR,166.1.232.0/24,no-resolve
 IP-CIDR,166.111.0.0/16,no-resolve
 IP-CIDR,166.118.227.88/32,no-resolve
 IP-CIDR,167.139.0.0/16,no-resolve
@@ -12133,6 +12133,7 @@ IP-CIDR,45.82.241.0/24,no-resolve
 IP-CIDR,45.87.53.0/24,no-resolve
 IP-CIDR,45.87.54.0/24,no-resolve
 IP-CIDR,45.9.11.0/24,no-resolve
+IP-CIDR,45.91.225.0/24,no-resolve
 IP-CIDR,46.102.251.0/25,no-resolve
 IP-CIDR,46.151.180.0/23,no-resolve
 IP-CIDR,46.151.182.0/24,no-resolve
@@ -15177,6 +15178,7 @@ DOMAIN-SUFFIX,1949idc.com
 DOMAIN-SUFFIX,194nb.com
 DOMAIN-SUFFIX,195155.com
 DOMAIN-SUFFIX,195268032591463.icu
+DOMAIN-SUFFIX,1958xy.com
 DOMAIN-SUFFIX,195idc.com
 DOMAIN-SUFFIX,196b7adb23969e39.com
 DOMAIN-SUFFIX,196g.com
@@ -16788,6 +16790,7 @@ DOMAIN-SUFFIX,36kr.com
 DOMAIN-SUFFIX,36kr.net
 DOMAIN-SUFFIX,36krcdn.com
 DOMAIN-SUFFIX,36krcnd.com
+DOMAIN-SUFFIX,36linkr.com
 DOMAIN-SUFFIX,36pnes36t0qs.com
 DOMAIN-SUFFIX,36qp.com
 DOMAIN-SUFFIX,36rv3j3.shop
@@ -26607,7 +26610,6 @@ DOMAIN-SUFFIX,bamaying.com
 DOMAIN-SUFFIX,bamboofactorychina.com
 DOMAIN-SUFFIX,bambooolab.com
 DOMAIN-SUFFIX,bambu-lab.com
-DOMAIN-SUFFIX,bambulab.com
 DOMAIN-SUFFIX,bamengame.com
 DOMAIN-SUFFIX,bamensq.com
 DOMAIN-SUFFIX,bamenzhushou.com
@@ -29135,6 +29137,7 @@ DOMAIN-SUFFIX,bkscc.com
 DOMAIN-SUFFIX,bktencent.com
 DOMAIN-SUFFIX,bktsj.com
 DOMAIN-SUFFIX,bkweek.com
+DOMAIN-SUFFIX,bkzhibo.com
 DOMAIN-SUFFIX,bkzzy.com
 DOMAIN-SUFFIX,bl.com
 DOMAIN-SUFFIX,bl0757.com
@@ -65424,6 +65427,7 @@ DOMAIN-SUFFIX,jgsdaily.com
 DOMAIN-SUFFIX,jgsemicon.com
 DOMAIN-SUFFIX,jgstour.com
 DOMAIN-SUFFIX,jgsxfw.com
+DOMAIN-SUFFIX,jgtab.link
 DOMAIN-SUFFIX,jgtc315.com
 DOMAIN-SUFFIX,jguanjia.com
 DOMAIN-SUFFIX,jgums.com
@@ -67168,6 +67172,7 @@ DOMAIN-SUFFIX,jkydt.com
 DOMAIN-SUFFIX,jkyule.com
 DOMAIN-SUFFIX,jkzhilu.com
 DOMAIN-SUFFIX,jkzl.com
+DOMAIN-SUFFIX,jkzlrs.com
 DOMAIN-SUFFIX,jkzn365.com
 DOMAIN-SUFFIX,jl-er.com
 DOMAIN-SUFFIX,jl-jssk.com
@@ -68815,6 +68820,7 @@ DOMAIN-SUFFIX,juwangmedia.com
 DOMAIN-SUFFIX,juwanhezi.com
 DOMAIN-SUFFIX,juwanshe.com
 DOMAIN-SUFFIX,juweixin.com
+DOMAIN-SUFFIX,juwinmedia.com
 DOMAIN-SUFFIX,juwuxian.com
 DOMAIN-SUFFIX,juxia.com
 DOMAIN-SUFFIX,juxian.com
@@ -97994,6 +98000,7 @@ DOMAIN-SUFFIX,sxygsj.com
 DOMAIN-SUFFIX,sxyj.net
 DOMAIN-SUFFIX,sxyqgs.asia
 DOMAIN-SUFFIX,sxyyc.net
+DOMAIN-SUFFIX,sxyygh.com
 DOMAIN-SUFFIX,sxzhaobiao.com
 DOMAIN-SUFFIX,sxzhongfei.com
 DOMAIN-SUFFIX,sxzhyy.com
@@ -110478,6 +110485,7 @@ DOMAIN-SUFFIX,xhscdn.com
 DOMAIN-SUFFIX,xhscdn.net
 DOMAIN-SUFFIX,xhsd.com
 DOMAIN-SUFFIX,xhsd.net
+DOMAIN-SUFFIX,xhsdzd.com
 DOMAIN-SUFFIX,xhsf.com
 DOMAIN-SUFFIX,xhslink.com
 DOMAIN-SUFFIX,xhslw.com

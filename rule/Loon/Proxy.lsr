@@ -1,7 +1,7 @@
 # Name = Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-12 04:41:15
+# Update = 2026-08-15 04:28:05
 # Total = 6892
 
 IP-CIDR,1.201.0.0/24,no-resolve

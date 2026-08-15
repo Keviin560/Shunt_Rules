@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-15 04:28:03
-# Total = 34999
+# Update = 2026-08-16 04:19:23
+# Total = 35002
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -26129,6 +26129,7 @@ DOMAIN-SUFFIX,rsdlmonitor.com
 DOMAIN-SUFFIX,rse.ac.uk
 DOMAIN-SUFFIX,rsf-chinese.org
 DOMAIN-SUFFIX,rsf.org
+DOMAIN-SUFFIX,rsg.ms
 DOMAIN-SUFFIX,rsg.sc
 DOMAIN-SUFFIX,rsgamen.org
 DOMAIN-SUFFIX,rshb.ru
@@ -26561,6 +26562,8 @@ DOMAIN-SUFFIX,sbusinesslondon.ac.uk
 DOMAIN-SUFFIX,sbux.com.my
 DOMAIN-SUFFIX,sbuxcard.com
 DOMAIN-SUFFIX,sc-cdn.net
+DOMAIN-SUFFIX,sc-gw.com
+DOMAIN-SUFFIX,sc-static.net
 DOMAIN-SUFFIX,sc-toolkit.ac.uk
 DOMAIN-SUFFIX,sc.com
 DOMAIN-SUFFIX,sc1.ac.uk

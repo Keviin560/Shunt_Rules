@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-14 04:39:59
-# Total = 111321
+# Update = 2026-08-18 04:23:34
+# Total = 111322
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -74268,6 +74268,7 @@ DOMAIN-SUFFIX,qianvisa.com
 DOMAIN-SUFFIX,qianwa.com
 DOMAIN-SUFFIX,qianwanku.com
 DOMAIN-SUFFIX,qianwen.com
+DOMAIN-SUFFIX,qianwenai.com
 DOMAIN-SUFFIX,qianxiangbank.com
 DOMAIN-SUFFIX,qianxibj.net
 DOMAIN-SUFFIX,qianximiye.com

@@ -1,7 +1,7 @@
 # Name = ChinaMax
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-16 04:19:13
+# Update = 2026-08-18 04:23:11
 # Total = 123847
 
 IP-CIDR,0.0.0.0/32,no-resolve
@@ -11861,7 +11861,6 @@ IP-CIDR,45.81.34.0/24,no-resolve
 IP-CIDR,45.82.241.0/24,no-resolve
 IP-CIDR,45.87.53.0/24,no-resolve
 IP-CIDR,45.87.54.0/24,no-resolve
-IP-CIDR,45.91.225.0/24,no-resolve
 IP-CIDR,46.102.251.0/25,no-resolve
 IP-CIDR,46.151.180.0/23,no-resolve
 IP-CIDR,46.151.182.0/24,no-resolve
@@ -86774,6 +86773,7 @@ DOMAIN-SUFFIX,qianvisa.com
 DOMAIN-SUFFIX,qianwa.com
 DOMAIN-SUFFIX,qianwanku.com
 DOMAIN-SUFFIX,qianwen.com
+DOMAIN-SUFFIX,qianwenai.com
 DOMAIN-SUFFIX,qianxiangbank.com
 DOMAIN-SUFFIX,qianxibj.net
 DOMAIN-SUFFIX,qianximiye.com

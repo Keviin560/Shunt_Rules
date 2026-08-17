@@ -1,8 +1,8 @@
 # Name = ChinaIPsTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-16 04:19:24
-# Total = 28767
+# Update = 2026-08-18 04:23:38
+# Total = 28769
 
 IP-CIDR,1.0.1.0/24,no-resolve
 IP-CIDR,1.0.2.0/23,no-resolve
@@ -4808,6 +4808,7 @@ IP-CIDR,103.80.28.0/22,no-resolve
 IP-CIDR,103.80.44.0/22,no-resolve
 IP-CIDR,103.80.72.0/22,no-resolve
 IP-CIDR,103.81.120.0/22,no-resolve
+IP-CIDR,103.81.120.0/24,no-resolve
 IP-CIDR,103.81.123.0/24,no-resolve
 IP-CIDR,103.81.148.0/22,no-resolve
 IP-CIDR,103.81.16.0/21,no-resolve
@@ -6978,6 +6979,7 @@ IP-CIDR,115.24.16.0/21,no-resolve
 IP-CIDR,115.24.160.0/19,no-resolve
 IP-CIDR,115.24.192.0/19,no-resolve
 IP-CIDR,115.24.224.0/20,no-resolve
+IP-CIDR,115.24.240.0/24,no-resolve
 IP-CIDR,115.24.241.0/24,no-resolve
 IP-CIDR,115.24.242.0/23,no-resolve
 IP-CIDR,115.24.244.0/22,no-resolve
@@ -12901,7 +12903,7 @@ IP-CIDR,2001:da8:9008::/46,no-resolve
 IP-CIDR,2001:da8:900c::/48,no-resolve
 IP-CIDR,2001:da8:900e::/47,no-resolve
 IP-CIDR,2001:da8:9010::/48,no-resolve
-IP-CIDR,2001:da8:9012::/47,no-resolve
+IP-CIDR,2001:da8:9012::/48,no-resolve
 IP-CIDR,2001:da8:9014::/46,no-resolve
 IP-CIDR,2001:da8:9018::/46,no-resolve
 IP-CIDR,2001:da8:901e::/48,no-resolve
@@ -17624,6 +17626,7 @@ IP-CIDR,219.217.64.0/22,no-resolve
 IP-CIDR,219.217.72.0/21,no-resolve
 IP-CIDR,219.217.80.0/20,no-resolve
 IP-CIDR,219.218.0.0/15,no-resolve
+IP-CIDR,219.218.128.0/20,no-resolve
 IP-CIDR,219.218.144.0/20,no-resolve
 IP-CIDR,219.218.16.0/20,no-resolve
 IP-CIDR,219.218.160.0/20,no-resolve
@@ -27273,7 +27276,6 @@ IP-CIDR,45.81.34.0/24,no-resolve
 IP-CIDR,45.82.241.0/24,no-resolve
 IP-CIDR,45.87.53.0/24,no-resolve
 IP-CIDR,45.87.54.0/24,no-resolve
-IP-CIDR,45.91.225.0/24,no-resolve
 IP-CIDR,46.102.251.0/25,no-resolve
 IP-CIDR,46.151.180.0/23,no-resolve
 IP-CIDR,46.151.181.0/24,no-resolve

@@ -1,8 +1,8 @@
 # Name = ChinaIPs
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-16 04:19:05
-# Total = 22415
+# Update = 2026-08-18 04:23:02
+# Total = 22416
 
 IP-CIDR,1.0.1.0/24,no-resolve
 IP-CIDR,1.0.2.0/23,no-resolve
@@ -4538,6 +4538,7 @@ IP-CIDR,103.80.28.0/22,no-resolve
 IP-CIDR,103.80.44.0/22,no-resolve
 IP-CIDR,103.80.72.0/22,no-resolve
 IP-CIDR,103.81.120.0/22,no-resolve
+IP-CIDR,103.81.120.0/24,no-resolve
 IP-CIDR,103.81.123.0/24,no-resolve
 IP-CIDR,103.81.148.0/22,no-resolve
 IP-CIDR,103.81.16.0/21,no-resolve

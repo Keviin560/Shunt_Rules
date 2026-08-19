@@ -1,7 +1,7 @@
 # Name = Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-15 04:28:05
+# Update = 2026-08-20 04:23:40
 # Total = 6892
 
 IP-CIDR,1.201.0.0/24,no-resolve
@@ -1362,7 +1362,6 @@ DOMAIN-SUFFIX,commandarms.com
 DOMAIN-SUFFIX,comments.app
 DOMAIN-SUFFIX,commentshk.com
 DOMAIN-SUFFIX,communistcrimes.org
-DOMAIN-SUFFIX,community.windy.com
 DOMAIN-SUFFIX,communitychoicecu.com
 DOMAIN-SUFFIX,comodoca.com
 DOMAIN-SUFFIX,comparitech.com
@@ -6499,6 +6498,7 @@ DOMAIN-SUFFIX,willw.net
 DOMAIN-SUFFIX,wilsoncenter.org
 DOMAIN-SUFFIX,windowsphoneme.com
 DOMAIN-SUFFIX,windscribe.com
+DOMAIN-SUFFIX,windy.com
 DOMAIN-SUFFIX,wingamestore.com
 DOMAIN-SUFFIX,wingy.site
 DOMAIN-SUFFIX,winning11.com

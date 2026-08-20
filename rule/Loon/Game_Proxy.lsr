@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-15 04:28:00
-# Total = 861
+# Update = 2026-08-21 04:24:30
+# Total = 860
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -96,7 +96,6 @@ DOMAIN,ubistatic6-a.akamaihd.net
 DOMAIN,ubistatic7-a.akamaihd.net
 DOMAIN,ubistatic8-a.akamaihd.net
 DOMAIN,ubistatic9-a.akamaihd.net
-DOMAIN,uplaypc-s-ubisoft.cdn.ubi.com
 DOMAIN,videos-rockstargames-com.akamaized.net
 DOMAIN,wb-agora-hydra-file-storage-k1.s3.amazonaws.com
 DOMAIN,xz.pphimalayanrt.com

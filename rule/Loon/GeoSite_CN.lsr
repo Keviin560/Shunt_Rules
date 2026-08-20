@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-18 04:23:35
-# Total = 7583
+# Update = 2026-08-21 04:24:31
+# Total = 7582
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -1879,6 +1879,7 @@ DOMAIN-SUFFIX,cn-ha.mqtt.io.mi.com
 DOMAIN-SUFFIX,cn-hangzhou.aliyuncs.com
 DOMAIN-SUFFIX,cn-hongkong.aliyuncs.com
 DOMAIN-SUFFIX,cn-shanghai.aliyuncs.com
+DOMAIN-SUFFIX,cn.pool.ntp.org
 DOMAIN-SUFFIX,cnanzhi.com
 DOMAIN-SUFFIX,cnb.cool
 DOMAIN-SUFFIX,cnbksy.com
@@ -2934,6 +2935,7 @@ DOMAIN-SUFFIX,gneec.com
 DOMAIN-SUFFIX,gneec.com.cn
 DOMAIN-SUFFIX,gneec3.com
 DOMAIN-SUFFIX,gneec4.com
+DOMAIN-SUFFIX,gneec7.com
 DOMAIN-SUFFIX,go2map.com
 DOMAIN-SUFFIX,gobasearcher.com
 DOMAIN-SUFFIX,gogokid.com
@@ -3022,7 +3024,6 @@ DOMAIN-SUFFIX,guoping123.com
 DOMAIN-SUFFIX,guosen.com.cn
 DOMAIN-SUFFIX,guoxinmac.com
 DOMAIN-SUFFIX,guoxuedashi.com
-DOMAIN-SUFFIX,guoxuemi.com
 DOMAIN-SUFFIX,gupzs.com
 DOMAIN-SUFFIX,gushiwen.org
 DOMAIN-SUFFIX,guzhangting.com
@@ -3680,7 +3681,6 @@ DOMAIN-SUFFIX,jandan.net
 DOMAIN-SUFFIX,japps.cn
 DOMAIN-SUFFIX,jb51.com
 DOMAIN-SUFFIX,jb51.net
-DOMAIN-SUFFIX,jbcz.tv
 DOMAIN-SUFFIX,jcloud-cache.com
 DOMAIN-SUFFIX,jcloud-cache.net
 DOMAIN-SUFFIX,jcloud-cdn.com
@@ -5246,7 +5246,6 @@ DOMAIN-SUFFIX,qcloudtt.com
 DOMAIN-SUFFIX,qcloudwaf.com
 DOMAIN-SUFFIX,qd-metro.com
 DOMAIN-SUFFIX,qd.ink
-DOMAIN-SUFFIX,qd8.com
 DOMAIN-SUFFIX,qdmm.com
 DOMAIN-SUFFIX,qdwebim.com
 DOMAIN-SUFFIX,qeodns.com

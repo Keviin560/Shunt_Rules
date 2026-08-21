@@ -1,8 +1,8 @@
 # Name = ChinaMaxNoMedia
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-20 04:23:37
-# Total = 123413
+# Update = 2026-08-22 04:23:06
+# Total = 123386
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -3503,7 +3503,7 @@ IP-CIDR,140.249.0.0/16,no-resolve
 IP-CIDR,140.250.0.0/16,no-resolve
 IP-CIDR,140.255.0.0/16,no-resolve
 IP-CIDR,140.75.0.0/16,no-resolve
-IP-CIDR,141.11.50.0/24,no-resolve
+IP-CIDR,141.11.50.0/23,no-resolve
 IP-CIDR,142.70.0.0/16,no-resolve
 IP-CIDR,142.86.0.0/16,no-resolve
 IP-CIDR,143.191.188.0/22,no-resolve
@@ -3679,7 +3679,6 @@ IP-CIDR,154.19.96.0/19,no-resolve
 IP-CIDR,154.197.128.0/17,no-resolve
 IP-CIDR,154.209.251.0/24,no-resolve
 IP-CIDR,154.36.92.0/23,no-resolve
-IP-CIDR,154.72.42.0/24,no-resolve
 IP-CIDR,154.72.44.0/24,no-resolve
 IP-CIDR,154.72.47.0/24,no-resolve
 IP-CIDR,154.8.128.0/17,no-resolve
@@ -3933,6 +3932,7 @@ IP-CIDR,163.177.0.0/16,no-resolve
 IP-CIDR,163.179.0.0/16,no-resolve
 IP-CIDR,163.181.0.0/16,no-resolve
 IP-CIDR,163.204.0.0/16,no-resolve
+IP-CIDR,163.223.72.0/23,no-resolve
 IP-CIDR,163.227.40.0/23,no-resolve
 IP-CIDR,163.228.0.0/16,no-resolve
 IP-CIDR,163.244.246.0/24,no-resolve
@@ -3968,6 +3968,7 @@ IP-CIDR,166.0.100.0/23,no-resolve
 IP-CIDR,166.0.97.0/24,no-resolve
 IP-CIDR,166.1.139.0/24,no-resolve
 IP-CIDR,166.1.218.0/24,no-resolve
+IP-CIDR,166.1.246.0/23,no-resolve
 IP-CIDR,166.111.0.0/16,no-resolve
 IP-CIDR,166.118.227.88/32,no-resolve
 IP-CIDR,167.139.0.0/16,no-resolve
@@ -11863,6 +11864,7 @@ IP-CIDR,45.81.34.0/24,no-resolve
 IP-CIDR,45.82.241.0/24,no-resolve
 IP-CIDR,45.87.53.0/24,no-resolve
 IP-CIDR,45.87.54.0/24,no-resolve
+IP-CIDR,45.91.139.0/24,no-resolve
 IP-CIDR,46.102.251.0/25,no-resolve
 IP-CIDR,46.151.180.0/23,no-resolve
 IP-CIDR,46.151.182.0/24,no-resolve
@@ -12184,7 +12186,6 @@ DOMAIN,abclive2-lh.akamaihd.net
 DOMAIN,activate.activation-v2.kaspersky.com
 DOMAIN,activation-v2.kaspersky.com
 DOMAIN,admob-cn.com
-DOMAIN,afcs.dell.com
 DOMAIN,aka-amd-njpwworld-hls-enlive.akamaized.net
 DOMAIN,alibaba.cdn.steampipe.steamcontent.com
 DOMAIN,aljazeera-eng-hd-live.hls.adaptive.level3.net
@@ -12222,31 +12223,22 @@ DOMAIN,channellive.leshantv.net
 DOMAIN,chaoan.chaoantv.com
 DOMAIN,clickserve.cc-dt.com
 DOMAIN,client.amplifi.com
-DOMAIN,clientperipherals.dell.com
 DOMAIN,cn.download.nvidia.com
 DOMAIN,cn.widevine.com
 DOMAIN,crl.pki.goog
 DOMAIN,crls.pki.goog
-DOMAIN,customization-cdn.dell.com
 DOMAIN,d9af5a60.edmonst.net
 DOMAIN,dartsearch-cn.net
-DOMAIN,dds.dell.com
 DOMAIN,developer.microsoft.com
-DOMAIN,dl.dell.com
 DOMAIN,doubleclick-cn.net
 DOMAIN,doubleclick.net
 DOMAIN,download.jetbrains.com
 DOMAIN,e1.vdowowza.vip.hk1.tvb.com
-DOMAIN,ea2cn-dev-outlet.dell.com
-DOMAIN,ea2cn-prod-outlet.dell.com
-DOMAIN,ea2cn-staging-outlet.dell.com
 DOMAIN,edge.music-choice-play-chaina1.top.comcast.net
-DOMAIN,emoi-cncdn.bing.com
 DOMAIN,end-api.shallow.ink
 DOMAIN,end.shallow.ink
 DOMAIN,f24hls-i.akamaihd.net
 DOMAIN,fash1043.cloudycdn.services
-DOMAIN,fcs.dell.com
 DOMAIN,file.hhtv.cc
 DOMAIN,file.mb.leshantv.net
 DOMAIN,firebase-settings.crashlytics.com
@@ -12254,13 +12246,7 @@ DOMAIN,fm901.cityfm.tw
 DOMAIN,fm929.cityfm.tw
 DOMAIN,fm971.cityfm.tw
 DOMAIN,fm983.cityfm.tw
-DOMAIN,fta.dell.com
-DOMAIN,ftaapj.dell.com
-DOMAIN,ftaemea.dell.com
-DOMAIN,ftasitapj.dell.com
 DOMAIN,gayotv.net
-DOMAIN,gbxgateway-dev.dell.com
-DOMAIN,gbxgateway.dell.com
 DOMAIN,gonglchuangl.net
 DOMAIN,gongyichuangyi.net
 DOMAIN,gpb-hls.streamguys1.com
@@ -12276,7 +12262,6 @@ DOMAIN,hls.qguiyang.com
 DOMAIN,hls.qxtv0763.com
 DOMAIN,hls.wlrn.mobi
 DOMAIN,httpdvb.slave.ttcatv.tv
-DOMAIN,i.dell.com
 DOMAIN,i.pki.goog
 DOMAIN,icecast-ruvr.cdnvideo.ru
 DOMAIN,images-cn-8.ssl-images-amazon.com
@@ -12349,7 +12334,6 @@ DOMAIN,ms3.yichuntv.com
 DOMAIN,n18.rcs.revma.com
 DOMAIN,necgokr2-724.acs.wecandeo.com
 DOMAIN,nettvpro.live
-DOMAIN,nexus.dell.com
 DOMAIN,nhkw-zh-hlscomp.akamaized.net
 DOMAIN,nhkwlive-xjp.akamaized.net
 DOMAIN,nis.stream.publicradio.org
@@ -12360,7 +12344,6 @@ DOMAIN,ocsp.pki.goog
 DOMAIN,origin-a.akamaihd.ne
 DOMAIN,origin-a.akamaihd.net
 DOMAIN,ott-live.olympicchannel.com
-DOMAIN,p.cdn.persaas.dell.com
 DOMAIN,play.jinnantv.top
 DOMAIN,play.scrstv.com
 DOMAIN,play.sngdxsn.com
@@ -12385,16 +12368,11 @@ DOMAIN,rmtv24hweblive-lh.akamaihd.net
 DOMAIN,rthklive1-lh.akamaihd.net
 DOMAIN,rthklive2-lh.akamaihd.net
 DOMAIN,rtvcdn.com.au
-DOMAIN,scene7-cdn.dell.com
 DOMAIN,sdn-global-live-streaming-packager-cache-3qsdn.akamaized.net
 DOMAIN,seb.sason.top
 DOMAIN,service.urchin.com
-DOMAIN,si.cdn.dell.com
 DOMAIN,slive.ytn.co.kr
-DOMAIN,sm.dell.com
 DOMAIN,sms.imagetasks.com
-DOMAIN,snp.cdn.dell.com
-DOMAIN,snpi.dell.com
 DOMAIN,sohucao.duapp.com
 DOMAIN,staging-controlbe.floonet.goog
 DOMAIN,staging-databe.floonet.goog
@@ -12421,10 +12399,8 @@ DOMAIN,stream01.dqtv123.com
 DOMAIN,stream1.shopch.jp
 DOMAIN,stream2.cprnetwork.org
 DOMAIN,streamipcf.akamaized.net
-DOMAIN,supportassist.dell.com
 DOMAIN,time.xtracloud.net
 DOMAIN,tl.gscm.tv
-DOMAIN,tp.louisvuitton.com
 DOMAIN,trtcanlitv-lh.akamaihd.net
 DOMAIN,tv.cnbeijing.xyz
 DOMAIN,tv.drs.hhtv.cc
@@ -12432,7 +12408,6 @@ DOMAIN,tv.jrsncn.com
 DOMAIN,tv.nknews.org
 DOMAIN,uni6rtmp.tulix.tv
 DOMAIN,update.crashlytics.com
-DOMAIN,uplaypc-s-ubisoft.cdn.ubi.com
 DOMAIN,v1.one-tv.com
 DOMAIN,vip888.kuyun99.com
 DOMAIN,voa-lh.akamaihd.net
@@ -12446,9 +12421,7 @@ DOMAIN,wowza.montevideo.com.uy
 DOMAIN,wowza.ner.gov.tw
 DOMAIN,wpc.124ce.sigmacdn.net
 DOMAIN,wuwm.streamguys1.com
-DOMAIN,www-csb.dell.com
 DOMAIN,www.cbsnews.com
-DOMAIN,www.dell.com
 DOMAIN,www.destinationurl.com
 DOMAIN,www.filmon.com
 DOMAIN,www.pxcc.com

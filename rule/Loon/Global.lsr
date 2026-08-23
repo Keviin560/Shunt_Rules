@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-22 04:23:16
-# Total = 35014
+# Update = 2026-08-24 04:19:17
+# Total = 35018
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -5633,6 +5633,7 @@ DOMAIN-SUFFIX,brew.sh
 DOMAIN-SUFFIX,brewmp.com
 DOMAIN-SUFFIX,briantreepayments.net
 DOMAIN-SUFFIX,briantreepayments.tv
+DOMAIN-SUFFIX,briarproject.org
 DOMAIN-SUFFIX,bricoltech.ac.uk
 DOMAIN-SUFFIX,bridgce.ac.uk
 DOMAIN-SUFFIX,bridge-studio.co.uk
@@ -14705,6 +14706,7 @@ DOMAIN-SUFFIX,historicalpageants.ac.uk
 DOMAIN-SUFFIX,historicbooks.ac.uk
 DOMAIN-SUFFIX,history-uk.ac.uk
 DOMAIN-SUFFIX,history.ac.uk
+DOMAIN-SUFFIX,historylines.net
 DOMAIN-SUFFIX,historyofdota.com
 DOMAIN-SUFFIX,historyofdota.net
 DOMAIN-SUFFIX,historyofdota.org
@@ -17859,6 +17861,7 @@ DOMAIN-SUFFIX,kitts.ac.uk
 DOMAIN-SUFFIX,kiwi.jp
 DOMAIN-SUFFIX,kiwi.kz
 DOMAIN-SUFFIX,kiwibrowser.com
+DOMAIN-SUFFIX,kiwix.org
 DOMAIN-SUFFIX,kiyobank.co.jp
 DOMAIN-SUFFIX,kk-whys.co.jp
 DOMAIN-SUFFIX,kk.stream
@@ -19579,6 +19582,7 @@ DOMAIN-SUFFIX,mcdonaldsapps.com
 DOMAIN-SUFFIX,mcdonaldsarabia.com
 DOMAIN-SUFFIX,mcdonaldsparties.co.nz
 DOMAIN-SUFFIX,mcdonaldsparties.com.au
+DOMAIN-SUFFIX,mceindex.com
 DOMAIN-SUFFIX,mcfog.com
 DOMAIN-SUFFIX,mcisco.com
 DOMAIN-SUFFIX,mcls.ac.uk

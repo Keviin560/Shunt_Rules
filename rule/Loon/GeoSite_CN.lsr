@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-08-21 04:24:31
-# Total = 7582
+# Update = 2026-08-28 12:02:52
+# Total = 7581
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -1879,7 +1879,6 @@ DOMAIN-SUFFIX,cn-ha.mqtt.io.mi.com
 DOMAIN-SUFFIX,cn-hangzhou.aliyuncs.com
 DOMAIN-SUFFIX,cn-hongkong.aliyuncs.com
 DOMAIN-SUFFIX,cn-shanghai.aliyuncs.com
-DOMAIN-SUFFIX,cn.pool.ntp.org
 DOMAIN-SUFFIX,cnanzhi.com
 DOMAIN-SUFFIX,cnb.cool
 DOMAIN-SUFFIX,cnbksy.com
@@ -3785,7 +3784,6 @@ DOMAIN-SUFFIX,jdx.com
 DOMAIN-SUFFIX,jet-ego.com
 DOMAIN-SUFFIX,jet-logistics.com
 DOMAIN-SUFFIX,jetlogistic.com
-DOMAIN-SUFFIX,jfcoop.com
 DOMAIN-SUFFIX,jfdaily.com
 DOMAIN-SUFFIX,jfdaily.com.cn
 DOMAIN-SUFFIX,jgtab.link
@@ -4602,6 +4600,7 @@ DOMAIN-SUFFIX,mercurycom.com.cn
 DOMAIN-SUFFIX,meta.law
 DOMAIN-SUFFIX,metalrevolution.com
 DOMAIN-SUFFIX,metaso.cn
+DOMAIN-SUFFIX,metax-tech.com
 DOMAIN-SUFFIX,mfcteda.com
 DOMAIN-SUFFIX,mfk.com
 DOMAIN-SUFFIX,mfuns.cn
@@ -7225,7 +7224,6 @@ DOMAIN-SUFFIX,youpin.com.cn
 DOMAIN-SUFFIX,youshang.com
 DOMAIN-SUFFIX,youxiake.com
 DOMAIN-SUFFIX,youxichaguan.com
-DOMAIN-SUFFIX,youxigt.com
 DOMAIN-SUFFIX,youxihezi.net
 DOMAIN-SUFFIX,youxila.com
 DOMAIN-SUFFIX,youxiniao.com
@@ -7501,6 +7499,7 @@ DOMAIN-SUFFIX,zimgs.cn
 DOMAIN-SUFFIX,ziroom.com
 DOMAIN-SUFFIX,ziroomapartment.com
 DOMAIN-SUFFIX,zixiaomao.com
+DOMAIN-SUFFIX,zixuntop.com
 DOMAIN-SUFFIX,ziyrta.com
 DOMAIN-SUFFIX,zjbyte.cn
 DOMAIN-SUFFIX,zjbyte.com

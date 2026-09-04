@@ -1,7 +1,7 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-02 06:23:19
+# Update = 2026-09-05 06:04:50
 # Total = 7641
 
 DOMAIN,account-cn.alibabacloud.com
@@ -326,6 +326,7 @@ DOMAIN-SUFFIX,4399youxi.com
 DOMAIN-SUFFIX,4399yyy.com
 DOMAIN-SUFFIX,4paradigm.com
 DOMAIN-SUFFIX,4thworkshop.cn
+DOMAIN-SUFFIX,4thworkshop.com
 DOMAIN-SUFFIX,500.com
 DOMAIN-SUFFIX,500d.me
 DOMAIN-SUFFIX,5054399.com
@@ -729,6 +730,7 @@ DOMAIN-SUFFIX,allhistory.com
 DOMAIN-SUFFIX,alloyteam.com
 DOMAIN-SUFFIX,allyes.com
 DOMAIN-SUFFIX,alookweb.com
+DOMAIN-SUFFIX,aloys233.top
 DOMAIN-SUFFIX,alyms.cn
 DOMAIN-SUFFIX,alysm.cn
 DOMAIN-SUFFIX,amap.com
@@ -2465,7 +2467,6 @@ DOMAIN-SUFFIX,ebchina.com
 DOMAIN-SUFFIX,ebchinaintl.com
 DOMAIN-SUFFIX,ebf.com.cn
 DOMAIN-SUFFIX,ebfcn.com
-DOMAIN-SUFFIX,ebfortune.com
 DOMAIN-SUFFIX,ebico.com
 DOMAIN-SUFFIX,ebrun.com
 DOMAIN-SUFFIX,ebscn-am.com
@@ -3043,6 +3044,7 @@ DOMAIN-SUFFIX,guoping123.com
 DOMAIN-SUFFIX,guosen.com.cn
 DOMAIN-SUFFIX,guoxinmac.com
 DOMAIN-SUFFIX,guoxuedashi.com
+DOMAIN-SUFFIX,guoxuemi.com
 DOMAIN-SUFFIX,gupzs.com
 DOMAIN-SUFFIX,gushiwen.org
 DOMAIN-SUFFIX,guzhangting.com
@@ -4413,7 +4415,6 @@ DOMAIN-SUFFIX,linkvans.com
 DOMAIN-SUFFIX,linliyz.com
 DOMAIN-SUFFIX,linsn.com
 DOMAIN-SUFFIX,linuxidc.com
-DOMAIN-SUFFIX,liqucn.com
 DOMAIN-SUFFIX,listenai.com
 DOMAIN-SUFFIX,litessl.cn
 DOMAIN-SUFFIX,litessl.com
@@ -4733,7 +4734,6 @@ DOMAIN-SUFFIX,modelers.cn
 DOMAIN-SUFFIX,modernjs.cn
 DOMAIN-SUFFIX,modex.com.cn
 DOMAIN-SUFFIX,moedu.com
-DOMAIN-SUFFIX,moegirl.org
 DOMAIN-SUFFIX,moegirl.org.cn
 DOMAIN-SUFFIX,moer.cn
 DOMAIN-SUFFIX,mofang.com

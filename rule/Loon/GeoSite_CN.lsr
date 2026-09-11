@@ -1,7 +1,7 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-10 06:15:09
+# Update = 2026-09-12 06:14:12
 # Total = 7643
 
 DOMAIN,account-cn.alibabacloud.com
@@ -1739,6 +1739,7 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
+DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -3233,7 +3234,6 @@ DOMAIN-SUFFIX,hnol.net
 DOMAIN-SUFFIX,hnrcsc.com
 DOMAIN-SUFFIX,hntv.tv
 DOMAIN-SUFFIX,hnxzctec.com
-DOMAIN-SUFFIX,hnyuyuhui.com
 DOMAIN-SUFFIX,hollycrm.com
 DOMAIN-SUFFIX,homeinns.com
 DOMAIN-SUFFIX,homekoo.com
@@ -5656,6 +5656,7 @@ DOMAIN-SUFFIX,shenzhentong.com
 DOMAIN-SUFFIX,sheui.com
 DOMAIN-SUFFIX,shfft.com
 DOMAIN-SUFFIX,shgsec.com
+DOMAIN-SUFFIX,shhxzq.com
 DOMAIN-SUFFIX,shidianbaike.com
 DOMAIN-SUFFIX,shidianguji.com
 DOMAIN-SUFFIX,shifen.com
@@ -6836,7 +6837,6 @@ DOMAIN-SUFFIX,windows7en.com
 DOMAIN-SUFFIX,windowszj.com
 DOMAIN-SUFFIX,winegame.net
 DOMAIN-SUFFIX,wink.cn
-DOMAIN-SUFFIX,winos.me
 DOMAIN-SUFFIX,winshare.com.cn
 DOMAIN-SUFFIX,winwin7.com
 DOMAIN-SUFFIX,winxuan.com

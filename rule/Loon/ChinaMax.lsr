@@ -1,8 +1,8 @@
 # Name = ChinaMax
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-16 06:42:51
-# Total = 123845
+# Update = 2026-09-18 06:39:06
+# Total = 123844
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -3727,6 +3727,7 @@ IP-CIDR,156.224.128.0/17,no-resolve
 IP-CIDR,156.227.239.0/24,no-resolve
 IP-CIDR,156.232.10.0/23,no-resolve
 IP-CIDR,156.232.9.0/24,no-resolve
+IP-CIDR,156.239.237.0/24,no-resolve
 IP-CIDR,156.251.144.0/20,no-resolve
 IP-CIDR,156.251.161.0/24,no-resolve
 IP-CIDR,156.251.162.0/23,no-resolve
@@ -11356,9 +11357,7 @@ IP-CIDR,2c0f:f7a8:805f::/48,no-resolve
 IP-CIDR,2c0f:f7a8:8150::/48,no-resolve
 IP-CIDR,2c0f:f7a8:815f::/48,no-resolve
 IP-CIDR,2c0f:f7a8:8211::/48,no-resolve
-IP-CIDR,2c0f:f7a8:9020::/48,no-resolve
 IP-CIDR,2c0f:f7a8:9041::/48,no-resolve
-IP-CIDR,2c0f:f7a8:9220::/48,no-resolve
 IP-CIDR,3.2.35.128/26,no-resolve
 IP-CIDR,3.5.214.0/23,no-resolve
 IP-CIDR,31.130.224.0/20,no-resolve

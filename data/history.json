@@ -270,10 +270,10 @@
     "rule_count": 118
   },
   "Advertising": {
-    "src_hash": "d30b3e40528a8d1ac625a0959b82b920",
-    "updated_at": 1789512106,
+    "src_hash": "14e60e2c09bfc83a8aa60c8910925ffb",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 282344
+    "rule_count": 283470
   },
   "AdvertisingLite": {
     "src_hash": "ddc29fd63cdaed243c89dcef1358f65d",
@@ -288,10 +288,10 @@
     "rule_count": 165
   },
   "AdvertisingTest": {
-    "src_hash": "45cc974e71a415cb2f5c59a9212a4d66",
-    "updated_at": 1789512106,
+    "src_hash": "cdc32c0c6942689c422d3b8943bbb958",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 307361
+    "rule_count": 308105
   },
   "Aerogard": {
     "src_hash": "9c3c35c084b928598f5f2ec9e9b845eb",
@@ -474,8 +474,8 @@
     "rule_count": 2
   },
   "Apple": {
-    "src_hash": "282d59ae0ed35bc86b523b0fe7b01f91",
-    "updated_at": 1789512106,
+    "src_hash": "bdfdefe5d033b8efc284746c3aa99fcb",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
     "rule_count": 1582
   },
@@ -702,8 +702,8 @@
     "rule_count": 9
   },
   "Blizzard": {
-    "src_hash": "c711e5fd5dd85659d989dfebb042f500",
-    "updated_at": 1789512106,
+    "src_hash": "dc05a7e5c249e35f9cb9132793e102f0",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
     "rule_count": 62
   },
@@ -912,10 +912,10 @@
     "rule_count": 4
   },
   "ChinaIPs": {
-    "src_hash": "653d07bcdf14b58f111acb30d5da7477",
-    "updated_at": 1789512106,
+    "src_hash": "228b8eceba52d3c0ce718499c9c74ea9",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 23162
+    "rule_count": 23195
   },
   "ChinaIPsBGP": {
     "src_hash": "db5a0a6d012c0e71708cdcc88f78110a",
@@ -924,22 +924,22 @@
     "rule_count": 3916
   },
   "ChinaMax": {
-    "src_hash": "a0bb8013b4fe41e0238006611201c631",
-    "updated_at": 1789512106,
+    "src_hash": "40346db2b69c2a42e7750cee12fc4419",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 123845
+    "rule_count": 123844
   },
   "ChinaMaxNoIP": {
-    "src_hash": "30b04b9b8c0e6c736e9d14b4dd7f05ad",
-    "updated_at": 1789512106,
+    "src_hash": "c664c3d51028c3e6783623dbeb9ee10e",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
     "rule_count": 111016
   },
   "ChinaMaxNoMedia": {
-    "src_hash": "26cdc9317c3a850a80fcf1a77a16a566",
-    "updated_at": 1789512106,
+    "src_hash": "6a8826e2b41ea5d7afbe06c2146ee28c",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 123408
+    "rule_count": 123407
   },
   "ChinaMedia": {
     "src_hash": "22d46a391d1749eb77fb63661d1b6b3d",
@@ -1554,8 +1554,8 @@
     "rule_count": 10
   },
   "Game": {
-    "src_hash": "5951cc14c28a1a9c2e3b839863e600fd",
-    "updated_at": 1789512106,
+    "src_hash": "ab8790cdd97855ab0ec610051665ffee",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
     "rule_count": 597
   },
@@ -1632,10 +1632,10 @@
     "rule_count": 2
   },
   "Global": {
-    "src_hash": "997c53ebcb22b1717b0c3b75e88973e8",
-    "updated_at": 1789337064,
+    "src_hash": "70ec32866e2bace858264abbb8f6c35b",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 35044
+    "rule_count": 35047
   },
   "GlobalMedia": {
     "src_hash": "149b1355b2646f7a693d0d54b45bfd39",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "a4c3af18f5801c1d71903be7bc24f5f0",
-    "updated_at": 1789598268,
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "c49c6c0596e6f512ec8d561d84405d7c",
-    "updated_at": 1789598268,
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4026,10 +4026,10 @@
     "rule_count": 16
   },
   "ChinaIPsTest": {
-    "src_hash": "4664726694c9d76af35e21231569337d",
-    "updated_at": 1789512106,
+    "src_hash": "51cdd3a2be971274491765de4b6abf73",
+    "updated_at": 1789684696,
     "gen_ver": "v6.3",
-    "rule_count": 26435
+    "rule_count": 26445
   },
   "360Cloud": {
     "src_hash": "76b813c7453168717874e7a399fa6928",

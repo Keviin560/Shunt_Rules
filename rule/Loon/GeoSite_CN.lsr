@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-12 06:14:12
-# Total = 7643
+# Update = 2026-09-19 06:15:30
+# Total = 7639
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -1739,7 +1739,6 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
-DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -3706,6 +3705,7 @@ DOMAIN-SUFFIX,jandan.net
 DOMAIN-SUFFIX,japps.cn
 DOMAIN-SUFFIX,jb51.com
 DOMAIN-SUFFIX,jb51.net
+DOMAIN-SUFFIX,jbcz.tv
 DOMAIN-SUFFIX,jcloud-cache.com
 DOMAIN-SUFFIX,jcloud-cache.net
 DOMAIN-SUFFIX,jcloud-cdn.com
@@ -4734,7 +4734,6 @@ DOMAIN-SUFFIX,modelers.cn
 DOMAIN-SUFFIX,modernjs.cn
 DOMAIN-SUFFIX,modex.com.cn
 DOMAIN-SUFFIX,moedu.com
-DOMAIN-SUFFIX,moegirl.org.cn
 DOMAIN-SUFFIX,moer.cn
 DOMAIN-SUFFIX,mofang.com
 DOMAIN-SUFFIX,mofazhu.com
@@ -5539,7 +5538,6 @@ DOMAIN-SUFFIX,sangfor.com.cn
 DOMAIN-SUFFIX,sanguosha.com
 DOMAIN-SUFFIX,sankuai.com
 DOMAIN-SUFFIX,sanweihou.com
-DOMAIN-SUFFIX,sanwen.net
 DOMAIN-SUFFIX,sao.cn
 DOMAIN-SUFFIX,saolife.com
 DOMAIN-SUFFIX,saraba1st.com
@@ -7188,8 +7186,6 @@ DOMAIN-SUFFIX,yfcalc.com
 DOMAIN-SUFFIX,yfcdn.net
 DOMAIN-SUFFIX,yfcloud.com
 DOMAIN-SUFFIX,yfdts.net
-DOMAIN-SUFFIX,yfp2p.net
-DOMAIN-SUFFIX,yfscdn.net
 DOMAIN-SUFFIX,ygduoyi.com
 DOMAIN-SUFFIX,yh31.com
 DOMAIN-SUFFIX,yhd.com

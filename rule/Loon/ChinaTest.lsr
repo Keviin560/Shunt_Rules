@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-22 07:01:13
-# Total = 110972
+# Update = 2026-09-24 06:41:43
+# Total = 110973
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -82407,6 +82407,7 @@ DOMAIN-SUFFIX,sjez.com
 DOMAIN-SUFFIX,sjf029.com
 DOMAIN-SUFFIX,sjfcdn.com
 DOMAIN-SUFFIX,sjfh168.com
+DOMAIN-SUFFIX,sjfls6.com
 DOMAIN-SUFFIX,sjfpro.com
 DOMAIN-SUFFIX,sjfzxm.com
 DOMAIN-SUFFIX,sjg8.com

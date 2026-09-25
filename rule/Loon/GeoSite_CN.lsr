@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-24 06:41:45
-# Total = 7742
+# Update = 2026-09-26 07:04:50
+# Total = 7744
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -219,7 +219,6 @@ DOMAIN-SUFFIX,3322.org
 DOMAIN-SUFFIX,3387.com
 DOMAIN-SUFFIX,33lc.com
 DOMAIN-SUFFIX,3454.com
-DOMAIN-SUFFIX,3456.cc
 DOMAIN-SUFFIX,35.com
 DOMAIN-SUFFIX,3533.com
 DOMAIN-SUFFIX,360-api.cn
@@ -3881,6 +3880,7 @@ DOMAIN-SUFFIX,jiasu.bohe.com
 DOMAIN-SUFFIX,jiasuhui.com
 DOMAIN-SUFFIX,jiasule.com
 DOMAIN-SUFFIX,jiayuan.com
+DOMAIN-SUFFIX,jiazhao.com
 DOMAIN-SUFFIX,jibencaozuo.com
 DOMAIN-SUFFIX,jiemeng8.com
 DOMAIN-SUFFIX,jiemian.com
@@ -4703,7 +4703,6 @@ DOMAIN-SUFFIX,mi-idc.com
 DOMAIN-SUFFIX,mi-img.com
 DOMAIN-SUFFIX,mi.com
 DOMAIN-SUFFIX,miaibox.com
-DOMAIN-SUFFIX,miaobolive.com
 DOMAIN-SUFFIX,miaoda.cn
 DOMAIN-SUFFIX,miaomiaoz.com
 DOMAIN-SUFFIX,miaomiaozhe.com
@@ -4802,6 +4801,7 @@ DOMAIN-SUFFIX,moji001.com
 DOMAIN-SUFFIX,moji002.com
 DOMAIN-SUFFIX,mojicdn.com
 DOMAIN-SUFFIX,mojichina.com
+DOMAIN-SUFFIX,mojidict.com
 DOMAIN-SUFFIX,mojidoc.com
 DOMAIN-SUFFIX,mokahr.com
 DOMAIN-SUFFIX,moleecel.com
@@ -5342,6 +5342,7 @@ DOMAIN-SUFFIX,qcloudtt.com
 DOMAIN-SUFFIX,qcloudwaf.com
 DOMAIN-SUFFIX,qd-metro.com
 DOMAIN-SUFFIX,qd.ink
+DOMAIN-SUFFIX,qd8.com
 DOMAIN-SUFFIX,qdmm.com
 DOMAIN-SUFFIX,qdwebim.com
 DOMAIN-SUFFIX,qeodns.com
@@ -7280,6 +7281,7 @@ DOMAIN-SUFFIX,yfcalc.com
 DOMAIN-SUFFIX,yfcdn.net
 DOMAIN-SUFFIX,yfcloud.com
 DOMAIN-SUFFIX,yfdts.net
+DOMAIN-SUFFIX,yfscdn.net
 DOMAIN-SUFFIX,ygduoyi.com
 DOMAIN-SUFFIX,yh31.com
 DOMAIN-SUFFIX,yhd.com

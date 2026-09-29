@@ -270,10 +270,10 @@
     "rule_count": 118
   },
   "Advertising": {
-    "src_hash": "97a9cd1df48d9f3f33737d093e197339",
-    "updated_at": 1790549247,
+    "src_hash": "c38f08174b2761b79d7c1552bbf6ed25",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 286873
+    "rule_count": 281184
   },
   "AdvertisingLite": {
     "src_hash": "3d7e1f963dd73aa52af138b8f4ed6aec",
@@ -288,10 +288,10 @@
     "rule_count": 165
   },
   "AdvertisingTest": {
-    "src_hash": "22ccd1047dac1c1744d13a72e20d1e7b",
-    "updated_at": 1790549247,
+    "src_hash": "5f69b45cbe72b3227b608ee77e785f41",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 311469
+    "rule_count": 305758
   },
   "Aerogard": {
     "src_hash": "9c3c35c084b928598f5f2ec9e9b845eb",
@@ -474,8 +474,8 @@
     "rule_count": 2
   },
   "Apple": {
-    "src_hash": "ea93694436b0bb6dc93c34180fafd303",
-    "updated_at": 1790549247,
+    "src_hash": "0af355fb76c792588814e2ca414d1a62",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
     "rule_count": 1582
   },
@@ -702,8 +702,8 @@
     "rule_count": 9
   },
   "Blizzard": {
-    "src_hash": "267a81ae45f3a18d2f73047054147070",
-    "updated_at": 1790549247,
+    "src_hash": "8f1d463c17a6ea2ed395c8822df14886",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
     "rule_count": 62
   },
@@ -924,22 +924,22 @@
     "rule_count": 3916
   },
   "ChinaMax": {
-    "src_hash": "5070f108c8cf2d0a918085d1c69b16df",
-    "updated_at": 1790549247,
+    "src_hash": "a1c1e2e0f626c7449f5c611c03d23ebf",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 124031
+    "rule_count": 124030
   },
   "ChinaMaxNoIP": {
-    "src_hash": "1a766a1c30e55fba773fd431f0ec16c7",
-    "updated_at": 1790549247,
+    "src_hash": "830bea0ff61e6a01549ca6d5ace2e641",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
     "rule_count": 111219
   },
   "ChinaMaxNoMedia": {
-    "src_hash": "656050a4f1c7bb49791198c42e2e192d",
-    "updated_at": 1790549247,
+    "src_hash": "3c4275f51fbe43c3760919c610bde1f4",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 123594
+    "rule_count": 123593
   },
   "ChinaMedia": {
     "src_hash": "22d46a391d1749eb77fb63661d1b6b3d",
@@ -1554,8 +1554,8 @@
     "rule_count": 10
   },
   "Game": {
-    "src_hash": "38b98c45f9c0955e15f82d39f7c12e4f",
-    "updated_at": 1790549247,
+    "src_hash": "e404427c23c5ad4017641dfdec9b720e",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
     "rule_count": 597
   },
@@ -1590,10 +1590,10 @@
     "rule_count": 9612
   },
   "GeoSite_CN": {
-    "src_hash": "f4b8f23ed1effe257854f4423401463e",
-    "updated_at": 1790377408,
+    "src_hash": "751e43f9fe7c6cb0d8f531973a1cc5f3",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 7744
+    "rule_count": 7745
   },
   "Gettyimages": {
     "src_hash": "4f00b938cca68b03731b209bd6589f12",
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "a4c3af18f5801c1d71903be7bc24f5f0",
-    "updated_at": 1790640602,
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "55b3aa72614310ad2ac03ac268b56fca",
-    "updated_at": 1790640602,
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
     "rule_count": 1
   },
@@ -4026,10 +4026,10 @@
     "rule_count": 16
   },
   "ChinaIPsTest": {
-    "src_hash": "b84ffcd2e60f7aa817d65c821051aec8",
-    "updated_at": 1790549247,
+    "src_hash": "2710c73a46791ee2ab0d71c628eb33f8",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 22750
+    "rule_count": 22755
   },
   "360Cloud": {
     "src_hash": "0fdff70be811a6f5cc17634c46b6ccc9",
@@ -4146,10 +4146,10 @@
     "rule_count": 3
   },
   "AI_Rules": {
-    "src_hash": "110e9a5ab278703c92ccd7f789a290f6",
-    "updated_at": 1790031586,
+    "src_hash": "5e75e913b0a62278d672bd4c99654b15",
+    "updated_at": 1790724296,
     "gen_ver": "v6.3",
-    "rule_count": 177
+    "rule_count": 183
   },
   "Game_CN": {
     "src_hash": "cff4d6fac3432801138331905c1f5ff0",

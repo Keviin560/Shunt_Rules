@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-30 07:26:12
-# Total = 7745
+# Update = 2026-10-03 07:32:46
+# Total = 7740
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -2706,7 +2706,6 @@ DOMAIN-SUFFIX,fengniao.com
 DOMAIN-SUFFIX,fengniaojipei.net
 DOMAIN-SUFFIX,fengsutb.com
 DOMAIN-SUFFIX,fengxian110.com
-DOMAIN-SUFFIX,fetion-portal.com
 DOMAIN-SUFFIX,fetionpic.com
 DOMAIN-SUFFIX,ffbuddy.com
 DOMAIN-SUFFIX,fffff.games
@@ -3081,7 +3080,6 @@ DOMAIN-SUFFIX,guoping123.com
 DOMAIN-SUFFIX,guosen.com.cn
 DOMAIN-SUFFIX,guoxinmac.com
 DOMAIN-SUFFIX,guoxuedashi.com
-DOMAIN-SUFFIX,guoxuemi.com
 DOMAIN-SUFFIX,gupzs.com
 DOMAIN-SUFFIX,gushiwen.org
 DOMAIN-SUFFIX,guzhangting.com
@@ -4106,7 +4104,6 @@ DOMAIN-SUFFIX,kd100.com
 DOMAIN-SUFFIX,kdocs.cn
 DOMAIN-SUFFIX,kdslife.com
 DOMAIN-SUFFIX,ke.com
-DOMAIN-SUFFIX,keboyunxiao.com
 DOMAIN-SUFFIX,kechuang.org
 DOMAIN-SUFFIX,kechuangai.com
 DOMAIN-SUFFIX,keep.com
@@ -5129,7 +5126,6 @@ DOMAIN-SUFFIX,orient-fund.com
 DOMAIN-SUFFIX,originalimg.com
 DOMAIN-SUFFIX,originalstatic.com
 DOMAIN-SUFFIX,originalvod.com
-DOMAIN-SUFFIX,osbdf.com
 DOMAIN-SUFFIX,oschina.net
 DOMAIN-SUFFIX,oshwhub.com
 DOMAIN-SUFFIX,oss-ap-northeast-1.aliyuncs.com
@@ -6799,7 +6795,6 @@ DOMAIN-SUFFIX,volx.cn
 DOMAIN-SUFFIX,vpgame.com
 DOMAIN-SUFFIX,vpsjyz.com
 DOMAIN-SUFFIX,vpsvs.com
-DOMAIN-SUFFIX,vrzwk.cn
 DOMAIN-SUFFIX,vrzwk.com
 DOMAIN-SUFFIX,vrzwk.net
 DOMAIN-SUFFIX,vrzwk.top

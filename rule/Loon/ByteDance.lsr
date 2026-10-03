@@ -1,8 +1,8 @@
 # Name = ByteDance
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-04 06:13:49
-# Total = 371
+# Update = 2026-10-04 06:39:40
+# Total = 372
 
 IP-CIDR,114.246.10.65/32,no-resolve
 DOMAIN-SUFFIX,2333333333333.com
@@ -55,6 +55,7 @@ DOMAIN-SUFFIX,bytefcdnrd.com
 DOMAIN-SUFFIX,bytegecko.com
 DOMAIN-SUFFIX,bytegoofy.com
 DOMAIN-SUFFIX,bytegslb.com
+DOMAIN-SUFFIX,bytehwm.com
 DOMAIN-SUFFIX,byteimg.com
 DOMAIN-SUFFIX,bytelb.net
 DOMAIN-SUFFIX,bytelove.cn

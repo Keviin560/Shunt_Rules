@@ -1,8 +1,8 @@
 # Name = ChinaIPsTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-04 06:40:05
-# Total = 22776
+# Update = 2026-10-06 09:08:16
+# Total = 22778
 
 IP-CIDR,1.0.1.0/24,no-resolve
 IP-CIDR,1.0.2.0/23,no-resolve
@@ -9723,6 +9723,7 @@ IP-CIDR,2001:dc7:cd00::/46,no-resolve
 IP-CIDR,2001:dc7:cd1a::/48,no-resolve
 IP-CIDR,2001:dc7:ffeb::/48,no-resolve
 IP-CIDR,2001:dc7:ffec::/48,no-resolve
+IP-CIDR,2001:dc7:fffb::/48,no-resolve
 IP-CIDR,2001:dcc:501::/48,no-resolve
 IP-CIDR,2001:dd8:1::/48,no-resolve
 IP-CIDR,2001:dd8:1a::/48,no-resolve
@@ -15034,6 +15035,7 @@ IP-CIDR,2402:5d00::/32,no-resolve
 IP-CIDR,2402:5e00::/32,no-resolve
 IP-CIDR,2402:5e40::/32,no-resolve
 IP-CIDR,2402:5ec0:1000::/39,no-resolve
+IP-CIDR,2402:5ec0:1000::/40,no-resolve
 IP-CIDR,2402:5ec0:1f00::/40,no-resolve
 IP-CIDR,2402:5ec0:2000::/35,no-resolve
 IP-CIDR,2402:5ec0:4000::/34,no-resolve

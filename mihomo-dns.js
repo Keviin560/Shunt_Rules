@@ -29,7 +29,7 @@
  * ---- 系统物理网卡：控制面板 -> 网络和 Internet -> 网络和共享中心 -> 以太网/WLAN -> 属性 -> 取消勾选「Internet 协议版本 6 (TCP/IPv6)」
  * ---- 系统虚拟网卡：同上，右键 `mihomo` 虚拟网卡 -> 属性 -> 取消勾选「Internet 协议版本 6 (TCP/IPv6)」
  * ---- 清理系统缓存：按 Win+R 输入 cmd，执行 `ipconfig /flushdns` 并回车
- * - 【用 IPv6】 ：在客户端开启 IPv6，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1] 👉 在「Internet 协议版本 6 (TCP/IPv6)」的属性里
+ * - 【用 IPv6】：在客户端开启 IPv6，把 IPv6 虚假 IP 池填写 [fc00::/18]；并在电脑物理网卡里选 [使用下面的 DNS 服务器地址]，填入 [::1] 👉 在「Internet 协议版本 6 (TCP/IPv6)」的属性里
  * - 【可考虑】：浏览器层面物理阉割 QUIC：在 Chrome 或 Edge 浏览器地址栏输入：chrome://flags (Edge 输入 edge://flags) → 搜索：QUIC → 找到 Experimental QUIC protocol，把后面的 Default 改成 Disabled → 重启浏览器
  * 
  * -------------------------------------------------------------------------------------------------------------------------

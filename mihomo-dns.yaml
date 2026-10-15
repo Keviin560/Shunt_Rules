@@ -1,7 +1,7 @@
 # =========================================================================================
 # 作者：Keviin560
 # 版本：v1.7
-# 更新日期：2026-06-17
+# 更新日期：2026-10-15
 # 
 # -----------------------------------------------------------------------------------------
 # 【 v1.7 更新日志 】
@@ -36,40 +36,40 @@
 # 【 🛠️ 修改与维护】
 # ->  如果冷门国家节点未被识别：请在第 1 部分的 `continentRegexes` (五大洲兜底扫描) 里，加入对应的中文或英文，比如在欧洲里面加上 `|冰岛`。
 # ->  想新增独立国家/地区分组（例如新增“英国节点”）：
-#     找分组：在独立分组节点筛选中加正则
-#     加空盒：增加该地区的 policy 组
-#     上名单：挂载进对应的分流组
+#      找分组：在独立分组节点筛选中加正则
+#      加空盒：增加该地区的 policy 组
+#      上名单：挂载进对应的分流组
 # 
 # -----------------------------------------------------------------------------------------
 # 【 📝 GUI 界面设置备忘录 (基础参数由客户端接管) 】
 # ->  [基础设置]：
-#     混合端口：7890
-#     局域网连接：开启 (按需开启)
-#     IPv6：关闭
+#      混合端口：7890
+#      局域网连接：开启 (按需开启)
+#      IPv6：关闭 (本次配置根据要求采用【用 IPv6】方案开启)
 # ->  [虚拟网卡 (TUN) 设置]：
-#     状态：开启
-#     堆栈：system
-#     开启：严格路由、自动设置路由规则、自动选择流量出口
-#     DNS 劫持：any:53
+#      状态：开启
+#      堆栈：system
+#      开启：严格路由、自动设置路由规则、自动选择流量出口
+#      DNS 劫持：any:53
 # ->  [内核设置]：
-#     开启：查找进程、存储选择节点、存储 FakelP 、使用 RTT 延迟测试（统一延迟测试）、 TCP 并发
+#      开启：查找进程、存储选择节点、存储 FakelP 、使用 RTT 延迟测试（统一延迟测试）、 TCP 并发
 # ->  [域名嗅探设置]：
-#     HTTP 端口嗅探：80, 8080
-#     TLS 端口嗅探：443, 8443
-#     QUIC 端口嗅探：443, 8443
-#     跳过域名嗅探：Mijia Cloud, *.apple.com, *.icloud.com
-#     开启：覆盖连接地址、对真实 IP 映射嗅探、对未映射 IP 地址嗅探
+#      HTTP 端口嗅探：80, 8080
+#      TLS 端口嗅探：443, 8443
+#      QUIC 端口嗅探：443, 8443
+#      跳过域名嗅探：Mijia Cloud, *.apple.com, *.icloud.com
+#      开启：覆盖连接地址、对真实 IP 映射嗅探、对未映射 IP 地址嗅探
 # ->  [DNS 设置]：
-#     IPv6：关闭
-#     基础服务器：223.5.5.5 | 119.29.29.29
-#     默认解析服务器：https://1.1.1.1/dns-query#节点选择 | https://8.8.8.8/dns-query#节点选择
-#     直连解析服务器：223.5.5.5 | 119.29.29.29 | 180.184.1.1
-#     代理节点解析服务器：https://dns.alidns.com/dns-query | https://doh.pub/dns-query
-#     域名解析策略：
-#     左侧 rule-set:Lan，右侧 system
-#     左侧 rule-set:Google (含 YouTube, Netflix 等防漏规则集)，右侧 https://1.1.1.1/dns-query#节点选择
-#     Fake-IP 过滤: rule-set:Lan, *.stun.*, +.msftncsi.com, +.msftconnecttest.com, +.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
-#     连接遵守规则：关闭
+#      IPv6：开启 (根据要求采用【用 IPv6】方案)
+#      基础服务器：223.5.5.5 | 119.29.29.29
+#      默认解析服务器：https://1.1.1.1/dns-query#节点选择 | https://8.8.8.8/dns-query#节点选择
+#      直连解析服务器：223.5.5.5 | 119.29.29.29 | 180.184.1.1
+#      代理节点解析服务器：https://dns.alidns.com/dns-query | https://doh.pub/dns-query
+#      域名解析策略：
+#      左侧 rule-set:Lan，右侧 system
+#      左侧 rule-set:Google (含 YouTube, Netflix 等防漏规则集)，右侧 https://1.1.1.1/dns-query#节点选择
+#      Fake-IP 过滤: rule-set:Lan, *.stun.*, +.msftncsi.com, +.msftconnecttest.com, +.market.xiaomi.com, *.local, *.ptlogin2.qq.com, +.pool.ntp.org
+#      连接遵守规则：关闭
 # =========================================================================================
 
 # -----------------------------------------------------------------------------------------
@@ -83,8 +83,7 @@ anchors:
     timeout: 3000
 
   # 广告/杂质节点过滤正则
-  exclude-junk: &exclude-junk
-    "(?i)剩余|到期|过期|官网|流量|联系|套餐|重置|更新|交流群|TG群|QQ群|电报群|群组|邀请|返回|网址|贩卖|倒卖|Expire|Traffic"
+  exclude-junk: &exclude-junk "(?i)剩余|到期|过期|官网|流量|联系|套餐|重置|更新|交流群|TG群|QQ群|电报群|群组|邀请|返回|网址|贩卖|倒卖|Expire|Traffic"
 
   # 地区分组基础模板
   region-base: &region-base
@@ -120,11 +119,109 @@ anchors:
     proxy: 节点选择
 
 # -----------------------------------------------------------------------------------------
-# 1. 基础与底层优化
+# 1. 基础与底层优化 (整合 GUI 界面设置、内核设置、TUN 模式及用 IPv6 配置)
 # -----------------------------------------------------------------------------------------
+# [基础设置]
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
 keep-alive-interval: 60
+
+# [IPv6 启用与系统注意事项]
+# ⚠️ 电脑物理网卡：控制面板 -> 网络和共享中心 -> 以太网/WLAN -> 属性 -> 「Internet 协议版本 6 (TCP/IPv6)」属性
+# 选「使用下面的 DNS 服务器地址」，填入 [::1]
+ipv6: true
+
+# [内核设置]
+tcp-concurrent: true                      # TCP 并发
+unified-delay: true                       # 使用 RTT 延迟测试（统一延迟测试）
+find-process-mode: strict                 # 查找进程
+profile:
+  store-selected: true                    # 存储选择节点
+  store-fake-ip: true                     # 存储 FakeIP
+
+# [虚拟网卡 (TUN) 设置]
+# ⚠️ Windows 用户：请关闭 "智能多宿主名称解析" (组策略/注册表)，TUN 模式下防止把 DNS 请求同步给物理网卡
+tun:
+  enable: true                            # 状态：开启
+  stack: system                           # 堆栈：system
+  strict-route: true                      # 开启：严格路由
+  auto-route: true                        # 开启：自动设置路由规则
+  auto-detect-interface: true             # 开启：自动选择流量出口
+  dns-hijack:
+    - any:53                              # DNS 劫持：any:53
+    - tcp://any:53
+
+# [域名嗅探设置]
+# ⚠️ 可考虑在浏览器地址栏输入 chrome://flags / edge://flags 禁用 Experimental QUIC protocol
+sniffer:
+  enable: true
+  override-destination: true              # 开启：覆盖连接地址
+  force-dns-mapping: true                 # 开启：对真实 IP 映射嗅探
+  parse-pure-ip: true                     # 开启：对未映射 IP 地址嗅探
+  sniff:
+    HTTP:
+      ports: [80, 8080]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "*.apple.com"
+    - "*.icloud.com"
+
+# [DNS 设置]
+# ⚠️ 浏览器防漏：Chrome/Edge 设置 -> 隐私与安全 -> 关闭 "使用安全 DNS"，防止浏览器绕过客户端解析
 dns:
+  enable: true
+  ipv6: true                              # DNS 开启 IPv6
   prefer-h3: false
+  respect-rules: false                    # 连接遵守规则：关闭
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16            # IPv4 虚假 IP 池
+  fake-ip-range6: fc00::/18               # IPv6 虚假 IP 池填写 [fc00::/18]
+
+  # 基础服务器 (默认名称解析器)
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+  # 默认解析服务器
+  nameserver:
+    - 'https://1.1.1.1/dns-query#节点选择'
+    - 'https://8.8.8.8/dns-query#节点选择'
+
+  # 直连解析服务器
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 180.184.1.1
+
+  # 代理节点解析服务器
+  proxy-server-nameserver:
+    - 'https://dns.alidns.com/dns-query'
+    - 'https://doh.pub/dns-query'
+
+  # 域名解析策略 (Nameserver-Policy)
+  nameserver-policy:
+    "rule-set:Lan": system
+    "rule-set:Google": "https://1.1.1.1/dns-query#节点选择"
+    "rule-set:YouTube": "https://1.1.1.1/dns-query#节点选择"
+    "rule-set:Netflix": "https://1.1.1.1/dns-query#节点选择"
+
+  # Fake-IP 过滤
+  fake-ip-filter:
+    - "rule-set:Lan"
+    - "*.stun.*"
+    - "+.msftncsi.com"
+    - "+.msftconnecttest.com"
+    - "+.market.xiaomi.com"
+    - "*.local"
+    - "*.ptlogin2.qq.com"
+    - "+.pool.ntp.org"
 
 # -----------------------------------------------------------------------------------------
 # 2. 策略组 (Proxy Groups)
@@ -268,38 +365,38 @@ proxy-groups:
 # -----------------------------------------------------------------------------------------
 rule-providers:
   # 外部第三方规则
-  AdRules:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs", path: ./rules/AdRules.mrs }
-  WinSpy:         { type: http, behavior: domain, format: text, interval: 86400, proxy: 节点选择, url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt", path: ./rules/WinSpy.txt }
+  AdRules: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs", path: ./rules/AdRules.mrs}
+  WinSpy: {type: http, behavior: domain, format: text, interval: 86400, proxy: 节点选择, url: "https://raw.githubusercontent.com/Loyalsoldier/v2ray-rules-dat/release/win-spy.txt", path: ./rules/WinSpy.txt}
 
   # 域名规则 (MRS)
-  Privacy:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs", path: ./rules/Privacy.mrs }
-  Hijacking:      { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs", path: ./rules/Hijacking.mrs }
-  Lan:            { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs", path: ./rules/Lan.mrs }
-  Game_CN:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Game_CN.mrs", path: ./rules/Game_CN.mrs }
-  GameDownloadCN: { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GameDownloadCN.mrs", path: ./rules/GameDownloadCN.mrs }
-  WeChat:         { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/WeChat.mrs", path: ./rules/WeChat.mrs }
-  Global_CN:      { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Global_CN.mrs", path: ./rules/Global_CN.mrs }
-  GeoSite_CN:     { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs", path: ./rules/GeoSite_CN.mrs }
-  AI_Rules:       { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AI_Rules.mrs", path: ./rules/AI_Rules.mrs }
-  Game_Proxy:     { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Game_Proxy.mrs", path: ./rules/Game_Proxy.mrs }
-  YouTube:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs", path: ./rules/YouTube.mrs }
-  Netflix:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs", path: ./rules/Netflix.mrs }
-  TikTok:         { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs", path: ./rules/TikTok.mrs }
-  Spotify:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs", path: ./rules/Spotify.mrs }
-  Telegram:       { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs", path: ./rules/Telegram.mrs }
-  Google:         { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs", path: ./rules/Google.mrs }
-  iCloud:         { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/iCloud.mrs", path: ./rules/iCloud.mrs }
-  AppleID:        { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs", path: ./rules/AppleID.mrs }
-  Apple:          { <<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs", path: ./rules/Apple.mrs }
+  Privacy: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Privacy.mrs", path: ./rules/Privacy.mrs}
+  Hijacking: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking.mrs", path: ./rules/Hijacking.mrs}
+  Lan: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan.mrs", path: ./rules/Lan.mrs}
+  Game_CN: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Game_CN.mrs", path: ./rules/Game_CN.mrs}
+  GameDownloadCN: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GameDownloadCN.mrs", path: ./rules/GameDownloadCN.mrs}
+  WeChat: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/WeChat.mrs", path: ./rules/WeChat.mrs}
+  Global_CN: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Global_CN.mrs", path: ./rules/Global_CN.mrs}
+  GeoSite_CN: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoSite_CN.mrs", path: ./rules/GeoSite_CN.mrs}
+  AI_Rules: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AI_Rules.mrs", path: ./rules/AI_Rules.mrs}
+  Game_Proxy: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Game_Proxy.mrs", path: ./rules/Game_Proxy.mrs}
+  YouTube: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube.mrs", path: ./rules/YouTube.mrs}
+  Netflix: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix.mrs", path: ./rules/Netflix.mrs}
+  TikTok: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/TikTok.mrs", path: ./rules/TikTok.mrs}
+  Spotify: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Spotify.mrs", path: ./rules/Spotify.mrs}
+  Telegram: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram.mrs", path: ./rules/Telegram.mrs}
+  Google: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google.mrs", path: ./rules/Google.mrs}
+  iCloud: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/iCloud.mrs", path: ./rules/iCloud.mrs}
+  AppleID: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/AppleID.mrs", path: ./rules/AppleID.mrs}
+  Apple: {<<: *rule-domain, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Apple.mrs", path: ./rules/Apple.mrs}
 
   # IP-CIDR 规则 (MRS)
-  Hijacking_IP:   { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs", path: ./rules/Hijacking_IP.mrs }
-  Lan_IP:         { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs", path: ./rules/Lan_IP.mrs }
-  GeoIP_CN_IP:    { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs", path: ./rules/GeoIP_CN_IP.mrs }
-  YouTube_IP:     { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs", path: ./rules/YouTube_IP.mrs }
-  Netflix_IP:     { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs", path: ./rules/Netflix_IP.mrs }
-  Telegram_IP:    { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs", path: ./rules/Telegram_IP.mrs }
-  Google_IP:      { <<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs", path: ./rules/Google_IP.mrs }
+  Hijacking_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Hijacking_IP.mrs", path: ./rules/Hijacking_IP.mrs}
+  Lan_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Lan_IP.mrs", path: ./rules/Lan_IP.mrs}
+  GeoIP_CN_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/GeoIP_CN_IP.mrs", path: ./rules/GeoIP_CN_IP.mrs}
+  YouTube_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/YouTube_IP.mrs", path: ./rules/YouTube_IP.mrs}
+  Netflix_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Netflix_IP.mrs", path: ./rules/Netflix_IP.mrs}
+  Telegram_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Telegram_IP.mrs", path: ./rules/Telegram_IP.mrs}
+  Google_IP: {<<: *rule-ip, url: "https://raw.githubusercontent.com/Keviin560/Shunt_Rules/main/rule/Mihomo/Google_IP.mrs", path: ./rules/Google_IP.mrs}
 
 # -----------------------------------------------------------------------------------------
 # 4. 路由规则 (Rules)
@@ -359,3 +456,5 @@ rules:
 
   # 最终兜底
   - MATCH,兜底策略
+
+name: "Mihomo-dns"

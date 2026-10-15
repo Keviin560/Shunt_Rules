@@ -387,29 +387,7 @@ function main(config) {
             'RULE-SET,WeChat,DIRECT',
             'RULE-SET,Lan,DIRECT',
             'RULE-SET,Lan_IP,DIRECT,no-resolve',
-            'RULE-SET,GameDownloadCN,DIRECT',
-            'DST-PORT,123,DIRECT',                      
-
-            // ===============================================
-            // 🚫 P2P/BT 流量
-            // ===============================================
-            // 1.  P2P 默认端口
-            'DST-PORT,6881-6889,DIRECT', 
-            'DST-PORT,51413,DIRECT', // Transmission 默认端口
-            // 2.  BT 追踪器与特殊特征域名
-            'DOMAIN-KEYWORD,tracker,DIRECT',
-            'DOMAIN-KEYWORD,torrent,DIRECT',
-            'DOMAIN-KEYWORD,announce,DIRECT',
-             // 3. 主流下载器进程直连
-            'PROCESS-NAME,aria2c.exe,DIRECT',
-            'PROCESS-NAME,BitComet.exe,DIRECT',
-            'PROCESS-NAME,qbittorrent.exe,DIRECT',
-            'PROCESS-NAME,transmission-daemon.exe,DIRECT',
-            'PROCESS-NAME,transmission-qt.exe,DIRECT',
-            'PROCESS-NAME,Thunder.exe,DIRECT',           // 迅雷主程序
-            'PROCESS-NAME,DownloadSDKServer.exe,DIRECT', // 迅雷底层下载核心进程
-            'PROCESS-NAME,uTorrent.exe,DIRECT',
-            'PROCESS-NAME,WebTorrent.exe,DIRECT',
+            'RULE-SET,GameDownloadCN,DIRECT',  
             
             // ===============================================
             // 🚀 海外平台分流

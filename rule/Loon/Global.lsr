@@ -1,8 +1,8 @@
 # Name = Global
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-14 07:37:15
-# Total = 35183
+# Update = 2026-10-18 06:00:10
+# Total = 35189
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -857,6 +857,7 @@ DOMAIN-SUFFIX,7mmtv.tv
 DOMAIN-SUFFIX,7tb.cc
 DOMAIN-SUFFIX,7tv.app
 DOMAIN-SUFFIX,7tv.io
+DOMAIN-SUFFIX,7x24hrs.com
 DOMAIN-SUFFIX,8-d.com
 DOMAIN-SUFFIX,8008206616.com
 DOMAIN-SUFFIX,8111y.top
@@ -5815,6 +5816,7 @@ DOMAIN-SUFFIX,bsappapi.cc
 DOMAIN-SUFFIX,bsappapi.com
 DOMAIN-SUFFIX,bsaw.ac.uk
 DOMAIN-SUFFIX,bsbec.ac.uk
+DOMAIN-SUFFIX,bscdnweb.com
 DOMAIN-SUFFIX,bsdc.ac.uk
 DOMAIN-SUFFIX,bsersd.xyz
 DOMAIN-SUFFIX,bsfc.ac.uk
@@ -26722,6 +26724,7 @@ DOMAIN-SUFFIX,sccjr.ac.uk
 DOMAIN-SUFFIX,scct.ac.uk
 DOMAIN-SUFFIX,scde.ac.uk
 DOMAIN-SUFFIX,scdn.co
+DOMAIN-SUFFIX,scea.com
 DOMAIN-SUFFIX,scene7.com
 DOMAIN-SUFFIX,scenesource.me
 DOMAIN-SUFFIX,scentro.ac.uk
@@ -28075,6 +28078,7 @@ DOMAIN-SUFFIX,sony.com.ni
 DOMAIN-SUFFIX,sony.com.pa
 DOMAIN-SUFFIX,sony.com.pe
 DOMAIN-SUFFIX,sony.com.ph
+DOMAIN-SUFFIX,sony.com.py
 DOMAIN-SUFFIX,sony.com.sg
 DOMAIN-SUFFIX,sony.com.sv
 DOMAIN-SUFFIX,sony.com.tr
@@ -28117,8 +28121,10 @@ DOMAIN-SUFFIX,sonyclassics.com
 DOMAIN-SUFFIX,sonydesign.com
 DOMAIN-SUFFIX,sonydna.com
 DOMAIN-SUFFIX,sonyglobalsolutions.jp
+DOMAIN-SUFFIX,sonyinteractive.com
 DOMAIN-SUFFIX,sonykigyo.jp
 DOMAIN-SUFFIX,sonylatvija.com
+DOMAIN-SUFFIX,sonymusic.com.hk
 DOMAIN-SUFFIX,sonynetwork.co.jp
 DOMAIN-SUFFIX,sonypcl.jp
 DOMAIN-SUFFIX,sonypictures.com

@@ -1,8 +1,8 @@
 # Name = AI_Rules
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-10 07:49:03
-# Total = 187
+# Update = 2026-10-18 05:58:55
+# Total = 190
 
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
@@ -82,6 +82,7 @@ DOMAIN-SUFFIX,cursor-cdn.com
 DOMAIN-SUFFIX,cursor.com
 DOMAIN-SUFFIX,cursor.sh
 DOMAIN-SUFFIX,cursorapi.com
+DOMAIN-SUFFIX,cursorvm.com
 DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,deepmind.google
 DOMAIN-SUFFIX,deepwiki.com
@@ -159,6 +160,7 @@ DOMAIN-SUFFIX,opal.google
 DOMAIN-SUFFIX,opal.google.com
 DOMAIN-SUFFIX,openai.com
 DOMAIN-SUFFIX,openai.com.cdn.cloudflare.net
+DOMAIN-SUFFIX,openai.org
 DOMAIN-SUFFIX,openart.ai
 DOMAIN-SUFFIX,openclaw.ai
 DOMAIN-SUFFIX,opencode.ai
@@ -185,6 +187,7 @@ DOMAIN-SUFFIX,themeforest.net
 DOMAIN-SUFFIX,trae.ai
 DOMAIN-SUFFIX,tripo3d.ai
 DOMAIN-SUFFIX,turn.livekit.cloud
+DOMAIN-SUFFIX,typesafe.ai
 DOMAIN-SUFFIX,windsurf.build
 DOMAIN-SUFFIX,windsurf.com
 DOMAIN-SUFFIX,x.ai

@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-14 07:37:13
-# Total = 7738
+# Update = 2026-10-18 06:00:08
+# Total = 7739
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -1754,6 +1754,7 @@ DOMAIN-SUFFIX,chuangcdn.com
 DOMAIN-SUFFIX,chuangxin.com
 DOMAIN-SUFFIX,chuanke.com
 DOMAIN-SUFFIX,chuansong.me
+DOMAIN-SUFFIX,chuansongme.com
 DOMAIN-SUFFIX,chuapp.com
 DOMAIN-SUFFIX,chugou360.com
 DOMAIN-SUFFIX,chuimg.com
@@ -4894,7 +4895,6 @@ DOMAIN-SUFFIX,myquark.cn
 DOMAIN-SUFFIX,myshopex.com
 DOMAIN-SUFFIX,myshow360.net
 DOMAIN-SUFFIX,mysiteres.com
-DOMAIN-SUFFIX,mysqil.com
 DOMAIN-SUFFIX,myssl-uri.com
 DOMAIN-SUFFIX,myssl.com
 DOMAIN-SUFFIX,mystery0.vip
@@ -5125,6 +5125,7 @@ DOMAIN-SUFFIX,orient-fund.com
 DOMAIN-SUFFIX,originalimg.com
 DOMAIN-SUFFIX,originalstatic.com
 DOMAIN-SUFFIX,originalvod.com
+DOMAIN-SUFFIX,osbdf.com
 DOMAIN-SUFFIX,oschina.net
 DOMAIN-SUFFIX,oshwhub.com
 DOMAIN-SUFFIX,oss-ap-northeast-1.aliyuncs.com
@@ -5338,6 +5339,7 @@ DOMAIN-SUFFIX,qcloudtt.com
 DOMAIN-SUFFIX,qcloudwaf.com
 DOMAIN-SUFFIX,qd-metro.com
 DOMAIN-SUFFIX,qd.ink
+DOMAIN-SUFFIX,qd8.com
 DOMAIN-SUFFIX,qdmm.com
 DOMAIN-SUFFIX,qdwebim.com
 DOMAIN-SUFFIX,qeodns.com
@@ -6566,7 +6568,6 @@ DOMAIN-SUFFIX,v5875.com
 DOMAIN-SUFFIX,value500.com
 DOMAIN-SUFFIX,vamaker.com
 DOMAIN-SUFFIX,vancl.com
-DOMAIN-SUFFIX,vanclimg.com
 DOMAIN-SUFFIX,vanho.cn
 DOMAIN-SUFFIX,vanjee.net
 DOMAIN-SUFFIX,vaptcha.com
@@ -6793,6 +6794,7 @@ DOMAIN-SUFFIX,volx.cn
 DOMAIN-SUFFIX,vpgame.com
 DOMAIN-SUFFIX,vpsjyz.com
 DOMAIN-SUFFIX,vpsvs.com
+DOMAIN-SUFFIX,vrzwk.cn
 DOMAIN-SUFFIX,vrzwk.com
 DOMAIN-SUFFIX,vrzwk.net
 DOMAIN-SUFFIX,vrzwk.top
@@ -7078,7 +7080,6 @@ DOMAIN-SUFFIX,xiaoe-tech.com
 DOMAIN-SUFFIX,xiaogouh5.com
 DOMAIN-SUFFIX,xiaohe.cn
 DOMAIN-SUFFIX,xiaoheihe.cn
-DOMAIN-SUFFIX,xiaoka.tv
 DOMAIN-SUFFIX,xiaokaxiu.com
 DOMAIN-SUFFIX,xiaolachuxing.com
 DOMAIN-SUFFIX,xiaolianhb.com

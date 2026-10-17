@@ -1,8 +1,8 @@
 # Name = Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-08 08:02:01
-# Total = 6962
+# Update = 2026-10-18 06:00:11
+# Total = 6965
 
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,103.2.28.0/22,no-resolve
@@ -269,6 +269,7 @@ DOMAIN-SUFFIX,6parknews.com
 DOMAIN-SUFFIX,7capture.com
 DOMAIN-SUFFIX,7cow.com
 DOMAIN-SUFFIX,7mmtv.tv
+DOMAIN-SUFFIX,7x24hrs.com
 DOMAIN-SUFFIX,8-d.com
 DOMAIN-SUFFIX,85cc.net
 DOMAIN-SUFFIX,85cc.us
@@ -3748,7 +3749,9 @@ DOMAIN-SUFFIX,merlinblog.xyz
 DOMAIN-SUFFIX,meshrep.com
 DOMAIN-SUFFIX,mesotw.com
 DOMAIN-SUFFIX,messenger.com
+DOMAIN-SUFFIX,meta.ai
 DOMAIN-SUFFIX,meta.com
+DOMAIN-SUFFIX,metaaivm.com
 DOMAIN-SUFFIX,metacafe.com
 DOMAIN-SUFFIX,metacubex.one
 DOMAIN-SUFFIX,metafilter.com

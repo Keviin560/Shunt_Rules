@@ -1,8 +1,8 @@
 # Name = AI_Rules
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-18 05:58:55
-# Total = 190
+# Update = 2026-10-20 07:18:00
+# Total = 191
 
 DOMAIN,ai.google.dev
 DOMAIN,alkalicore-pa.clients6.google.com
@@ -134,6 +134,7 @@ DOMAIN-SUFFIX,liveperson.net
 DOMAIN-SUFFIX,lmstudio.ai
 DOMAIN-SUFFIX,lovart.ai
 DOMAIN-SUFFIX,lpsnmedia.net
+DOMAIN-SUFFIX,magnific.com
 DOMAIN-SUFFIX,makersuite.google.com
 DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,manuscdn.com

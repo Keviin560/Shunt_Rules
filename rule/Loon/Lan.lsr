@@ -1,8 +1,8 @@
 # Name = Lan
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-09-24 06:41:48
-# Total = 140
+# Update = 2026-10-20 07:19:09
+# Total = 142
 
 IP-CIDR,0.0.0.0/8,no-resolve
 IP-CIDR,10.0.0.0/8,no-resolve
@@ -25,6 +25,8 @@ IP-CIDR,ff00::/8,no-resolve
 DOMAIN,asusrouter.com
 DOMAIN,instant.arubanetworks.com
 DOMAIN,local.adguard.org
+DOMAIN,localhost.weixin.qq.com
+DOMAIN,localhost.work.weixin.qq.com
 DOMAIN,oasisauth.h3c.com
 DOMAIN,router.asus.com
 DOMAIN,setmeup.arubanetworks.com

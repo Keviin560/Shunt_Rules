@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-18 06:00:08
-# Total = 7739
+# Update = 2026-10-21 06:56:15
+# Total = 7737
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -563,7 +563,6 @@ DOMAIN-SUFFIX,acwing.com
 DOMAIN-SUFFIX,adacpp.com
 DOMAIN-SUFFIX,adhuanxiao.com
 DOMAIN-SUFFIX,admin5.com
-DOMAIN-SUFFIX,admincdn.com
 DOMAIN-SUFFIX,adosmo.com
 DOMAIN-SUFFIX,adxvip.com
 DOMAIN-SUFFIX,ae-ad-1.myhuaweicloud.com
@@ -5976,6 +5975,7 @@ DOMAIN-SUFFIX,szlcsc.com
 DOMAIN-SUFFIX,sznews.com
 DOMAIN-SUFFIX,szpgm.com
 DOMAIN-SUFFIX,szse.cn
+DOMAIN-SUFFIX,szu.app
 DOMAIN-SUFFIX,szzfgjj.com
 DOMAIN-SUFFIX,t00ls.cc
 DOMAIN-SUFFIX,t1tms.com
@@ -6908,7 +6908,6 @@ DOMAIN-SUFFIX,win7china.com
 DOMAIN-SUFFIX,win8.net
 DOMAIN-SUFFIX,win8china.com
 DOMAIN-SUFFIX,wind.com.cn
-DOMAIN-SUFFIX,windfonts.com
 DOMAIN-SUFFIX,windows10zj.com
 DOMAIN-SUFFIX,windows7en.com
 DOMAIN-SUFFIX,windowszj.com
@@ -6969,7 +6968,6 @@ DOMAIN-SUFFIX,wowsgame.cn
 DOMAIN-SUFFIX,woxihuan.com
 DOMAIN-SUFFIX,woyaogexing.com
 DOMAIN-SUFFIX,woyoo.com
-DOMAIN-SUFFIX,wpcy.com
 DOMAIN-SUFFIX,wps.cn
 DOMAIN-SUFFIX,wps.com
 DOMAIN-SUFFIX,wpscdn.cn

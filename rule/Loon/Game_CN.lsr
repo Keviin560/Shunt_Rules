@@ -1,8 +1,8 @@
 # Name = Game_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-07-12 04:44:47
-# Total = 264
+# Update = 2026-10-25 06:14:45
+# Total = 263
 
 DOMAIN,end-api.shallow.ink
 DOMAIN,end.shallow.ink
@@ -102,7 +102,6 @@ DOMAIN-SUFFIX,gcloudcstestonly.com
 DOMAIN-SUFFIX,gclouddolphin.com
 DOMAIN-SUFFIX,gcloudsdk.com
 DOMAIN-SUFFIX,gcloudsvcs.com
-DOMAIN-SUFFIX,gdtimg.com
 DOMAIN-SUFFIX,goto-game.com
 DOMAIN-SUFFIX,goto-game.mobi
 DOMAIN-SUFFIX,goto-game.net.cn

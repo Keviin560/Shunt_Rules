@@ -1,8 +1,8 @@
 # Name = ChinaIPsTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-24 06:53:14
-# Total = 23004
+# Update = 2026-10-26 06:17:58
+# Total = 23003
 
 IP-CIDR,1.0.1.0/24,no-resolve
 IP-CIDR,1.0.2.0/23,no-resolve
@@ -4652,6 +4652,7 @@ IP-CIDR,112.73.0.0/19,no-resolve
 IP-CIDR,112.73.128.0/17,no-resolve
 IP-CIDR,112.73.222.0/24,no-resolve
 IP-CIDR,112.73.64.0/18,no-resolve
+IP-CIDR,112.73.96.0/19,no-resolve
 IP-CIDR,112.74.0.0/15,no-resolve
 IP-CIDR,112.74.0.0/16,no-resolve
 IP-CIDR,112.8.0.0/13,no-resolve
@@ -9639,6 +9640,7 @@ IP-CIDR,2001:dc7:cd00::/46,no-resolve
 IP-CIDR,2001:dc7:cd1a::/48,no-resolve
 IP-CIDR,2001:dc7:ffeb::/48,no-resolve
 IP-CIDR,2001:dc7:ffec::/48,no-resolve
+IP-CIDR,2001:dc7:fffb::/48,no-resolve
 IP-CIDR,2001:dcc:501::/48,no-resolve
 IP-CIDR,2001:dd8:1::/48,no-resolve
 IP-CIDR,2001:dd8:1a::/48,no-resolve
@@ -16714,7 +16716,6 @@ IP-CIDR,2406:840:9600::/41,no-resolve
 IP-CIDR,2406:840:9610::/44,no-resolve
 IP-CIDR,2406:840:9630::/44,no-resolve
 IP-CIDR,2406:840:9640::/43,no-resolve
-IP-CIDR,2406:840:9660::/46,no-resolve
 IP-CIDR,2406:840:9660::/48,no-resolve
 IP-CIDR,2406:840:9662::/47,no-resolve
 IP-CIDR,2406:840:9664::/47,no-resolve
@@ -21476,6 +21477,9 @@ IP-CIDR,43.255.244.0/22,no-resolve
 IP-CIDR,43.255.48.0/22,no-resolve
 IP-CIDR,43.255.64.0/20,no-resolve
 IP-CIDR,43.255.68.0/22,no-resolve
+IP-CIDR,43.255.68.0/24,no-resolve
+IP-CIDR,43.255.69.0/24,no-resolve
+IP-CIDR,43.255.70.0/23,no-resolve
 IP-CIDR,43.255.8.0/22,no-resolve
 IP-CIDR,43.255.84.0/22,no-resolve
 IP-CIDR,43.255.84.0/24,no-resolve
@@ -22471,12 +22475,7 @@ IP-CIDR,59.151.20.0/22,no-resolve
 IP-CIDR,59.151.24.0/21,no-resolve
 IP-CIDR,59.151.27.0/24,no-resolve
 IP-CIDR,59.151.32.0/19,no-resolve
-IP-CIDR,59.151.32.0/20,no-resolve
 IP-CIDR,59.151.4.0/23,no-resolve
-IP-CIDR,59.151.48.0/23,no-resolve
-IP-CIDR,59.151.50.0/24,no-resolve
-IP-CIDR,59.151.52.0/22,no-resolve
-IP-CIDR,59.151.56.0/21,no-resolve
 IP-CIDR,59.151.64.0/18,no-resolve
 IP-CIDR,59.152.112.0/21,no-resolve
 IP-CIDR,59.152.16.0/20,no-resolve

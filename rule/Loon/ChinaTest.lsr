@@ -1,8 +1,8 @@
 # Name = ChinaTest
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-26 06:17:54
-# Total = 110049
+# Update = 2026-10-28 07:28:38
+# Total = 110051
 
 IP-CIDR,1.255.62.0/24,no-resolve
 IP-CIDR,101.32.118.0/23,no-resolve
@@ -33945,6 +33945,7 @@ DOMAIN-SUFFIX,filfox.info
 DOMAIN-SUFFIX,fillersmart.com
 DOMAIN-SUFFIX,fillseo.com
 DOMAIN-SUFFIX,film-yuelongchina.com
+DOMAIN-SUFFIX,filmorigin.com
 DOMAIN-SUFFIX,fily.fun
 DOMAIN-SUFFIX,fim34s.com
 DOMAIN-SUFFIX,fimmu.com
@@ -56193,6 +56194,7 @@ DOMAIN-SUFFIX,kakamobi.com
 DOMAIN-SUFFIX,kakappt.com
 DOMAIN-SUFFIX,kakashuzi.net
 DOMAIN-SUFFIX,kakatx.com
+DOMAIN-SUFFIX,kakaxing.com
 DOMAIN-SUFFIX,kakayuy.net
 DOMAIN-SUFFIX,kaken-china.com
 DOMAIN-SUFFIX,kaku-scdn.com

@@ -1,8 +1,8 @@
 # Name = ChinaMax
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-26 06:17:32
-# Total = 123086
+# Update = 2026-10-28 07:28:17
+# Total = 123087
 
 IP-CIDR,0.0.0.0/32,no-resolve
 IP-CIDR,1.0.1.0/24,no-resolve
@@ -3697,7 +3697,6 @@ IP-CIDR,154.72.44.0/24,no-resolve
 IP-CIDR,154.72.47.0/24,no-resolve
 IP-CIDR,154.8.128.0/17,no-resolve
 IP-CIDR,154.8.48.0/20,no-resolve
-IP-CIDR,154.84.180.0/24,no-resolve
 IP-CIDR,154.89.32.0/20,no-resolve
 IP-CIDR,155.102.0.0/16,no-resolve
 IP-CIDR,155.126.176.0/23,no-resolve
@@ -4234,7 +4233,7 @@ IP-CIDR,175.24.0.0/14,no-resolve
 IP-CIDR,175.30.0.0/15,no-resolve
 IP-CIDR,175.42.0.0/15,no-resolve
 IP-CIDR,175.44.0.0/16,no-resolve
-IP-CIDR,175.45.179.0/24,no-resolve
+IP-CIDR,175.45.178.0/23,no-resolve
 IP-CIDR,175.46.0.0/15,no-resolve
 IP-CIDR,175.48.0.0/12,no-resolve
 IP-CIDR,175.64.0.0/11,no-resolve
@@ -46651,6 +46650,7 @@ DOMAIN-SUFFIX,filfox.info
 DOMAIN-SUFFIX,fillersmart.com
 DOMAIN-SUFFIX,fillseo.com
 DOMAIN-SUFFIX,film-yuelongchina.com
+DOMAIN-SUFFIX,filmorigin.com
 DOMAIN-SUFFIX,fily.fun
 DOMAIN-SUFFIX,fim34s.com
 DOMAIN-SUFFIX,fimmu.com
@@ -69166,6 +69166,7 @@ DOMAIN-SUFFIX,kakamobi.com
 DOMAIN-SUFFIX,kakappt.com
 DOMAIN-SUFFIX,kakashuzi.net
 DOMAIN-SUFFIX,kakatx.com
+DOMAIN-SUFFIX,kakaxing.com
 DOMAIN-SUFFIX,kakayuy.net
 DOMAIN-SUFFIX,kaken-china.com
 DOMAIN-SUFFIX,kaku-scdn.com

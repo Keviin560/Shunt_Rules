@@ -1,8 +1,8 @@
 # Name = Game_Proxy
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-25 06:14:46
-# Total = 875
+# Update = 2026-10-31 07:27:54
+# Total = 876
 
 DOMAIN,a.ppy.sh
 DOMAIN,a4e8s8k3.map2.ssl.hwcdn.net
@@ -119,6 +119,7 @@ DOMAIN-SUFFIX,activematter.game
 DOMAIN-SUFFIX,activision.com
 DOMAIN-SUFFIX,activisionblizzard.com
 DOMAIN-SUFFIX,activisionblizzardmedia.com
+DOMAIN-SUFFIX,amdgaming.com
 DOMAIN-SUFFIX,amiibo.com
 DOMAIN-SUFFIX,anthemgame.com
 DOMAIN-SUFFIX,anthemthegame.com

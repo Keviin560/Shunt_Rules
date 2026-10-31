@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-31 07:27:55
-# Total = 7763
+# Update = 2026-11-01 07:02:10
+# Total = 7762
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -579,7 +579,6 @@ DOMAIN-SUFFIX,af-east-201.myhuaweicloud.com
 DOMAIN-SUFFIX,af-north-1.myhuaweicloud.com
 DOMAIN-SUFFIX,af-south-1.myhuaweicloud.com
 DOMAIN-SUFFIX,af-west-202.myhuaweicloud.com
-DOMAIN-SUFFIX,afdian.com
 DOMAIN-SUFFIX,afdian.net
 DOMAIN-SUFFIX,afdiancdn.com
 DOMAIN-SUFFIX,afeica.com
@@ -2722,7 +2721,6 @@ DOMAIN-SUFFIX,fengniao.com
 DOMAIN-SUFFIX,fengniaojipei.net
 DOMAIN-SUFFIX,fengsutb.com
 DOMAIN-SUFFIX,fengxian110.com
-DOMAIN-SUFFIX,fetion-portal.com
 DOMAIN-SUFFIX,fetionpic.com
 DOMAIN-SUFFIX,ffbuddy.com
 DOMAIN-SUFFIX,fffff.games
@@ -3593,6 +3591,7 @@ DOMAIN-SUFFIX,ifanr.com
 DOMAIN-SUFFIX,ifanr.in
 DOMAIN-SUFFIX,ifanrusercontent.com
 DOMAIN-SUFFIX,ifanrx.com
+DOMAIN-SUFFIX,ifdian.net
 DOMAIN-SUFFIX,ifeilian.cn
 DOMAIN-SUFFIX,ifeilian.com
 DOMAIN-SUFFIX,ifeng.com
@@ -5360,6 +5359,7 @@ DOMAIN-SUFFIX,qcloudtt.com
 DOMAIN-SUFFIX,qcloudwaf.com
 DOMAIN-SUFFIX,qd-metro.com
 DOMAIN-SUFFIX,qd.ink
+DOMAIN-SUFFIX,qd8.com
 DOMAIN-SUFFIX,qdmm.com
 DOMAIN-SUFFIX,qdwebim.com
 DOMAIN-SUFFIX,qeodns.com
@@ -7101,7 +7101,6 @@ DOMAIN-SUFFIX,xiaoe-tech.com
 DOMAIN-SUFFIX,xiaogouh5.com
 DOMAIN-SUFFIX,xiaohe.cn
 DOMAIN-SUFFIX,xiaoheihe.cn
-DOMAIN-SUFFIX,xiaoka.tv
 DOMAIN-SUFFIX,xiaokaxiu.com
 DOMAIN-SUFFIX,xiaolachuxing.com
 DOMAIN-SUFFIX,xiaolianhb.com

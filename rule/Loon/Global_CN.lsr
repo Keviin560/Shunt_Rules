@@ -1,8 +1,8 @@
 # Name = Global_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-10-28 07:28:41
-# Total = 780
+# Update = 2026-11-07 07:58:06
+# Total = 781
 
 DOMAIN,a1.mzstatic.com
 DOMAIN,a2.mzstatic.com
@@ -320,6 +320,7 @@ DOMAIN,podcasts.itunes.apple.com
 DOMAIN,probe.siri.apple.com
 DOMAIN,prod-support.apple-support.akadns.net
 DOMAIN,publicassets.cdn-apple.com
+DOMAIN,radio.itunes.apple.com
 DOMAIN,refresh-bkg.activation-v2.kaspersky.com
 DOMAIN,res-1.cdn.office.net
 DOMAIN,res.cdn.office.net

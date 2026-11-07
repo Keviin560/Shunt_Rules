@@ -1,8 +1,8 @@
 # Name = GeoSite_CN
 # Author = Keviin560
 # REPO = https://github.com/Keviin560/Shunt_Rules
-# Update = 2026-11-07 07:58:05
-# Total = 7889
+# Update = 2026-11-08 07:24:35
+# Total = 7888
 
 DOMAIN,account-cn.alibabacloud.com
 DOMAIN,ai.zhaomi.cn
@@ -243,7 +243,6 @@ DOMAIN-SUFFIX,360doc.com
 DOMAIN-SUFFIX,360huzhubao.com
 DOMAIN-SUFFIX,360jie.com
 DOMAIN-SUFFIX,360jinrong.net
-DOMAIN-SUFFIX,360jq.com
 DOMAIN-SUFFIX,360kan.com
 DOMAIN-SUFFIX,360kuai.com
 DOMAIN-SUFFIX,360os.com
@@ -581,6 +580,7 @@ DOMAIN-SUFFIX,af-east-201.myhuaweicloud.com
 DOMAIN-SUFFIX,af-north-1.myhuaweicloud.com
 DOMAIN-SUFFIX,af-south-1.myhuaweicloud.com
 DOMAIN-SUFFIX,af-west-202.myhuaweicloud.com
+DOMAIN-SUFFIX,afdian.com
 DOMAIN-SUFFIX,afdian.net
 DOMAIN-SUFFIX,afdiancdn.com
 DOMAIN-SUFFIX,afeica.com
@@ -2762,6 +2762,7 @@ DOMAIN-SUFFIX,fengniao.com
 DOMAIN-SUFFIX,fengniaojipei.net
 DOMAIN-SUFFIX,fengsutb.com
 DOMAIN-SUFFIX,fengxian110.com
+DOMAIN-SUFFIX,fetion-portal.com
 DOMAIN-SUFFIX,fetionpic.com
 DOMAIN-SUFFIX,ffbuddy.com
 DOMAIN-SUFFIX,fffff.games
@@ -6926,7 +6927,6 @@ DOMAIN-SUFFIX,volx.cn
 DOMAIN-SUFFIX,vpgame.com
 DOMAIN-SUFFIX,vpsjyz.com
 DOMAIN-SUFFIX,vpsvs.com
-DOMAIN-SUFFIX,vrzwk.cn
 DOMAIN-SUFFIX,vrzwk.com
 DOMAIN-SUFFIX,vrzwk.net
 DOMAIN-SUFFIX,vrzwk.top
@@ -6992,7 +6992,6 @@ DOMAIN-SUFFIX,wegame.com.cn
 DOMAIN-SUFFIX,wegamedeveloper.com
 DOMAIN-SUFFIX,wegameplus.com
 DOMAIN-SUFFIX,wegobank.cn
-DOMAIN-SUFFIX,weicaifu.com
 DOMAIN-SUFFIX,weidian.com
 DOMAIN-SUFFIX,weilaicaijing.com
 DOMAIN-SUFFIX,weilaiyunxiao.com

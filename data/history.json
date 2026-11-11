@@ -1590,8 +1590,8 @@
     "rule_count": 9647
   },
   "GeoSite_CN": {
-    "src_hash": "3bccd858d7da221b63e830fb1cd200b0",
-    "updated_at": 1794093863,
+    "src_hash": "11326d970b92f38d04eb8914855adc7f",
+    "updated_at": 1794356669,
     "gen_ver": "v6.3",
     "rule_count": 7888
   },
@@ -2941,7 +2941,7 @@
   },
   "STUN": {
     "src_hash": "a4c3af18f5801c1d71903be7bc24f5f0",
-    "updated_at": 1794277933,
+    "updated_at": 1794356669,
     "gen_ver": "v6.3",
     "rule_count": 366
   },
@@ -3151,7 +3151,7 @@
   },
   "Stripe": {
     "src_hash": "55b3aa72614310ad2ac03ac268b56fca",
-    "updated_at": 1794277933,
+    "updated_at": 1794356669,
     "gen_ver": "v6.3",
     "rule_count": 1
   },

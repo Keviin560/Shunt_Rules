@@ -77,7 +77,7 @@ function main(config) {
     // 🛠️ 全局仓库锚点区 (全局生效)
     // 如需自定义全局仓库锚点，在这里填写 GitHub Raw 链接
     // =======================================================
-    const iconBase = 'https://raw.githubusercontent.com/elianokk/icon/main/src/';
+    const iconBase = 'https://raw.githubusercontent.com/elianokk/Proxy/refs/heads/main/icons/assets/';
     const ruleBase = 'https://raw.githubusercontent.com/elianokk/Shunt_Rules/main/rule/Mihomo/';
 
     
